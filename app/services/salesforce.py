@@ -28,7 +28,16 @@ class SalesforceService:
             username = os.getenv('SALESFORCE_USERNAME')
             password = os.getenv('SALESFORCE_PASSWORD')
             security_token = os.getenv('SALESFORCE_SECURITY_TOKEN')
-            domain = os.getenv('SALESFORCE_DOMAIN', 'login')  # 'test' for sandbox
+            # Handle different domain formats
+            domain_env = os.getenv('SALESFORCE_DOMAIN', 'login')
+            if 'test.salesforce.com' in domain_env:
+                domain = 'test'  # Sandbox
+            elif domain_env == 'https://test.salesforce.com':
+                domain = 'test'  # Sandbox
+            elif domain_env == 'test':
+                domain = 'test'  # Sandbox
+            else:
+                domain = 'login'  # Production
             
             # Debug logging for Railway deployment
             logger.info(f"Environment check - Username exists: {bool(username)}")
