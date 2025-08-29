@@ -63,7 +63,7 @@ class OpenAIQualificationService:
             # Create the qualification prompt
             prompt = self._build_qualification_prompt(prospects_for_analysis, company_name)
             
-            # Call OpenAI API
+            # Call OpenAI API (synchronous within async function)
             response = self.client.chat.completions.create(
                 model="gpt-4-turbo-preview",
                 messages=[
@@ -213,6 +213,7 @@ Return JSON format:
 }}
 """
             
+            # Call OpenAI API (synchronous within async function)
             response = self.client.chat.completions.create(
                 model="gpt-4-turbo-preview",
                 messages=[

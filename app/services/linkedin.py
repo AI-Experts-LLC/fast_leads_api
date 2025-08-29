@@ -32,7 +32,7 @@ class ApifyLinkedInService:
     
     def __init__(self):
         self.api_token = os.getenv('APIFY_API_TOKEN')
-        self.actor_id = "2SyF0bVxmgGr8IVCZ"  # LinkedIn Profile Scraper
+        self.actor_id = "dev_fusion/linkedin-profile-scraper"  # LinkedIn Profile Scraper
         
         if self.api_token:
             self.client = ApifyClient(self.api_token)
@@ -73,10 +73,10 @@ class ApifyLinkedInService:
                 "saveToJson": True
             }
             
-            # Run the Actor and wait for completion
+            # Run the Actor and wait for completion (synchronous within async function)
             run = self.client.actor(self.actor_id).call(run_input=run_input, timeout=300)
             
-            # Fetch results from the dataset
+            # Fetch results from the dataset (synchronous within async function)
             profiles = []
             dataset_items = self.client.dataset(run["defaultDatasetId"]).iterate_items()
             
