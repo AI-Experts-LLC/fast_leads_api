@@ -3,11 +3,10 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 from app.services.salesforce import salesforce_service
-# Temporarily commenting out new services to fix deployment
-# from app.services.prospect_discovery import prospect_discovery_service
-# from app.services.search import serper_service
-# from app.services.linkedin import linkedin_service
-# from app.services.ai_qualification import ai_qualification_service
+from app.services.prospect_discovery import prospect_discovery_service
+from app.services.search import serper_service
+from app.services.linkedin import linkedin_service
+from app.services.ai_qualification import ai_qualification_service
 
 # Load environment variables
 load_dotenv()
@@ -236,12 +235,12 @@ async def create_lead(lead_data: dict):
             detail=f"Error creating lead: {str(e)}"
         )
 
-# Temporarily commented out new endpoints to fix deployment
-"""
 @app.post("/discover-prospects")
 async def discover_prospects(request: dict):
-    # Complete prospect discovery pipeline for a company
-    # Searches LinkedIn, qualifies with AI, scrapes profiles
+    """
+    Complete prospect discovery pipeline for a company
+    Searches LinkedIn, qualifies with AI, scrapes profiles
+    """
     try:
         company_name = request.get("company_name")
         target_titles = request.get("target_titles", [])
@@ -276,7 +275,24 @@ async def discover_prospects(request: dict):
             status_code=500,
             detail=f"Error in prospect discovery: {str(e)}"
         )
-"""
+
+@app.get("/test-services")
+async def test_prospect_services():
+    """Test all prospect discovery services"""
+    try:
+        result = await prospect_discovery_service.test_services()
+        
+        return {
+            "status": "success",
+            "message": "Service tests completed",
+            "data": result,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error testing services: {str(e)}"
+        )
 
 @app.get("/debug/environment")
 async def debug_environment():
