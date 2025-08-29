@@ -140,3 +140,22 @@ async def test_salesforce_lead():
             status_code=500,
             detail=f"Error testing lead creation: {str(e)}"
         )
+
+@app.get("/debug/environment")
+async def debug_environment():
+    """Debug endpoint to check environment variables (for Railway deployment troubleshooting)"""
+    env_vars = {
+        "SALESFORCE_USERNAME": bool(os.getenv('SALESFORCE_USERNAME')),
+        "SALESFORCE_PASSWORD": bool(os.getenv('SALESFORCE_PASSWORD')),
+        "SALESFORCE_SECURITY_TOKEN": bool(os.getenv('SALESFORCE_SECURITY_TOKEN')),
+        "SALESFORCE_DOMAIN": os.getenv('SALESFORCE_DOMAIN', 'not_set'),
+        "ENVIRONMENT": os.getenv('ENVIRONMENT', 'not_set'),
+        "PORT": os.getenv('PORT', 'not_set'),
+        "total_env_vars": len(os.environ)
+    }
+    
+    return {
+        "status": "debug_info",
+        "environment_variables": env_vars,
+        "timestamp": datetime.utcnow().isoformat()
+    }

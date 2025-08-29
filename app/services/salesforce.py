@@ -30,8 +30,15 @@ class SalesforceService:
             security_token = os.getenv('SALESFORCE_SECURITY_TOKEN')
             domain = os.getenv('SALESFORCE_DOMAIN', 'login')  # 'test' for sandbox
             
+            # Debug logging for Railway deployment
+            logger.info(f"Environment check - Username exists: {bool(username)}")
+            logger.info(f"Environment check - Password exists: {bool(password)}")
+            logger.info(f"Environment check - Security token exists: {bool(security_token)}")
+            logger.info(f"Environment check - Domain: {domain}")
+            
             if not username or not password:
-                logger.error("Missing Salesforce username or password in environment variables")
+                error_msg = f"Missing Salesforce credentials - Username: {bool(username)}, Password: {bool(password)}"
+                logger.error(error_msg)
                 return False
             
             # Connect to Salesforce
