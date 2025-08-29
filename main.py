@@ -11,6 +11,8 @@ from app.services.ai_qualification import ai_qualification_service
 # Load environment variables
 load_dotenv()
 
+# Force fresh deployment - no database dependencies
+
 app = FastAPI(
     title="Metrus Energy - Account Enrichment API",
     description="Automated lead enrichment system for Salesforce accounts",
