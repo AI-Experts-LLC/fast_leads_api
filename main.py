@@ -141,6 +141,32 @@ async def test_salesforce_lead():
             detail=f"Error testing lead creation: {str(e)}"
         )
 
+@app.get("/salesforce/describe")
+async def salesforce_describe():
+    """Describe available Salesforce objects in this org"""
+    try:
+        result = await salesforce_service.describe_available_objects()
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Successfully described Salesforce objects",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Failed to describe objects: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error describing Salesforce objects: {str(e)}"
+        )
+
 @app.get("/debug/environment")
 async def debug_environment():
     """Debug endpoint to check environment variables (for Railway deployment troubleshooting)"""

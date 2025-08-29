@@ -111,6 +111,44 @@ class SalesforceService:
                 "instance_url": getattr(self.sf, 'sf_instance', 'Unknown') if self.sf else 'Unknown'
             }
     
+    async def describe_available_objects(self) -> Dict[str, Any]:
+        """Describe what objects are available in this Salesforce org"""
+        if not self._authenticated or not self.sf:
+            return {
+                "success": False,
+                "error": "Not connected to Salesforce"
+            }
+        
+        try:
+            # Get list of available objects
+            describe_result = self.sf.describe()
+            sobjects = describe_result.get('sobjects', [])
+            
+            # Filter for common objects we care about
+            important_objects = []
+            for obj in sobjects:
+                name = obj.get('name', '')
+                if name in ['Account', 'Lead', 'Contact', 'User', 'Organization'] or name.endswith('__c'):
+                    important_objects.append({
+                        'name': name,
+                        'label': obj.get('label', ''),
+                        'createable': obj.get('createable', False),
+                        'queryable': obj.get('queryable', False)
+                    })
+            
+            return {
+                "success": True,
+                "total_objects": len(sobjects),
+                "important_objects": important_objects[:20],  # Limit for readability
+                "queryable_standard_objects": [obj['name'] for obj in important_objects if obj['queryable'] and not obj['name'].endswith('__c')]
+            }
+        except Exception as e:
+            logger.error(f"Error describing objects: {str(e)}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
     async def test_account_query(self) -> Dict[str, Any]:
         """Test querying accounts - simple test for account access"""
         if not self._authenticated or not self.sf:
@@ -120,16 +158,42 @@ class SalesforceService:
             }
         
         try:
-            # Query for one account
-            result = self.sf.query("SELECT Id, Name, Industry FROM Account LIMIT 1")
-            
-            return {
-                "success": True,
-                "total_accounts": result.get('totalSize', 0),
-                "sample_account": result['records'][0] if result.get('records') else None
-            }
+            # First try to find a queryable object
+            describe_result = await self.describe_available_objects()
+            if describe_result.get('success'):
+                queryable_objects = describe_result.get('queryable_standard_objects', [])
+                
+                # Try User first (usually available)
+                if 'User' in queryable_objects:
+                    result = self.sf.query("SELECT Id, Name FROM User LIMIT 1")
+                    return {
+                        "success": True,
+                        "object_tested": "User",
+                        "total_records": result.get('totalSize', 0),
+                        "sample_record": result['records'][0] if result.get('records') else None,
+                        "available_objects": queryable_objects
+                    }
+                # Then try Account
+                elif 'Account' in queryable_objects:
+                    result = self.sf.query("SELECT Id, Name FROM Account LIMIT 1")
+                    return {
+                        "success": True,
+                        "object_tested": "Account", 
+                        "total_records": result.get('totalSize', 0),
+                        "sample_record": result['records'][0] if result.get('records') else None,
+                        "available_objects": queryable_objects
+                    }
+                else:
+                    return {
+                        "success": False,
+                        "error": "No standard queryable objects found",
+                        "available_objects": queryable_objects
+                    }
+            else:
+                return describe_result
+                
         except Exception as e:
-            logger.error(f"Error querying accounts: {str(e)}")
+            logger.error(f"Error testing queries: {str(e)}")
             return {
                 "success": False,
                 "error": str(e)
