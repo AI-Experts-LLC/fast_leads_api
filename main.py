@@ -3,6 +3,10 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 from app.services.salesforce import salesforce_service
+from app.services.prospect_discovery import prospect_discovery_service
+from app.services.search import serper_service
+from app.services.linkedin import linkedin_service
+from app.services.ai_qualification import ai_qualification_service
 
 # Load environment variables
 load_dotenv()
@@ -227,6 +231,99 @@ async def create_lead(lead_data: dict):
         raise HTTPException(
             status_code=500,
             detail=f"Error creating lead: {str(e)}"
+        )
+
+@app.post("/discover-prospects")
+async def discover_prospects(request: dict):
+    """
+    Complete prospect discovery pipeline for a company
+    Searches LinkedIn, qualifies with AI, scrapes profiles
+    """
+    try:
+        company_name = request.get("company_name")
+        target_titles = request.get("target_titles", [])
+        
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+        
+        result = await prospect_discovery_service.discover_prospects(
+            company_name=company_name,
+            target_titles=target_titles if target_titles else None
+        )
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Prospect discovery completed",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Prospect discovery failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in prospect discovery: {str(e)}"
+        )
+
+@app.post("/generate-outreach")
+async def generate_outreach(request: dict):
+    """Generate personalized outreach messages for prospects"""
+    try:
+        prospects = request.get("prospects", [])
+        
+        if not prospects:
+            raise HTTPException(
+                status_code=400,
+                detail="prospects list is required"
+            )
+        
+        result = await prospect_discovery_service.generate_outreach_messages(prospects)
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Outreach messages generated",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Message generation failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error generating outreach messages: {str(e)}"
+        )
+
+@app.get("/test-services")
+async def test_prospect_services():
+    """Test all prospect discovery services"""
+    try:
+        result = await prospect_discovery_service.test_services()
+        
+        return {
+            "status": "success",
+            "message": "Service tests completed",
+            "data": result,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error testing services: {str(e)}"
         )
 
 @app.get("/debug/environment")
