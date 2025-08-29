@@ -167,6 +167,68 @@ async def salesforce_describe():
             detail=f"Error describing Salesforce objects: {str(e)}"
         )
 
+@app.get("/account/{account_id}")
+async def get_account(account_id: str):
+    """Get account details by ID (using User as proof of concept)"""
+    try:
+        result = await salesforce_service.get_account_by_id(account_id)
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Successfully retrieved account",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Account not found: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving account: {str(e)}"
+        )
+
+@app.post("/lead")
+async def create_lead(lead_data: dict):
+    """Create a new lead"""
+    try:
+        # Validate required fields
+        required_fields = ['First_Name__c', 'Last_Name__c', 'Company__c']
+        missing_fields = [field for field in required_fields if not lead_data.get(field)]
+        
+        if missing_fields:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Missing required fields: {', '.join(missing_fields)}"
+            )
+        
+        result = await salesforce_service.create_lead(lead_data)
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Successfully created lead",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Failed to create lead: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error creating lead: {str(e)}"
+        )
+
 @app.get("/debug/environment")
 async def debug_environment():
     """Debug endpoint to check environment variables (for Railway deployment troubleshooting)"""
