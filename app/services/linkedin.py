@@ -1,5 +1,27 @@
 """
 LinkedIn scraping service using Apify
+
+Based on the official example code:
+```python
+from apify_client import ApifyClient
+
+# Initialize the ApifyClient with your Apify API token
+client = ApifyClient("<YOUR_API_TOKEN>")
+
+# Prepare the Actor input
+run_input = { "profileUrls": [
+    "https://www.linkedin.com/in/williamhgates",
+    "http://www.linkedin.com/in/jeannie-wyrick-b4760710a",
+] }
+
+# Run the Actor and wait for it to finish
+run = client.actor("dev_fusion/linkedin-profile-scraper").call(run_input=run_input)
+
+# Fetch and print Actor results from the run's dataset (if there are any)
+print("💾 Check your data here: https://console.apify.com/storage/datasets/" + run["defaultDatasetId"])
+for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+    print(item)
+```
 """
 
 import os
@@ -65,22 +87,20 @@ class ApifyLinkedInService:
         try:
             logger.info(f"Starting to scrape {len(linkedin_urls)} LinkedIn profiles")
             
-            # Prepare the Actor input
+            # Prepare the Actor input (matching example code structure)
             run_input = {
-                "profileUrls": linkedin_urls[:10],  # Limit to 10 profiles to control costs
-                "fastMode": True,  # Use fast mode for basic info
-                "saveToTxt": False,
-                "saveToJson": True
+                "profileUrls": linkedin_urls[:10]  # Limit to 10 profiles to control costs
             }
             
-            # Run the Actor and wait for completion (synchronous within async function)
-            run = self.client.actor(self.actor_id).call(run_input=run_input, timeout=300)
+            # Run the Actor and wait for it to finish (matching example code)
+            run = self.client.actor(self.actor_id).call(run_input=run_input)
             
-            # Fetch results from the dataset (synchronous within async function)
+            # Log dataset URL for debugging (matching example code pattern)
+            logger.info(f"💾 Check your data here: https://console.apify.com/storage/datasets/{run['defaultDatasetId']}")
+            
+            # Fetch and process Actor results from the run's dataset (matching example code)
             profiles = []
-            dataset_items = self.client.dataset(run["defaultDatasetId"]).iterate_items()
-            
-            for item in dataset_items:
+            for item in self.client.dataset(run["defaultDatasetId"]).iterate_items():
                 profile = self._parse_profile_data(item)
                 if profile:
                     profiles.append(profile)
@@ -165,23 +185,27 @@ class ApifyLinkedInService:
         }
     
     async def test_scraping(self) -> Dict[str, Any]:
-        """Test the scraping functionality with a sample profile"""
+        """Test the scraping functionality with sample profiles (matching example code)"""
         if not self.client:
             return {
                 "success": False,
                 "error": "Apify client not configured"
             }
         
-        # Test with a public LinkedIn profile
-        test_urls = ["https://www.linkedin.com/in/williamhgates"]
+        # Test with the exact same profiles as the example code
+        test_urls = [
+            "https://www.linkedin.com/in/williamhgates",
+            "http://www.linkedin.com/in/jeannie-wyrick-b4760710a"
+        ]
         
         try:
             result = await self.scrape_profiles(test_urls)
             return {
                 "success": result.get("success", False),
-                "test_url": test_urls[0],
+                "test_urls": test_urls,
                 "profiles_scraped": result.get("profiles_scraped", 0),
-                "sample_profile": result.get("profiles", [{}])[0] if result.get("profiles") else None
+                "sample_profiles": result.get("profiles", []) if result.get("profiles") else [],
+                "dataset_url": f"https://console.apify.com/storage/datasets/{result.get('run_id', 'unknown')}" if result.get("run_id") else None
             }
         except Exception as e:
             return {
