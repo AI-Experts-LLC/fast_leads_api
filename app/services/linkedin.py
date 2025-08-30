@@ -27,7 +27,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
 import os
 import logging
 from typing import List, Dict, Any, Optional
-from apify_client import ApifyClient
+from apify_client import ApifyClient # type: ignore
 import asyncio
 from dataclasses import dataclass
 
