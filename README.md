@@ -10,10 +10,11 @@ Automated pipeline that discovers, qualifies, and enriches healthcare facility p
 
 ## 🚀 **System Overview**
 
-**Complete Pipeline**: Company Name → LinkedIn Search → AI Qualification → Profile Scraping → Salesforce Lead Creation
+**Complete Pipeline**: Company Name → LinkedIn Search → **🆕 Company Validation** → AI Qualification → Profile Scraping → Salesforce Lead Creation
 
 ### **🎯 Core Functionality:**
 - **🔍 Prospect Discovery**: Find LinkedIn profiles by company and target job titles
+- **🆕 Company Validation**: AI-powered verification of current employment & name variations
 - **🧠 AI Qualification**: Score and rank prospects using GPT-4 analysis 
 - **📊 Profile Enrichment**: Extract detailed LinkedIn data via Apify
 - **⚡ Salesforce Integration**: Create qualified leads directly in Salesforce
@@ -27,9 +28,9 @@ Automated pipeline that discovers, qualifies, and enriches healthcare facility p
 
 Our AI uses **OpenAI GPT-4** to analyze each prospect with this precise scoring criteria:
 
-#### **Scoring Breakdown (Total: 100 points):**
+#### **Enhanced Scoring Breakdown (Total: 100 points):**
 
-**1. Job Title Relevance (40% - up to 40 points)** 🎯
+**1. Job Title Relevance (35% - up to 35 points)** 🎯
 - **Director of Facilities/Engineering** → 35-40 points (Primary target)
 - **CFO/Financial Leadership** → 30-35 points (Budget authority)
 - **Sustainability/Energy Manager** → 25-30 points (Environmental focus)
@@ -37,17 +38,22 @@ Our AI uses **OpenAI GPT-4** to analyze each prospect with this precise scoring 
 - **Compliance Manager** → 15-20 points (Regulatory requirements)
 - **Other titles** → 0-15 points (Not qualified if total <70)
 
-**2. Decision-Making Authority (30% - up to 30 points)** 👑
-- **High Authority** → 25-30 points (Can approve capital projects)
-- **Medium Authority** → 15-25 points (Influences decisions)
-- **Low Authority** → 5-15 points (Limited influence)
+**2. Decision-Making Authority (25% - up to 25 points)** 👑
+- **High Authority** → 20-25 points (Can approve capital projects)
+- **Medium Authority** → 12-20 points (Influences decisions)
+- **Low Authority** → 4-12 points (Limited influence)
 
-**3. Company Size & Budget Likelihood (20% - up to 20 points)** 🏢
-- **Large Healthcare Systems** → 15-20 points (Mayo Clinic, Johns Hopkins)
-- **Medium Healthcare Facilities** → 10-15 points (Regional hospitals)
-- **Small Organizations** → 5-10 points (Limited budgets)
+**🆕 3. Employment Validation Confidence (20% - up to 20 points)** ✅
+- **High Confidence (90-100%)** → 18-20 points + 10 bonus points
+- **Medium Confidence (70-89%)** → 12-18 points + 5 bonus points
+- **Low Confidence (<70%)** → 0-12 points (no bonus)
 
-**4. Accessibility & Engagement Potential (10% - up to 10 points)** 📱
+**4. Company Size & Budget Likelihood (15% - up to 15 points)** 🏢
+- **Large Healthcare Systems** → 12-15 points (Mayo Clinic, Johns Hopkins)
+- **Medium Healthcare Facilities** → 8-12 points (Regional hospitals)
+- **Small Organizations** → 4-8 points (Limited budgets)
+
+**5. Accessibility & Engagement Potential (5% - up to 5 points)** 📱
 - **Active LinkedIn Profile** → 8-10 points (Recent activity, connections)
 - **Some LinkedIn Activity** → 5-8 points (Moderate engagement)
 - **Inactive Profile** → 2-5 points (Hard to reach)
@@ -62,6 +68,13 @@ Our AI uses **OpenAI GPT-4** to analyze each prospect with this precise scoring 
 ### **✅ Qualification Threshold:**
 - **≥70 points** = Qualified prospect (returned in results)
 - **<70 points** = Not qualified (filtered out)
+
+### **🆕 Company Validation System:**
+**AI-powered employment verification to ensure prospect quality**
+- ✅ Validates current employment vs. former employees
+- 🏢 Handles company name variations (UCI Medical Center = UCI Health = UC Irvine)
+- 📊 Confidence scoring for employment validation (70%+ required)
+- 🔗 See [Company Validation Documentation](COMPANY_VALIDATION_README.md) for details
 
 ### **🏆 Example Scoring (Johns Hopkins Hospital):**
 

@@ -50,7 +50,7 @@ class OpenAIQualificationService:
         try:
             # Prepare prospect data for AI analysis
             prospects_for_analysis = []
-            for i, result in enumerate(search_results[:10]):  # Limit to 10 for cost control
+            for i, result in enumerate(search_results):  # Limit to 10 for cost control
                 prospects_for_analysis.append({
                     "index": i,
                     "title": result.get("title", ""),
@@ -108,6 +108,8 @@ class OpenAIQualificationService:
         return f"""
 Analyze these LinkedIn prospects for {company_name} and identify the most valuable targets for energy infrastructure and efficiency solutions.
 
+IMPORTANT: These prospects have already been validated as CURRENTLY employed at {company_name} or its divisions/subsidiaries.
+
 Target Buyer Personas (in order of priority):
 1. Director of Facilities/Engineering/Maintenance - Primary decision maker for infrastructure projects
 2. CFO/Financial Leadership - Budget authority for capital projects
@@ -118,8 +120,14 @@ Target Buyer Personas (in order of priority):
 Company Context: {company_name}
 Industry Focus: Healthcare facilities, hospitals, medical centers
 
-Prospects to analyze:
+Pre-validated Prospects to analyze:
 {json.dumps(prospects, indent=2)}
+
+For each prospect, consider their employment validation data if available:
+- employment_validation.confidence_score: How confident we are they currently work there
+- employment_validation.company_match_type: Type of company match (exact/variation/subsidiary)
+- employment_validation.detected_company_name: Actual company name found
+- employment_validation.validation_reasoning: Evidence for current employment
 
 Please analyze each prospect and return a JSON response with this structure:
 {{
@@ -130,23 +138,32 @@ Please analyze each prospect and return a JSON response with this structure:
       "qualification_score": 95,
       "persona_match": "Director of Facilities",
       "decision_authority": "High",
-      "reasoning": "Specific reasons why this person is a high-value target",
+      "employment_confidence": "High",
+      "reasoning": "Specific reasons why this person is a high-value target, including employment validation confidence",
       "pain_points": ["infrastructure costs", "deferred maintenance"],
-      "outreach_approach": "Focus on infrastructure upgrades and off-balance sheet financing"
+      "outreach_approach": "Focus on infrastructure upgrades and off-balance sheet financing",
+      "company_context": "Insights about their specific role at this organization"
     }}
   ],
   "analysis_summary": {{
     "total_qualified": 3,
     "highest_priority_persona": "Director of Facilities",
-    "company_insights": "Key insights about this company's likely needs"
+    "company_insights": "Key insights about this company's likely needs",
+    "employment_validation_summary": "Summary of how employment validation affected scoring"
   }}
 }}
 
-Scoring criteria (0-100):
-- Job title relevance to energy/facilities decisions (40%)
-- Decision-making authority level (30%) 
-- Company size and budget likelihood (20%)
-- Accessibility and engagement potential (10%)
+Enhanced Scoring criteria (0-100):
+- Job title relevance to energy/facilities decisions (35%)
+- Decision-making authority level (25%) 
+- Employment validation confidence (20%)
+- Company size and budget likelihood (15%)
+- Accessibility and engagement potential (5%)
+
+Employment confidence bonus:
+- Add +10 points for high employment validation confidence (90-100%)
+- Add +5 points for medium employment validation confidence (70-89%)
+- No bonus for low confidence (<70%)
 
 Only include prospects with scores ≥ 70. Rank by qualification score descending.
 """
@@ -201,7 +218,7 @@ Create a professional, personalized message that:
 2. Addresses their likely pain points
 3. Offers clear value proposition for energy/infrastructure solutions
 4. Includes a soft call-to-action
-5. Keeps it under 150 words
+5. Keeps it under 150 wordsx
 6. Maintains a consultative, helpful tone
 
 Return JSON format:

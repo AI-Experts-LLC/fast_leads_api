@@ -67,7 +67,7 @@ class SerperSearchService:
             
             # Search for each target title
             for title in target_titles:
-                search_query = f'"{company_name}" "{title}" site:linkedin.com/in'
+                search_query = f'{company_name} {title} site:linkedin.com/in'
                 
                 logger.info(f"Searching: {search_query}")
                 

@@ -13,6 +13,7 @@ import asyncio
 from .search import serper_service
 from .ai_qualification import ai_qualification_service
 from .linkedin import linkedin_service
+from .company_validation import company_validation_service
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ class ProspectDiscoveryService:
         self.search_service = serper_service
         self.ai_service = ai_qualification_service
         self.linkedin_service = linkedin_service
+        self.validation_service = company_validation_service
     
     async def discover_prospects(self, company_name: str, target_titles: List[str] = None) -> Dict[str, Any]:
         """
@@ -63,10 +65,34 @@ class ProspectDiscoveryService:
             
             logger.info(f"Found {len(search_results)} LinkedIn profiles")
             
-            # Step 2: AI qualification of prospects
-            logger.info("Step 2: AI qualification of prospects...")
+            # Step 2: Company validation - ensure prospects currently work at target company
+            logger.info("Step 2: Validating current employment at target company...")
+            validation_result = await self.validation_service.validate_current_employment(
+                prospects=search_results,
+                target_company=company_name
+            )
+            
+            if not validation_result.get("success"):
+                logger.warning(f"Company validation failed: {validation_result.get('error')}")
+                # Continue with original results if validation fails
+                validated_prospects = search_results
+            else:
+                validated_prospects = validation_result.get("validated_prospects", [])
+                logger.info(f"Validated {len(validated_prospects)} prospects as currently employed at {company_name}")
+            
+            if not validated_prospects:
+                return {
+                    "success": True,
+                    "message": "No prospects found who currently work at the target company",
+                    "search_results": len(search_results),
+                    "validated_prospects": [],
+                    "validation_summary": validation_result.get("validation_details", {})
+                }
+            
+            # Step 3: AI qualification of validated prospects
+            logger.info("Step 3: AI qualification of validated prospects...")
             qualification_result = await self.ai_service.qualify_prospects(
-                search_results=search_results,
+                search_results=validated_prospects,
                 company_name=company_name
             )
             
@@ -83,14 +109,16 @@ class ProspectDiscoveryService:
                     "success": True,
                     "message": "No prospects met qualification criteria",
                     "search_results": len(search_results),
+                    "validated_prospects": len(validated_prospects),
                     "qualified_prospects": [],
-                    "qualification_summary": qualification_result.get("ai_analysis", {})
+                    "qualification_summary": qualification_result.get("ai_analysis", {}),
+                    "validation_summary": validation_result.get("validation_details", {})
                 }
             
             logger.info(f"Qualified {len(qualified_prospects)} prospects")
             
-            # Step 3: LinkedIn data scraping for top prospects
-            logger.info("Step 3: Scraping LinkedIn data for top prospects...")
+            # Step 4: LinkedIn data scraping for top prospects
+            logger.info("Step 4: Scraping LinkedIn data for top prospects...")
             top_prospects = qualified_prospects[:5]  # Limit to top 5 to control costs
             linkedin_urls = [p.get("link") for p in top_prospects if p.get("link")]
             
@@ -104,8 +132,8 @@ class ProspectDiscoveryService:
                 linkedin_profiles = linkedin_result.get("profiles", [])
                 logger.info(f"Scraped {len(linkedin_profiles)} LinkedIn profiles")
             
-            # Step 4: Combine all data and generate final results
-            logger.info("Step 4: Combining data and generating results...")
+            # Step 5: Combine all data and generate final results
+            logger.info("Step 5: Combining data and generating results...")
             final_prospects = await self._combine_prospect_data(
                 qualified_prospects=qualified_prospects,
                 linkedin_profiles=linkedin_profiles,
@@ -117,17 +145,20 @@ class ProspectDiscoveryService:
                 "company_name": company_name,
                 "pipeline_summary": {
                     "search_results_found": len(search_results),
+                    "prospects_validated": len(validated_prospects),
                     "prospects_qualified": len(qualified_prospects),
                     "linkedin_profiles_scraped": len(linkedin_profiles),
                     "final_prospects": len(final_prospects)
                 },
                 "qualified_prospects": final_prospects,
                 "ai_analysis": qualification_result.get("ai_analysis", {}),
+                "validation_summary": validation_result.get("validation_details", {}),
                 "cost_estimates": {
                     "search_cost": 0.01 * len(search_results[:10]),  # Estimate
+                    "validation_cost": validation_result.get("cost_estimate", 0.015) if validation_result.get("success") else 0,
                     "ai_cost": qualification_result.get("cost_estimate", 0.02),
                     "linkedin_cost": linkedin_result.get("cost_estimate", 0) if linkedin_result.get("success") else 0,
-                    "total_estimated": 0.01 * len(search_results[:10]) + 0.02 + (linkedin_result.get("cost_estimate", 0) if linkedin_result.get("success") else 0)
+                    "total_estimated": 0.01 * len(search_results[:10]) + (validation_result.get("cost_estimate", 0.015) if validation_result.get("success") else 0) + 0.02 + (linkedin_result.get("cost_estimate", 0) if linkedin_result.get("success") else 0)
                 }
             }
             
@@ -239,6 +270,13 @@ class ProspectDiscoveryService:
             results["search_service"] = search_test
         except Exception as e:
             results["search_service"] = {"success": False, "error": str(e)}
+        
+        # Test validation service
+        try:
+            validation_test = await self.validation_service.test_validation()
+            results["validation_service"] = validation_test
+        except Exception as e:
+            results["validation_service"] = {"success": False, "error": str(e)}
         
         # Test AI service
         try:
