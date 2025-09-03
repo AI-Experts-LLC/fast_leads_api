@@ -204,14 +204,41 @@ class ProspectDiscoveryService:
                 
                 # LinkedIn profile data (if available)
                 "linkedin_data": {
+                    # Basic information
                     "name": linkedin_data.get("name"),
+                    "first_name": linkedin_data.get("first_name"),
+                    "last_name": linkedin_data.get("last_name"),
                     "headline": linkedin_data.get("headline"),
-                    "company": linkedin_data.get("company"),
                     "location": linkedin_data.get("location"),
                     "summary": linkedin_data.get("summary"),
+                    
+                    # Professional details
+                    "job_title": linkedin_data.get("job_title"),
+                    "company": linkedin_data.get("company"),
+                    "company_industry": linkedin_data.get("company_industry"),
+                    "company_website": linkedin_data.get("company_website"),
+                    "company_size": linkedin_data.get("company_size"),
+                    "current_job_duration": linkedin_data.get("current_job_duration"),
+                    "current_job_duration_years": linkedin_data.get("current_job_duration_years"),
+                    
+                    # Network metrics
+                    "connections": linkedin_data.get("connections"),
+                    "followers": linkedin_data.get("followers"),
+                    
+                    # Skills and experience
+                    "top_skills": linkedin_data.get("top_skills_by_endorsements"),
                     "experience_count": linkedin_data.get("experience_count", 0),
+                    "education_count": linkedin_data.get("education_count", 0),
                     "skills_count": linkedin_data.get("skills_count", 0),
-                    "has_detailed_data": bool(linkedin_data)
+                    
+                    # Structured data (summary for response size management)
+                    "recent_experience": linkedin_data.get("experience", [])[:3] if linkedin_data.get("experience") else [],
+                    "education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
+                    "key_skills": linkedin_data.get("skills", [])[:10] if linkedin_data.get("skills") else [],
+                    
+                    # Meta information
+                    "has_detailed_data": bool(linkedin_data),
+                    "data_source": linkedin_data.get("data_source", "unknown")
                 },
                 
                 # Generated data

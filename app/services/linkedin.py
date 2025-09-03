@@ -129,37 +129,64 @@ class ApifyLinkedInService:
             if not raw_data:
                 return None
             
-            # Extract experience data
+            # Extract experience data from Apify format
             experience = []
-            if raw_data.get('experience'):
-                for exp in raw_data.get('experience', []):
+            if raw_data.get('experiences'):
+                for exp in raw_data.get('experiences', []):
                     experience.append({
                         'title': exp.get('title'),
-                        'company': exp.get('companyName'),
-                        'duration': exp.get('duration'),
-                        'description': exp.get('description')
+                        'company': exp.get('subtitle', '').split(' · ')[0] if exp.get('subtitle') else None,
+                        'duration': exp.get('caption'),
+                        'location': exp.get('metadata'),
+                        'description': exp.get('subComponents', [{}])[0].get('description', []) if exp.get('subComponents') else [],
+                        'company_logo': exp.get('logo'),
+                        'company_link': exp.get('companyLink1')
                     })
             
-            # Extract education data
+            # Extract education data from Apify format
             education = []
-            if raw_data.get('education'):
-                for edu in raw_data.get('education', []):
+            if raw_data.get('educations'):
+                for edu in raw_data.get('educations', []):
                     education.append({
-                        'school': edu.get('schoolName'),
-                        'degree': edu.get('degreeName'),
-                        'field': edu.get('fieldOfStudy')
+                        'school': edu.get('title'),
+                        'degree': edu.get('subtitle'),
+                        'duration': edu.get('caption'),
+                        'activities': edu.get('subComponents', [{}])[0].get('description', []) if edu.get('subComponents') else [],
+                        'school_logo': edu.get('logo'),
+                        'school_link': edu.get('companyLink1')
                     })
+            
+            # Extract skills data from Apify format
+            skills = []
+            if raw_data.get('skills'):
+                for skill in raw_data.get('skills', []):
+                    skill_data = {
+                        'name': skill.get('title'),
+                        'endorsements': []
+                    }
+                    
+                    # Extract endorsement information
+                    if skill.get('subComponents'):
+                        for sub_comp in skill.get('subComponents', []):
+                            for desc in sub_comp.get('description', []):
+                                if desc.get('type') == 'insightComponent':
+                                    skill_data['endorsements'].append(desc.get('text'))
+                    
+                    skills.append(skill_data)
+            
+            # Extract top skills by endorsements
+            top_skills = raw_data.get('topSkillsByEndorsements', '').split(', ') if raw_data.get('topSkillsByEndorsements') else []
             
             return LinkedInProfile(
-                url=raw_data.get('url', ''),
+                url=raw_data.get('linkedinUrl', ''),
                 name=raw_data.get('fullName'),
                 headline=raw_data.get('headline'),
-                company=raw_data.get('company'),
-                location=raw_data.get('location'),
-                summary=raw_data.get('summary'),
+                company=raw_data.get('companyName'),
+                location=raw_data.get('addressWithoutCountry') or raw_data.get('addressWithCountry'),
+                summary=raw_data.get('about'),
                 experience=experience,
                 education=education,
-                skills=raw_data.get('skills', []),
+                skills=skills,
                 raw_data=raw_data
             )
             
@@ -168,21 +195,75 @@ class ApifyLinkedInService:
             return None
     
     def _profile_to_dict(self, profile: LinkedInProfile) -> Dict[str, Any]:
-        """Convert LinkedInProfile to dictionary"""
-        return {
+        """Convert LinkedInProfile to dictionary with comprehensive data"""
+        raw_data = profile.raw_data or {}
+        
+        # Extract additional profile metrics from Apify data
+        profile_dict = {
+            # Basic information
             'url': profile.url,
             'name': profile.name,
+            'first_name': raw_data.get('firstName'),
+            'last_name': raw_data.get('lastName'),
             'headline': profile.headline,
             'company': profile.company,
             'location': profile.location,
             'summary': profile.summary,
+            
+            # Professional details
+            'job_title': raw_data.get('jobTitle'),
+            'company_industry': raw_data.get('companyIndustry'),
+            'company_website': raw_data.get('companyWebsite'),
+            'company_linkedin': raw_data.get('companyLinkedin'),
+            'company_size': raw_data.get('companySize'),
+            'company_founded': raw_data.get('companyFoundedIn'),
+            
+            # Job tenure
+            'current_job_duration': raw_data.get('currentJobDuration'),
+            'current_job_duration_years': raw_data.get('currentJobDurationInYrs'),
+            
+            # Network metrics
+            'connections': raw_data.get('connections'),
+            'followers': raw_data.get('followers'),
+            
+            # Skills and endorsements
+            'top_skills_by_endorsements': raw_data.get('topSkillsByEndorsements'),
+            
+            # Contact information (usually null for privacy)
+            'email': raw_data.get('email'),
+            'mobile_number': raw_data.get('mobileNumber'),
+            
+            # Profile identifiers
+            'public_identifier': raw_data.get('publicIdentifier'),
+            'urn': raw_data.get('urn'),
+            
+            # Structured data
             'experience': profile.experience,
             'education': profile.education,
             'skills': profile.skills,
+            
+            # Counts for quick reference
             'experience_count': len(profile.experience) if profile.experience else 0,
             'education_count': len(profile.education) if profile.education else 0,
-            'skills_count': len(profile.skills) if profile.skills else 0
+            'skills_count': len(profile.skills) if profile.skills else 0,
+            
+            # Additional sections from Apify
+            'interests': raw_data.get('interests', []),
+            'languages': raw_data.get('languages', []),
+            'certifications': raw_data.get('licenseAndCertificates', []),
+            'honors_awards': raw_data.get('honorsAndAwards', []),
+            'volunteer_work': raw_data.get('volunteerAndAwards', []),
+            'projects': raw_data.get('projects', []),
+            'publications': raw_data.get('publications', []),
+            'recommendations': raw_data.get('recommendations', []),
+            
+            # Meta information
+            'has_detailed_data': True,
+            'scrape_timestamp': None,  # Would add in production
+            'data_source': 'apify_linkedin_scraper'
         }
+        
+        return profile_dict
     
     async def test_scraping(self) -> Dict[str, Any]:
         """Test the scraping functionality with sample profiles (matching example code)"""
