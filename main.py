@@ -7,6 +7,7 @@ from app.services.prospect_discovery import prospect_discovery_service
 from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
+from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
 
 # Load environment variables
 load_dotenv()
@@ -294,6 +295,203 @@ async def test_prospect_services():
             detail=f"Error testing services: {str(e)}"
         )
 
+# Credit Enrichment Endpoints
+
+@app.post("/credit/test-connection")
+async def test_credit_connection():
+    """Test EDF-X API connection and authentication"""
+    try:
+        result = await credit_enrichment_service.test_connection()
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "EDF-X API connection successful",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"EDF-X connection failed: {result.get('error', 'Unknown error')}"
+            )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error testing EDF-X connection: {str(e)}"
+        )
+
+@app.post("/credit/enrich-company")
+async def enrich_company_credit(request: dict):
+    """
+    Enrich a company with credit rating and PD data from EDF-X
+    
+    Expected request format:
+    {
+        "company_name": "Apple Inc",
+        "website": "apple.com",  # Optional but recommended for better matching
+        "city": "Cupertino",     # Optional
+        "state": "CA",           # Optional
+        "country": "USA"         # Optional
+    }
+    """
+    try:
+        company_name = request.get("company_name")
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+        
+        # Create company record
+        company = CompanyRecord(
+            name=company_name,
+            website=request.get("website"),
+            city=request.get("city"),
+            state=request.get("state"),
+            country=request.get("country")
+        )
+        
+        # Enrich with credit data
+        credit_info = await credit_enrichment_service.enrich_company(company)
+        
+        # Format response
+        response_data = {
+            "company_name": company_name,
+            "entity_id": credit_info.entity_id,
+            "pd_value": credit_info.pd_value,
+            "implied_rating": credit_info.implied_rating,
+            "confidence": credit_info.confidence,
+            "as_of_date": credit_info.as_of_date,
+            "search_success": credit_info.search_success,
+            "error_message": credit_info.error_message,
+            "matching_logic": credit_info.matching_logic,
+            "search_results_count": len(credit_info.search_results) if credit_info.search_results else 0
+        }
+        
+        # Add selected entity info if available
+        if credit_info.selected_entity:
+            response_data["selected_entity"] = {
+                "name": credit_info.selected_entity.get("internationalName"),
+                "website": credit_info.selected_entity.get("entityWebsite"),
+                "city": credit_info.selected_entity.get("entityContactCity"),
+                "state": credit_info.selected_entity.get("entityContactStateProvince"),
+                "size": credit_info.selected_entity.get("entitySize"),
+                "industry": credit_info.selected_entity.get("primaryIndustryNDYDescription")
+            }
+        
+        return {
+            "status": "success" if credit_info.search_success else "partial",
+            "message": "Credit enrichment completed",
+            "data": response_data,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error enriching company credit: {str(e)}"
+        )
+
+@app.post("/credit/batch-enrich")
+async def batch_enrich_companies(request: dict):
+    """
+    Batch enrich multiple companies with credit data
+    
+    Expected request format:
+    {
+        "companies": [
+            {
+                "company_name": "Apple Inc",
+                "website": "apple.com",
+                "city": "Cupertino",
+                "state": "CA"
+            },
+            {
+                "company_name": "Microsoft Corporation", 
+                "website": "microsoft.com"
+            }
+        ]
+    }
+    """
+    try:
+        companies_data = request.get("companies", [])
+        if not companies_data:
+            raise HTTPException(
+                status_code=400,
+                detail="companies array is required"
+            )
+        
+        if len(companies_data) > 50:  # Limit batch size
+            raise HTTPException(
+                status_code=400,
+                detail="Maximum 50 companies per batch request"
+            )
+        
+        results = []
+        
+        for company_data in companies_data:
+            company_name = company_data.get("company_name")
+            if not company_name:
+                results.append({
+                    "company_name": "Unknown",
+                    "error": "Missing company_name"
+                })
+                continue
+            
+            # Create company record
+            company = CompanyRecord(
+                name=company_name,
+                website=company_data.get("website"),
+                city=company_data.get("city"),
+                state=company_data.get("state"),
+                country=company_data.get("country")
+            )
+            
+            # Enrich with credit data
+            credit_info = await credit_enrichment_service.enrich_company(company)
+            
+            # Format result
+            result = {
+                "company_name": company_name,
+                "entity_id": credit_info.entity_id,
+                "pd_value": credit_info.pd_value,
+                "implied_rating": credit_info.implied_rating,
+                "confidence": credit_info.confidence,
+                "as_of_date": credit_info.as_of_date,
+                "search_success": credit_info.search_success,
+                "error_message": credit_info.error_message,
+                "matching_logic": credit_info.matching_logic
+            }
+            
+            results.append(result)
+        
+        # Calculate summary stats
+        successful = sum(1 for r in results if r.get("search_success"))
+        total = len(results)
+        
+        return {
+            "status": "success",
+            "message": f"Batch credit enrichment completed: {successful}/{total} successful",
+            "summary": {
+                "total_companies": total,
+                "successful_enrichments": successful,
+                "success_rate": round(successful / total * 100, 1) if total > 0 else 0
+            },
+            "results": results,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in batch credit enrichment: {str(e)}"
+        )
+
 @app.get("/debug/environment")
 async def debug_environment():
     """Debug endpoint to check environment variables (for Railway deployment troubleshooting)"""
@@ -302,6 +500,8 @@ async def debug_environment():
         "SALESFORCE_PASSWORD": bool(os.getenv('SALESFORCE_PASSWORD')),
         "SALESFORCE_SECURITY_TOKEN": bool(os.getenv('SALESFORCE_SECURITY_TOKEN')),
         "SALESFORCE_DOMAIN": os.getenv('SALESFORCE_DOMAIN', 'not_set'),
+        "EDFX_USERNAME": bool(os.getenv('EDFX_USERNAME')),
+        "EDFX_PASSWORD": bool(os.getenv('EDFX_PASSWORD')),
         "ENVIRONMENT": os.getenv('ENVIRONMENT', 'not_set'),
         "PORT": os.getenv('PORT', 'not_set'),
         "total_env_vars": len(os.environ)
