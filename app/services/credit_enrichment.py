@@ -35,6 +35,7 @@ class CreditInfo:
     pd_value: Optional[float] = None
     implied_rating: Optional[str] = None
     confidence: Optional[str] = None
+    confidence_translated: Optional[str] = None
     as_of_date: Optional[str] = None
     search_success: bool = False
     error_message: Optional[str] = None
@@ -442,6 +443,84 @@ class CreditEnrichmentService:
         
         return variations[:8]  # Limit to 8 variations to avoid too many API calls
 
+    def _translate_confidence_code(self, confidence_code: str) -> str:
+        """
+        Translate EDF-X confidence code into human-readable explanation.
+        
+        Args:
+            confidence_code: EDF-X confidence code (e.g., "P-G-R", "PF-G-R-HQ")
+            
+        Returns:
+            Human-readable explanation of the confidence code
+        """
+        if not confidence_code:
+            return "No confidence information available"
+            
+        # Handle special bankruptcy case
+        if confidence_code == "BKRPT":
+            return "Entity is bankrupt or dissolved"
+            
+        parts = confidence_code.split('-')
+        if len(parts) < 3:
+            return f"Unknown confidence format: {confidence_code}"
+            
+        model_type = parts[0]
+        data_quality = parts[1]
+        data_age = parts[2]
+        warnings = parts[3:] if len(parts) > 3 else []
+        
+        # Model Type translation
+        model_desc = {
+            'P': 'Public firm using CreditEdge model',
+            'PF': 'Private firm with full financials using RiskCalc model',
+            'PP': 'Private firm with partial financials using RiskCalc model',
+            'PY': 'Private firm using Payment model (trade-payment data, no financials)',
+            'PN': 'Private firm using Benchmark model (minimal/no financial information)'
+        }.get(model_type, f'Unknown model ({model_type})')
+        
+        # Data Quality translation
+        quality_desc = {
+            'G': 'good quality financial data',
+            'E': 'estimated financial data',
+            'I': 'financial data that failed some quality checks',
+            'M': 'minimal information (total assets/liabilities only)',
+            'P': 'peer-driven benchmark model',
+            'X': 'quality not applicable'
+        }.get(data_quality, f'unknown quality ({data_quality})')
+        
+        # Data Age translation
+        age_desc = {
+            'R': 'recent financial statements (less than 18 months old)',
+            'O': 'old financial statements (18-27 months old)',
+            'S': 'stale financial statements (older than 27 months)',
+            'X': 'age not applicable'
+        }.get(data_age, f'unknown age ({data_age})')
+        
+        # Build base description
+        description = f"{model_desc} with {quality_desc} and {age_desc}"
+        
+        # Add warning descriptions
+        warning_descriptions = []
+        for warning in warnings:
+            warning_desc = {
+                'ACT_IMP': 'entity is active but has experienced distress (default, rescue plan, or insolvency)',
+                'NOT_ACT': 'entity is not active (inactive or dissolved)',
+                'NOT_ACT_LIQ': 'entity is in liquidation',
+                'HQ': 'entity is a branch - PD reflects headquarter\'s rating',
+                'DUO': 'subsidiary PD inherited from domestic ultimate owner',
+                'FLAG_L': 'legal form not included in model development sample',
+                'FLAG_T': 'entity type not included in model development sample',
+                'FLAG_S': 'industry sector not specific to model (NBFS or real estate)',
+                'NN': 'no industry information available',
+                'NR': 'industry proxy assigned from entity type'
+            }.get(warning, f'unknown warning ({warning})')
+            warning_descriptions.append(warning_desc)
+        
+        if warning_descriptions:
+            description += f". Additional notes: {', '.join(warning_descriptions)}"
+            
+        return description
+
     async def enrich_company(self, company: CompanyRecord) -> CreditInfo:
         """
         Enrich a single company with credit information.
@@ -567,11 +646,13 @@ class CreditEnrichmentService:
                 )
             
             # Extract credit information
+            confidence_code = pd_data.get('confidence')
             credit_info = CreditInfo(
                 entity_id=entity_id,
                 pd_value=pd_data.get('pd'),
                 implied_rating=pd_data.get('impliedRating'),
-                confidence=pd_data.get('confidence'),
+                confidence=confidence_code,
+                confidence_translated=self._translate_confidence_code(confidence_code) if confidence_code else None,
                 as_of_date=pd_data.get('asOfDate'),
                 search_success=True,
                 search_results=entities,
