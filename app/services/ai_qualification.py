@@ -17,9 +17,11 @@ class OpenAIQualificationService:
     
     def __init__(self):
         self.api_key = os.getenv('OPENAI_API_KEY')
+        self.model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')  # Default to gpt-4o-mini
         
         if self.api_key:
             self.client = OpenAI(api_key=self.api_key)
+            logger.info(f"OpenAI client initialized with model: {self.model}")
         else:
             self.client = None
             logger.warning("OPENAI_API_KEY not found in environment variables")
@@ -65,7 +67,7 @@ class OpenAIQualificationService:
             
             # Call OpenAI API (synchronous within async function)
             response = self.client.chat.completions.create(
-                model="gpt-4-turbo-preview",
+                model=self.model,
                 messages=[
                     {
                         "role": "system",
@@ -77,7 +79,7 @@ class OpenAIQualificationService:
                     }
                 ],
                 temperature=0.3,
-                max_tokens=2000,
+                max_tokens=3000,
                 response_format={"type": "json_object"}
             )
             
@@ -93,7 +95,7 @@ class OpenAIQualificationService:
                 "total_analyzed": len(prospects_for_analysis),
                 "qualified_prospects": qualified_prospects,
                 "ai_analysis": ai_response,
-                "cost_estimate": 0.02  # Rough estimate for GPT-4 call
+                "cost_estimate": 0.001  # Updated for gpt-4o-mini pricing
             }
             
         except Exception as e:
@@ -165,7 +167,7 @@ Employment confidence bonus:
 - Add +5 points for medium employment validation confidence (70-89%)
 - No bonus for low confidence (<70%)
 
-Only include prospects with scores ≥ 70. Rank by qualification score descending.
+Only include prospects with scores ≥ 60. Rank by qualification score descending.
 """
     
     def _process_ai_response(self, ai_response: Dict, original_results: List[Dict]) -> List[Dict]:
@@ -232,7 +234,7 @@ Return JSON format:
             
             # Call OpenAI API (synchronous within async function)
             response = self.client.chat.completions.create(
-                model="gpt-4-turbo-preview",
+                model=self.model,
                 messages=[
                     {
                         "role": "system",
@@ -253,7 +255,7 @@ Return JSON format:
             return {
                 "success": True,
                 "personalized_message": message_data,
-                "cost_estimate": 0.01
+                "cost_estimate": 0.0005  # Updated for gpt-4o-mini pricing
             }
             
         except Exception as e:

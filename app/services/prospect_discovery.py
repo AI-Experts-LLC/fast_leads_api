@@ -119,7 +119,7 @@ class ProspectDiscoveryService:
             
             # Step 4: LinkedIn data scraping for top prospects
             logger.info("Step 4: Scraping LinkedIn data for top prospects...")
-            top_prospects = qualified_prospects[:5]  # Limit to top 5 to control costs
+            top_prospects = qualified_prospects[:8]  # Limit to top 8 to capture more prospects
             linkedin_urls = [p.get("link") for p in top_prospects if p.get("link")]
             
             linkedin_result = await self.linkedin_service.scrape_profiles(linkedin_urls)

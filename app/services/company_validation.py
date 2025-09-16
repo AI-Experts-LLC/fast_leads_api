@@ -18,9 +18,11 @@ class CompanyValidationService:
     
     def __init__(self):
         self.api_key = os.getenv('OPENAI_API_KEY')
+        self.model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')  # Default to gpt-4o-mini
         
         if self.api_key:
             self.client = OpenAI(api_key=self.api_key)
+            logger.info(f"Company validation initialized with model: {self.model}")
         else:
             self.client = None
             logger.warning("OPENAI_API_KEY not found in environment variables")
@@ -65,7 +67,7 @@ class CompanyValidationService:
             
             # Call OpenAI API
             response = self.client.chat.completions.create(
-                model="gpt-4-turbo-preview",
+                model=self.model,
                 messages=[
                     {
                         "role": "system",
@@ -96,7 +98,7 @@ class CompanyValidationService:
                 "currently_employed_count": len(validated_prospects),
                 "validated_prospects": validated_prospects,
                 "validation_details": validation_result,
-                "cost_estimate": 0.015  # Estimate for GPT-4 validation call
+                "cost_estimate": 0.0008  # Updated for gpt-4o-mini pricing
             }
             
         except Exception as e:
