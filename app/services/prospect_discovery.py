@@ -202,43 +202,62 @@ class ProspectDiscoveryService:
                 "linkedin_url": linkedin_url,
                 "target_title": prospect.get("target_title", ""),
                 
-                # LinkedIn profile data (if available)
-                "linkedin_data": {
-                    # Basic information
+                # Enhanced LinkedIn profile data (all 88 fields available)
+                "linkedin_data": linkedin_data if linkedin_data else {},
+                
+                # Quick access to key LinkedIn metrics for prospect analysis
+                "linkedin_summary": {
+                    # === CORE PROSPECT INTELLIGENCE ===
                     "name": linkedin_data.get("name"),
-                    "first_name": linkedin_data.get("first_name"),
-                    "last_name": linkedin_data.get("last_name"),
                     "headline": linkedin_data.get("headline"),
+                    "job_title": linkedin_data.get("job_title"),
+                    "company": linkedin_data.get("company"),
                     "location": linkedin_data.get("location"),
                     "summary": linkedin_data.get("summary"),
                     
-                    # Professional details
-                    "job_title": linkedin_data.get("job_title"),
-                    "company": linkedin_data.get("company"),
-                    "company_industry": linkedin_data.get("company_industry"),
-                    "company_website": linkedin_data.get("company_website"),
-                    "company_size": linkedin_data.get("company_size"),
-                    "current_job_duration": linkedin_data.get("current_job_duration"),
-                    "current_job_duration_years": linkedin_data.get("current_job_duration_years"),
+                    # === DECISION MAKER ASSESSMENT ===
+                    "professional_authority_score": linkedin_data.get("professional_authority_score", 0),
+                    "total_experience_years": linkedin_data.get("total_experience_years", 0),
+                    "highest_degree": linkedin_data.get("highest_degree", "Unknown"),
+                    "alma_maters": linkedin_data.get("alma_maters", []),
+                    "industry_experience": linkedin_data.get("industry_experience", {}),
                     
-                    # Network metrics
-                    "connections": linkedin_data.get("connections"),
-                    "followers": linkedin_data.get("followers"),
+                    # === ENGAGEMENT POTENTIAL ===
+                    "engagement_score": linkedin_data.get("engagement_score", 0),
+                    "accessibility_score": linkedin_data.get("accessibility_score", 0),
+                    "connections": linkedin_data.get("connections", 0),
+                    "followers": linkedin_data.get("followers", 0),
                     
-                    # Skills and experience
-                    "top_skills": linkedin_data.get("top_skills_by_endorsements"),
-                    "experience_count": linkedin_data.get("experience_count", 0),
-                    "education_count": linkedin_data.get("education_count", 0),
-                    "skills_count": linkedin_data.get("skills_count", 0),
+                    # === CONTACT INTELLIGENCE ===
+                    "email": linkedin_data.get("email"),
+                    "phone": linkedin_data.get("phone"),
+                    "website": linkedin_data.get("website"),
+                    "is_open_to_work": linkedin_data.get("is_open_to_work", False),
+                    "is_hiring": linkedin_data.get("is_hiring", False),
                     
-                    # Structured data (summary for response size management)
+                    # === RELATIONSHIP BUILDING DATA ===
+                    "interests_count": linkedin_data.get("interests_count", 0),
+                    "certifications_count": linkedin_data.get("certifications_count", 0),
+                    "honors_awards_count": linkedin_data.get("honors_awards_count", 0),
+                    "volunteer_work_count": linkedin_data.get("volunteer_work_count", 0),
+                    "recommendations_count": linkedin_data.get("recommendations_count", {}),
+                    "endorsements_received": linkedin_data.get("endorsements_received", 0),
+                    
+                    # === PROFILE QUALITY INDICATORS ===
+                    "profile_completeness_score": linkedin_data.get("profile_completeness_score", 0),
+                    "data_quality_score": linkedin_data.get("data_quality_score", 0),
+                    "total_sections_completed": linkedin_data.get("total_sections_completed", 0),
+                    
+                    # === RECENT ACTIVITY SNAPSHOT ===
                     "recent_experience": linkedin_data.get("experience", [])[:3] if linkedin_data.get("experience") else [],
-                    "education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
-                    "key_skills": linkedin_data.get("skills", [])[:10] if linkedin_data.get("skills") else [],
+                    "recent_education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
+                    "top_skills": linkedin_data.get("skills", [])[:5] if linkedin_data.get("skills") else [],
+                    "top_interests": linkedin_data.get("interests", [])[:3] if linkedin_data.get("interests") else [],
                     
-                    # Meta information
+                    # === META INFORMATION ===
                     "has_detailed_data": bool(linkedin_data),
-                    "data_source": linkedin_data.get("data_source", "unknown")
+                    "data_source": linkedin_data.get("data_source", "unknown"),
+                    "scrape_timestamp": linkedin_data.get("scrape_timestamp")
                 },
                 
                 # Generated data

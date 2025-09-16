@@ -200,7 +200,7 @@ class ApifyLinkedInService:
         
         # Extract additional profile metrics from Apify data
         profile_dict = {
-            # Basic information
+            # === BASIC PROFILE INFORMATION ===
             'url': profile.url,
             'name': profile.name,
             'first_name': raw_data.get('firstName'),
@@ -209,45 +209,64 @@ class ApifyLinkedInService:
             'company': profile.company,
             'location': profile.location,
             'summary': profile.summary,
+            'about': raw_data.get('about'),  # Full about section
             
-            # Professional details
+            # === CURRENT POSITION DETAILS ===
             'job_title': raw_data.get('jobTitle'),
+            'company_name': raw_data.get('companyName'),
             'company_industry': raw_data.get('companyIndustry'),
             'company_website': raw_data.get('companyWebsite'),
             'company_linkedin': raw_data.get('companyLinkedin'),
             'company_size': raw_data.get('companySize'),
             'company_founded': raw_data.get('companyFoundedIn'),
             
-            # Job tenure
+            # === JOB TENURE & CAREER METRICS ===
             'current_job_duration': raw_data.get('currentJobDuration'),
             'current_job_duration_years': raw_data.get('currentJobDurationInYrs'),
             
-            # Network metrics
+            # === NETWORK & SOCIAL PROOF ===
             'connections': raw_data.get('connections'),
             'followers': raw_data.get('followers'),
             
-            # Skills and endorsements
+            # === SKILLS & EXPERTISE ===
             'top_skills_by_endorsements': raw_data.get('topSkillsByEndorsements'),
-            
-            # Contact information (usually null for privacy)
-            'email': raw_data.get('email'),
-            'mobile_number': raw_data.get('mobileNumber'),
-            
-            # Profile identifiers
-            'public_identifier': raw_data.get('publicIdentifier'),
-            'urn': raw_data.get('urn'),
-            
-            # Structured data
-            'experience': profile.experience,
-            'education': profile.education,
             'skills': profile.skills,
-            
-            # Counts for quick reference
-            'experience_count': len(profile.experience) if profile.experience else 0,
-            'education_count': len(profile.education) if profile.education else 0,
             'skills_count': len(profile.skills) if profile.skills else 0,
             
-            # Additional sections from Apify
+            # === CONTACT INFORMATION ===
+            'email': raw_data.get('email'),
+            'mobile_number': raw_data.get('mobileNumber'),
+            'phone': raw_data.get('phone'),
+            'website': raw_data.get('website'),
+            
+            # === PROFILE IDENTIFIERS ===
+            'public_identifier': raw_data.get('publicIdentifier'),
+            'urn': raw_data.get('urn'),
+            'linkedin_id': raw_data.get('linkedinId'),
+            'profile_id': raw_data.get('profileId'),
+            
+            # === GEOGRAPHIC INFORMATION ===
+            'address_with_country': raw_data.get('addressWithCountry'),
+            'address_without_country': raw_data.get('addressWithoutCountry'),
+            'country': raw_data.get('country'),
+            'city': raw_data.get('city'),
+            'state': raw_data.get('state'),
+            'postal_code': raw_data.get('postalCode'),
+            'geo_location': raw_data.get('geoLocation'),
+            
+            # === PROFESSIONAL EXPERIENCE ===
+            'experience': profile.experience,
+            'experience_count': len(profile.experience) if profile.experience else 0,
+            'total_experience_years': self._calculate_total_experience(profile.experience),
+            'industry_experience': self._extract_industry_experience(profile.experience),
+            
+            # === EDUCATION BACKGROUND ===
+            'education': profile.education,
+            'education_count': len(profile.education) if profile.education else 0,
+            'highest_degree': self._extract_highest_degree(profile.education),
+            'alma_maters': self._extract_alma_maters(profile.education),
+            
+            # === ADDITIONAL PROFILE SECTIONS ===
             'interests': raw_data.get('interests', []),
             'languages': raw_data.get('languages', []),
             'certifications': raw_data.get('licenseAndCertificates', []),
@@ -255,15 +274,351 @@ class ApifyLinkedInService:
             'volunteer_work': raw_data.get('volunteerAndAwards', []),
             'projects': raw_data.get('projects', []),
             'publications': raw_data.get('publications', []),
-            'recommendations': raw_data.get('recommendations', []),
+            'patents': raw_data.get('patents', []),
+            'courses': raw_data.get('courses', []),
+            'test_scores': raw_data.get('testScores', []),
             
-            # Meta information
+            # === RECOMMENDATIONS & SOCIAL PROOF ===
+            'recommendations': raw_data.get('recommendations', []),
+            'recommendations_count': self._count_recommendations(raw_data.get('recommendations', [])),
+            'endorsements_received': self._count_total_endorsements(profile.skills),
+            
+            # === ACTIVITY & ENGAGEMENT ===
+            'activity': raw_data.get('activity', []),
+            'posts': raw_data.get('posts', []),
+            'articles': raw_data.get('articles', []),
+            'recent_activity_count': len(raw_data.get('activity', [])),
+            
+            # === PREMIUM FEATURES ===
+            'is_premium': raw_data.get('isPremium', False),
+            'is_open_to_work': raw_data.get('isOpenToWork', False),
+            'is_hiring': raw_data.get('isHiring', False),
+            'premium_badge': raw_data.get('premiumBadge'),
+            
+            # === PROFILE COMPLETENESS METRICS ===
+            'profile_picture_url': raw_data.get('profilePictureUrl') or raw_data.get('photo'),
+            'background_image_url': raw_data.get('backgroundImageUrl'),
+            'has_profile_picture': bool(raw_data.get('profilePictureUrl') or raw_data.get('photo')),
+            'profile_completeness_score': self._calculate_profile_completeness(profile, raw_data),
+            
+            # === COUNTS FOR QUICK REFERENCE ===
+            'total_sections_completed': self._count_completed_sections(profile, raw_data),
+            'interests_count': len(raw_data.get('interests', [])),
+            'languages_count': len(raw_data.get('languages', [])),
+            'certifications_count': len(raw_data.get('licenseAndCertificates', [])),
+            'honors_awards_count': len(raw_data.get('honorsAndAwards', [])),
+            'volunteer_work_count': len(raw_data.get('volunteerAndAwards', [])),
+            'projects_count': len(raw_data.get('projects', [])),
+            'publications_count': len(raw_data.get('publications', [])),
+            
+            # === ENGAGEMENT POTENTIAL ASSESSMENT ===
+            'engagement_score': self._calculate_engagement_score(raw_data),
+            'accessibility_score': self._calculate_accessibility_score(raw_data),
+            'professional_authority_score': self._calculate_authority_score(profile, raw_data),
+            
+            # === META INFORMATION ===
             'has_detailed_data': True,
-            'scrape_timestamp': None,  # Would add in production
-            'data_source': 'apify_linkedin_scraper'
+            'scrape_timestamp': raw_data.get('timestamp'),
+            'data_source': 'apify_linkedin_scraper',
+            'data_quality_score': self._calculate_data_quality_score(profile, raw_data),
+            'last_updated': raw_data.get('lastUpdated'),
+            
+            # === RAW DATA (for debugging/advanced use) ===
+            'raw_data': raw_data if raw_data else None
         }
         
         return profile_dict
+    
+    def _calculate_total_experience(self, experience: List[Dict]) -> float:
+        """Calculate total years of professional experience"""
+        if not experience:
+            return 0.0
+        
+        total_years = 0.0
+        for exp in experience:
+            duration = exp.get('duration', '')
+            years = self._extract_years_from_duration(duration)
+            total_years += years
+        
+        return round(total_years, 1)
+    
+    def _extract_years_from_duration(self, duration_str: str) -> float:
+        """Extract years from duration string like '2 yrs 5 mos'"""
+        if not duration_str:
+            return 0.0
+        
+        years = 0.0
+        months = 0.0
+        
+        # Look for year patterns
+        import re
+        year_match = re.search(r'(\d+)\s*yrs?', duration_str, re.IGNORECASE)
+        if year_match:
+            years = float(year_match.group(1))
+        
+        # Look for month patterns
+        month_match = re.search(r'(\d+)\s*mos?', duration_str, re.IGNORECASE)
+        if month_match:
+            months = float(month_match.group(1))
+        
+        return years + (months / 12.0)
+    
+    def _extract_industry_experience(self, experience: List[Dict]) -> Dict[str, float]:
+        """Extract experience by industry/company type"""
+        industry_exp = {}
+        
+        if not experience:
+            return industry_exp
+        
+        for exp in experience:
+            company = exp.get('company', '').lower()
+            duration = exp.get('duration', '')
+            years = self._extract_years_from_duration(duration)
+            
+            # Simple industry categorization
+            if any(term in company for term in ['hospital', 'medical', 'health', 'clinic']):
+                industry_exp['healthcare'] = industry_exp.get('healthcare', 0) + years
+            elif any(term in company for term in ['tech', 'software', 'ai', 'data']):
+                industry_exp['technology'] = industry_exp.get('technology', 0) + years
+            elif any(term in company for term in ['consult', 'advisory', 'strategy']):
+                industry_exp['consulting'] = industry_exp.get('consulting', 0) + years
+            elif any(term in company for term in ['university', 'school', 'academic']):
+                industry_exp['education'] = industry_exp.get('education', 0) + years
+            else:
+                industry_exp['other'] = industry_exp.get('other', 0) + years
+        
+        return {k: round(v, 1) for k, v in industry_exp.items()}
+    
+    def _extract_highest_degree(self, education: List[Dict]) -> str:
+        """Extract the highest degree achieved"""
+        if not education:
+            return "Unknown"
+        
+        degree_hierarchy = {
+            'phd': 6, 'doctorate': 6, 'doctoral': 6,
+            'md': 5, 'jd': 5, 'pharmd': 5,
+            'masters': 4, 'master': 4, 'mba': 4, 'ms': 4, 'ma': 4,
+            'bachelor': 3, 'ba': 3, 'bs': 3, 'bsc': 3,
+            'associate': 2, 'diploma': 1, 'certificate': 1
+        }
+        
+        highest_level = 0
+        highest_degree = "Unknown"
+        
+        for edu in education:
+            degree = edu.get('degree', '').lower()
+            for degree_type, level in degree_hierarchy.items():
+                if degree_type in degree and level > highest_level:
+                    highest_level = level
+                    highest_degree = edu.get('degree', 'Unknown')
+        
+        return highest_degree
+    
+    def _extract_alma_maters(self, education: List[Dict]) -> List[str]:
+        """Extract list of schools attended"""
+        if not education:
+            return []
+        
+        return [edu.get('school', 'Unknown') for edu in education if edu.get('school')]
+    
+    def _count_recommendations(self, recommendations: List[Dict]) -> Dict[str, int]:
+        """Count recommendations given vs received"""
+        counts = {'received': 0, 'given': 0}
+        
+        if not recommendations:
+            return counts
+        
+        for rec_section in recommendations:
+            section_name = rec_section.get('section_name', '').lower()
+            section_components = rec_section.get('section_components', [])
+            
+            if 'received' in section_name:
+                counts['received'] += len(section_components)
+            elif 'given' in section_name:
+                counts['given'] += len(section_components)
+        
+        return counts
+    
+    def _count_total_endorsements(self, skills: List[Dict]) -> int:
+        """Count total endorsements across all skills"""
+        if not skills:
+            return 0
+        
+        total = 0
+        for skill in skills:
+            endorsements = skill.get('endorsements', [])
+            for endorsement in endorsements:
+                # Extract number from endorsement text like "33 endorsements"
+                import re
+                numbers = re.findall(r'(\d+)', endorsement)
+                if numbers:
+                    total += int(numbers[-1])  # Take the last number found
+        
+        return total
+    
+    def _calculate_engagement_score(self, raw_data: Dict) -> int:
+        """Calculate engagement potential score (0-100)"""
+        score = 0
+        
+        # Recent activity
+        activity_count = len(raw_data.get('activity', []))
+        score += min(activity_count * 10, 30)  # Max 30 points
+        
+        # Followers count (social proof)
+        followers = raw_data.get('followers', 0)
+        if followers > 10000:
+            score += 25
+        elif followers > 1000:
+            score += 15
+        elif followers > 500:
+            score += 10
+        elif followers > 100:
+            score += 5
+        
+        # Connection count (network size)
+        connections = raw_data.get('connections', 0)
+        if connections > 500:
+            score += 20
+        elif connections > 100:
+            score += 15
+        elif connections > 50:
+            score += 10
+        
+        # Premium membership
+        if raw_data.get('isPremium'):
+            score += 15
+        
+        # Profile completeness
+        if raw_data.get('about'):
+            score += 10
+        
+        return min(score, 100)
+    
+    def _calculate_accessibility_score(self, raw_data: Dict) -> int:
+        """Calculate how accessible/reachable the person seems (0-100)"""
+        score = 0
+        
+        # Contact information available
+        if raw_data.get('email'):
+            score += 30
+        if raw_data.get('website'):
+            score += 20
+        if raw_data.get('phone'):
+            score += 25
+        
+        # Open to work/hiring
+        if raw_data.get('isOpenToWork'):
+            score += 15
+        if raw_data.get('isHiring'):
+            score += 10
+        
+        # Recent activity suggests active user
+        if len(raw_data.get('activity', [])) > 0:
+            score += 20
+        
+        return min(score, 100)
+    
+    def _calculate_authority_score(self, profile: LinkedInProfile, raw_data: Dict) -> int:
+        """Calculate professional authority score (0-100)"""
+        score = 0
+        
+        # Leadership positions
+        experience = profile.experience or []
+        for exp in experience:
+            title = exp.get('title', '').lower()
+            if any(term in title for term in ['director', 'vp', 'ceo', 'cfo', 'coo', 'founder']):
+                score += 20
+            elif any(term in title for term in ['manager', 'lead', 'head', 'chief']):
+                score += 10
+        
+        # Education quality
+        education = profile.education or []
+        for edu in education:
+            school = edu.get('school', '').lower()
+            if any(term in school for term in ['harvard', 'stanford', 'mit', 'wharton', 'yale']):
+                score += 15
+            degree = edu.get('degree', '').lower()
+            if any(term in degree for term in ['phd', 'doctorate', 'mba']):
+                score += 10
+        
+        # Publications and projects
+        score += min(len(raw_data.get('publications', [])) * 5, 20)
+        score += min(len(raw_data.get('projects', [])) * 3, 15)
+        
+        # Awards and honors
+        score += min(len(raw_data.get('honorsAndAwards', [])) * 5, 20)
+        
+        return min(score, 100)
+    
+    def _calculate_profile_completeness(self, profile: LinkedInProfile, raw_data: Dict) -> int:
+        """Calculate profile completeness score (0-100)"""
+        score = 0
+        total_sections = 10
+        
+        # Core sections
+        if profile.name: score += 10
+        if profile.headline: score += 10
+        if profile.summary or raw_data.get('about'): score += 10
+        if profile.experience: score += 10
+        if profile.education: score += 10
+        if profile.skills: score += 10
+        if raw_data.get('profilePictureUrl') or raw_data.get('photo'): score += 10
+        
+        # Additional sections
+        additional_sections = 0
+        if raw_data.get('interests'): additional_sections += 1
+        if raw_data.get('certifications'): additional_sections += 1
+        if raw_data.get('recommendations'): additional_sections += 1
+        if raw_data.get('volunteerAndAwards'): additional_sections += 1
+        if raw_data.get('projects'): additional_sections += 1
+        
+        score += min(additional_sections * 6, 30)
+        
+        return min(score, 100)
+    
+    def _calculate_data_quality_score(self, profile: LinkedInProfile, raw_data: Dict) -> int:
+        """Calculate the quality/richness of scraped data (0-100)"""
+        score = 0
+        
+        # Basic data availability
+        if profile.name: score += 10
+        if profile.headline: score += 10
+        if profile.summary: score += 10
+        if profile.location: score += 5
+        
+        # Detailed sections
+        if profile.experience: score += 15
+        if profile.education: score += 10
+        if profile.skills: score += 10
+        
+        # Extended data
+        if raw_data.get('interests'): score += 5
+        if raw_data.get('recommendations'): score += 10
+        if raw_data.get('certifications'): score += 5
+        if raw_data.get('connections'): score += 5
+        if raw_data.get('followers'): score += 5
+        
+        return min(score, 100)
+    
+    def _count_completed_sections(self, profile: LinkedInProfile, raw_data: Dict) -> int:
+        """Count how many profile sections are completed"""
+        sections = 0
+        
+        if profile.name: sections += 1
+        if profile.headline: sections += 1
+        if profile.summary or raw_data.get('about'): sections += 1
+        if profile.experience: sections += 1
+        if profile.education: sections += 1
+        if profile.skills: sections += 1
+        if raw_data.get('interests'): sections += 1
+        if raw_data.get('certifications'): sections += 1
+        if raw_data.get('recommendations'): sections += 1
+        if raw_data.get('volunteerAndAwards'): sections += 1
+        if raw_data.get('projects'): sections += 1
+        if raw_data.get('publications'): sections += 1
+        if raw_data.get('honorsAndAwards'): sections += 1
+        
+        return sections
     
     async def test_scraping(self) -> Dict[str, Any]:
         """Test the scraping functionality with sample profiles (matching example code)"""
