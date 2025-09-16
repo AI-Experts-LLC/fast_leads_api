@@ -295,6 +295,86 @@ async def test_prospect_services():
             detail=f"Error testing services: {str(e)}"
         )
 
+# LinkedIn Scraping Endpoints
+
+@app.post("/linkedin/scrape-profiles")
+async def scrape_linkedin_profiles(request: dict):
+    """
+    Scrape LinkedIn profiles directly
+    
+    Expected request format:
+    {
+        "linkedin_urls": [
+            "https://www.linkedin.com/in/lucaserb/",
+            "https://www.linkedin.com/in/emollick/"
+        ],
+        "include_detailed_data": true
+    }
+    """
+    try:
+        linkedin_urls = request.get("linkedin_urls", [])
+        if not linkedin_urls:
+            raise HTTPException(
+                status_code=400,
+                detail="linkedin_urls is required"
+            )
+        
+        if len(linkedin_urls) > 10:  # Limit for cost control
+            raise HTTPException(
+                status_code=400,
+                detail="Maximum 10 LinkedIn URLs per request"
+            )
+        
+        result = await linkedin_service.scrape_profiles(linkedin_urls)
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "LinkedIn profiles scraped successfully",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"LinkedIn scraping failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error scraping LinkedIn profiles: {str(e)}"
+        )
+
+@app.get("/linkedin/test")
+async def test_linkedin_service():
+    """Test LinkedIn scraping service with sample profiles"""
+    try:
+        result = await linkedin_service.test_scraping()
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "LinkedIn service test completed",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            return {
+                "status": "error",
+                "message": "LinkedIn service test failed",
+                "error": result.get("error", "Unknown error"),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": "LinkedIn service test error",
+            "error": str(e),
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
 # Credit Enrichment Endpoints
 
 @app.post("/credit/test-connection")
