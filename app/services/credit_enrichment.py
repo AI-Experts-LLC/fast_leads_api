@@ -163,15 +163,25 @@ class CreditEnrichmentService:
     """Main service for enriching company data with credit information."""
     
     def __init__(self):
+        self.authenticator = None
+        self.client = None
+        self._initialized = False
+    
+    def _ensure_initialized(self):
+        """Lazy initialization of the service."""
+        if self._initialized:
+            return
+        
         # Get credentials from environment variables
-        self.username = os.getenv('EDFX_USERNAME')
-        self.password = os.getenv('EDFX_PASSWORD')
+        username = os.getenv('EDFX_USERNAME')
+        password = os.getenv('EDFX_PASSWORD')
         
-        if not self.username or not self.password:
-            raise ValueError("EDF-X credentials not found in environment variables")
+        if not username or not password:
+            raise ValueError("EDF-X credentials not found in environment variables. Please set EDFX_USERNAME and EDFX_PASSWORD.")
         
-        self.authenticator = EDFXAuthenticator(self.username, self.password)
+        self.authenticator = EDFXAuthenticator(username, password)
         self.client = EDFXClient(self.authenticator)
+        self._initialized = True
     
     def _normalize_url(self, url: str) -> str:
         """
@@ -368,6 +378,7 @@ class CreditEnrichmentService:
         Returns:
             CreditInfo object with enrichment results
         """
+        self._ensure_initialized()
         logger.info(f"Processing company: {company.name}")
         
         try:
@@ -446,6 +457,7 @@ class CreditEnrichmentService:
             Dictionary with test results
         """
         try:
+            self._ensure_initialized()
             # Test authentication
             token = self.authenticator.get_token()
             auth_success = bool(token)
