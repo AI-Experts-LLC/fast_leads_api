@@ -371,7 +371,7 @@ class ApifyLinkedInService:
             return industry_exp
         
         for exp in experience:
-            company = exp.get('company', '').lower()
+            company = (exp.get('company') or '').lower()
             duration = exp.get('duration', '')
             years = self._extract_years_from_duration(duration)
             
@@ -406,7 +406,7 @@ class ApifyLinkedInService:
         highest_degree = "Unknown"
         
         for edu in education:
-            degree = edu.get('degree', '').lower()
+            degree = (edu.get('degree') or '').lower()
             for degree_type, level in degree_hierarchy.items():
                 if degree_type in degree and level > highest_level:
                     highest_level = level
@@ -429,7 +429,7 @@ class ApifyLinkedInService:
             return counts
         
         for rec_section in recommendations:
-            section_name = rec_section.get('section_name', '').lower()
+            section_name = (rec_section.get('section_name') or '').lower()
             section_components = rec_section.get('section_components', [])
             
             if 'received' in section_name:
@@ -525,7 +525,7 @@ class ApifyLinkedInService:
         # Leadership positions
         experience = profile.experience or []
         for exp in experience:
-            title = exp.get('title', '').lower()
+            title = (exp.get('title') or '').lower()
             if any(term in title for term in ['director', 'vp', 'ceo', 'cfo', 'coo', 'founder']):
                 score += 20
             elif any(term in title for term in ['manager', 'lead', 'head', 'chief']):
@@ -534,10 +534,10 @@ class ApifyLinkedInService:
         # Education quality
         education = profile.education or []
         for edu in education:
-            school = edu.get('school', '').lower()
+            school = (edu.get('school') or '').lower()
             if any(term in school for term in ['harvard', 'stanford', 'mit', 'wharton', 'yale']):
                 score += 15
-            degree = edu.get('degree', '').lower()
+            degree = (edu.get('degree') or '').lower()
             if any(term in degree for term in ['phd', 'doctorate', 'mba']):
                 score += 10
         
