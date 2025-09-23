@@ -128,12 +128,13 @@ class ImprovedProspectDiscoveryService:
             logger.info("Step 6: AI ranking of validated prospects...")
             ranked_prospects = await self._ai_rank_prospects(final_prospects, company_name)
             
-            # Log final ranked prospects
-            logger.info("=== FINAL RANKED PROSPECTS ===")
+            # Log final ranked prospects (one per target title)
+            logger.info("=== FINAL RANKED PROSPECTS (One per Target Title) ===")
             for i, prospect in enumerate(ranked_prospects):
                 linkedin_data = prospect.get('linkedin_data', {})
                 ai_ranking = prospect.get('ai_ranking', {})
-                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Title: {linkedin_data.get('job_title', 'N/A')} | AI Score: {ai_ranking.get('ranking_score', 0)}/100 | Persona: {ai_ranking.get('persona_category', 'N/A')}")
+                target_title = prospect.get('target_title', 'N/A')
+                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Target: {target_title} | LinkedIn Title: {linkedin_data.get('job_title', 'N/A')} | AI Score: {ai_ranking.get('ranking_score', 0)}/100 | Persona: {ai_ranking.get('persona_category', 'N/A')}")
             logger.info("=== END FINAL PROSPECTS ===")
             
             return {

@@ -172,9 +172,7 @@ IMPORTANT RULES:
 """
     
     def _apply_rankings_to_prospects(self, ranking_response: Dict, original_prospects: List[Dict]) -> List[Dict]:
-        """Apply AI rankings to original prospects without modifying prospect data"""
-        ranked_prospects = []
-        
+        """Apply AI rankings and return best prospect for each target job title"""
         prospect_rankings = ranking_response.get("prospect_rankings", [])
         
         # Create ranking lookup
@@ -184,11 +182,15 @@ IMPORTANT RULES:
             if index >= 0:
                 ranking_lookup[index] = ranking
         
-        # Apply rankings to prospects and sort
+        # Group prospects by target job title
+        prospects_by_title = {}
+        
         for i, prospect in enumerate(original_prospects):
             ranking_data = ranking_lookup.get(i, {})
             
-            if ranking_data:  # Only include prospects that got ranked
+            if ranking_data:  # Only process prospects that got ranked
+                target_title = prospect.get("target_title", "Unknown")
+                
                 # Add ranking data WITHOUT modifying original prospect data
                 ranked_prospect = {
                     **prospect,  # Original prospect data (unchanged)
@@ -203,19 +205,29 @@ IMPORTANT RULES:
                         "ranking_timestamp": None  # Would add in production
                     }
                 }
-                ranked_prospects.append(ranked_prospect)
+                
+                # Group by target title and keep only the highest scoring prospect per title
+                if target_title not in prospects_by_title:
+                    prospects_by_title[target_title] = ranked_prospect
+                else:
+                    # Keep the higher scoring prospect for this title
+                    current_score = prospects_by_title[target_title].get("ai_ranking", {}).get("ranking_score", 0)
+                    new_score = ranked_prospect.get("ai_ranking", {}).get("ranking_score", 0)
+                    if new_score > current_score:
+                        prospects_by_title[target_title] = ranked_prospect
         
-        # Sort by ranking score (highest first)
-        ranked_prospects.sort(
+        # Convert back to list and sort by score
+        final_prospects = list(prospects_by_title.values())
+        final_prospects.sort(
             key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
             reverse=True
         )
         
         # Add rank position
-        for i, prospect in enumerate(ranked_prospects):
+        for i, prospect in enumerate(final_prospects):
             prospect["ai_ranking"]["rank_position"] = i + 1
         
-        return ranked_prospects
+        return final_prospects
     
     async def generate_outreach_strategy(self, top_prospect: Dict, company_context: Dict = None) -> Dict[str, Any]:
         """Generate outreach strategy based on ranked prospect data"""
