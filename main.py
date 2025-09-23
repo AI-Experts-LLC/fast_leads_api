@@ -2,15 +2,18 @@ from fastapi import FastAPI, HTTPException
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+
+# Load environment variables BEFORE importing services
+load_dotenv()
+
+# Import services AFTER loading environment variables
 from app.services.salesforce import salesforce_service
 from app.services.prospect_discovery import prospect_discovery_service
+from app.services.improved_prospect_discovery import improved_prospect_discovery_service
 from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
 from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
-
-# Load environment variables
-load_dotenv()
 
 # Force fresh deployment - no database dependencies
 
@@ -275,6 +278,53 @@ async def discover_prospects(request: dict):
         raise HTTPException(
             status_code=500,
             detail=f"Error in prospect discovery: {str(e)}"
+        )
+
+@app.post("/discover-prospects-improved")
+async def discover_prospects_improved(request: dict):
+    """
+    IMPROVED prospect discovery pipeline with better accuracy
+    1. Search → 2. Basic Filter → 3. LinkedIn Scrape → 4. AI Rank
+    AI only ranks real data, doesn't create/modify data
+    """
+    try:
+        company_name = request.get("company_name")
+        target_titles = request.get("target_titles", [])
+        
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+        
+        result = await improved_prospect_discovery_service.discover_prospects(
+            company_name=company_name,
+            target_titles=target_titles if target_titles else None
+        )
+        
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Improved prospect discovery completed",
+                "data": result,
+                "improvements": {
+                    "pipeline_order": "Search → Filter → Scrape → AI Rank",
+                    "data_accuracy": "AI only ranks real LinkedIn data",
+                    "filtering": "Rule-based filtering before AI involvement"
+                },
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Improved prospect discovery failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in improved prospect discovery: {str(e)}"
         )
 
 @app.get("/test-services")

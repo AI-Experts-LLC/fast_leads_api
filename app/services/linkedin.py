@@ -620,6 +620,105 @@ class ApifyLinkedInService:
         
         return sections
     
+    def _calculate_engagement_score(self, raw_data: Dict) -> int:
+        """Calculate engagement potential score based on activity and connections (0-100)"""
+        score = 0
+        
+        # Activity indicators
+        activity_count = len(raw_data.get('activity', []))
+        posts_count = len(raw_data.get('posts', []))
+        articles_count = len(raw_data.get('articles', []))
+        
+        # Score based on activity
+        score += min(activity_count * 5, 30)
+        score += min(posts_count * 3, 20)
+        score += min(articles_count * 10, 30)
+        
+        # Connection indicators
+        connections = raw_data.get('connections', 0) or 0
+        followers = raw_data.get('followers', 0) or 0
+        
+        if isinstance(connections, int) and connections > 500:
+            score += 10
+        elif isinstance(connections, int) and connections > 100:
+            score += 5
+        
+        if isinstance(followers, int) and followers > 1000:
+            score += 10
+        elif isinstance(followers, int) and followers > 100:
+            score += 5
+        
+        return min(score, 100)
+    
+    def _calculate_accessibility_score(self, raw_data: Dict) -> int:
+        """Calculate how accessible/reachable the person is (0-100)"""
+        score = 50  # Base accessibility score
+        
+        # Premium users might be more accessible
+        if raw_data.get('isPremium'):
+            score += 10
+        
+        # Open to work indicates higher accessibility
+        if raw_data.get('isOpenToWork'):
+            score += 15
+        
+        # Hiring managers are typically accessible
+        if raw_data.get('isHiring'):
+            score += 10
+        
+        # Public activity indicates accessibility
+        activity_count = len(raw_data.get('activity', []))
+        if activity_count > 10:
+            score += 10
+        elif activity_count > 5:
+            score += 5
+        
+        # Contact info availability
+        if raw_data.get('email'):
+            score += 10
+        if raw_data.get('phone'):
+            score += 5
+        
+        return min(score, 100)
+    
+    def _calculate_authority_score(self, profile: LinkedInProfile, raw_data: Dict) -> int:
+        """Calculate professional authority score (0-100)"""
+        score = 0
+        
+        # Experience-based authority
+        experience_years = self._calculate_total_experience(profile.experience or [])
+        if isinstance(experience_years, (int, float)):
+            if experience_years >= 15:
+                score += 25
+            elif experience_years >= 10:
+                score += 20
+            elif experience_years >= 5:
+                score += 15
+            elif experience_years >= 2:
+                score += 10
+        
+        # Education authority
+        education_count = len(profile.education or [])
+        score += min(education_count * 5, 15)
+        
+        # Skills and endorsements
+        skills_count = len(profile.skills or [])
+        score += min(skills_count * 2, 20)
+        
+        # Recommendations as authority indicator
+        recommendations_count = len(raw_data.get('recommendations', []))
+        score += min(recommendations_count * 3, 15)
+        
+        # Publications and achievements
+        publications_count = len(raw_data.get('publications', []))
+        score += min(publications_count * 5, 15)
+        
+        # Certifications
+        certifications_count = len(raw_data.get('licenseAndCertificates', []))
+        score += min(certifications_count * 2, 10)
+        
+        return min(score, 100)
+    
     async def test_scraping(self) -> Dict[str, Any]:
         """Test the scraping functionality with sample profiles (matching example code)"""
         if not self.client:
