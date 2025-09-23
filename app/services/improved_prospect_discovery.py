@@ -61,10 +61,23 @@ class ImprovedProspectDiscoveryService:
             
             logger.info(f"Found {len(search_results)} LinkedIn profiles")
             
+            # Log all search results found
+            logger.info("=== ALL SEARCH RESULTS FOUND ===")
+            for i, result in enumerate(search_results):
+                logger.info(f"{i+1}. {result.get('title', 'N/A')} | Target: {result.get('target_title', 'N/A')} | URL: {result.get('link', 'N/A')}")
+            logger.info("=== END SEARCH RESULTS ===")
+            
             # Step 2: Basic data filtering (NO AI - just rule-based filtering)
             logger.info("Step 2: Basic data filtering...")
             filtered_prospects = self._basic_filter_prospects(search_results, company_name)
             logger.info(f"Filtered to {len(filtered_prospects)} prospects after removing obvious mismatches")
+            
+            # Log prospects that passed basic filtering
+            logger.info("=== PROSPECTS AFTER BASIC FILTER ===")
+            for i, prospect in enumerate(filtered_prospects):
+                basic_filter = prospect.get('basic_filter', {})
+                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Target: {prospect.get('target_title', 'N/A')} | Senior: {basic_filter.get('has_senior_indicator', False)} | Company: {basic_filter.get('company_mentioned', False)}")
+            logger.info("=== END BASIC FILTER RESULTS ===")
             
             if not filtered_prospects:
                 return {
@@ -103,9 +116,25 @@ class ImprovedProspectDiscoveryService:
                 enriched_prospects, company_name
             )
             
+            # Log prospects that passed advanced filtering
+            logger.info("=== PROSPECTS AFTER ADVANCED FILTER ===")
+            for i, prospect in enumerate(final_prospects):
+                linkedin_data = prospect.get('linkedin_data', {})
+                advanced_filter = prospect.get('advanced_filter', {})
+                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Title: {linkedin_data.get('job_title', 'N/A')} | Company: {linkedin_data.get('company', 'N/A')} | Seniority Score: {advanced_filter.get('seniority_score', 0)}")
+            logger.info("=== END ADVANCED FILTER RESULTS ===")
+            
             # Step 6: AI ranking (ONLY ranking, no data modification)
             logger.info("Step 6: AI ranking of validated prospects...")
             ranked_prospects = await self._ai_rank_prospects(final_prospects, company_name)
+            
+            # Log final ranked prospects
+            logger.info("=== FINAL RANKED PROSPECTS ===")
+            for i, prospect in enumerate(ranked_prospects):
+                linkedin_data = prospect.get('linkedin_data', {})
+                ai_ranking = prospect.get('ai_ranking', {})
+                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Title: {linkedin_data.get('job_title', 'N/A')} | AI Score: {ai_ranking.get('ranking_score', 0)}/100 | Persona: {ai_ranking.get('persona_category', 'N/A')}")
+            logger.info("=== END FINAL PROSPECTS ===")
             
             return {
                 "success": True,

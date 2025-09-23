@@ -58,8 +58,6 @@ class SerperSearchService:
                     "Sustainability Manager",
                     "Energy Manager",
                     "Chief Operating Officer",
-                    "COO",
-                    "Director of Operations",
                     "Facilities Manager"
                 ]
             
