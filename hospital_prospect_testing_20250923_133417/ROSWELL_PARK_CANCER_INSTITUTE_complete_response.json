@@ -1,0 +1,1147 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "ROSWELL PARK CANCER INSTITUTE",
+    "pipeline_summary": {
+      "search_results_found": 20,
+      "prospects_after_basic_filter": 14,
+      "linkedin_profiles_scraped": 9,
+      "prospects_after_advanced_filter": 8,
+      "final_ranked_prospects": 1
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Nancy Crenshaw - Executive Director",
+        "search_snippet": "Nancy Crenshaw. Executive Director. Roswell Park Comprehensive Cancer Center Medaille University. Buffalo, New York, United States.",
+        "linkedin_url": "https://www.linkedin.com/in/nancy-crenshaw-958974240",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/nancy-crenshaw-958974240",
+          "name": "Nancy Crenshaw ",
+          "first_name": "Nancy",
+          "last_name": "Crenshaw ",
+          "headline": "Executive Director ",
+          "company": "Roswell Park Comprehensive Cancer Center",
+          "location": "Buffalo, New York",
+          "summary": null,
+          "about": null,
+          "job_title": "Executive Director",
+          "company_name": "Roswell Park Comprehensive Cancer Center",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "roswellpark.org",
+          "company_linkedin": "linkedin.com/company/roswellpark",
+          "company_size": "1001-5000",
+          "company_founded": 1898,
+          "current_job_duration": "1 yr 5 mos",
+          "current_job_duration_years": 1.42,
+          "connections": 614,
+          "followers": 614,
+          "top_skills_by_endorsements": null,
+          "skills": [
+            {
+              "name": "Toxicology",
+              "endorsements": [
+                "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Clinical Chemistry",
+              "endorsements": []
+            },
+            {
+              "name": "Coagulation",
+              "endorsements": [
+                "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Urinalysis",
+              "endorsements": [
+                "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Central Processing",
+              "endorsements": []
+            },
+            {
+              "name": "Instrumentation",
+              "endorsements": []
+            },
+            {
+              "name": "Calibration",
+              "endorsements": [
+                "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Quality Control",
+              "endorsements": [
+                "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Interdisciplinary Collaboration",
+              "endorsements": [
+                "2 experiences at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Standard Operating Procedure (SOP)",
+              "endorsements": [
+                "Executive Director at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Liasoning",
+              "endorsements": [
+                "3 experiences at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Quality Assurance",
+              "endorsements": [
+                "Senior CRS Administrator, Pathology & Laboratory Medicine Services at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Administration",
+              "endorsements": [
+                "2 experiences at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Committees",
+              "endorsements": [
+                "Clinical Research Laboratory Adminstrator at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Workgroups",
+              "endorsements": []
+            },
+            {
+              "name": "Process Improvement",
+              "endorsements": [
+                "3 experiences at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Protocol Reviews",
+              "endorsements": [
+                "Clinical Research Laboratory Manager at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Lab Manuals",
+              "endorsements": []
+            },
+            {
+              "name": "SOP Development",
+              "endorsements": [
+                "Director, Clinical Research Laboratory Medicine Services at Roswell Park Comprehensive Cancer Center"
+              ]
+            },
+            {
+              "name": "Management",
+              "endorsements": [
+                "Clinical Research Laboratory Manager at Roswell Park Comprehensive Cancer Center"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "nancy-crenshaw-958974240",
+          "urn": "ACoAADvxg1QBYHFkiREklnczPsdU4DEzEud-p3o",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Buffalo, New York, United States",
+          "address_without_country": "Buffalo, New York",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Roswell Park Comprehensive Cancer Center",
+              "company": "Full-time",
+              "duration": null,
+              "location": null,
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Executive Director - Clinical Research Services "
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+              "company_link": "https://www.linkedin.com/company/19224/"
+            },
+            {
+              "title": "Charge Nurse",
+              "company": "Briody Healthcare Facility ",
+              "duration": "May 2013 - Aug 2021 \u00b7 8 yrs 4 mos",
+              "location": "Lockport, New York, United States",
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=Briody+Healthcare+Facility+"
+            },
+            {
+              "title": "Briody Healthcare Facility ",
+              "company": "Part-time",
+              "duration": "Lockport, New York, United States",
+              "location": null,
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=Briody+Healthcare+Facility+"
+            },
+            {
+              "title": "Clinical Laboratory Scientist",
+              "company": "Roswell Park Comprehensive Cancer Center",
+              "duration": "Nov 1992 - Feb 2004 \u00b7 11 yrs 4 mos",
+              "location": "Buffalo, New York, United States",
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Lead Technologist"
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+              "company_link": "https://www.linkedin.com/company/19224/"
+            }
+          ],
+          "experience_count": 4,
+          "total_experience_years": 19.7,
+          "industry_experience": {
+            "other": 11.3,
+            "healthcare": 8.3
+          },
+          "education": [
+            {
+              "school": "Medaille University",
+              "degree": "Master of Arts - MA, Organizational Leadership",
+              "duration": "Aug 2007 - Dec 2009",
+              "activities": [
+                {
+                  "type": "insightComponent",
+                  "text": "Grade: 4.0"
+                }
+              ],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQHGjJ5LktkYpA/company-logo_200_200/company-logo_200_200/0/1653673825566?e=1761782400&v=beta&t=ZoM6T4rrUjFuiCqyumVmKJOrLqvafdUbCX_rkq4C0U4",
+              "school_link": "https://www.linkedin.com/company/31040/"
+            },
+            {
+              "school": "University at Buffalo",
+              "degree": "Doctoral Candidate, Cancer Sciences",
+              "duration": "Aug 2021 - 2025",
+              "activities": [
+                {
+                  "type": "textComponent",
+                  "text": "Roswell Park"
+                }
+              ],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQEk7c2dS0qFGA/company-logo_200_200/company-logo_200_200/0/1660069485905/universityatbuffalo_logo?e=1761782400&v=beta&t=PDDdrwh10qb47yfO8mmaKVdxCWRVmcq447GXZASEiOA",
+              "school_link": "https://www.linkedin.com/company/6502/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Doctoral Candidate, Cancer Sciences",
+          "alma_maters": [
+            "Medaille University",
+            "University at Buffalo"
+          ],
+          "interests": [
+            {
+              "section_name": "Top Voices",
+              "section_components": [
+                {
+                  "titleV2": "Daymond John",
+                  "caption": "2,710,803 followers",
+                  "subtitle": "CEO of FUBU and The Shark Group, TV Personality on ABC Shark Tank, Public Speaker",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/daymondjohn",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Johnny C. Taylor, Jr., SHRM-SCP",
+                  "caption": "506,816 followers",
+                  "subtitle": "President & CEO, SHRM, F500 Board Director",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/johnnyctaylorjr",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "University at Buffalo",
+                  "caption": "274,900 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/6502/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Roswell Park Comprehensive Cancer Center",
+                  "caption": "28,440 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/19224/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "LABORATORY Professionals International",
+                  "caption": "222,902 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/37961",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Clinical Research Professionals",
+                  "caption": "321,031 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/86681",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Newsletters",
+              "section_components": [
+                {
+                  "titleV2": "Impact in Action",
+                  "caption": "Published monthly",
+                  "subtitle": "At UB, we\u2019re making a difference\u2014advancing research and ideas that move the world forward.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7320859383037366272",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "University at Buffalo",
+                        "actionTarget": "https://www.linkedin.com/company/6502/"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "titleV2": "Money Monday with Suze Orman",
+                  "caption": "Published weekly",
+                  "subtitle": "Actionable advice to inspire your financial life.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/6637704075662110720",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Suze Orman",
+                        "actionTarget": "https://www.linkedin.com/in/suzeorman"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Medaille University",
+                  "caption": "15,172 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/31040/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "University at Buffalo",
+                  "caption": "274,900 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/6502/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "81415569",
+              "companyUrn": "urn:li:fsd_company:81415569",
+              "companyLink1": "https://www.linkedin.com/company/81415569/",
+              "logo": "https://media.licdn.com/dms/image/v2/D560BAQEB-yOjd0lGqg/company-logo_200_200/company-logo_200_200/0/1719951935517/mn8energy_logo?e=1761782400&v=beta&t=dkWvtJtMLFlBoPq-tr5dh9DyAJ2m9UlA2DZd-tKMg78",
+              "title": "Certified Diversity and Inclusion Recruiter",
+              "subtitle": "MN8 Energy",
+              "caption": "Issued Jun 2022 \u00b7 Expired Jun 2024",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyId": "758210",
+              "companyUrn": "urn:li:fsd_company:758210",
+              "companyLink1": "https://www.linkedin.com/company/758210/",
+              "logo": "undefinedundefined",
+              "title": "Clinical Laboratory Scientist/Medical Technologist",
+              "subtitle": "NYS",
+              "metadata": "Credential ID 010142",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [
+            {
+              "title": "Roswell Park 25 Year Club",
+              "subtitle": "Issued by Roswell Park \u00b7 Jan 2018",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "insightComponent",
+                      "text": "Associated with Roswell Park Comprehensive Cancer Center"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Black Achiever's in Industry Award",
+              "subtitle": "Issued by Sponsor: Roswell Park \u00b7 Oct 2017",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "insightComponent",
+                      "text": "Associated with Roswell Park Comprehensive Cancer Center"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 10,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 56,
+          "total_sections_completed": 7,
+          "interests_count": 5,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 2,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 59,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 75,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/nancy-crenshaw-958974240",
+            "firstName": "Nancy",
+            "lastName": "Crenshaw ",
+            "fullName": "Nancy Crenshaw ",
+            "headline": "Executive Director ",
+            "connections": 614,
+            "followers": 614,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Executive Director",
+            "companyName": "Roswell Park Comprehensive Cancer Center",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "roswellpark.org",
+            "companyLinkedin": "linkedin.com/company/roswellpark",
+            "companyFoundedIn": 1898,
+            "companySize": "1001-5000",
+            "currentJobDuration": "1 yr 5 mos",
+            "currentJobDurationInYrs": 1.42,
+            "topSkillsByEndorsements": null,
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Buffalo, New York, United States",
+            "addressWithoutCountry": "Buffalo, New York",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1654544121222?e=1761782400&v=beta&t=DagnfdsCAE4_bGxqJvelAdj6lWTWsUFAsRHDJqVsiTE",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1654544121222?e=1761782400&v=beta&t=4vtiETiT-gMusTa6ia08mc8wyJZro8w3s30jc7XMKis",
+            "about": null,
+            "publicIdentifier": "nancy-crenshaw-958974240",
+            "openConnection": null,
+            "urn": "ACoAADvxg1QBYHFkiREklnczPsdU4DEzEud-p3o",
+            "experiences": [
+              {
+                "companyId": "19224",
+                "companyUrn": "urn:li:fsd_company:19224",
+                "companyLink1": "https://www.linkedin.com/company/19224/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+                "title": "Roswell Park Comprehensive Cancer Center",
+                "subtitle": "Full-time \u00b7 21 yrs 5 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Executive Director",
+                    "caption": "May 2024 - Present \u00b7 1 yr 5 mos",
+                    "metadata": "United States \u00b7 On-site",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Executive Director - Clinical Research Services "
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Director, Clinical Research Laboratory Services & Department Diversity Administrator",
+                    "caption": "Jun 2022 - May 2024 \u00b7 2 yrs",
+                    "metadata": "Buffalo, New York, United States",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Department of Pathology & Laboratory"
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Director, Clinical Research Laboratory Medicine Services ",
+                    "caption": "May 2020 - Jun 2022 \u00b7 2 yrs 2 mos",
+                    "metadata": "Buffalo, New York, United States",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Clinical Research Services"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=Briody+Healthcare+Facility+",
+                "title": "Charge Nurse",
+                "subtitle": "Briody Healthcare Facility  \u00b7 Part-time",
+                "caption": "May 2013 - Aug 2021 \u00b7 8 yrs 4 mos",
+                "metadata": "Lockport, New York, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=Briody+Healthcare+Facility+",
+                "title": "Briody Healthcare Facility ",
+                "subtitle": "Part-time \u00b7 2 yrs 1 mo",
+                "caption": "Lockport, New York, United States",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Nursing Supervisor",
+                    "caption": "May 2003 - May 2004 \u00b7 1 yr 1 mo",
+                    "description": []
+                  },
+                  {
+                    "title": "Charge Nurse",
+                    "caption": "May 2002 - May 2003 \u00b7 1 yr 1 mo",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "19224",
+                "companyUrn": "urn:li:fsd_company:19224",
+                "companyLink1": "https://www.linkedin.com/company/19224/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+                "title": "Clinical Laboratory Scientist",
+                "subtitle": "Roswell Park Comprehensive Cancer Center \u00b7 Full-time",
+                "caption": "Nov 1992 - Feb 2004 \u00b7 11 yrs 4 mos",
+                "metadata": "Buffalo, New York, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Lead Technologist"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Toxicology",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Clinical Chemistry",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Coagulation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Urinalysis",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Central Processing",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Instrumentation",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Calibration",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Quality Control",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Laboratory Scientist at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Interdisciplinary Collaboration",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 experiences at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Standard Operating Procedure (SOP)",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Executive Director at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Liasoning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 experiences at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Quality Assurance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Senior CRS Administrator, Pathology & Laboratory Medicine Services at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Administration",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 experiences at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Committees",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Research Laboratory Adminstrator at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Workgroups",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Process Improvement",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 experiences at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Protocol Reviews",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Research Laboratory Manager at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Lab Manuals",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "SOP Development",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Director, Clinical Research Laboratory Medicine Services at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Clinical Research Laboratory Manager at Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1654544121222?e=1761782400&v=beta&t=DagnfdsCAE4_bGxqJvelAdj6lWTWsUFAsRHDJqVsiTE"
+              },
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1654544121222?e=1761782400&v=beta&t=FZh7b3i-6DSQCEFlx1pS51SWWyITpgZ3tIFLlZD1ZTI"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1654544121222?e=1761782400&v=beta&t=R2bKxvgU03D0NAckzWu5zTpi32Qgs7rj1WuaOg_he7E"
+              },
+              {
+                "width": 800,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/C4D03AQEBPaaiFNZH0w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1654544121222?e=1761782400&v=beta&t=4vtiETiT-gMusTa6ia08mc8wyJZro8w3s30jc7XMKis"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "31040",
+                "companyUrn": "urn:li:fsd_company:31040",
+                "companyLink1": "https://www.linkedin.com/company/31040/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHGjJ5LktkYpA/company-logo_200_200/company-logo_200_200/0/1653673825566?e=1761782400&v=beta&t=ZoM6T4rrUjFuiCqyumVmKJOrLqvafdUbCX_rkq4C0U4",
+                "title": "Medaille University",
+                "subtitle": "Master of Arts - MA, Organizational Leadership",
+                "caption": "Aug 2007 - Dec 2009",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Grade: 4.0"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "6502",
+                "companyUrn": "urn:li:fsd_company:6502",
+                "companyLink1": "https://www.linkedin.com/company/6502/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQEk7c2dS0qFGA/company-logo_200_200/company-logo_200_200/0/1660069485905/universityatbuffalo_logo?e=1761782400&v=beta&t=PDDdrwh10qb47yfO8mmaKVdxCWRVmcq447GXZASEiOA",
+                "title": "University at Buffalo",
+                "subtitle": "Doctoral Candidate, Cancer Sciences",
+                "caption": "Aug 2021 - 2025",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Roswell Park"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "81415569",
+                "companyUrn": "urn:li:fsd_company:81415569",
+                "companyLink1": "https://www.linkedin.com/company/81415569/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQEB-yOjd0lGqg/company-logo_200_200/company-logo_200_200/0/1719951935517/mn8energy_logo?e=1761782400&v=beta&t=dkWvtJtMLFlBoPq-tr5dh9DyAJ2m9UlA2DZd-tKMg78",
+                "title": "Certified Diversity and Inclusion Recruiter",
+                "subtitle": "MN8 Energy",
+                "caption": "Issued Jun 2022 \u00b7 Expired Jun 2024",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "758210",
+                "companyUrn": "urn:li:fsd_company:758210",
+                "companyLink1": "https://www.linkedin.com/company/758210/",
+                "logo": "undefinedundefined",
+                "title": "Clinical Laboratory Scientist/Medical Technologist",
+                "subtitle": "NYS",
+                "metadata": "Credential ID 010142",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [
+              {
+                "title": "Roswell Park 25 Year Club",
+                "subtitle": "Issued by Roswell Park \u00b7 Jan 2018",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Associated with Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Black Achiever's in Industry Award",
+                "subtitle": "Issued by Sponsor: Roswell Park \u00b7 Oct 2017",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Associated with Roswell Park Comprehensive Cancer Center"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Top Voices",
+                "section_components": [
+                  {
+                    "titleV2": "Daymond John",
+                    "caption": "2,710,803 followers",
+                    "subtitle": "CEO of FUBU and The Shark Group, TV Personality on ABC Shark Tank, Public Speaker",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/daymondjohn",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Johnny C. Taylor, Jr., SHRM-SCP",
+                    "caption": "506,816 followers",
+                    "subtitle": "President & CEO, SHRM, F500 Board Director",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/johnnyctaylorjr",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "University at Buffalo",
+                    "caption": "274,900 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/6502/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Roswell Park Comprehensive Cancer Center",
+                    "caption": "28,440 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/19224/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "LABORATORY Professionals International",
+                    "caption": "222,902 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/37961",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Clinical Research Professionals",
+                    "caption": "321,031 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/86681",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Newsletters",
+                "section_components": [
+                  {
+                    "titleV2": "Impact in Action",
+                    "caption": "Published monthly",
+                    "subtitle": "At UB, we\u2019re making a difference\u2014advancing research and ideas that move the world forward.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7320859383037366272",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "University at Buffalo",
+                          "actionTarget": "https://www.linkedin.com/company/6502/"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "titleV2": "Money Monday with Suze Orman",
+                    "caption": "Published weekly",
+                    "subtitle": "Actionable advice to inspire your financial life.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/6637704075662110720",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Suze Orman",
+                          "actionTarget": "https://www.linkedin.com/in/suzeorman"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Medaille University",
+                    "caption": "15,172 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/31040/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "University at Buffalo",
+                    "caption": "274,900 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/6502/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 90,
+          "current_title": "executive director",
+          "current_company": "roswell park comprehensive cancer center"
+        },
+        "ai_ranking": {
+          "ranking_score": 82,
+          "decision_authority_level": "High",
+          "persona_category": "Executive Director",
+          "ranking_reasoning": "Executive role with significant experience and authority in clinical research services.",
+          "key_qualifications": [
+            "executive leadership",
+            "clinical research management",
+            "19.7 years experience"
+          ],
+          "potential_influence": "High influence on capital projects and infrastructure decisions",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 2.1,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 2.22
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-23T20:36:21.037812"
+}

@@ -168,7 +168,6 @@ IMPORTANT RULES:
 - DO NOT create job titles, companies, or experience data
 - DO NOT modify any prospect information
 - ONLY provide ranking scores and reasoning based on existing data
-- Rank only prospects with scores ≥ 60
 """
     
     def _apply_rankings_to_prospects(self, ranking_response: Dict, original_prospects: List[Dict]) -> List[Dict]:

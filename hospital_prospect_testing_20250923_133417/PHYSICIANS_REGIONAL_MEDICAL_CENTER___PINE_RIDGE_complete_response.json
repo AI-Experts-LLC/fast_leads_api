@@ -1,0 +1,688 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "PHYSICIANS REGIONAL MEDICAL CENTER - PINE RIDGE",
+    "pipeline_summary": {
+      "search_results_found": 20,
+      "prospects_after_basic_filter": 8,
+      "linkedin_profiles_scraped": 8,
+      "prospects_after_advanced_filter": 1,
+      "final_ranked_prospects": 1
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Jared Odor - Assistant Chief Financial Officer - Physicians ...",
+        "search_snippet": "Assistant Chief Financial Officer. Physicians Regional Healthcare System. Jan 2019 ; Director of Financial Services. Life Care Services. Sep 2016 ; Director of ...",
+        "linkedin_url": "https://www.linkedin.com/in/jaredodor",
+        "target_title": "CFO",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/jaredodor",
+          "name": "Jared Odor",
+          "first_name": "Jared",
+          "last_name": "Odor",
+          "headline": "Assistant Chief Financial Officer",
+          "company": "Physicians Regional Healthcare System",
+          "location": "Naples, Florida",
+          "summary": null,
+          "about": null,
+          "job_title": "Assistant Chief Financial Officer",
+          "company_name": "Physicians Regional Healthcare System",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "physiciansregional.com",
+          "company_linkedin": "linkedin.com/company/physicians-regional-healthcare-system",
+          "company_size": "1001-5000",
+          "company_founded": 1999,
+          "current_job_duration": "6 yrs 9 mos",
+          "current_job_duration_years": 6.75,
+          "connections": 511,
+          "followers": 527,
+          "top_skills_by_endorsements": null,
+          "skills": [
+            {
+              "name": "Financial Analysis",
+              "endorsements": [
+                "5 experiences across Physicians Regional Healthcare System and 3 other companies",
+                "2 educational experiences at University of Florida and 1 other school"
+              ]
+            },
+            {
+              "name": "Accounting",
+              "endorsements": [
+                "5 experiences across Physicians Regional Healthcare System and 3 other companies",
+                "2 educational experiences at University of Florida and 1 other school"
+              ]
+            }
+          ],
+          "skills_count": 2,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "jaredodor",
+          "urn": "ACoAAAqPEw8BMMG9kzITON5rLKf_JJXRjTtIySo",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Naples, Florida, United States",
+          "address_without_country": "Naples, Florida",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Assistant Chief Financial Officer",
+              "company": "Physicians Regional Healthcare System",
+              "duration": "Jan 2019 - Present \u00b7 6 yrs 9 mos",
+              "location": "Naples, Florida",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQHgXv7D57Okig/company-logo_200_200/company-logo_200_200/0/1630638656232/physicians_regional_healthcare_system_logo?e=1761782400&v=beta&t=V4EOnI0hqW8XMt1OZlv7lAL93mndfIqcwrGrZYC4jDQ",
+              "company_link": "https://www.linkedin.com/company/10593920/"
+            },
+            {
+              "title": "Director of Financial Services",
+              "company": "Life Care Services",
+              "duration": "Sep 2016 - Jan 2019 \u00b7 2 yrs 5 mos",
+              "location": "Naples, Florida Area",
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Director of Financial Services at The Glenview at Pelican Bay, a continuing care retirement community in Naples, FL consisting of 118 independent living units, a private duty home health agency, and a 42 bed skilled nursing facility."
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQE_ZsmNSuTRmA/company-logo_400_400/B56ZjyLRB6HkAY-/0/1756409696743/life_care_services_logo?e=1761782400&v=beta&t=8gv7E-Ml0II0kQNUXtAJONaM2D9pisAjvjwKNuUCeCQ",
+              "company_link": "https://www.linkedin.com/company/47076/"
+            },
+            {
+              "title": "Director of Financial Services",
+              "company": "Brookdale",
+              "duration": "2012 - 2016 \u00b7 4 yrs",
+              "location": "Naples, Florida Area",
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Director of Financial Services at The Glenview at Pelican Bay, a continuing care retirement community in Naples, FL consisting of 118 independent living units, a private duty home health agency, and a 42 bed skilled nursing facility."
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQFYvQhdYh1eBA/company-logo_200_200/company-logo_200_200/0/1631310396770?e=1761782400&v=beta&t=L1EBn4rL7kfEj8i5vLnLlNlub-oFrtwCv94H19IvC_c",
+              "company_link": "https://www.linkedin.com/company/11356/"
+            },
+            {
+              "title": "Health Management Associates, Inc.",
+              "company": "4 yrs 1 mo",
+              "duration": "Naples, Florida Area",
+              "location": null,
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Controller at Physicians Regional Healthcare System in Naples, FL."
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQF0cBo-0oxHNQ/company-logo_200_200/company-logo_200_200/0/1631375094537?e=1761782400&v=beta&t=vlezWqjriEWMTKOcWILyWGElJwArNiua9SNOdafc45U",
+              "company_link": "https://www.linkedin.com/company/408065/"
+            }
+          ],
+          "experience_count": 4,
+          "total_experience_years": 13.2,
+          "industry_experience": {
+            "healthcare": 6.8,
+            "other": 6.4
+          },
+          "education": [
+            {
+              "school": "University of Florida",
+              "degree": "Master of Business Administration (MBA)",
+              "duration": "2012 - 2013",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEEUHxMAR-Q6w/company-logo_200_200/company-logo_200_200/0/1671048448447/uflorida_logo?e=1761782400&v=beta&t=jiCEHKT0GlwnqP8N6wnj0i_joO-UIcVN2BaMYCpbIhg",
+              "school_link": "https://www.linkedin.com/company/4282/"
+            },
+            {
+              "school": "Asbury University",
+              "degree": "Bachelor of Arts (B.A.), Business, Management",
+              "duration": "2004 - 2007",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQH0ChZmJMQ_Fg/company-logo_200_200/company-logo_200_200/0/1631307417633?e=1761782400&v=beta&t=28Tg5YGicsD4Xb2RrND8sNgIIkYMEUryJm2DjnYBXMo",
+              "school_link": "https://www.linkedin.com/company/20985/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Master of Business Administration (MBA)",
+          "alma_maters": [
+            "University of Florida",
+            "Asbury University"
+          ],
+          "interests": [
+            {
+              "section_name": "Top Voices",
+              "section_components": [
+                {
+                  "titleV2": "Tim Tebow",
+                  "caption": "2,149,880 followers",
+                  "subtitle": "Follower of Jesus Christ, 5x NYT Best-Selling Author, 2x National Champion, Heisman Trophy Winner, Founder & Chairman of the Tim Tebow Foundation, The Tebow Group and ESPN Analyst.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/timtebow15",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "HCA Healthcare",
+                  "caption": "789,760 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/3626/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "University of Florida",
+                  "caption": "629,663 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/4282/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "UF Alumni Association",
+                  "caption": "21,359 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/70765",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "GatorMBA",
+                  "caption": "2,237 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/27284",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Newsletters",
+              "section_components": [
+                {
+                  "titleV2": "Revenue Cycle Report",
+                  "caption": "Published monthly",
+                  "subtitle": "Monthly analysis + insights around the latest in revenue cycle management, brought to you by Ensemble Health Partners.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7172973510817001473",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Ensemble Health Partners",
+                        "actionTarget": "https://www.linkedin.com/company/5307136/"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "titleV2": "Becker's Hospital Review",
+                  "caption": "Published weekly",
+                  "subtitle": "Top hospital and healthcare articles, delivered weekly.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7077369506653753344",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Becker's Healthcare",
+                        "actionTarget": "https://www.linkedin.com/company/301340/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Florida Gulf Coast University",
+                  "caption": "77,960 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/18774/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Asbury University",
+                  "caption": "14,806 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/20985/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 8,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 56,
+          "total_sections_completed": 6,
+          "interests_count": 5,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 34,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 75,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/jaredodor",
+            "firstName": "Jared",
+            "lastName": "Odor",
+            "fullName": "Jared Odor",
+            "headline": "Assistant Chief Financial Officer",
+            "connections": 511,
+            "followers": 527,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Assistant Chief Financial Officer",
+            "companyName": "Physicians Regional Healthcare System",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "physiciansregional.com",
+            "companyLinkedin": "linkedin.com/company/physicians-regional-healthcare-system",
+            "companyFoundedIn": 1999,
+            "companySize": "1001-5000",
+            "currentJobDuration": "6 yrs 9 mos",
+            "currentJobDurationInYrs": 6.75,
+            "topSkillsByEndorsements": null,
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Naples, Florida, United States",
+            "addressWithoutCountry": "Naples, Florida",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1643336723756?e=1761782400&v=beta&t=doAVZYnFx4wJ_KvsY_MoIZLh7fgEW5gD08gCtTBRtpo",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1643336723756?e=1761782400&v=beta&t=gA_Hsd1Qw_CauSccd6g1Ltb52z_hberFwpp45PC1bnU",
+            "about": null,
+            "publicIdentifier": "jaredodor",
+            "openConnection": null,
+            "urn": "ACoAAAqPEw8BMMG9kzITON5rLKf_JJXRjTtIySo",
+            "experiences": [
+              {
+                "companyId": "10593920",
+                "companyUrn": "urn:li:fsd_company:10593920",
+                "companyLink1": "https://www.linkedin.com/company/10593920/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHgXv7D57Okig/company-logo_200_200/company-logo_200_200/0/1630638656232/physicians_regional_healthcare_system_logo?e=1761782400&v=beta&t=V4EOnI0hqW8XMt1OZlv7lAL93mndfIqcwrGrZYC4jDQ",
+                "title": "Assistant Chief Financial Officer",
+                "subtitle": "Physicians Regional Healthcare System",
+                "caption": "Jan 2019 - Present \u00b7 6 yrs 9 mos",
+                "metadata": "Naples, Florida",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "47076",
+                "companyUrn": "urn:li:fsd_company:47076",
+                "companyLink1": "https://www.linkedin.com/company/47076/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQE_ZsmNSuTRmA/company-logo_400_400/B56ZjyLRB6HkAY-/0/1756409696743/life_care_services_logo?e=1761782400&v=beta&t=8gv7E-Ml0II0kQNUXtAJONaM2D9pisAjvjwKNuUCeCQ",
+                "title": "Director of Financial Services",
+                "subtitle": "Life Care Services",
+                "caption": "Sep 2016 - Jan 2019 \u00b7 2 yrs 5 mos",
+                "metadata": "Naples, Florida Area",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Director of Financial Services at The Glenview at Pelican Bay, a continuing care retirement community in Naples, FL consisting of 118 independent living units, a private duty home health agency, and a 42 bed skilled nursing facility."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "11356",
+                "companyUrn": "urn:li:fsd_company:11356",
+                "companyLink1": "https://www.linkedin.com/company/11356/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQFYvQhdYh1eBA/company-logo_200_200/company-logo_200_200/0/1631310396770?e=1761782400&v=beta&t=L1EBn4rL7kfEj8i5vLnLlNlub-oFrtwCv94H19IvC_c",
+                "title": "Director of Financial Services",
+                "subtitle": "Brookdale",
+                "caption": "2012 - 2016 \u00b7 4 yrs",
+                "metadata": "Naples, Florida Area",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Director of Financial Services at The Glenview at Pelican Bay, a continuing care retirement community in Naples, FL consisting of 118 independent living units, a private duty home health agency, and a 42 bed skilled nursing facility."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "408065",
+                "companyUrn": "urn:li:fsd_company:408065",
+                "companyLink1": "https://www.linkedin.com/company/408065/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQF0cBo-0oxHNQ/company-logo_200_200/company-logo_200_200/0/1631375094537?e=1761782400&v=beta&t=vlezWqjriEWMTKOcWILyWGElJwArNiua9SNOdafc45U",
+                "title": "Health Management Associates, Inc.",
+                "subtitle": "4 yrs 1 mo",
+                "caption": "Naples, Florida Area",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Controller",
+                    "caption": "2010 - 2012 \u00b7 2 yrs",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Controller at Physicians Regional Healthcare System in Naples, FL."
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Assistant Controller",
+                    "caption": "2008 - 2010 \u00b7 2 yrs",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Assistant Controller at Physicians Regional Healthcare System in Naples, FL."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Financial Analysis",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 experiences across Physicians Regional Healthcare System and 3 other companies"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "2 educational experiences at University of Florida and 1 other school"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Accounting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 experiences across Physicians Regional Healthcare System and 3 other companies"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "2 educational experiences at University of Florida and 1 other school"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1643336723756?e=1761782400&v=beta&t=doAVZYnFx4wJ_KvsY_MoIZLh7fgEW5gD08gCtTBRtpo"
+              },
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1643336723756?e=1761782400&v=beta&t=gkAXFrg9RU0j-5yHBNl_VCRUbmhH9CoMyGkuvntmtLA"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1643336723756?e=1761782400&v=beta&t=fz6YaMXLjt6zuX7pfea0enTcvoS-tjZN-NfOhPhACDE"
+              },
+              {
+                "width": 800,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQEOwd0rQNgJ0w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1643336723756?e=1761782400&v=beta&t=gA_Hsd1Qw_CauSccd6g1Ltb52z_hberFwpp45PC1bnU"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "4282",
+                "companyUrn": "urn:li:fsd_company:4282",
+                "companyLink1": "https://www.linkedin.com/company/4282/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEEUHxMAR-Q6w/company-logo_200_200/company-logo_200_200/0/1671048448447/uflorida_logo?e=1761782400&v=beta&t=jiCEHKT0GlwnqP8N6wnj0i_joO-UIcVN2BaMYCpbIhg",
+                "title": "University of Florida",
+                "subtitle": "Master of Business Administration (MBA)",
+                "caption": "2012 - 2013",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "20985",
+                "companyUrn": "urn:li:fsd_company:20985",
+                "companyLink1": "https://www.linkedin.com/company/20985/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQH0ChZmJMQ_Fg/company-logo_200_200/company-logo_200_200/0/1631307417633?e=1761782400&v=beta&t=28Tg5YGicsD4Xb2RrND8sNgIIkYMEUryJm2DjnYBXMo",
+                "title": "Asbury University",
+                "subtitle": "Bachelor of Arts (B.A.), Business, Management",
+                "caption": "2004 - 2007",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Top Voices",
+                "section_components": [
+                  {
+                    "titleV2": "Tim Tebow",
+                    "caption": "2,149,880 followers",
+                    "subtitle": "Follower of Jesus Christ, 5x NYT Best-Selling Author, 2x National Champion, Heisman Trophy Winner, Founder & Chairman of the Tim Tebow Foundation, The Tebow Group and ESPN Analyst.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/timtebow15",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "HCA Healthcare",
+                    "caption": "789,760 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/3626/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "University of Florida",
+                    "caption": "629,663 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/4282/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "UF Alumni Association",
+                    "caption": "21,359 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/70765",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "GatorMBA",
+                    "caption": "2,237 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/27284",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Newsletters",
+                "section_components": [
+                  {
+                    "titleV2": "Revenue Cycle Report",
+                    "caption": "Published monthly",
+                    "subtitle": "Monthly analysis + insights around the latest in revenue cycle management, brought to you by Ensemble Health Partners.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7172973510817001473",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Ensemble Health Partners",
+                          "actionTarget": "https://www.linkedin.com/company/5307136/"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "titleV2": "Becker's Hospital Review",
+                    "caption": "Published weekly",
+                    "subtitle": "Top hospital and healthcare articles, delivered weekly.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7077369506653753344",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Becker's Healthcare",
+                          "actionTarget": "https://www.linkedin.com/company/301340/"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Florida Gulf Coast University",
+                    "caption": "77,960 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/18774/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Asbury University",
+                    "caption": "14,806 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/20985/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 100,
+          "current_title": "assistant chief financial officer",
+          "current_company": "physicians regional healthcare system"
+        },
+        "ai_ranking": {
+          "ranking_score": 75,
+          "decision_authority_level": "Medium",
+          "persona_category": "Finance Director",
+          "ranking_reasoning": "Assistant CFO with significant financial oversight, but limited direct infrastructure experience.",
+          "key_qualifications": [
+            "financial analysis",
+            "budget authority",
+            "13+ years experience"
+          ],
+          "potential_influence": "Influences budget decisions related to energy infrastructure",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 1.2,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 1.32
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-23T20:34:39.925809"
+}

@@ -1,0 +1,1731 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "MAYO CLINIC HOSPITAL",
+    "pipeline_summary": {
+      "search_results_found": 20,
+      "prospects_after_basic_filter": 15,
+      "linkedin_profiles_scraped": 10,
+      "prospects_after_advanced_filter": 5,
+      "final_ranked_prospects": 2
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Neal Morgan, MPA, CHPA - Director Facility Services",
+        "search_snippet": "Experience ; Director Facility Services. Mayo Clinic. Jul 2005 - Present 20 years 3 months ; Adjunct Faculty. University of Phoenix. 2012 - 2018 6 years ; Patrol ...",
+        "linkedin_url": "https://www.linkedin.com/in/neal-morgan-mpa-chpa-ba49b9b7",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/neal-morgan-mpa-chpa-ba49b9b7",
+          "name": "Neal Morgan, MPA, CHPA",
+          "first_name": "Neal",
+          "last_name": "Morgan, MPA, CHPA",
+          "headline": "Director Facility Services",
+          "company": "Mayo Clinic",
+          "location": "Jacksonville, Florida",
+          "summary": "Experienced Director Facility Services with a demonstrated history of working in the hospital & health care industry. Skilled in crisis management, government, law enforcement, emergency management, and surveillance. Strong operations professional with a Master of Public Administration (MPA) focused in Disaster and Emergency Management from Park University.",
+          "about": "Experienced Director Facility Services with a demonstrated history of working in the hospital & health care industry. Skilled in crisis management, government, law enforcement, emergency management, and surveillance. Strong operations professional with a Master of Public Administration (MPA) focused in Disaster and Emergency Management from Park University.",
+          "job_title": "Director Facility Services",
+          "company_name": "Mayo Clinic",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "mayoclinic.org",
+          "company_linkedin": "linkedin.com/company/mayo-clinic",
+          "company_size": "10001+",
+          "company_founded": 1978,
+          "current_job_duration": "20 yrs 3 mos",
+          "current_job_duration_years": 20.25,
+          "connections": 634,
+          "followers": 636,
+          "top_skills_by_endorsements": "Emergency Management, Physical Security, Law Enforcement, Surveillance, Security",
+          "skills": [
+            {
+              "name": "Security",
+              "endorsements": [
+                "Endorsed by Jim Stankevich and 3 others who are highly skilled at this",
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Leadership",
+              "endorsements": [
+                "John D. Byrnes, D.Hum, FACHT and 5 connections have given endorsements for this skill",
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Physical Security",
+              "endorsements": [
+                "Endorsed by Marty Williams BA, MA, CPP, CHPA and 3 others who are highly skilled at this",
+                "12 endorsements"
+              ]
+            },
+            {
+              "name": "Emergency Management",
+              "endorsements": [
+                "15 endorsements"
+              ]
+            },
+            {
+              "name": "Law Enforcement",
+              "endorsements": [
+                "12 endorsements"
+              ]
+            },
+            {
+              "name": "Military",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Risk Assessment",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Surveillance",
+              "endorsements": [
+                "10 endorsements"
+              ]
+            },
+            {
+              "name": "Government",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Criminal Investigations",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Crisis Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Security Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Criminal Justice",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Private Investigations",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Security Operations",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            }
+          ],
+          "skills_count": 15,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "neal-morgan-mpa-chpa-ba49b9b7",
+          "urn": "ACoAABjjGmwBaFeelE1ZbB9pnxLjkwE_wYxPk_g",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Jacksonville, Florida, United States",
+          "address_without_country": "Jacksonville, Florida",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director Facility Services",
+              "company": "Mayo Clinic",
+              "duration": "Jul 2005 - Present \u00b7 20 yrs 3 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQGjjBAwJnHDFQ/company-logo_200_200/company-logo_200_200/0/1705432100531/mayo_clinic_logo?e=1761782400&v=beta&t=20OMKq8iXACx9nfzGzTL_WLrMyJ7TZjuVBZNmLmquz8",
+              "company_link": "https://www.linkedin.com/company/4725/"
+            },
+            {
+              "title": "Adjunct Faculty",
+              "company": "University of Phoenix",
+              "duration": "2012 - 2018 \u00b7 6 yrs",
+              "location": null,
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Security Management and Criminal Justice."
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQEGQYvlDi-5OQ/company-logo_200_200/company-logo_200_200/0/1630646463814/university_of_phoenix_logo?e=1761782400&v=beta&t=GN8Kqm3DYCYwO1w6v7JreDvNW4gXC8s6nU5v1vRLzRU",
+              "company_link": "https://www.linkedin.com/company/3050/"
+            },
+            {
+              "title": "Patrol Officer",
+              "company": "Raytown Police Department",
+              "duration": "Jan 1994 - May 2001 \u00b7 7 yrs 5 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQEKLBxecCncLw/company-logo_200_200/company-logo_200_200/0/1630566125765/raytown_police_department_logo?e=1761782400&v=beta&t=Bveb_hKUgbpo26NnvIiSUMR6HPNwiwlOUZdu0cxzxaM",
+              "company_link": "https://www.linkedin.com/company/2786512/"
+            }
+          ],
+          "experience_count": 3,
+          "total_experience_years": 33.7,
+          "industry_experience": {
+            "healthcare": 20.2,
+            "education": 6.0,
+            "other": 7.4
+          },
+          "education": [
+            {
+              "school": "Park University",
+              "degree": "Master of Public Administration (MPA), Disaster and Emergency Management",
+              "duration": "2006 - 2010",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D560BAQG5DU8yA4IQ3A/company-logo_200_200/company-logo_200_200/0/1736736897096/parkuniversity_logo?e=1761782400&v=beta&t=tnaE2clUpdnCtxt_3HeGGFDjvc0UTcxZnhb4Z0vXcAU",
+              "school_link": "https://www.linkedin.com/company/19550/"
+            }
+          ],
+          "education_count": 1,
+          "highest_degree": "Master of Public Administration (MPA), Disaster and Emergency Management",
+          "alma_maters": [
+            "Park University"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Mayo Clinic",
+                  "caption": "1,530,061 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/4725/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "The Heritage Foundation",
+                  "caption": "107,411 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/14681/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "Criminal Justice Specialists",
+                  "caption": "25,238 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/108046",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "10194781",
+              "companyUrn": "urn:li:fsd_company:10194781",
+              "companyLink1": "https://www.linkedin.com/company/10194781/",
+              "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGF5R8brHdTRw/company-logo_200_200/company-logo_200_200/0/1631355428930?e=1761782400&v=beta&t=KuoGzjCR1vzoaK3LKXNR6gECpof9X31IpiJmJcfh-50",
+              "title": "Certified Healthcare Protection Administrator",
+              "subtitle": "International Association for Healthcare Security and Safety (IAHSS)",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 104,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 66,
+          "total_sections_completed": 7,
+          "interests_count": 2,
+          "languages_count": 0,
+          "certifications_count": 1,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 52,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/neal-morgan-mpa-chpa-ba49b9b7",
+            "firstName": "Neal",
+            "lastName": "Morgan, MPA, CHPA",
+            "fullName": "Neal Morgan, MPA, CHPA",
+            "headline": "Director Facility Services",
+            "connections": 634,
+            "followers": 636,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Director Facility Services",
+            "companyName": "Mayo Clinic",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "mayoclinic.org",
+            "companyLinkedin": "linkedin.com/company/mayo-clinic",
+            "companyFoundedIn": 1978,
+            "companySize": "10001+",
+            "currentJobDuration": "20 yrs 3 mos",
+            "currentJobDurationInYrs": 20.25,
+            "topSkillsByEndorsements": "Emergency Management, Physical Security, Law Enforcement, Surveillance, Security",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Jacksonville, Florida, United States",
+            "addressWithoutCountry": "Jacksonville, Florida",
+            "profilePic": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1664313414785?e=1761782400&v=beta&t=EuMlJ0wc0buyFOya11fHunw3g9no-l5sJoZsFzVd3Ag",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1664313414785?e=1761782400&v=beta&t=pY24fyJzzzKtY9z7HKJS0FAG8GP5-TTYtb6ihSCxNkw",
+            "about": "Experienced Director Facility Services with a demonstrated history of working in the hospital & health care industry. Skilled in crisis management, government, law enforcement, emergency management, and surveillance. Strong operations professional with a Master of Public Administration (MPA) focused in Disaster and Emergency Management from Park University.",
+            "publicIdentifier": "neal-morgan-mpa-chpa-ba49b9b7",
+            "openConnection": null,
+            "urn": "ACoAABjjGmwBaFeelE1ZbB9pnxLjkwE_wYxPk_g",
+            "experiences": [
+              {
+                "companyId": "4725",
+                "companyUrn": "urn:li:fsd_company:4725",
+                "companyLink1": "https://www.linkedin.com/company/4725/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQGjjBAwJnHDFQ/company-logo_200_200/company-logo_200_200/0/1705432100531/mayo_clinic_logo?e=1761782400&v=beta&t=20OMKq8iXACx9nfzGzTL_WLrMyJ7TZjuVBZNmLmquz8",
+                "title": "Director Facility Services",
+                "subtitle": "Mayo Clinic \u00b7 Full-time",
+                "caption": "Jul 2005 - Present \u00b7 20 yrs 3 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "3050",
+                "companyUrn": "urn:li:fsd_company:3050",
+                "companyLink1": "https://www.linkedin.com/company/3050/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEGQYvlDi-5OQ/company-logo_200_200/company-logo_200_200/0/1630646463814/university_of_phoenix_logo?e=1761782400&v=beta&t=GN8Kqm3DYCYwO1w6v7JreDvNW4gXC8s6nU5v1vRLzRU",
+                "title": "Adjunct Faculty",
+                "subtitle": "University of Phoenix",
+                "caption": "2012 - 2018 \u00b7 6 yrs",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Security Management and Criminal Justice."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "2786512",
+                "companyUrn": "urn:li:fsd_company:2786512",
+                "companyLink1": "https://www.linkedin.com/company/2786512/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEKLBxecCncLw/company-logo_200_200/company-logo_200_200/0/1630566125765/raytown_police_department_logo?e=1761782400&v=beta&t=Bveb_hKUgbpo26NnvIiSUMR6HPNwiwlOUZdu0cxzxaM",
+                "title": "Patrol Officer",
+                "subtitle": "Raytown Police Department",
+                "caption": "Jan 1994 - May 2001 \u00b7 7 yrs 5 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Security",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Jim Stankevich and 3 others who are highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Leadership",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "John D. Byrnes, D.Hum, FACHT and 5 connections have given endorsements for this skill"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Physical Security",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Marty Williams BA, MA, CPP, CHPA and 3 others who are highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "12 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Emergency Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "15 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Law Enforcement",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "12 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Military",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Risk Assessment",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Surveillance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "10 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Government",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Criminal Investigations",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Crisis Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Security Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Criminal Justice",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Private Investigations",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Security Operations",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1664313414785?e=1761782400&v=beta&t=EuMlJ0wc0buyFOya11fHunw3g9no-l5sJoZsFzVd3Ag"
+              },
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1664313414785?e=1761782400&v=beta&t=NWzx7JUF-zJ63yWiJjNF58O2WbBdj6yVbNndutyIr6o"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1664313414785?e=1761782400&v=beta&t=mk2rLuz2F60ERRw5VXFnwrVm0oh5BlxgGoPxznkNxfw"
+              },
+              {
+                "width": 640,
+                "height": 640,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQF8Ncoo2YK1MA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1664313414785?e=1761782400&v=beta&t=pY24fyJzzzKtY9z7HKJS0FAG8GP5-TTYtb6ihSCxNkw"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "19550",
+                "companyUrn": "urn:li:fsd_company:19550",
+                "companyLink1": "https://www.linkedin.com/company/19550/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQG5DU8yA4IQ3A/company-logo_200_200/company-logo_200_200/0/1736736897096/parkuniversity_logo?e=1761782400&v=beta&t=tnaE2clUpdnCtxt_3HeGGFDjvc0UTcxZnhb4Z0vXcAU",
+                "title": "Park University",
+                "subtitle": "Master of Public Administration (MPA), Disaster and Emergency Management",
+                "caption": "2006 - 2010",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "10194781",
+                "companyUrn": "urn:li:fsd_company:10194781",
+                "companyLink1": "https://www.linkedin.com/company/10194781/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGF5R8brHdTRw/company-logo_200_200/company-logo_200_200/0/1631355428930?e=1761782400&v=beta&t=KuoGzjCR1vzoaK3LKXNR6gECpof9X31IpiJmJcfh-50",
+                "title": "Certified Healthcare Protection Administrator",
+                "subtitle": "International Association for Healthcare Security and Safety (IAHSS)",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Mayo Clinic",
+                    "caption": "1,530,061 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/4725/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "The Heritage Foundation",
+                    "caption": "107,411 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/14681/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "Criminal Justice Specialists",
+                    "caption": "25,238 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/108046",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 90,
+          "current_title": "director facility services",
+          "current_company": "mayo clinic"
+        },
+        "ai_ranking": {
+          "ranking_score": 85,
+          "decision_authority_level": "High",
+          "persona_category": "Facilities Director",
+          "ranking_reasoning": "20+ years in facility services, strong operational focus, and seniority.",
+          "key_qualifications": [
+            "extensive experience in healthcare facilities",
+            "senior leadership role",
+            "crisis management expertise"
+          ],
+          "potential_influence": "Direct decision maker for facility-related infrastructure projects",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      },
+      {
+        "search_title": "James Wilson - Mayo Clinic Health System",
+        "search_snippet": "Strategic and results-driven Senior Executive with extensive experience implementing\u2026 \u00b7 Experience: Mayo Clinic Health System \u00b7 Education: Regis University ...",
+        "linkedin_url": "https://www.linkedin.com/in/james-wilson-57718b7b",
+        "target_title": "CFO",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/james-wilson-57718b7b",
+          "name": null,
+          "first_name": null,
+          "last_name": null,
+          "headline": null,
+          "company": "Mayo Clinic Health System",
+          "location": "Greater Chicago Area",
+          "summary": "Strategic and results-driven Senior Executive with extensive experience implementing efficient and cost-effective business practices that herald business transformations, maximize revenue growth, and strengthen company presence across large-scale healthcare environments. Proven track record designing and executing intuitive, comprehensive solutions that promote strategy development, process improvement, and quality assurance across multi-site medical operations. Action-oriented innovator able to optimize available financial resources while maintaining regulatory compliance and high-levels of HCAHPS and Core Measures scores. Noted leader and mentor adept at building and maintaining successful cross-functional departments. History of implementing large-scale business-development initiatives that re-engineer previously downturned healthcare frameworks and drive revenue growth and profitability. Demonstrated success spearheading acquisitions of numerous hospitals guaranteeing streamlined integration of operations. Award-winning professional continually recognized for service excellence, improving bad debt, and increasing margins. \n\nAreas of Expertise\nHealthcare Management \u2013 Mergers and Acquisitions \u2013 Financial Management \u2013 Contract Negotiations \u2013 Process Improvement\nVendor/Customer Relations \u2013 Performance Management \u2013 Strategic Planning \u2013 Revenue Growth \u2013 Cost-Effective Strategies\nTurnaround Strategies \u2013 Change Management \u2013 Regulatory Compliance \u2013 Recruiting \u2013 Relationship Management",
+          "about": "Strategic and results-driven Senior Executive with extensive experience implementing efficient and cost-effective business practices that herald business transformations, maximize revenue growth, and strengthen company presence across large-scale healthcare environments. Proven track record designing and executing intuitive, comprehensive solutions that promote strategy development, process improvement, and quality assurance across multi-site medical operations. Action-oriented innovator able to optimize available financial resources while maintaining regulatory compliance and high-levels of HCAHPS and Core Measures scores. Noted leader and mentor adept at building and maintaining successful cross-functional departments. History of implementing large-scale business-development initiatives that re-engineer previously downturned healthcare frameworks and drive revenue growth and profitability. Demonstrated success spearheading acquisitions of numerous hospitals guaranteeing streamlined integration of operations. Award-winning professional continually recognized for service excellence, improving bad debt, and increasing margins. \n\nAreas of Expertise\nHealthcare Management \u2013 Mergers and Acquisitions \u2013 Financial Management \u2013 Contract Negotiations \u2013 Process Improvement\nVendor/Customer Relations \u2013 Performance Management \u2013 Strategic Planning \u2013 Revenue Growth \u2013 Cost-Effective Strategies\nTurnaround Strategies \u2013 Change Management \u2013 Regulatory Compliance \u2013 Recruiting \u2013 Relationship Management",
+          "job_title": "Chief Financial Officer",
+          "company_name": "Mayo Clinic Health System",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "mayoclinichealthsystem.org",
+          "company_linkedin": "linkedin.com/company/mayo-clinic-health-system-in-eau-claire",
+          "company_size": "10001+",
+          "company_founded": 1908,
+          "current_job_duration": "3 yrs 2 mos",
+          "current_job_duration_years": 3.17,
+          "connections": 5805,
+          "followers": 6345,
+          "top_skills_by_endorsements": "Healthcare, Physicians, Leadership, Strategic Planning, Healthcare Consulting",
+          "skills": [
+            {
+              "name": "Revenue Cycle",
+              "endorsements": [
+                "Endorsed by 2 colleagues at Sinai Chicago",
+                "Endorsed by 2 people in the last 6 months",
+                "30 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Management",
+              "endorsements": [
+                "Endorsed by Jim Snider and 12 others who are highly skilled at this",
+                "Endorsed by 4 colleagues at Sinai Chicago",
+                "99+ endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare",
+              "endorsements": [
+                "Endorsed by Joelle Vlahakis and 15 others who are highly skilled at this",
+                "Endorsed by 3 colleagues at Sinai Chicago",
+                "99 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Consulting",
+              "endorsements": [
+                "32 endorsements"
+              ]
+            },
+            {
+              "name": "HIPAA",
+              "endorsements": [
+                "13 endorsements"
+              ]
+            },
+            {
+              "name": "Medicare",
+              "endorsements": [
+                "11 endorsements"
+              ]
+            },
+            {
+              "name": "Physician Relations",
+              "endorsements": [
+                "22 endorsements"
+              ]
+            },
+            {
+              "name": "Managed Care",
+              "endorsements": [
+                "8 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Industry",
+              "endorsements": [
+                "9 endorsements"
+              ]
+            },
+            {
+              "name": "Physicians",
+              "endorsements": [
+                "90 endorsements"
+              ]
+            },
+            {
+              "name": "Strategic Planning",
+              "endorsements": [
+                "36 endorsements"
+              ]
+            },
+            {
+              "name": "Revenue Cycle Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Financial Analysis",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Leadership",
+              "endorsements": [
+                "64 endorsements"
+              ]
+            },
+            {
+              "name": "Budgets",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Managerial Finance",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Practice Management",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Executive Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Financial Reporting",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Health Insurance",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": null,
+          "urn": "ACoAABDvEWsBihXSDoK4gZNYV8dO-rKTRT1eP6w",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Greater Chicago Area",
+          "address_without_country": "Greater Chicago Area",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Chief Financial Officer",
+              "company": "Mayo Clinic Health System",
+              "duration": "Aug 2022 - Present \u00b7 3 yrs 2 mos",
+              "location": "Rochester, Minnesota, United States",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQFpFSTHPtaDwQ/company-logo_200_200/company-logo_200_200/0/1709311775196/mayo_clinic_health_system_logo?e=1761782400&v=beta&t=jzjqcxZANCkqSfohhfiIBPkbFjTxQzdrGlmVOrXwso0",
+              "company_link": "https://www.linkedin.com/company/1033297/"
+            },
+            {
+              "title": "System Vice President of Financial Operations",
+              "company": "Rush University Medical Center",
+              "duration": "Jan 2019 - Jul 2022 \u00b7 3 yrs 7 mos",
+              "location": "Chicago, Illinois",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGH4NwDsoA5sQ/company-logo_200_200/company-logo_200_200/0/1631376024405/rush_university_medical_center_logo?e=1761782400&v=beta&t=M9zer2M5W7VUANDv7kpre1U6obquXn4-z2a4q8O2Qb4",
+              "company_link": "https://www.linkedin.com/company/7488/"
+            },
+            {
+              "title": "Chief Financial Officer, Philadelphia Market",
+              "company": "Prime Healthcare",
+              "duration": "Oct 2018 - Dec 2019 \u00b7 1 yr 3 mos",
+              "location": "Greater Philadelphia",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQFG2toFSYo_3w/company-logo_200_200/company-logo_200_200/0/1669750703590/prime_healthcare_logo?e=1761782400&v=beta&t=_3pyZGzdxASJFqO8iMwXGUPvFQj0YLX2c3A1-_wiTYo",
+              "company_link": "https://www.linkedin.com/company/1129552/"
+            },
+            {
+              "title": "System VP of Finance",
+              "company": "Sinai Health System",
+              "duration": "Jul 2015 - Dec 2018 \u00b7 3 yrs 6 mos",
+              "location": "Chicago, Illinois",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQG_lpXwCaEmew/img-crop_100/B56ZfYSgsuG0AM-/0/1751680421184?e=1761782400&v=beta&t=fXvb1WgIUWokAKiB7_w5d8SUsiHA4vqtLACZnNjjUtg",
+              "company_link": "https://www.linkedin.com/company/16121/"
+            },
+            {
+              "title": "Community Health Systems",
+              "company": "1 yr 6 mos",
+              "duration": null,
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQH0xhiEvqy5_w/company-logo_100_100/B56ZWG3UB1HEAU-/0/1741724402093/community_health_systems_logo?e=1761782400&v=beta&t=ksnOussVnds1I11FQe1u6f50Aq7rO6b8PZFuA4LDikM",
+              "company_link": "https://www.linkedin.com/company/9893/"
+            }
+          ],
+          "experience_count": 5,
+          "total_experience_years": 11.5,
+          "industry_experience": {
+            "healthcare": 11.5,
+            "other": 0.0
+          },
+          "education": [
+            {
+              "school": "Regis University",
+              "degree": "Master of Business Administration (MBA), Health/Health Care Administration/Management",
+              "duration": "2000 - 2002",
+              "activities": [],
+              "school_logo": null,
+              "school_link": "https://www.linkedin.com/search/results/all/?keywords=Regis+University"
+            },
+            {
+              "school": "Creighton University",
+              "degree": "Bachelor of Science (BS), Accounting",
+              "duration": "1987 - 1991",
+              "activities": [],
+              "school_logo": null,
+              "school_link": "https://www.linkedin.com/search/results/all/?keywords=Creighton+University"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Master of Business Administration (MBA), Health/Health Care Administration/Management",
+          "alma_maters": [
+            "Regis University",
+            "Creighton University"
+          ],
+          "interests": [
+            {
+              "section_name": "Top Voices",
+              "section_components": [
+                {
+                  "titleV2": "Justin Trudeau",
+                  "caption": "5,508,850 followers",
+                  "subtitle": "Prime Minister of Canada | Premier ministre du Canada",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/justintrudeau",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Gianrico Farrugia, M.D.",
+                  "caption": "96,320 followers",
+                  "subtitle": "President and CEO at Mayo Clinic",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/gianricofarrugia",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "GE HealthCare",
+                  "caption": "2,619,367 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1016/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Deloitte",
+                  "caption": "19,803,140 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1038/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "LGBTQ Professionals Network",
+                  "caption": "110,726 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/13777873",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Artificial Intelligence, Machine Learning, Data Science & Robotics",
+                  "caption": "2,999,972 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/3990648",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Newsletters",
+              "section_components": [
+                {
+                  "titleV2": "Becker's Hospital Review",
+                  "caption": "Published weekly",
+                  "subtitle": "Top hospital and healthcare articles, delivered weekly.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7077369506653753344",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Becker's Healthcare",
+                        "actionTarget": "https://www.linkedin.com/company/301340/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Creighton University School of Law",
+                  "caption": "10,558 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/15099622/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Jefferson Health",
+                  "caption": "116,213 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/14736/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 585,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 46,
+          "total_sections_completed": 5,
+          "interests_count": 5,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 20,
+          "accessibility_score": 50,
+          "professional_authority_score": 50,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 65,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/james-wilson-57718b7b",
+            "firstName": null,
+            "lastName": null,
+            "fullName": null,
+            "headline": null,
+            "connections": 5805,
+            "followers": 6345,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Chief Financial Officer",
+            "companyName": "Mayo Clinic Health System",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "mayoclinichealthsystem.org",
+            "companyLinkedin": "linkedin.com/company/mayo-clinic-health-system-in-eau-claire",
+            "companyFoundedIn": 1908,
+            "companySize": "10001+",
+            "currentJobDuration": "3 yrs 2 mos",
+            "currentJobDurationInYrs": 3.17,
+            "topSkillsByEndorsements": "Healthcare, Physicians, Leadership, Strategic Planning, Healthcare Consulting",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Greater Chicago Area",
+            "addressWithoutCountry": "Greater Chicago Area",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1659480465486?e=1761782400&v=beta&t=7QmNhi1Wh9qapoSrZjNpj3FhB1bxkNVHLJsom7g_qhg",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1659480465486?e=1761782400&v=beta&t=IXg0KI4teUc_qiLg_YS4_QMcCI0WxRTZ9vRYX4vEkKU",
+            "about": "Strategic and results-driven Senior Executive with extensive experience implementing efficient and cost-effective business practices that herald business transformations, maximize revenue growth, and strengthen company presence across large-scale healthcare environments. Proven track record designing and executing intuitive, comprehensive solutions that promote strategy development, process improvement, and quality assurance across multi-site medical operations. Action-oriented innovator able to optimize available financial resources while maintaining regulatory compliance and high-levels of HCAHPS and Core Measures scores. Noted leader and mentor adept at building and maintaining successful cross-functional departments. History of implementing large-scale business-development initiatives that re-engineer previously downturned healthcare frameworks and drive revenue growth and profitability. Demonstrated success spearheading acquisitions of numerous hospitals guaranteeing streamlined integration of operations. Award-winning professional continually recognized for service excellence, improving bad debt, and increasing margins. \n\nAreas of Expertise\nHealthcare Management \u2013 Mergers and Acquisitions \u2013 Financial Management \u2013 Contract Negotiations \u2013 Process Improvement\nVendor/Customer Relations \u2013 Performance Management \u2013 Strategic Planning \u2013 Revenue Growth \u2013 Cost-Effective Strategies\nTurnaround Strategies \u2013 Change Management \u2013 Regulatory Compliance \u2013 Recruiting \u2013 Relationship Management",
+            "publicIdentifier": null,
+            "openConnection": null,
+            "urn": "ACoAABDvEWsBihXSDoK4gZNYV8dO-rKTRT1eP6w",
+            "experiences": [
+              {
+                "companyId": "1033297",
+                "companyUrn": "urn:li:fsd_company:1033297",
+                "companyLink1": "https://www.linkedin.com/company/1033297/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQFpFSTHPtaDwQ/company-logo_200_200/company-logo_200_200/0/1709311775196/mayo_clinic_health_system_logo?e=1761782400&v=beta&t=jzjqcxZANCkqSfohhfiIBPkbFjTxQzdrGlmVOrXwso0",
+                "title": "Chief Financial Officer",
+                "subtitle": "Mayo Clinic Health System \u00b7 Full-time",
+                "caption": "Aug 2022 - Present \u00b7 3 yrs 2 mos",
+                "metadata": "Rochester, Minnesota, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "7488",
+                "companyUrn": "urn:li:fsd_company:7488",
+                "companyLink1": "https://www.linkedin.com/company/7488/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGH4NwDsoA5sQ/company-logo_200_200/company-logo_200_200/0/1631376024405/rush_university_medical_center_logo?e=1761782400&v=beta&t=M9zer2M5W7VUANDv7kpre1U6obquXn4-z2a4q8O2Qb4",
+                "title": "System Vice President of Financial Operations",
+                "subtitle": "Rush University Medical Center \u00b7 Full-time",
+                "caption": "Jan 2019 - Jul 2022 \u00b7 3 yrs 7 mos",
+                "metadata": "Chicago, Illinois",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "1129552",
+                "companyUrn": "urn:li:fsd_company:1129552",
+                "companyLink1": "https://www.linkedin.com/company/1129552/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQFG2toFSYo_3w/company-logo_200_200/company-logo_200_200/0/1669750703590/prime_healthcare_logo?e=1761782400&v=beta&t=_3pyZGzdxASJFqO8iMwXGUPvFQj0YLX2c3A1-_wiTYo",
+                "title": "Chief Financial Officer, Philadelphia Market",
+                "subtitle": "Prime Healthcare",
+                "caption": "Oct 2018 - Dec 2019 \u00b7 1 yr 3 mos",
+                "metadata": "Greater Philadelphia",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "16121",
+                "companyUrn": "urn:li:fsd_company:16121",
+                "companyLink1": "https://www.linkedin.com/company/16121/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQG_lpXwCaEmew/img-crop_100/B56ZfYSgsuG0AM-/0/1751680421184?e=1761782400&v=beta&t=fXvb1WgIUWokAKiB7_w5d8SUsiHA4vqtLACZnNjjUtg",
+                "title": "System VP of Finance",
+                "subtitle": "Sinai Health System",
+                "caption": "Jul 2015 - Dec 2018 \u00b7 3 yrs 6 mos",
+                "metadata": "Chicago, Illinois",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "9893",
+                "companyUrn": "urn:li:fsd_company:9893",
+                "companyLink1": "https://www.linkedin.com/company/9893/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQH0xhiEvqy5_w/company-logo_100_100/B56ZWG3UB1HEAU-/0/1741724402093/community_health_systems_logo?e=1761782400&v=beta&t=ksnOussVnds1I11FQe1u6f50Aq7rO6b8PZFuA4LDikM",
+                "title": "Community Health Systems",
+                "subtitle": "1 yr 6 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "MetroSouth Medical Center Interim CFO/COO",
+                    "caption": "Jun 2014 - Jun 2015 \u00b7 1 yr 1 mo",
+                    "metadata": "Blue Island, Illinois",
+                    "description": []
+                  },
+                  {
+                    "title": "Division 3 Project CFO",
+                    "caption": "Jan 2014 - Jun 2015 \u00b7 1 yr 6 mos",
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Revenue Cycle",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 colleagues at Sinai Chicago"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 people in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "30 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Jim Snider and 12 others who are highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 4 colleagues at Sinai Chicago"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "99+ endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Joelle Vlahakis and 15 others who are highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 3 colleagues at Sinai Chicago"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "99 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Consulting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "32 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "HIPAA",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "13 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Medicare",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "11 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Physician Relations",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "22 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Managed Care",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "8 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Industry",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "9 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Physicians",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "90 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Strategic Planning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "36 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Revenue Cycle Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Financial Analysis",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Leadership",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "64 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Budgets",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Managerial Finance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Practice Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Executive Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Financial Reporting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Health Insurance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1659480465486?e=1761782400&v=beta&t=7QmNhi1Wh9qapoSrZjNpj3FhB1bxkNVHLJsom7g_qhg"
+              },
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1659480465486?e=1761782400&v=beta&t=faf1mApMhHAUejMvEFH1sOEmYZva_-hYS27vjUfx0GA"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1659480465486?e=1761782400&v=beta&t=91JLM1Xz8RNJKC-U68nfiWyQJZOJ_EfQFoQwEagIom0"
+              },
+              {
+                "width": 800,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/C5603AQFSRGIdARzXHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1659480465486?e=1761782400&v=beta&t=IXg0KI4teUc_qiLg_YS4_QMcCI0WxRTZ9vRYX4vEkKU"
+              }
+            ],
+            "educations": [
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=Regis+University",
+                "title": "Regis University",
+                "subtitle": "Master of Business Administration (MBA), Health/Health Care Administration/Management",
+                "caption": "2000 - 2002",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=Creighton+University",
+                "title": "Creighton University",
+                "subtitle": "Bachelor of Science (BS), Accounting",
+                "caption": "1987 - 1991",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Top Voices",
+                "section_components": [
+                  {
+                    "titleV2": "Justin Trudeau",
+                    "caption": "5,508,850 followers",
+                    "subtitle": "Prime Minister of Canada | Premier ministre du Canada",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/justintrudeau",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Gianrico Farrugia, M.D.",
+                    "caption": "96,320 followers",
+                    "subtitle": "President and CEO at Mayo Clinic",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/gianricofarrugia",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "GE HealthCare",
+                    "caption": "2,619,367 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1016/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Deloitte",
+                    "caption": "19,803,140 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1038/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "LGBTQ Professionals Network",
+                    "caption": "110,726 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/13777873",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Artificial Intelligence, Machine Learning, Data Science & Robotics",
+                    "caption": "2,999,972 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/3990648",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Newsletters",
+                "section_components": [
+                  {
+                    "titleV2": "Becker's Hospital Review",
+                    "caption": "Published weekly",
+                    "subtitle": "Top hospital and healthcare articles, delivered weekly.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7077369506653753344",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Becker's Healthcare",
+                          "actionTarget": "https://www.linkedin.com/company/301340/"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Creighton University School of Law",
+                    "caption": "10,558 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/15099622/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Jefferson Health",
+                    "caption": "116,213 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/14736/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 100,
+          "current_title": "chief financial officer",
+          "current_company": "mayo clinic health system"
+        },
+        "ai_ranking": {
+          "ranking_score": 80,
+          "decision_authority_level": "High",
+          "persona_category": "C-Suite (CFO)",
+          "ranking_reasoning": "CFO with extensive experience in financial management and strategic planning.",
+          "key_qualifications": [
+            "financial oversight",
+            "experience in large-scale healthcare operations",
+            "budget authority"
+          ],
+          "potential_influence": "High influence on budget allocation for energy infrastructure projects",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 2
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 2.25,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 2.37
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-23T20:38:40.612297"
+}

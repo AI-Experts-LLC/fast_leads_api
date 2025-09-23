@@ -303,7 +303,7 @@ class ImprovedProspectDiscoveryService:
             # Check for decision-making seniority
             seniority_score = self._calculate_seniority_score(linkedin_data)
             
-            if seniority_score < 30:  # Minimum threshold for consideration
+            if seniority_score < 15:  # Lowered threshold to include more contacts
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - low seniority score: {seniority_score}")
                 continue
             
