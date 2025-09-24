@@ -1,0 +1,3356 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "CLEVELAND CLINIC",
+    "pipeline_summary": {
+      "search_results_found": 58,
+      "prospects_after_basic_filter": 48,
+      "linkedin_profiles_scraped": 16,
+      "prospects_after_advanced_filter": 6,
+      "final_ranked_prospects": 4
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Michael Moehring - Cleveland Clinic Martin Health",
+        "search_snippet": "Michael Moehring, Cleveland Clinic Martin Health, Florida Atlantic University, About, Corporate finance senior leader and CPA offering 26 years of experience.",
+        "linkedin_url": "https://www.linkedin.com/in/michaelmoehring",
+        "target_title": "CFO",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/michaelmoehring",
+          "name": "Michael Moehring",
+          "first_name": "Michael",
+          "last_name": "Moehring",
+          "headline": "Chief Financial Officer at Cleveland Clinic Martin Health",
+          "company": "Cleveland Clinic Martin Health",
+          "location": "Palm City, Florida",
+          "summary": "Corporate finance senior leader and CPA offering 26 years of experience building, leading and advising healthcare organizations in expansion and capital planning.  Strong expertise in operating budgets and planning.  Excellent leader with a track record of growth, profit and success.\n\nAreas of expertise include:\n\nCorporate/Operational Finance, Treasury, Investor & Rating Agency Relations, Accounting, Strategic Planning, Reimbursement, Materials Management, Payroll & Accounts Payable, Cost Accounting and \nStrategic Financial Planning\n\n",
+          "about": "Corporate finance senior leader and CPA offering 26 years of experience building, leading and advising healthcare organizations in expansion and capital planning.  Strong expertise in operating budgets and planning.  Excellent leader with a track record of growth, profit and success.\n\nAreas of expertise include:\n\nCorporate/Operational Finance, Treasury, Investor & Rating Agency Relations, Accounting, Strategic Planning, Reimbursement, Materials Management, Payroll & Accounts Payable, Cost Accounting and \nStrategic Financial Planning\n\n",
+          "job_title": "Chief Financial Officer",
+          "company_name": "Cleveland Clinic Martin Health",
+          "company_industry": "Hospital & Health Care",
+          "company_website": null,
+          "company_linkedin": "linkedin.com/company/cleveland-clinic-martin-health",
+          "company_size": "1001-5000",
+          "company_founded": 1939,
+          "current_job_duration": "6 yrs 6 mos",
+          "current_job_duration_years": 6.5,
+          "connections": 88,
+          "followers": 111,
+          "top_skills_by_endorsements": "Healthcare Management",
+          "skills": [
+            {
+              "name": "Leadership",
+              "endorsements": []
+            },
+            {
+              "name": "Healthcare Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Healthcare",
+              "endorsements": []
+            },
+            {
+              "name": "Hospitals",
+              "endorsements": []
+            },
+            {
+              "name": "Financial Accounting",
+              "endorsements": []
+            },
+            {
+              "name": "Financial Reporting",
+              "endorsements": []
+            },
+            {
+              "name": "Accounting",
+              "endorsements": []
+            },
+            {
+              "name": "Accounts Payable",
+              "endorsements": []
+            },
+            {
+              "name": "Payroll",
+              "endorsements": []
+            },
+            {
+              "name": "Treasury",
+              "endorsements": []
+            },
+            {
+              "name": "Strategic Planning",
+              "endorsements": []
+            },
+            {
+              "name": "Materials Management",
+              "endorsements": []
+            },
+            {
+              "name": "Rating Agency Relations",
+              "endorsements": []
+            },
+            {
+              "name": "Investor Reporting",
+              "endorsements": []
+            },
+            {
+              "name": "Healthcare Reimbursement",
+              "endorsements": []
+            },
+            {
+              "name": "Cost Accounting",
+              "endorsements": []
+            },
+            {
+              "name": "Corporate Finance",
+              "endorsements": []
+            },
+            {
+              "name": "Operational Planning",
+              "endorsements": []
+            },
+            {
+              "name": "Capital Budgeting",
+              "endorsements": []
+            },
+            {
+              "name": "Operating Budgets",
+              "endorsements": []
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "michaelmoehring",
+          "urn": "ACoAAA_HWI8BrURBZBn-RV07mQwufTSXBhNNyaU",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Palm City, Florida, United States",
+          "address_without_country": "Palm City, Florida",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Chief Financial Officer",
+              "company": "Cleveland Clinic Martin Health",
+              "duration": "Apr 2019 - Present \u00b7 6 yrs 6 mos",
+              "location": "Stuart, Florida",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHt0qTO9_A9KQ/company-logo_200_200/company-logo_200_200/0/1630604352232?e=1761782400&v=beta&t=642YVXELkJOplfj9kyb-V7_IgplVVP3nWS9AnrIcB7Q",
+              "company_link": "https://www.linkedin.com/company/35536141/"
+            },
+            {
+              "title": "AVP, Finance and Reimbursement",
+              "company": "Martin Health System",
+              "duration": "Jan 1993 - Present \u00b7 32 yrs 9 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHBg1DznNAeNA/company-logo_200_200/company-logo_200_200/0/1630566492241/martinhealthsystem_logo?e=1761782400&v=beta&t=_53xMtnXRj1JPTGaqDWw8zCg7XxJbbkLwwrHipcPFwk",
+              "company_link": "https://www.linkedin.com/company/22287543/"
+            }
+          ],
+          "experience_count": 2,
+          "total_experience_years": 39.2,
+          "industry_experience": {
+            "healthcare": 39.2
+          },
+          "education": [
+            {
+              "school": "Florida Atlantic University",
+              "degree": "Master of Business Administration - MBA",
+              "duration": "1995 - 1999",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D4E0BAQFMo_wGYFVWpA/company-logo_400_400/B4EZl3Dpq_KUAY-/0/1758639070154/florida_atlantic_university_logo?e=1761782400&v=beta&t=m1_LUavcDpHlkS5t9JTe5Cb6UQSi1zu8CegqB81DS4I",
+              "school_link": "https://www.linkedin.com/company/9077/"
+            },
+            {
+              "school": "Marietta College",
+              "degree": "Bachelor of Arts - BA, Accounting",
+              "duration": "1988 - 1992",
+              "activities": [
+                {
+                  "type": "insightComponent",
+                  "text": "Activities and societies: Baseball"
+                }
+              ],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGoTkzetpDz_g/company-logo_200_200/company-logo_200_200/0/1687882998866/marietta_college_logo?e=1761782400&v=beta&t=joWIxbwKkCMeiEMC-VE-eOeKT56P4gkV6Ih7FOMP1Wk",
+              "school_link": "https://www.linkedin.com/company/30250/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Master of Business Administration - MBA",
+          "alma_maters": [
+            "Florida Atlantic University",
+            "Marietta College"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Cleveland Clinic",
+                  "caption": "844,502 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/5656/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Florida Atlantic University",
+                  "caption": "223,634 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/9077/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Florida Atlantic University",
+                  "caption": "223,634 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/9077/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Marietta College",
+                  "caption": "19,988 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/30250/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "29625",
+              "companyUrn": "urn:li:fsd_company:29625",
+              "companyLink1": "https://www.linkedin.com/company/29625/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEpzBTxiOhupg/company-logo_200_200/company-logo_200_200/0/1638801578793/hfma_logo?e=1761782400&v=beta&t=j6qyiiocbyzoj39puKigEHK5bCuZd8Bq4bYkkPBiPkU",
+              "title": "CHFP",
+              "subtitle": "Healthcare Financial Management Association (HFMA)",
+              "caption": "Issued Apr 2013",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyId": "100781",
+              "companyUrn": "urn:li:fsd_company:100781",
+              "companyLink1": "https://www.linkedin.com/company/100781/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQFtmaNc5lF6cg/company-logo_200_200/company-logo_200_200/0/1630659965242/florida_institute_of_cpas_ficpa_logo?e=1761782400&v=beta&t=q53yWlRHRhdtZiN0Z8X0Z6TgqKgSGAqGzGp8Dn4srUM",
+              "title": "CPA",
+              "subtitle": "Florida Institute of CPAs (FICPA)",
+              "caption": "Issued Sep 2002",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [
+            {
+              "companyLink1": null,
+              "title": "Treasurer Board Of Directors",
+              "subtitle": "Education Foundation of Martin County",
+              "caption": "Jan 2014 - Present \u00b7 11 yrs 9 mos",
+              "metadata": "Education",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyLink1": null,
+              "title": "Treasurer Board Of Directors",
+              "subtitle": "The Children's Museum of the Treasure Coast",
+              "caption": "Jan 2005 - Jan 2014 \u00b7 9 yrs 1 mo",
+              "metadata": "Children",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 1,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 72,
+          "total_sections_completed": 8,
+          "interests_count": 2,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 2,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 5,
+          "accessibility_score": 50,
+          "professional_authority_score": 59,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/michaelmoehring",
+            "firstName": "Michael",
+            "lastName": "Moehring",
+            "fullName": "Michael Moehring",
+            "headline": "Chief Financial Officer at Cleveland Clinic Martin Health",
+            "connections": 88,
+            "followers": 111,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Chief Financial Officer",
+            "companyName": "Cleveland Clinic Martin Health",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": null,
+            "companyLinkedin": "linkedin.com/company/cleveland-clinic-martin-health",
+            "companyFoundedIn": 1939,
+            "companySize": "1001-5000",
+            "currentJobDuration": "6 yrs 6 mos",
+            "currentJobDurationInYrs": 6.5,
+            "topSkillsByEndorsements": "Healthcare Management",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Palm City, Florida, United States",
+            "addressWithoutCountry": "Palm City, Florida",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1562784910368?e=1761782400&v=beta&t=fov1ROaCKAmi0sEHjL7U2uYiDkiJY9g6nwWWPaphG7I",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1562784910295?e=1761782400&v=beta&t=76P2NHY3ejzuCBepavP7im1z8Y5rLJGL5gpM5Wvr0Kw",
+            "about": "Corporate finance senior leader and CPA offering 26 years of experience building, leading and advising healthcare organizations in expansion and capital planning.  Strong expertise in operating budgets and planning.  Excellent leader with a track record of growth, profit and success.\n\nAreas of expertise include:\n\nCorporate/Operational Finance, Treasury, Investor & Rating Agency Relations, Accounting, Strategic Planning, Reimbursement, Materials Management, Payroll & Accounts Payable, Cost Accounting and \nStrategic Financial Planning\n\n",
+            "publicIdentifier": "michaelmoehring",
+            "openConnection": null,
+            "urn": "ACoAAA_HWI8BrURBZBn-RV07mQwufTSXBhNNyaU",
+            "experiences": [
+              {
+                "companyId": "35536141",
+                "companyUrn": "urn:li:fsd_company:35536141",
+                "companyLink1": "https://www.linkedin.com/company/35536141/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHt0qTO9_A9KQ/company-logo_200_200/company-logo_200_200/0/1630604352232?e=1761782400&v=beta&t=642YVXELkJOplfj9kyb-V7_IgplVVP3nWS9AnrIcB7Q",
+                "title": "Chief Financial Officer",
+                "subtitle": "Cleveland Clinic Martin Health",
+                "caption": "Apr 2019 - Present \u00b7 6 yrs 6 mos",
+                "metadata": "Stuart, Florida",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "22287543",
+                "companyUrn": "urn:li:fsd_company:22287543",
+                "companyLink1": "https://www.linkedin.com/company/22287543/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHBg1DznNAeNA/company-logo_200_200/company-logo_200_200/0/1630566492241/martinhealthsystem_logo?e=1761782400&v=beta&t=_53xMtnXRj1JPTGaqDWw8zCg7XxJbbkLwwrHipcPFwk",
+                "title": "AVP, Finance and Reimbursement",
+                "subtitle": "Martin Health System",
+                "caption": "Jan 1993 - Present \u00b7 32 yrs 9 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Leadership",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Hospitals",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Financial Accounting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Financial Reporting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Accounting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Accounts Payable",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Payroll",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Treasury",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Strategic Planning",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Materials Management",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Rating Agency Relations",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Investor Reporting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Reimbursement",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Cost Accounting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Corporate Finance",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Operational Planning",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Capital Budgeting",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "title": "Operating Budgets",
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1562784910368?e=1761782400&v=beta&t=fov1ROaCKAmi0sEHjL7U2uYiDkiJY9g6nwWWPaphG7I"
+              },
+              {
+                "width": 134,
+                "height": 134,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1562784910295?e=1761782400&v=beta&t=76P2NHY3ejzuCBepavP7im1z8Y5rLJGL5gpM5Wvr0Kw"
+              },
+              {
+                "width": 134,
+                "height": 134,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1562784910284?e=1761782400&v=beta&t=ELo961Yu7N2XSng_1-M9GwH3D-uG3RWJ7NQGxqrrdJ0"
+              },
+              {
+                "width": 134,
+                "height": 134,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQFnk9QLVlVxPw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1562784910312?e=1761782400&v=beta&t=E6YxQHEEl9n-nFhH2YvxyuUY29b5wQqZD2I_kfZ7sio"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "9077",
+                "companyUrn": "urn:li:fsd_company:9077",
+                "companyLink1": "https://www.linkedin.com/company/9077/",
+                "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQFMo_wGYFVWpA/company-logo_400_400/B4EZl3Dpq_KUAY-/0/1758639070154/florida_atlantic_university_logo?e=1761782400&v=beta&t=m1_LUavcDpHlkS5t9JTe5Cb6UQSi1zu8CegqB81DS4I",
+                "title": "Florida Atlantic University",
+                "subtitle": "Master of Business Administration - MBA",
+                "caption": "1995 - 1999",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "30250",
+                "companyUrn": "urn:li:fsd_company:30250",
+                "companyLink1": "https://www.linkedin.com/company/30250/",
+                "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGoTkzetpDz_g/company-logo_200_200/company-logo_200_200/0/1687882998866/marietta_college_logo?e=1761782400&v=beta&t=joWIxbwKkCMeiEMC-VE-eOeKT56P4gkV6Ih7FOMP1Wk",
+                "title": "Marietta College",
+                "subtitle": "Bachelor of Arts - BA, Accounting",
+                "caption": "1988 - 1992",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Activities and societies: Baseball"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "29625",
+                "companyUrn": "urn:li:fsd_company:29625",
+                "companyLink1": "https://www.linkedin.com/company/29625/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEpzBTxiOhupg/company-logo_200_200/company-logo_200_200/0/1638801578793/hfma_logo?e=1761782400&v=beta&t=j6qyiiocbyzoj39puKigEHK5bCuZd8Bq4bYkkPBiPkU",
+                "title": "CHFP",
+                "subtitle": "Healthcare Financial Management Association (HFMA)",
+                "caption": "Issued Apr 2013",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "100781",
+                "companyUrn": "urn:li:fsd_company:100781",
+                "companyLink1": "https://www.linkedin.com/company/100781/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQFtmaNc5lF6cg/company-logo_200_200/company-logo_200_200/0/1630659965242/florida_institute_of_cpas_ficpa_logo?e=1761782400&v=beta&t=q53yWlRHRhdtZiN0Z8X0Z6TgqKgSGAqGzGp8Dn4srUM",
+                "title": "CPA",
+                "subtitle": "Florida Institute of CPAs (FICPA)",
+                "caption": "Issued Sep 2002",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [
+              {
+                "companyLink1": null,
+                "title": "Treasurer Board Of Directors",
+                "subtitle": "Education Foundation of Martin County",
+                "caption": "Jan 2014 - Present \u00b7 11 yrs 9 mos",
+                "metadata": "Education",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": null,
+                "title": "Treasurer Board Of Directors",
+                "subtitle": "The Children's Museum of the Treasure Coast",
+                "caption": "Jan 2005 - Jan 2014 \u00b7 9 yrs 1 mo",
+                "metadata": "Children",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Cleveland Clinic",
+                    "caption": "844,502 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/5656/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Florida Atlantic University",
+                    "caption": "223,634 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/9077/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Florida Atlantic University",
+                    "caption": "223,634 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/9077/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Marietta College",
+                    "caption": "19,988 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/30250/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 100,
+          "current_title": "chief financial officer",
+          "current_company": "cleveland clinic martin health"
+        },
+        "ai_ranking": {
+          "ranking_score": 90,
+          "decision_authority_level": "High",
+          "persona_category": "C-Suite",
+          "ranking_reasoning": "CFO with extensive experience in financial planning and capital projects.",
+          "key_qualifications": [
+            "CFO",
+            "39 years experience",
+            "strategic financial planning"
+          ],
+          "potential_influence": "Ultimate decision authority on budget and capital expenditures.",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      },
+      {
+        "search_title": "Michael A. Jackson CHFM, CHC - Director of Facilities and ...",
+        "search_snippet": "Director of Facilities and Maintenance \u00b7 Experience: Cleveland Clinic Union Hospital \u00b7 Education: Stark State College \u00b7 Location: Orrville \u00b7 254 connections ...",
+        "linkedin_url": "https://www.linkedin.com/in/michael-a-jackson-chfm-chc-b3692b53",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/michael-a-jackson-chfm-chc-b3692b53",
+          "name": "Michael A. Jackson CHFM, CHC",
+          "first_name": "Michael A.",
+          "last_name": "Jackson CHFM, CHC",
+          "headline": "Director of Facilities and Maintenance",
+          "company": "Cleveland Clinic",
+          "location": null,
+          "summary": null,
+          "about": null,
+          "job_title": "Director of Facilities and Maintenance",
+          "company_name": "Cleveland Clinic",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "clevelandclinic.org",
+          "company_linkedin": "linkedin.com/company/cleveland-clinic",
+          "company_size": "10001+",
+          "company_founded": 1921,
+          "current_job_duration": "10 yrs 9 mos",
+          "current_job_duration_years": 10.75,
+          "connections": 254,
+          "followers": 270,
+          "top_skills_by_endorsements": "Customer Service, Team Building, Microsoft Excel, Supervisory Skills, Process Improvement",
+          "skills": [
+            {
+              "name": "Microsoft Office",
+              "endorsements": [
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Microsoft Word",
+              "endorsements": [
+                "Endorsed by 2 colleagues at West View Healthy Living",
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Outlook",
+              "endorsements": [
+                "Endorsed by 2 colleagues at West View Healthy Living",
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Troubleshooting",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Research",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare",
+              "endorsements": [
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "PowerPoint",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Budgets",
+              "endorsements": [
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Customer Service",
+              "endorsements": [
+                "10 endorsements"
+              ]
+            },
+            {
+              "name": "Microsoft Excel",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Supervisory Skills",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Team Building",
+              "endorsements": [
+                "9 endorsements"
+              ]
+            },
+            {
+              "name": "Process Improvement",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Process Scheduler",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Software Documentation",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Facilities Management",
+              "endorsements": [
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Project Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Strategic Planning",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Management",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Leadership",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "michael-a-jackson-chfm-chc-b3692b53",
+          "urn": "ACoAAAtZjpoBVxi5SOfy1j03ueyQ_YRM1rgy23E",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": null,
+          "address_without_country": null,
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director of Facilities and Maintenance",
+              "company": "Cleveland Clinic Union Hospital",
+              "duration": "Jan 2015 - Present \u00b7 10 yrs 9 mos",
+              "location": "659 Boulevard; Dover, Ohio 44622",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+              "company_link": "https://www.linkedin.com/company/5656/"
+            },
+            {
+              "title": "West View Healthy Living",
+              "company": "6 yrs 6 mos",
+              "duration": null,
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF7FSVg3PTwyA/company-logo_200_200/company-logo_200_200/0/1630535357272?e=1761782400&v=beta&t=3y5J0KYCajrXWY9jSnm4uabEZ2VBBMqWDaGzImFs56M",
+              "company_link": "https://www.linkedin.com/company/14786032/"
+            },
+            {
+              "title": "Maintenance Assistant",
+              "company": "Sprenger Health Care Systems",
+              "duration": "Feb 1999 - Feb 2008 \u00b7 9 yrs 1 mo",
+              "location": "Smithville Western Care Center",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHT0-ercMdNLA/company-logo_200_200/company-logo_200_200/0/1635509733097/sprenger_health_care_systems_logo?e=1761782400&v=beta&t=gN3EzLjmTw2DbRGiDRY1easbcJSbNM_tauC3WZIzLXY",
+              "company_link": "https://www.linkedin.com/company/9266379/"
+            }
+          ],
+          "experience_count": 3,
+          "total_experience_years": 19.8,
+          "industry_experience": {
+            "healthcare": 19.8,
+            "other": 0.0
+          },
+          "education": [
+            {
+              "school": "Stark State College",
+              "degree": "Business Administration and Management, General",
+              "duration": "2020",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEpbsDaDxyzKA/company-logo_200_200/company-logo_200_200/0/1631369512507?e=1761782400&v=beta&t=MOhWAzrBdWSyLBHMxeBQMEJnrtnATD-PzAsmoSOsJak",
+              "school_link": "https://www.linkedin.com/company/70912/"
+            },
+            {
+              "school": "Wayne County Schools Career Center",
+              "degree": "Automobile/Automotive Mechanics Technology/Technician",
+              "duration": "1994 - 1996",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGKLs6DQLd59w/company-logo_200_200/company-logo_200_200/0/1631324118766?e=1761782400&v=beta&t=rOiQqB0Ayu_sQgfqLxV5LoEaih-Go62hmxa8NJjvaHo",
+              "school_link": "https://www.linkedin.com/company/1085061/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Business Administration and Management, General",
+          "alma_maters": [
+            "Stark State College",
+            "Wayne County Schools Career Center"
+          ],
+          "interests": [
+            {
+              "section_name": "Top Voices",
+              "section_components": [
+                {
+                  "titleV2": "Simon Sinek",
+                  "caption": "8,682,513 followers",
+                  "subtitle": "Optimist, New York Times bestselling author of \"Start with Why\" and \"The Infinite Game\", and founder of The Optimism Company",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/simonsinek",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Tim Tebow",
+                  "caption": "2,150,319 followers",
+                  "subtitle": "Follower of Jesus Christ, 5x NYT Best-Selling Author, 2x National Champion, Heisman Trophy Winner, Founder & Chairman of the Tim Tebow Foundation, The Tebow Group and ESPN Analyst.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/timtebow15",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "CBRE",
+                  "caption": "1,603,129 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/2319/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Ohio EPA",
+                  "caption": "15,783 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/4217/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "Healthcare Facilities Professionals",
+                  "caption": "5,163 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/3861727",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Healthcare Executives",
+                  "caption": "137,743 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/858537",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Newsletters",
+              "section_components": [
+                {
+                  "titleV2": "The Burn",
+                  "caption": "Published monthly",
+                  "subtitle": "The Burn is your go-to source for all things STI Firestop.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7000550550089953280",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Specified Technologies Inc. (STI Firestop)",
+                        "actionTarget": "https://www.linkedin.com/company/1853186/"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "titleV2": "Sustainability Roadmap",
+                  "caption": "Published monthly",
+                  "subtitle": "It's hard to find sustainability resources for health care facilities. Find the tools you need now! ",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7155626384491462656",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "American Society for Health Care Engineering (ASHE)",
+                        "actionTarget": "https://www.linkedin.com/company/3222517/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Stark State College",
+                  "caption": "25,206 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/70912/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Wooster High School",
+                  "caption": "412 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/33448637/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1761782400&v=beta&t=Kmt2OSMoiPoiZIkl8eKS5-zHiYY-BTzG01aiM2HWIJQ",
+              "title": "Certified Healthcare Constructor (CHC)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Jun 2019",
+              "metadata": "Credential ID 2075",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyId": "3222517",
+              "companyUrn": "urn:li:fsd_company:3222517",
+              "companyLink1": "https://www.linkedin.com/company/3222517/",
+              "logo": "https://media.licdn.com/dms/image/v2/D560BAQHNl7PLum2IMQ/company-logo_200_200/company-logo_200_200/0/1680901952913/american_society_for_healthcare_engineering_ashe_logo?e=1761782400&v=beta&t=CM5ylmylYUWT1QimtY98CbsNa2IO1uV_b7Nx7vPkdYM",
+              "title": "Certified Healthcare Facility Manager (CHFM)",
+              "subtitle": "American Society for Health Care Engineering (ASHE)",
+              "caption": "Issued Jul 2017",
+              "metadata": "Credential ID 2843",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [
+            {
+              "title": "Certificate of Achievement",
+              "subtitle": "Issued by Vocational Industrial Clubs of America - Mr. Kevin Wilson \u00b7 May 1996",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "insightComponent",
+                      "text": "Associated with Wayne County Schools Career Center"
+                    },
+                    {
+                      "type": "textComponent",
+                      "text": "One of three certificates issued to the top senior Auto Mechanics students at the Trade and Industrial Education Awards Banquet."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [
+            {
+              "title": "Blueprint Reading",
+              "subtitle": "02FTI021A",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "test_scores": [],
+          "recommendations": [
+            {
+              "section_name": "Received",
+              "section_components": []
+            },
+            {
+              "section_name": "Given",
+              "section_components": [
+                {
+                  "titleV2": "Lanny O'Hail",
+                  "caption": "December 17, 2012, Michael A. was Lanny\u2019s client",
+                  "subtitle": "Business Development Manager at Standard Plumbing and Heating Co.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/lanny-o-hail-27671324",
+                  "image": "https://media.licdn.com/dms/image/v2/C4D03AQGBlZiGG-2dNg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1517227727369?e=1761782400&v=beta&t=vwkOg4qP-H9yPbqpe4t0BJKjzZRU8KuMRjbhWponxCY",
+                  "subComponents": [
+                    {
+                      "fixedListComponent": [
+                        {
+                          "type": "textComponent",
+                          "text": "Lanny is very knowledgable and a definite asset to have on board, I could have easily checked every box on his top attributes. I have experienced excellent communication and follow thru on several projects ranging from preventative maintenance, to problem solving, to future endeavors. Lanny and and his team at STANDARD plumbing and heating are committed to providing you a great value and top notch service."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "recommendations_count": {
+            "received": 0,
+            "given": 1
+          },
+          "endorsements_received": 119,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 62,
+          "total_sections_completed": 8,
+          "interests_count": 5,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 1,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 10,
+          "accessibility_score": 50,
+          "professional_authority_score": 65,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 80,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/michael-a-jackson-chfm-chc-b3692b53",
+            "firstName": "Michael A.",
+            "lastName": "Jackson CHFM, CHC",
+            "fullName": "Michael A. Jackson CHFM, CHC",
+            "headline": "Director of Facilities and Maintenance",
+            "connections": 254,
+            "followers": 270,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Director of Facilities and Maintenance",
+            "companyName": "Cleveland Clinic",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "clevelandclinic.org",
+            "companyLinkedin": "linkedin.com/company/cleveland-clinic",
+            "companyFoundedIn": 1921,
+            "companySize": "10001+",
+            "currentJobDuration": "10 yrs 9 mos",
+            "currentJobDurationInYrs": 10.75,
+            "topSkillsByEndorsements": "Customer Service, Team Building, Microsoft Excel, Supervisory Skills, Process Improvement",
+            "addressCountryOnly": null,
+            "addressWithCountry": null,
+            "addressWithoutCountry": null,
+            "profilePic": null,
+            "profilePicHighQuality": null,
+            "about": null,
+            "publicIdentifier": "michael-a-jackson-chfm-chc-b3692b53",
+            "openConnection": null,
+            "urn": "ACoAAAtZjpoBVxi5SOfy1j03ueyQ_YRM1rgy23E",
+            "experiences": [
+              {
+                "companyId": "5656",
+                "companyUrn": "urn:li:fsd_company:5656",
+                "companyLink1": "https://www.linkedin.com/company/5656/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+                "title": "Director of Facilities and Maintenance",
+                "subtitle": "Cleveland Clinic Union Hospital",
+                "caption": "Jan 2015 - Present \u00b7 10 yrs 9 mos",
+                "metadata": "659 Boulevard; Dover, Ohio 44622",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "14786032",
+                "companyUrn": "urn:li:fsd_company:14786032",
+                "companyLink1": "https://www.linkedin.com/company/14786032/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF7FSVg3PTwyA/company-logo_200_200/company-logo_200_200/0/1630535357272?e=1761782400&v=beta&t=3y5J0KYCajrXWY9jSnm4uabEZ2VBBMqWDaGzImFs56M",
+                "title": "West View Healthy Living",
+                "subtitle": "6 yrs 6 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Maintenance Director",
+                    "caption": "Dec 2010 - Dec 2014 \u00b7 4 yrs 1 mo",
+                    "metadata": "1715 Mechanicsburg rd. Wooster,Ohio",
+                    "description": []
+                  },
+                  {
+                    "title": "Maintenance Assistant",
+                    "caption": "Jul 2008 - Dec 2010 \u00b7 2 yrs 6 mos",
+                    "metadata": "1715 Mechanicsburg rd. Wooster, Ohio",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "9266379",
+                "companyUrn": "urn:li:fsd_company:9266379",
+                "companyLink1": "https://www.linkedin.com/company/9266379/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQHT0-ercMdNLA/company-logo_200_200/company-logo_200_200/0/1635509733097/sprenger_health_care_systems_logo?e=1761782400&v=beta&t=gN3EzLjmTw2DbRGiDRY1easbcJSbNM_tauC3WZIzLXY",
+                "title": "Maintenance Assistant",
+                "subtitle": "Sprenger Health Care Systems",
+                "caption": "Feb 1999 - Feb 2008 \u00b7 9 yrs 1 mo",
+                "metadata": "Smithville Western Care Center",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Microsoft Office",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Microsoft Word",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 colleagues at West View Healthy Living"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Outlook",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 colleagues at West View Healthy Living"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Troubleshooting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Research",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "PowerPoint",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Budgets",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Customer Service",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "10 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Microsoft Excel",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Supervisory Skills",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Team Building",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "9 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Improvement",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Scheduler",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Software Documentation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Facilities Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Strategic Planning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Leadership",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [],
+            "educations": [
+              {
+                "companyId": "70912",
+                "companyUrn": "urn:li:fsd_company:70912",
+                "companyLink1": "https://www.linkedin.com/company/70912/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEpbsDaDxyzKA/company-logo_200_200/company-logo_200_200/0/1631369512507?e=1761782400&v=beta&t=MOhWAzrBdWSyLBHMxeBQMEJnrtnATD-PzAsmoSOsJak",
+                "title": "Stark State College",
+                "subtitle": "Business Administration and Management, General",
+                "caption": "2020",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "1085061",
+                "companyUrn": "urn:li:fsd_company:1085061",
+                "companyLink1": "https://www.linkedin.com/company/1085061/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGKLs6DQLd59w/company-logo_200_200/company-logo_200_200/0/1631324118766?e=1761782400&v=beta&t=rOiQqB0Ayu_sQgfqLxV5LoEaih-Go62hmxa8NJjvaHo",
+                "title": "Wayne County Schools Career Center",
+                "subtitle": "Automobile/Automotive Mechanics Technology/Technician",
+                "caption": "1994 - 1996",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1761782400&v=beta&t=Kmt2OSMoiPoiZIkl8eKS5-zHiYY-BTzG01aiM2HWIJQ",
+                "title": "Certified Healthcare Constructor (CHC)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Jun 2019",
+                "metadata": "Credential ID 2075",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "3222517",
+                "companyUrn": "urn:li:fsd_company:3222517",
+                "companyLink1": "https://www.linkedin.com/company/3222517/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQHNl7PLum2IMQ/company-logo_200_200/company-logo_200_200/0/1680901952913/american_society_for_healthcare_engineering_ashe_logo?e=1761782400&v=beta&t=CM5ylmylYUWT1QimtY98CbsNa2IO1uV_b7Nx7vPkdYM",
+                "title": "Certified Healthcare Facility Manager (CHFM)",
+                "subtitle": "American Society for Health Care Engineering (ASHE)",
+                "caption": "Issued Jul 2017",
+                "metadata": "Credential ID 2843",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [
+              {
+                "title": "Certificate of Achievement",
+                "subtitle": "Issued by Vocational Industrial Clubs of America - Mr. Kevin Wilson \u00b7 May 1996",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Associated with Wayne County Schools Career Center"
+                      },
+                      {
+                        "type": "textComponent",
+                        "text": "One of three certificates issued to the top senior Auto Mechanics students at the Trade and Industrial Education Awards Banquet."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [
+              {
+                "title": "Blueprint Reading",
+                "subtitle": "02FTI021A",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Top Voices",
+                "section_components": [
+                  {
+                    "titleV2": "Simon Sinek",
+                    "caption": "8,682,513 followers",
+                    "subtitle": "Optimist, New York Times bestselling author of \"Start with Why\" and \"The Infinite Game\", and founder of The Optimism Company",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/simonsinek",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Tim Tebow",
+                    "caption": "2,150,319 followers",
+                    "subtitle": "Follower of Jesus Christ, 5x NYT Best-Selling Author, 2x National Champion, Heisman Trophy Winner, Founder & Chairman of the Tim Tebow Foundation, The Tebow Group and ESPN Analyst.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/timtebow15",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "CBRE",
+                    "caption": "1,603,129 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/2319/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Ohio EPA",
+                    "caption": "15,783 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/4217/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "Healthcare Facilities Professionals",
+                    "caption": "5,163 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/3861727",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Healthcare Executives",
+                    "caption": "137,743 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/858537",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Newsletters",
+                "section_components": [
+                  {
+                    "titleV2": "The Burn",
+                    "caption": "Published monthly",
+                    "subtitle": "The Burn is your go-to source for all things STI Firestop.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7000550550089953280",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Specified Technologies Inc. (STI Firestop)",
+                          "actionTarget": "https://www.linkedin.com/company/1853186/"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "titleV2": "Sustainability Roadmap",
+                    "caption": "Published monthly",
+                    "subtitle": "It's hard to find sustainability resources for health care facilities. Find the tools you need now! ",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7155626384491462656",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "American Society for Health Care Engineering (ASHE)",
+                          "actionTarget": "https://www.linkedin.com/company/3222517/"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Stark State College",
+                    "caption": "25,206 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/70912/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Wooster High School",
+                    "caption": "412 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/33448637/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": [
+              {
+                "section_name": "Received",
+                "section_components": []
+              },
+              {
+                "section_name": "Given",
+                "section_components": [
+                  {
+                    "titleV2": "Lanny O'Hail",
+                    "caption": "December 17, 2012, Michael A. was Lanny\u2019s client",
+                    "subtitle": "Business Development Manager at Standard Plumbing and Heating Co.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/lanny-o-hail-27671324",
+                    "image": "https://media.licdn.com/dms/image/v2/C4D03AQGBlZiGG-2dNg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1517227727369?e=1761782400&v=beta&t=vwkOg4qP-H9yPbqpe4t0BJKjzZRU8KuMRjbhWponxCY",
+                    "subComponents": [
+                      {
+                        "fixedListComponent": [
+                          {
+                            "type": "textComponent",
+                            "text": "Lanny is very knowledgable and a definite asset to have on board, I could have easily checked every box on his top attributes. I have experienced excellent communication and follow thru on several projects ranging from preventative maintenance, to problem solving, to future endeavors. Lanny and and his team at STANDARD plumbing and heating are committed to providing you a great value and top notch service."
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 91,
+          "current_title": "director of facilities and maintenance",
+          "current_company": "cleveland clinic"
+        },
+        "ai_ranking": {
+          "ranking_score": 87,
+          "decision_authority_level": "High",
+          "persona_category": "Facilities Director",
+          "ranking_reasoning": "Director of Facilities and Maintenance with significant experience in facilities management.",
+          "key_qualifications": [
+            "19.8 years experience",
+            "director level",
+            "facilities management"
+          ],
+          "potential_influence": "Direct decision maker for infrastructure projects.",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 2
+        }
+      },
+      {
+        "search_title": "Michael Barrett - Director Facilities Engineering Main ...",
+        "search_snippet": "Director Facilities Engineering Main Submarket, CHFM, ASSE 12080 \u00b7 Experience: Cleveland Clinic \u00b7 Education: Indiana Wesleyan University \u00b7 Location: Berea ...",
+        "linkedin_url": "https://www.linkedin.com/in/michael-barrett-36906b59",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/michael-barrett-36906b59",
+          "name": "Michael Barrett",
+          "first_name": "Michael",
+          "last_name": "Barrett",
+          "headline": "Director Facilities Engineering Main Submarket, CHFM, ASSE 12080",
+          "company": "Cleveland Clinic",
+          "location": "Berea, Ohio",
+          "summary": null,
+          "about": null,
+          "job_title": "Director Facilities Engineering Main Submarket",
+          "company_name": "Cleveland Clinic",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "clevelandclinic.org",
+          "company_linkedin": "linkedin.com/company/cleveland-clinic",
+          "company_size": "10001+",
+          "company_founded": 1921,
+          "current_job_duration": "7 mos",
+          "current_job_duration_years": 0.58,
+          "connections": 1017,
+          "followers": 1038,
+          "top_skills_by_endorsements": "Healthcare, Hospitals, Healthcare Management, Process Improvement, Customer Service",
+          "skills": [
+            {
+              "name": "Program Development",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "Endorsed by 1 person in the last 6 months",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Program Management",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "Endorsed by 1 person in the last 6 months",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Cross-functional Team Leadership",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "Endorsed by 1 person in the last 6 months",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Operations Management",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Strategic Consulting",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Team Leadership",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Microsoft Office",
+              "endorsements": [
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "EHR",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Patient Safety",
+              "endorsements": [
+                "8 endorsements"
+              ]
+            },
+            {
+              "name": "EMR",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "JCAHO",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Management",
+              "endorsements": [
+                "28 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare",
+              "endorsements": [
+                "31 endorsements"
+              ]
+            },
+            {
+              "name": "Customer Service",
+              "endorsements": [
+                "16 endorsements"
+              ]
+            },
+            {
+              "name": "HIPAA",
+              "endorsements": [
+                "9 endorsements"
+              ]
+            },
+            {
+              "name": "Strategic Planning",
+              "endorsements": [
+                "12 endorsements"
+              ]
+            },
+            {
+              "name": "Healthcare Information Technology",
+              "endorsements": [
+                "12 endorsements"
+              ]
+            },
+            {
+              "name": "Process Improvement",
+              "endorsements": [
+                "Regulatory Facilities Program Director at Cleveland Clinic",
+                "22 endorsements"
+              ]
+            },
+            {
+              "name": "Epic Systems",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Hospitals",
+              "endorsements": [
+                "29 endorsements"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "michael-barrett-36906b59",
+          "urn": "ACoAAAxKAkEBhymmzNdZns1zZhe0hk2YwaxDFRs",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Berea, Ohio, United States",
+          "address_without_country": "Berea, Ohio",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Cleveland Clinic",
+              "company": "Full-time",
+              "duration": null,
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+              "company_link": "https://www.linkedin.com/company/5656/"
+            },
+            {
+              "title": "Director of Facilities Management (Enterprise)",
+              "company": "The MetroHealth System (Cleveland, OH)",
+              "duration": "May 2021 - Nov 2023 \u00b7 2 yrs 7 mos",
+              "location": "Cleveland, Ohio, United States",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQG2cHvfTDGnhQ/company-logo_200_200/company-logo_200_200/0/1638893370713/the_metrohealth_system_logo?e=1761782400&v=beta&t=Y9jV7ohqhcRCfFt3R7RNMRI5ZYBK39ve99eDa0c5FC0",
+              "company_link": "https://www.linkedin.com/company/164957/"
+            },
+            {
+              "title": "Executive Director Facilities Engineering at University Hospitals",
+              "company": "University Hospitals",
+              "duration": "Jan 2019 - May 2021 \u00b7 2 yrs 5 mos",
+              "location": "Cleveland, Ohio, United States",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C510BAQGBOroMW1T3Ww/company-logo_200_200/company-logo_200_200/0/1631377076486?e=1761782400&v=beta&t=kOmAgGl8kxmv6urPHtWwUz-iR6NAuS7Otdodt1zQMWM",
+              "company_link": "https://www.linkedin.com/company/166625/"
+            },
+            {
+              "title": "Cleveland Clinic",
+              "company": "10 yrs 4 mos",
+              "duration": "Greater Cleveland",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+              "company_link": "https://www.linkedin.com/company/5656/"
+            },
+            {
+              "title": "Owner",
+              "company": "New Classic Finishes Inc.",
+              "duration": "Apr 2005 - Sep 2010 \u00b7 5 yrs 6 mos",
+              "location": "Greater Cleveland",
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "\u2022\tOperated successful remodeling company specializing in the highest quality finish work and meeting all customer\u2019s needs"
+                }
+              ],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=New+Classic+Finishes+Inc%2E"
+            }
+          ],
+          "experience_count": 5,
+          "total_experience_years": 10.5,
+          "industry_experience": {
+            "other": 5.5,
+            "healthcare": 5.0
+          },
+          "education": [
+            {
+              "school": "Indiana Wesleyan University",
+              "degree": "Bachelor of Science (BS), Business Administration, Management and Operations",
+              "duration": "2004 - 2007",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D560BAQFhxvUE0UNcaw/company-logo_200_200/company-logo_200_200/0/1698844865565/indiana_wesleyan_logo?e=1761782400&v=beta&t=6SyFiEc-4bI9KrNd28K4eFJLdHsP-Kb3m1ND1xI4nWo",
+              "school_link": "https://www.linkedin.com/company/16943/"
+            },
+            {
+              "school": "Cleveland State University",
+              "degree": "Project Management",
+              "duration": "2015 - 2015",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQHizZdkwe-Zyw/company-logo_200_200/company-logo_200_200/0/1674144701143/cleveland_state_university_logo?e=1761782400&v=beta&t=unCT9jSKe9fICgmtYX1svLum_Q99BWdEyJu0J4kiWk8",
+              "school_link": "https://www.linkedin.com/company/10997/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "Bachelor of Science (BS), Business Administration, Management and Operations",
+          "alma_maters": [
+            "Indiana Wesleyan University",
+            "Cleveland State University"
+          ],
+          "interests": [
+            {
+              "section_name": "Top Voices",
+              "section_components": [
+                {
+                  "titleV2": "Ryan Roslansky",
+                  "caption": "887,472 followers",
+                  "subtitle": "CEO at LinkedIn",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/ryanroslansky",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Jeff Weiner",
+                  "caption": "10,399,018 followers",
+                  "subtitle": "Executive Chairman at LinkedIn / Founding Partner Next Play Ventures",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/jeffweiner08",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "IBM",
+                  "caption": "18,720,806 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1009/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Oracle",
+                  "caption": "10,717,578 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1028/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "Idea Citizen | Where Thinkers Gather \ud83d\udc49 Live Events Sept 25 & 30 | Mentor Series October 23 \ud83d\udc48",
+                  "caption": "1,540,067 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/138801",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Personal Development , Wellness, Mental Health, Self-Help and Self-Improvement network",
+                  "caption": "1,371,286 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/4236911",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Newsletters",
+              "section_components": [
+                {
+                  "titleV2": "Chem-Aqua's Water Newsletter",
+                  "caption": "Published monthly",
+                  "subtitle": "Articles on boiler, cooling, process, and wastewater systems.",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/6980190642828169216",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Chem-Aqua, Inc.",
+                        "actionTarget": "https://www.linkedin.com/company/475270/"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "titleV2": "Career Pulse",
+                  "caption": "Published biweekly",
+                  "subtitle": "A biweekly newsletter brought to you by Forbes Coaches Council",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/newsletters/7160429240088170497",
+                  "subComponents": [
+                    {
+                      "insightComponent": {
+                        "text": "Forbes Coaches Council",
+                        "actionTarget": "https://www.linkedin.com/company/11074500/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Case Western Reserve University",
+                  "caption": "125,056 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/157330/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Case Western Reserve University School of Medicine",
+                  "caption": "28,792 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/15099682/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [
+            {
+              "companyLink1": null,
+              "title": "Volunteer",
+              "subtitle": "Maasai Music Project",
+              "caption": "Jan 2012 - Present \u00b7 13 yrs 9 mos",
+              "metadata": "Children",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyLink1": null,
+              "title": "Volunteer",
+              "subtitle": "City of Berea, OH",
+              "caption": "Jan 2014 - Present \u00b7 11 yrs 9 mos",
+              "metadata": "Children",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 220,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 62,
+          "total_sections_completed": 7,
+          "interests_count": 5,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 2,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 20,
+          "accessibility_score": 50,
+          "professional_authority_score": 50,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 75,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/michael-barrett-36906b59",
+            "firstName": "Michael",
+            "lastName": "Barrett",
+            "fullName": "Michael Barrett",
+            "headline": "Director Facilities Engineering Main Submarket, CHFM, ASSE 12080",
+            "connections": 1017,
+            "followers": 1038,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Director Facilities Engineering Main Submarket",
+            "companyName": "Cleveland Clinic",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "clevelandclinic.org",
+            "companyLinkedin": "linkedin.com/company/cleveland-clinic",
+            "companyFoundedIn": 1921,
+            "companySize": "10001+",
+            "currentJobDuration": "7 mos",
+            "currentJobDurationInYrs": 0.58,
+            "topSkillsByEndorsements": "Healthcare, Hospitals, Healthcare Management, Process Improvement, Customer Service",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Berea, Ohio, United States",
+            "addressWithoutCountry": "Berea, Ohio",
+            "profilePic": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_800_800/B56ZYCpNV9H0Ac-/0/1743801079508?e=1761782400&v=beta&t=1rDgyk0uXBLngBlO5fXcAY9BlfQLeEPluxFH2MVs0TQ",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_800_800/B56ZYCpNV9H0Ac-/0/1743801079508?e=1761782400&v=beta&t=1rDgyk0uXBLngBlO5fXcAY9BlfQLeEPluxFH2MVs0TQ",
+            "about": null,
+            "publicIdentifier": "michael-barrett-36906b59",
+            "openConnection": null,
+            "urn": "ACoAAAxKAkEBhymmzNdZns1zZhe0hk2YwaxDFRs",
+            "experiences": [
+              {
+                "companyId": "5656",
+                "companyUrn": "urn:li:fsd_company:5656",
+                "companyLink1": "https://www.linkedin.com/company/5656/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+                "title": "Cleveland Clinic",
+                "subtitle": "Full-time \u00b7 1 yr 11 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Director Facilities Engineering Main Submarket",
+                    "caption": "Mar 2025 - Present \u00b7 7 mos",
+                    "description": []
+                  },
+                  {
+                    "title": "Regulatory Facilities Program Director",
+                    "caption": "Nov 2023 - Apr 2025 \u00b7 1 yr 6 mos",
+                    "metadata": "Hybrid",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "164957",
+                "companyUrn": "urn:li:fsd_company:164957",
+                "companyLink1": "https://www.linkedin.com/company/164957/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQG2cHvfTDGnhQ/company-logo_200_200/company-logo_200_200/0/1638893370713/the_metrohealth_system_logo?e=1761782400&v=beta&t=Y9jV7ohqhcRCfFt3R7RNMRI5ZYBK39ve99eDa0c5FC0",
+                "title": "Director of Facilities Management (Enterprise)",
+                "subtitle": "The MetroHealth System (Cleveland, OH) \u00b7 Full-time",
+                "caption": "May 2021 - Nov 2023 \u00b7 2 yrs 7 mos",
+                "metadata": "Cleveland, Ohio, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "166625",
+                "companyUrn": "urn:li:fsd_company:166625",
+                "companyLink1": "https://www.linkedin.com/company/166625/",
+                "logo": "https://media.licdn.com/dms/image/v2/C510BAQGBOroMW1T3Ww/company-logo_200_200/company-logo_200_200/0/1631377076486?e=1761782400&v=beta&t=kOmAgGl8kxmv6urPHtWwUz-iR6NAuS7Otdodt1zQMWM",
+                "title": "Executive Director Facilities Engineering at University Hospitals",
+                "subtitle": "University Hospitals \u00b7 Full-time",
+                "caption": "Jan 2019 - May 2021 \u00b7 2 yrs 5 mos",
+                "metadata": "Cleveland, Ohio, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "5656",
+                "companyUrn": "urn:li:fsd_company:5656",
+                "companyLink1": "https://www.linkedin.com/company/5656/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+                "title": "Cleveland Clinic",
+                "subtitle": "10 yrs 4 mos",
+                "caption": "Greater Cleveland",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Director Facilities Engineering",
+                    "caption": "Jan 2016 - Jan 2019 \u00b7 3 yrs 1 mo",
+                    "description": []
+                  },
+                  {
+                    "title": "Senior Manager Maintenance Control",
+                    "caption": "Jan 2012 - Jan 2016 \u00b7 4 yrs 1 mo",
+                    "description": []
+                  },
+                  {
+                    "title": "Facilities Maintenance",
+                    "caption": "Oct 2008 - Jan 2012 \u00b7 3 yrs 4 mos",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=New+Classic+Finishes+Inc%2E",
+                "title": "Owner",
+                "subtitle": "New Classic Finishes Inc.",
+                "caption": "Apr 2005 - Sep 2010 \u00b7 5 yrs 6 mos",
+                "metadata": "Greater Cleveland",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "\u2022\tOperated successful remodeling company specializing in the highest quality finish work and meeting all customer\u2019s needs"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Program Development",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Program Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Cross-functional Team Leadership",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Operations Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Strategic Consulting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Team Leadership",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Microsoft Office",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "EHR",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Patient Safety",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "8 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "EMR",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "JCAHO",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "28 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "31 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Customer Service",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "16 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "HIPAA",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "9 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Strategic Planning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "12 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Healthcare Information Technology",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "12 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Improvement",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Regulatory Facilities Program Director at Cleveland Clinic"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "22 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Epic Systems",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Hospitals",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "29 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 640,
+                "height": 640,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_800_800/B56ZYCpNV9H0Ac-/0/1743801079508?e=1761782400&v=beta&t=1rDgyk0uXBLngBlO5fXcAY9BlfQLeEPluxFH2MVs0TQ"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_400_400/B56ZYCpNV9H0Ag-/0/1743801079508?e=1761782400&v=beta&t=SFJ3IaNqthXRA6VZn9_nkGrSoAJzsJ_NNjCRJCm43I4"
+              },
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_100_100/B56ZYCpNV9H0AU-/0/1743801079508?e=1761782400&v=beta&t=fL3WJfOdrSx4yF_eecxJ47bCNRtNuIHEe8U4SnKrXik"
+              },
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQHH7ciMINhsCA/profile-displayphoto-shrink_200_200/B56ZYCpNV9H0AY-/0/1743801079496?e=1761782400&v=beta&t=845V9f-EjtDNVWrjimyf6yywN_8RU5flFWRWGyQRcW4"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "16943",
+                "companyUrn": "urn:li:fsd_company:16943",
+                "companyLink1": "https://www.linkedin.com/company/16943/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQFhxvUE0UNcaw/company-logo_200_200/company-logo_200_200/0/1698844865565/indiana_wesleyan_logo?e=1761782400&v=beta&t=6SyFiEc-4bI9KrNd28K4eFJLdHsP-Kb3m1ND1xI4nWo",
+                "title": "Indiana Wesleyan University",
+                "subtitle": "Bachelor of Science (BS), Business Administration, Management and Operations",
+                "caption": "2004 - 2007",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "10997",
+                "companyUrn": "urn:li:fsd_company:10997",
+                "companyLink1": "https://www.linkedin.com/company/10997/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHizZdkwe-Zyw/company-logo_200_200/company-logo_200_200/0/1674144701143/cleveland_state_university_logo?e=1761782400&v=beta&t=unCT9jSKe9fICgmtYX1svLum_Q99BWdEyJu0J4kiWk8",
+                "title": "Cleveland State University",
+                "subtitle": "Project Management",
+                "caption": "2015 - 2015",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [
+              {
+                "companyLink1": null,
+                "title": "Volunteer",
+                "subtitle": "Maasai Music Project",
+                "caption": "Jan 2012 - Present \u00b7 13 yrs 9 mos",
+                "metadata": "Children",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": null,
+                "title": "Volunteer",
+                "subtitle": "City of Berea, OH",
+                "caption": "Jan 2014 - Present \u00b7 11 yrs 9 mos",
+                "metadata": "Children",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "verifications": [],
+            "promos": [],
+            "highlights": [
+              {
+                "companyId": "1393",
+                "companyUrn": "urn:li:fsd_company:1393",
+                "companyLink1": "https://www.linkedin.com/premium/products/?upsellOrderOrigin=sales_navigator_profile_highlights_upsell&utype=sales&referenceId=hwqAGPxYQ4OfE5UxIyVRjQ%3D%3D",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGaL-YyJ8xd7Q/company-logo_200_200/company-logo_200_200/0/1630615758178/nestle_s_a__logo?e=1761782400&v=beta&t=z6cpNI0x6npYAa-G-Ye0Mv7rahjpwRh9a4FVT3jtLIQ",
+                "title": "Michael follows your company on LinkedIn",
+                "subtitle": "Michael is aware of your brand and may be more receptive to outreach.",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Free insight from Sales Navigator"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Top Voices",
+                "section_components": [
+                  {
+                    "titleV2": "Ryan Roslansky",
+                    "caption": "887,472 followers",
+                    "subtitle": "CEO at LinkedIn",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/ryanroslansky",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Jeff Weiner",
+                    "caption": "10,399,018 followers",
+                    "subtitle": "Executive Chairman at LinkedIn / Founding Partner Next Play Ventures",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/jeffweiner08",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "IBM",
+                    "caption": "18,720,806 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1009/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Oracle",
+                    "caption": "10,717,578 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1028/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "Idea Citizen | Where Thinkers Gather \ud83d\udc49 Live Events Sept 25 & 30 | Mentor Series October 23 \ud83d\udc48",
+                    "caption": "1,540,067 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/138801",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Personal Development , Wellness, Mental Health, Self-Help and Self-Improvement network",
+                    "caption": "1,371,286 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/4236911",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Newsletters",
+                "section_components": [
+                  {
+                    "titleV2": "Chem-Aqua's Water Newsletter",
+                    "caption": "Published monthly",
+                    "subtitle": "Articles on boiler, cooling, process, and wastewater systems.",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/6980190642828169216",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Chem-Aqua, Inc.",
+                          "actionTarget": "https://www.linkedin.com/company/475270/"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "titleV2": "Career Pulse",
+                    "caption": "Published biweekly",
+                    "subtitle": "A biweekly newsletter brought to you by Forbes Coaches Council",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/newsletters/7160429240088170497",
+                    "subComponents": [
+                      {
+                        "insightComponent": {
+                          "text": "Forbes Coaches Council",
+                          "actionTarget": "https://www.linkedin.com/company/11074500/"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Case Western Reserve University",
+                    "caption": "125,056 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/157330/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Case Western Reserve University School of Medicine",
+                    "caption": "28,792 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/15099682/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 90,
+          "current_title": "director facilities engineering main submarket",
+          "current_company": "cleveland clinic"
+        },
+        "ai_ranking": {
+          "ranking_score": 80,
+          "decision_authority_level": "High",
+          "persona_category": "Facilities Director",
+          "ranking_reasoning": "Director of Facilities Engineering with strong technical background and leadership experience.",
+          "key_qualifications": [
+            "10.5 years experience",
+            "director level",
+            "engineering management"
+          ],
+          "potential_influence": "Influences technical decisions on infrastructure projects.",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 3
+        }
+      },
+      {
+        "search_title": "Becky Molnar - Finance Director at Cleveland Clinic",
+        "search_snippet": "Experienced Finance Director with a demonstrated history in the hospital and healthcare industry. Proven problem-solving skills.",
+        "linkedin_url": "https://www.linkedin.com/in/becky-molnar-8a4663b",
+        "target_title": "CFO",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/becky-molnar-8a4663b",
+          "name": "Becky Molnar",
+          "first_name": "Becky",
+          "last_name": "Molnar",
+          "headline": "Finance Director at Cleveland Clinic",
+          "company": "Cleveland Clinic",
+          "location": "Medina, Ohio",
+          "summary": "Experienced Finance Director with a demonstrated history in the hospital and healthcare industry. Proven problem-solving skills with an ability to assess needs, identify options, and implement cost-effective solutions. Demonstrated success at managing projects with an ability to set goals and implement an action plan. Strong in financial reporting, budgeting, data analysis, and forecasting. Self-motivated and conscientious team player. Continually analyze opportunities for accuracy and efficiency in all areas.",
+          "about": "Experienced Finance Director with a demonstrated history in the hospital and healthcare industry. Proven problem-solving skills with an ability to assess needs, identify options, and implement cost-effective solutions. Demonstrated success at managing projects with an ability to set goals and implement an action plan. Strong in financial reporting, budgeting, data analysis, and forecasting. Self-motivated and conscientious team player. Continually analyze opportunities for accuracy and efficiency in all areas.",
+          "job_title": "Market Finance Director",
+          "company_name": "Cleveland Clinic",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "clevelandclinic.org",
+          "company_linkedin": "linkedin.com/company/cleveland-clinic",
+          "company_size": "10001+",
+          "company_founded": 1921,
+          "current_job_duration": "1 yr 10 mos",
+          "current_job_duration_years": 1.83,
+          "connections": 451,
+          "followers": 455,
+          "top_skills_by_endorsements": null,
+          "skills": [],
+          "skills_count": 0,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "becky-molnar-8a4663b",
+          "urn": "ACoAAAIN9zwB8npTyfya0YeKpl0IC_3BQWWHpbI",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Medina, Ohio, United States",
+          "address_without_country": "Medina, Ohio",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Cleveland Clinic",
+              "company": "27 yrs 4 mos",
+              "duration": null,
+              "location": null,
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "Finance Director supporting Cleveland Clinic Akron General and Medina Hospital"
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+              "company_link": "https://www.linkedin.com/company/5656/"
+            }
+          ],
+          "experience_count": 1,
+          "total_experience_years": 0.0,
+          "industry_experience": {
+            "other": 0.0
+          },
+          "education": [
+            {
+              "school": "Cleveland State University",
+              "degree": "MBA, Healthcare Administration",
+              "duration": "2009 - 2012",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQHizZdkwe-Zyw/company-logo_200_200/company-logo_200_200/0/1674144701143/cleveland_state_university_logo?e=1761782400&v=beta&t=unCT9jSKe9fICgmtYX1svLum_Q99BWdEyJu0J4kiWk8",
+              "school_link": "https://www.linkedin.com/company/10997/"
+            },
+            {
+              "school": "The University of Akron",
+              "degree": "B.S., Accounting",
+              "duration": "1993 - 1997",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D560BAQG9JLlAOSQxrA/company-logo_100_100/B56ZjTfkX0G4AU-/0/1755894926538/the_university_of_akron_logo?e=1761782400&v=beta&t=gYSSdc5C0nHl7hOxouwUgVrcAsT5GcSGOWAf-ZnHpAc",
+              "school_link": "https://www.linkedin.com/company/166419/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "MBA, Healthcare Administration",
+          "alma_maters": [
+            "Cleveland State University",
+            "The University of Akron"
+          ],
+          "interests": [],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 0,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 50,
+          "total_sections_completed": 5,
+          "interests_count": 0,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 10,
+          "accessibility_score": 50,
+          "professional_authority_score": 10,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 70,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/becky-molnar-8a4663b",
+            "firstName": "Becky",
+            "lastName": "Molnar",
+            "fullName": "Becky Molnar",
+            "headline": "Finance Director at Cleveland Clinic",
+            "connections": 451,
+            "followers": 455,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Market Finance Director",
+            "companyName": "Cleveland Clinic",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "clevelandclinic.org",
+            "companyLinkedin": "linkedin.com/company/cleveland-clinic",
+            "companyFoundedIn": 1921,
+            "companySize": "10001+",
+            "currentJobDuration": "1 yr 10 mos",
+            "currentJobDurationInYrs": 1.83,
+            "topSkillsByEndorsements": null,
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Medina, Ohio, United States",
+            "addressWithoutCountry": "Medina, Ohio",
+            "profilePic": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_200_200/B56ZPWdVA8G8AY-/0/1734469834149?e=1761782400&v=beta&t=Fsy0LWpvfCM3KmB1IkydM9SqNB7CFKlu7UXC7aPUKOg",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_800_800/B56ZPWdVA8G8Ac-/0/1734469834169?e=1761782400&v=beta&t=Jd3Qj1g7V6Gq9CZo4RFs835ZSNGmYvluhWPtGKXYVVw",
+            "about": "Experienced Finance Director with a demonstrated history in the hospital and healthcare industry. Proven problem-solving skills with an ability to assess needs, identify options, and implement cost-effective solutions. Demonstrated success at managing projects with an ability to set goals and implement an action plan. Strong in financial reporting, budgeting, data analysis, and forecasting. Self-motivated and conscientious team player. Continually analyze opportunities for accuracy and efficiency in all areas.",
+            "publicIdentifier": "becky-molnar-8a4663b",
+            "openConnection": null,
+            "urn": "ACoAAAIN9zwB8npTyfya0YeKpl0IC_3BQWWHpbI",
+            "experiences": [
+              {
+                "companyId": "5656",
+                "companyUrn": "urn:li:fsd_company:5656",
+                "companyLink1": "https://www.linkedin.com/company/5656/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQHpIFVMDGreYg/company-logo_200_200/company-logo_200_200/0/1631310523369?e=1761782400&v=beta&t=-2xjbISUMlFkhD0uF49BNMCAOYEK-NpiLE-85-N0hfQ",
+                "title": "Cleveland Clinic",
+                "subtitle": "27 yrs 4 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Market Finance Director",
+                    "caption": "Dec 2023 - Present \u00b7 1 yr 10 mos",
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "Finance Director supporting Cleveland Clinic Akron General and Medina Hospital"
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Finance Director",
+                    "caption": "Feb 2020 - Dec 2023 \u00b7 3 yrs 11 mos",
+                    "metadata": "Marymount & Medina Hospitals",
+                    "description": []
+                  },
+                  {
+                    "title": "Finance Director",
+                    "caption": "Jun 2011 - Jan 2020 \u00b7 8 yrs 8 mos",
+                    "metadata": "Medina Hospital",
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [],
+            "profilePicAllDimensions": [
+              {
+                "width": 200,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_200_200/B56ZPWdVA8G8AY-/0/1734469834149?e=1761782400&v=beta&t=Fsy0LWpvfCM3KmB1IkydM9SqNB7CFKlu7UXC7aPUKOg"
+              },
+              {
+                "width": 400,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_400_400/B56ZPWdVA8G8Ag-/0/1734469834149?e=1761782400&v=beta&t=vFpDC8dozbdxJpmGnH60rfEhuZBVbNP74dpVq7B_KbA"
+              },
+              {
+                "width": 100,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_100_100/B56ZPWdVA8G8AU-/0/1734469834149?e=1761782400&v=beta&t=tG5ricrolPEby6ckRHDH1ddBH1etF8tlmcUaFPR4LRQ"
+              },
+              {
+                "width": 800,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/D5603AQH4DdLecXUqpw/profile-displayphoto-shrink_800_800/B56ZPWdVA8G8Ac-/0/1734469834169?e=1761782400&v=beta&t=Jd3Qj1g7V6Gq9CZo4RFs835ZSNGmYvluhWPtGKXYVVw"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "10997",
+                "companyUrn": "urn:li:fsd_company:10997",
+                "companyLink1": "https://www.linkedin.com/company/10997/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHizZdkwe-Zyw/company-logo_200_200/company-logo_200_200/0/1674144701143/cleveland_state_university_logo?e=1761782400&v=beta&t=unCT9jSKe9fICgmtYX1svLum_Q99BWdEyJu0J4kiWk8",
+                "title": "Cleveland State University",
+                "subtitle": "MBA, Healthcare Administration",
+                "caption": "2009 - 2012",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "166419",
+                "companyUrn": "urn:li:fsd_company:166419",
+                "companyLink1": "https://www.linkedin.com/company/166419/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQG9JLlAOSQxrA/company-logo_100_100/B56ZjTfkX0G4AU-/0/1755894926538/the_university_of_akron_logo?e=1761782400&v=beta&t=gYSSdc5C0nHl7hOxouwUgVrcAsT5GcSGOWAf-ZnHpAc",
+                "title": "The University of Akron",
+                "subtitle": "B.S., Accounting",
+                "caption": "1993 - 1997",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 71,
+          "current_title": "market finance director",
+          "current_company": "cleveland clinic"
+        },
+        "ai_ranking": {
+          "ranking_score": 65,
+          "decision_authority_level": "Medium",
+          "persona_category": "Finance Director",
+          "ranking_reasoning": "Finance Director with experience in financial reporting and budgeting.",
+          "key_qualifications": [
+            "27 years experience",
+            "finance director",
+            "budget management"
+          ],
+          "potential_influence": "Influences budget decisions but not directly involved in infrastructure.",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 4
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 7.199999999999999,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 7.3199999999999985
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-24T17:46:23.883194"
+}

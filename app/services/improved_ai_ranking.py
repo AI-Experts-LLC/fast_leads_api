@@ -30,7 +30,7 @@ class ImprovedAIRankingService:
     
     async def rank_prospects(self, prospects: List[Dict], company_name: str) -> Dict[str, Any]:
         """
-        Rank prospects based on their complete LinkedIn data
+        Rank prospects using individual AI calls for each prospect
         
         Args:
             prospects: List of prospects with complete LinkedIn data
@@ -52,64 +52,31 @@ class ImprovedAIRankingService:
             }
         
         try:
-            # Prepare prospect data for ranking (extract only relevant fields)
-            prospects_for_ranking = []
+            # Create individual ranking tasks for parallel processing
+            ranking_tasks = []
             for i, prospect in enumerate(prospects):
-                linkedin_data = prospect.get("linkedin_data", {})
-                
-                # Extract ONLY the data needed for ranking decisions
-                ranking_data = {
-                    "index": i,
-                    "name": linkedin_data.get("name", ""),
-                    "current_title": linkedin_data.get("job_title", ""),
-                    "current_company": linkedin_data.get("company", ""),
-                    "headline": linkedin_data.get("headline", ""),
-                    "summary": linkedin_data.get("summary", ""),
-                    "total_experience_years": linkedin_data.get("total_experience_years", 0),
-                    "professional_authority_score": linkedin_data.get("professional_authority_score", 0),
-                    "seniority_score": prospect.get("advanced_filter", {}).get("seniority_score", 0),
-                    "recent_experience": linkedin_data.get("experience", [])[:3] if linkedin_data.get("experience") else [],
-                    "education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
-                    "skills": linkedin_data.get("skills", [])[:10] if linkedin_data.get("skills") else []
-                }
-                prospects_for_ranking.append(ranking_data)
+                task = self._rank_single_prospect(prospect, company_name, i)
+                ranking_tasks.append(task)
             
-            # Create ranking prompt
-            prompt = self._build_ranking_prompt(prospects_for_ranking, company_name)
+            # Execute all ranking calls in parallel
+            ranking_results = await asyncio.gather(*ranking_tasks, return_exceptions=True)
             
-            # Call OpenAI API for ranking ONLY
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are an expert sales analyst who ranks prospects based on their likelihood to make energy infrastructure purchasing decisions. You ONLY provide ranking scores - you do NOT modify, create, or invent any prospect data."
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ],
-                temperature=0.2,
-                max_tokens=2000,
-                response_format={"type": "json_object"}
+            # Process results and apply rankings to prospects
+            ranked_prospects = self._apply_individual_rankings_to_prospects(
+                ranking_results, prospects
             )
             
-            # Parse ranking response
-            ranking_response = json.loads(response.choices[0].message.content)
-            
-            # Apply rankings to original prospects (data unchanged)
-            ranked_prospects = self._apply_rankings_to_prospects(
-                ranking_response, prospects
-            )
+            # Calculate successful rankings
+            successful_rankings = len([r for r in ranking_results if isinstance(r, dict) and r.get("success")])
             
             return {
                 "success": True,
                 "company_name": company_name,
+                "total_prospects": len(prospects),
+                "successfully_ranked": successful_rankings,
                 "total_ranked": len(ranked_prospects),
                 "ranked_prospects": ranked_prospects,
-                "ranking_analysis": ranking_response,
-                "cost_estimate": 0.002
+                "cost_estimate": successful_rankings * 0.001  # Estimate per individual call
             }
             
         except Exception as e:
@@ -118,6 +85,115 @@ class ImprovedAIRankingService:
                 "success": False,
                 "error": str(e)
             }
+    
+    async def _rank_single_prospect(self, prospect: Dict, company_name: str, index: int) -> Dict[str, Any]:
+        """
+        Rank a single prospect with retry logic
+        
+        Args:
+            prospect: Individual prospect with LinkedIn data
+            company_name: Target company name
+            index: Prospect index for tracking
+        
+        Returns:
+            Dictionary with ranking result or error
+        """
+        linkedin_data = prospect.get("linkedin_data", {})
+        
+        # Extract prospect data for ranking
+        prospect_data = {
+            "name": linkedin_data.get("name", ""),
+            "current_title": linkedin_data.get("job_title", ""),
+            "current_company": linkedin_data.get("company", ""),
+            "headline": linkedin_data.get("headline", ""),
+            "summary": linkedin_data.get("summary", ""),
+            "total_experience_years": linkedin_data.get("total_experience_years", 0),
+            "professional_authority_score": linkedin_data.get("professional_authority_score", 0),
+            "seniority_score": prospect.get("advanced_filter", {}).get("seniority_score", 0),
+            "recent_experience": linkedin_data.get("experience", [])[:3] if linkedin_data.get("experience") else [],
+            "education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
+            "skills": [skill.get("name", "") for skill in linkedin_data.get("skills", [])[:10]]
+        }
+        
+        # Try ranking with one retry
+        for attempt in range(2):
+            try:
+                prompt = self._build_individual_ranking_prompt(prospect_data, company_name)
+                
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "You are an expert sales analyst. Analyze the prospect and return ONLY a JSON response with 'reasoning' and 'score' fields."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.2,
+                    max_tokens=500,
+                    response_format={"type": "json_object"}
+                )
+                
+                # Parse response
+                ranking_data = json.loads(response.choices[0].message.content)
+                
+                # Validate required fields
+                if "reasoning" in ranking_data and "score" in ranking_data:
+                    return {
+                        "success": True,
+                        "index": index,
+                        "reasoning": ranking_data["reasoning"],
+                        "score": int(ranking_data["score"])
+                    }
+                else:
+                    logger.warning(f"Invalid response format for prospect {index}, attempt {attempt + 1}")
+                    if attempt == 1:  # Last attempt
+                        return {"success": False, "index": index, "error": "Invalid response format"}
+                    
+            except Exception as e:
+                logger.warning(f"Error ranking prospect {index}, attempt {attempt + 1}: {str(e)}")
+                if attempt == 1:  # Last attempt
+                    return {"success": False, "index": index, "error": str(e)}
+        
+        return {"success": False, "index": index, "error": "Failed after retries"}
+    
+    def _build_individual_ranking_prompt(self, prospect_data: Dict, company_name: str) -> str:
+        """Build ranking prompt for individual prospect"""
+        return f"""
+Analyze this prospect for {company_name} and rate their likelihood to make energy infrastructure purchasing decisions.
+
+PROSPECT DATA:
+Name: {prospect_data.get('name', 'N/A')}
+Title: {prospect_data.get('current_title', 'N/A')}
+Company: {prospect_data.get('current_company', 'N/A')}
+Headline: {prospect_data.get('headline', 'N/A')}
+Summary: {prospect_data.get('summary', 'N/A')[:200]}...
+Experience Years: {prospect_data.get('total_experience_years', 0)}
+Authority Score: {prospect_data.get('professional_authority_score', 0)}
+Seniority Score: {prospect_data.get('seniority_score', 0)}
+
+RANKING CRITERIA (0-100 scale):
+- Decision-making authority (40%) - C-Suite, Directors, VPs
+- Technical relevance (25%) - Facilities, engineering, energy background  
+- Budget influence (20%) - Financial or operational responsibility
+- Company seniority (15%) - Years of experience and authority indicators
+
+TARGET PERSONAS (priority order):
+1. C-Suite (CEO, CFO, COO) - Ultimate decision authority
+2. Facilities/Engineering Directors - Technical decision makers
+3. Sustainability/Energy Managers - Environmental compliance
+4. Operations Directors - Efficiency focus
+5. Finance Directors - Budget authority
+
+Return ONLY this JSON format:
+{{
+  "reasoning": "Brief explanation of score based on title, experience, and decision authority",
+  "score": 85
+}}
+"""
     
     def _build_ranking_prompt(self, prospects: List[Dict], company_name: str) -> str:
         """Build ranking prompt that focuses on scoring, not data creation"""
@@ -170,37 +246,30 @@ IMPORTANT RULES:
 - ONLY provide ranking scores and reasoning based on existing data
 """
     
-    def _apply_rankings_to_prospects(self, ranking_response: Dict, original_prospects: List[Dict]) -> List[Dict]:
-        """Apply AI rankings and return top 2 prospects per target job title for better coverage"""
-        prospect_rankings = ranking_response.get("prospect_rankings", [])
-        
-        # Create ranking lookup
-        ranking_lookup = {}
-        for ranking in prospect_rankings:
-            index = ranking.get("index", -1)
-            if index >= 0:
-                ranking_lookup[index] = ranking
+    def _apply_individual_rankings_to_prospects(self, ranking_results: List[Dict], original_prospects: List[Dict]) -> List[Dict]:
+        """Apply individual AI rankings and return top 2 prospects per target job title"""
         
         # Group prospects by target job title (keeping top 2 per title)
         prospects_by_title = {}
         
         for i, prospect in enumerate(original_prospects):
-            ranking_data = ranking_lookup.get(i, {})
+            # Find corresponding ranking result
+            ranking_result = None
+            for result in ranking_results:
+                if isinstance(result, dict) and result.get("index") == i and result.get("success"):
+                    ranking_result = result
+                    break
             
-            if ranking_data:  # Only process prospects that got ranked
+            if ranking_result:  # Only process prospects that got successfully ranked
                 target_title = prospect.get("target_title", "Unknown")
                 
                 # Add ranking data WITHOUT modifying original prospect data
                 ranked_prospect = {
                     **prospect,  # Original prospect data (unchanged)
                     "ai_ranking": {
-                        "ranking_score": ranking_data.get("ranking_score", 0),
-                        "decision_authority_level": ranking_data.get("decision_authority_level", ""),
-                        "persona_category": ranking_data.get("persona_category", ""),
-                        "ranking_reasoning": ranking_data.get("ranking_reasoning", ""),
-                        "key_qualifications": ranking_data.get("key_qualifications", []),
-                        "potential_influence": ranking_data.get("potential_influence", ""),
-                        "ranked_by": "ai",
+                        "ranking_score": ranking_result.get("score", 0),
+                        "ranking_reasoning": ranking_result.get("reasoning", ""),
+                        "ranked_by": "ai_individual",
                         "ranking_timestamp": None  # Would add in production
                     }
                 }
@@ -216,6 +285,8 @@ IMPORTANT RULES:
                         reverse=True
                     )
                     prospects_by_title[target_title] = prospects_by_title[target_title][:2]
+            else:
+                logger.warning(f"No successful ranking for prospect {i}: {prospect.get('linkedin_data', {}).get('name', 'Unknown')}")
         
         # Flatten the results and sort by overall score
         final_prospects = []
