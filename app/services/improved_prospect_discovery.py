@@ -23,13 +23,15 @@ class ImprovedProspectDiscoveryService:
         self.search_service = serper_service
         self.linkedin_service = linkedin_service
     
-    async def discover_prospects(self, company_name: str, target_titles: List[str] = None) -> Dict[str, Any]:
+    async def discover_prospects(self, company_name: str, target_titles: List[str] = None, company_city: str = None, company_state: str = None) -> Dict[str, Any]:
         """
         Improved prospect discovery pipeline
         
         Args:
             company_name: Name of the target company
             target_titles: Optional list of specific job titles to search for
+            company_city: Optional company city for location matching
+            company_state: Optional company state for location matching
         
         Returns:
             Dictionary with discovered prospects and their complete LinkedIn data
@@ -69,14 +71,14 @@ class ImprovedProspectDiscoveryService:
             
             # Step 2: Basic data filtering (NO AI - just rule-based filtering)
             logger.info("Step 2: Basic data filtering...")
-            filtered_prospects = self._basic_filter_prospects(search_results, company_name)
+            filtered_prospects = self._basic_filter_prospects(search_results, company_name, company_state)
             logger.info(f"Filtered to {len(filtered_prospects)} prospects after removing obvious mismatches")
             
             # Log prospects that passed basic filtering
             logger.info("=== PROSPECTS AFTER BASIC FILTER ===")
             for i, prospect in enumerate(filtered_prospects):
                 basic_filter = prospect.get('basic_filter', {})
-                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Target: {prospect.get('target_title', 'N/A')} | Senior: {basic_filter.get('has_senior_indicator', False)} | Company: {basic_filter.get('company_mentioned', False)}")
+                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Target: {prospect.get('target_title', 'N/A')} | Senior: {basic_filter.get('has_senior_indicator', False)} | Company: {basic_filter.get('company_mentioned', False)} | Location Score: {basic_filter.get('location_score', 0)}")
             logger.info("=== END BASIC FILTER RESULTS ===")
             
             if not filtered_prospects:
@@ -164,7 +166,7 @@ class ImprovedProspectDiscoveryService:
                 "step_failed": "pipeline"
             }
     
-    def _basic_filter_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
+    def _basic_filter_prospects(self, prospects: List[Dict], company_name: str, company_state: str = None) -> List[Dict]:
         """
         Basic rule-based filtering to remove obvious mismatches
         NO AI involved - just simple text analysis
@@ -218,13 +220,18 @@ class ImprovedProspectDiscoveryService:
                 any(part.lower() in combined_text for part in company_name.split() if len(part) > 3)
             )
             
+            # State location matching (prefer local prospects)
+            location_score = self._calculate_location_score(combined_text, company_state)
+            
             # Include if has senior indicator AND company is mentioned
+            # Location is a bonus but not required (for now)
             if has_senior_indicator and company_mentioned:
                 # Add filtering metadata
                 prospect["basic_filter"] = {
                     "passed": True,
                     "has_senior_indicator": has_senior_indicator,
                     "company_mentioned": company_mentioned,
+                    "location_score": location_score,
                     "filter_reason": "Passed basic filtering"
                 }
                 filtered.append(prospect)
@@ -232,6 +239,59 @@ class ImprovedProspectDiscoveryService:
                 logger.debug(f"Filtered out: {prospect.get('title')} - senior: {has_senior_indicator}, company: {company_mentioned}")
         
         return filtered
+    
+    def _calculate_location_score(self, combined_text: str, company_state: str = None) -> int:
+        """
+        Calculate location preference score (0-100)
+        Higher score for prospects in the same state as the company
+        """
+        if not company_state:
+            return 50  # Neutral score if no company state provided
+        
+        # Common state representations
+        state_variations = self._get_state_variations(company_state)
+        
+        # Check for exact state matches in the text
+        for variation in state_variations:
+            if variation.lower() in combined_text.lower():
+                return 100  # Perfect match
+        
+        # Check for nearby states (could expand this logic)
+        # For now, just return neutral for non-matches
+        return 25  # Lower preference for out-of-state
+    
+    def _get_state_variations(self, state: str) -> List[str]:
+        """Get common variations of state names"""
+        # Map of state abbreviations to full names
+        state_map = {
+            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+            'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
+            'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
+            'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+            'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
+            'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
+            'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+            'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
+            'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+            'WI': 'Wisconsin', 'WY': 'Wyoming'
+        }
+        
+        variations = [state]
+        
+        # If it's an abbreviation, add the full name
+        if state.upper() in state_map:
+            variations.append(state_map[state.upper()])
+        
+        # If it's a full name, find and add the abbreviation
+        for abbr, full_name in state_map.items():
+            if state.lower() == full_name.lower():
+                variations.append(abbr)
+                break
+        
+        return variations
     
     def _combine_search_and_linkedin_data(self, search_prospects: List[Dict], linkedin_profiles: List[Dict]) -> List[Dict]:
         """Combine search results with scraped LinkedIn data"""

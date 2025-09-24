@@ -58,7 +58,9 @@ def test_hospital(hospital, output_dir):
     
     request_data = {
         "company_name": hospital["name"],
-        "target_titles": TARGET_TITLES
+        "target_titles": TARGET_TITLES,
+        "company_city": hospital["city"],
+        "company_state": hospital["state"]
     }
     
     try:

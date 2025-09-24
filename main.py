@@ -290,6 +290,8 @@ async def discover_prospects_improved(request: dict):
     try:
         company_name = request.get("company_name")
         target_titles = request.get("target_titles", [])
+        company_city = request.get("company_city")
+        company_state = request.get("company_state")
         
         if not company_name:
             raise HTTPException(
@@ -299,7 +301,9 @@ async def discover_prospects_improved(request: dict):
         
         result = await improved_prospect_discovery_service.discover_prospects(
             company_name=company_name,
-            target_titles=target_titles if target_titles else None
+            target_titles=target_titles if target_titles else None,
+            company_city=company_city,
+            company_state=company_state
         )
         
         if result.get("success"):
