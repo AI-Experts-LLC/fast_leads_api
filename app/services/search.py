@@ -86,7 +86,7 @@ class SerperSearchService:
                 "success": True,
                 "company_name": company_name,
                 "total_results": len(unique_results),
-                "results": unique_results[:20],  # Limit to top 20 results
+                "results": unique_results,  # Limit to top 20 results
                 "target_titles_searched": target_titles
             }
             
