@@ -1,0 +1,18 @@
+{
+  "test_timestamp": "2025-09-24T13:32:07.871333",
+  "total_hospitals_tested": 1,
+  "successful_tests": 1,
+  "failed_tests": 0,
+  "success_rate_percent": 100.0,
+  "total_testing_time_minutes": 0.7493953704833984,
+  "results": [
+    {
+      "success": true,
+      "hospital": "MAYO CLINIC HOSPITAL",
+      "prospects_found": 2,
+      "cost": 2.52,
+      "response_time": 44.96105694770813,
+      "json_file": "hospital_prospect_testing_20250924_133122/MAYO_CLINIC_HOSPITAL_complete_response.json"
+    }
+  ]
+}

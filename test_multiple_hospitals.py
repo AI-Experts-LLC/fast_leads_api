@@ -11,13 +11,13 @@ from datetime import datetime
 
 API_BASE_URL = "https://fast-leads-api.up.railway.app"
 
-# Target hospitals from the enhanced list (testing larger hospital)
+# Target hospitals from the enhanced list (testing larger hospitals for more diversity)
 TEST_HOSPITALS = [
     {
-        "name": "MAYO CLINIC HOSPITAL", 
-        "city": "PHOENIX",
-        "state": "AZ",
-        "beds": 280,
+        "name": "CLEVELAND CLINIC", 
+        "city": "CLEVELAND",
+        "state": "OH",
+        "beds": 1285,
         "type": "Large Academic Medical Center"
     }
 ]

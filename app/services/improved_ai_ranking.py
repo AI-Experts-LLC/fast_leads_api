@@ -171,7 +171,7 @@ IMPORTANT RULES:
 """
     
     def _apply_rankings_to_prospects(self, ranking_response: Dict, original_prospects: List[Dict]) -> List[Dict]:
-        """Apply AI rankings and return best prospect for each target job title"""
+        """Apply AI rankings and return top 2 prospects per target job title for better coverage"""
         prospect_rankings = ranking_response.get("prospect_rankings", [])
         
         # Create ranking lookup
@@ -181,7 +181,7 @@ IMPORTANT RULES:
             if index >= 0:
                 ranking_lookup[index] = ranking
         
-        # Group prospects by target job title
+        # Group prospects by target job title (keeping top 2 per title)
         prospects_by_title = {}
         
         for i, prospect in enumerate(original_prospects):
@@ -205,18 +205,23 @@ IMPORTANT RULES:
                     }
                 }
                 
-                # Group by target title and keep only the highest scoring prospect per title
+                # Group by target title and keep top 2 prospects per title
                 if target_title not in prospects_by_title:
-                    prospects_by_title[target_title] = ranked_prospect
+                    prospects_by_title[target_title] = [ranked_prospect]
                 else:
-                    # Keep the higher scoring prospect for this title
-                    current_score = prospects_by_title[target_title].get("ai_ranking", {}).get("ranking_score", 0)
-                    new_score = ranked_prospect.get("ai_ranking", {}).get("ranking_score", 0)
-                    if new_score > current_score:
-                        prospects_by_title[target_title] = ranked_prospect
+                    prospects_by_title[target_title].append(ranked_prospect)
+                    # Sort by score and keep only top 2
+                    prospects_by_title[target_title].sort(
+                        key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
+                        reverse=True
+                    )
+                    prospects_by_title[target_title] = prospects_by_title[target_title][:2]
         
-        # Convert back to list and sort by score
-        final_prospects = list(prospects_by_title.values())
+        # Flatten the results and sort by overall score
+        final_prospects = []
+        for title_prospects in prospects_by_title.values():
+            final_prospects.extend(title_prospects)
+        
         final_prospects.sort(
             key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
             reverse=True

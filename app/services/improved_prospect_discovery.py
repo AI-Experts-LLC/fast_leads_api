@@ -290,20 +290,27 @@ class ImprovedProspectDiscoveryService:
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - intern/student title")
                 continue
             
-            # Company verification using LinkedIn data
+            # Company verification using LinkedIn data (more flexible matching)
             company_variations = self._generate_company_variations(company_name)
             company_match = any(
                 variation.lower() in current_company for variation in company_variations
             )
             
+            # Also check reverse matching (current company name parts in target)
+            if not company_match and current_company:
+                company_parts = [part.strip() for part in current_company.split() if len(part) > 3]
+                company_match = any(
+                    part.lower() in company_name.lower() for part in company_parts
+                )
+            
             if not company_match:
-                logger.debug(f"Excluded: {linkedin_data.get('name')} - company mismatch: {current_company}")
+                logger.debug(f"Excluded: {linkedin_data.get('name')} - company mismatch: '{current_company}' vs '{company_name}'")
                 continue
             
             # Check for decision-making seniority
             seniority_score = self._calculate_seniority_score(linkedin_data)
             
-            if seniority_score < 15:  # Lowered threshold to include more contacts
+            if seniority_score < 10:  # Further lowered threshold to include more diverse contacts
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - low seniority score: {seniority_score}")
                 continue
             

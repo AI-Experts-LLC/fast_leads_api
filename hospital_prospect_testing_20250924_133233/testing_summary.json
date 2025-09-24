@@ -1,0 +1,34 @@
+{
+  "test_timestamp": "2025-09-24T13:35:13.265702",
+  "total_hospitals_tested": 3,
+  "successful_tests": 3,
+  "failed_tests": 0,
+  "success_rate_percent": 100.0,
+  "total_testing_time_minutes": 2.669643688201904,
+  "results": [
+    {
+      "success": true,
+      "hospital": "MAYO CLINIC HOSPITAL",
+      "prospects_found": 1,
+      "cost": 2.67,
+      "response_time": 32.29856777191162,
+      "json_file": "hospital_prospect_testing_20250924_133233/MAYO_CLINIC_HOSPITAL_complete_response.json"
+    },
+    {
+      "success": true,
+      "hospital": "ARROWHEAD REGIONAL MEDICAL CENTER",
+      "prospects_found": 1,
+      "cost": 1.92,
+      "response_time": 35.32600998878479,
+      "json_file": "hospital_prospect_testing_20250924_133233/ARROWHEAD_REGIONAL_MEDICAL_CENTER_complete_response.json"
+    },
+    {
+      "success": true,
+      "hospital": "ROSWELL PARK CANCER INSTITUTE",
+      "prospects_found": 1,
+      "cost": 2.22,
+      "response_time": 82.54050183296204,
+      "json_file": "hospital_prospect_testing_20250924_133233/ROSWELL_PARK_CANCER_INSTITUTE_complete_response.json"
+    }
+  ]
+}

@@ -89,7 +89,7 @@ class ApifyLinkedInService:
             
             # Prepare the Actor input (matching example code structure)
             run_input = {
-                "profileUrls": linkedin_urls[:10]  # Limit to 10 profiles to control costs
+                "profileUrls": linkedin_urls[:16]  # Increased limit to capture more prospects per target title
             }
             
             # Run the Actor and wait for it to finish (matching example code)

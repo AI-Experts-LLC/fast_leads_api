@@ -1,0 +1,656 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "ROSWELL PARK CANCER INSTITUTE",
+    "pipeline_summary": {
+      "search_results_found": 20,
+      "prospects_after_basic_filter": 14,
+      "linkedin_profiles_scraped": 9,
+      "prospects_after_advanced_filter": 8,
+      "final_ranked_prospects": 1
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "David Newman - Roswell Park Cancer Institute",
+        "search_snippet": "David Newman. Executive Director of Capital Projects Roswell Park Cancer Institute. Roswell Park Cancer Institute. Getzville, New York, United States.",
+        "linkedin_url": "https://www.linkedin.com/in/david-newman-73523b11",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/david-newman-73523b11",
+          "name": "David Newman",
+          "first_name": "David",
+          "last_name": "Newman",
+          "headline": "Executive Director of Capital Projects Roswell Park Cancer Institute",
+          "company": "Roswell Park Comprehensive Cancer Center",
+          "location": "Getzville, New York",
+          "summary": null,
+          "about": null,
+          "job_title": "Executive Director Capital Projects",
+          "company_name": "Roswell Park Comprehensive Cancer Center",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "roswellpark.org",
+          "company_linkedin": "linkedin.com/company/roswellpark",
+          "company_size": "1001-5000",
+          "company_founded": 1898,
+          "current_job_duration": "13 yrs 11 mos",
+          "current_job_duration_years": 13.92,
+          "connections": 365,
+          "followers": 364,
+          "top_skills_by_endorsements": "Construction Management, Facilities Management, Contract Management, Contract Negotiation, Budgets",
+          "skills": [
+            {
+              "name": "Construction Management",
+              "endorsements": [
+                "Endorsed by Selena Lo DIPARCH (Oxford) and 3 others who are highly skilled at this",
+                "Endorsed by 12 colleagues at Cornell University",
+                "29 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Negotiation",
+              "endorsements": [
+                "Endorsed by Selena Lo DIPARCH (Oxford) who is highly skilled at this",
+                "Endorsed by 3 colleagues at Cornell University",
+                "11 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Management",
+              "endorsements": [
+                "Endorsed by Selena Lo DIPARCH (Oxford) who is highly skilled at this",
+                "Endorsed by 4 colleagues at Cornell University",
+                "14 endorsements"
+              ]
+            },
+            {
+              "name": "Budgets",
+              "endorsements": [
+                "9 endorsements"
+              ]
+            },
+            {
+              "name": "Facilities Management",
+              "endorsements": [
+                "18 endorsements"
+              ]
+            },
+            {
+              "name": "Renovation",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Pre-construction",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Value Engineering",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Contractors",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Team Building",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Cost Control",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Construction",
+              "endorsements": [
+                "8 endorsements"
+              ]
+            },
+            {
+              "name": "Process Scheduler",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Project Management",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Supervisory Skills",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            }
+          ],
+          "skills_count": 15,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "david-newman-73523b11",
+          "urn": "ACoAAAJZKVkBP5ZIbKNTNMcpoSkOcOHzGKQq0gs",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Getzville, New York, United States",
+          "address_without_country": "Getzville, New York",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Executive Director Capital Projects",
+              "company": "Roswell Park Cancer Institute",
+              "duration": "Nov 2011 - Present \u00b7 13 yrs 11 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+              "company_link": "https://www.linkedin.com/company/19224/"
+            },
+            {
+              "title": "Director of Construction Management",
+              "company": "Cornell University",
+              "duration": "Oct 1996 - Oct 2011 \u00b7 15 yrs 1 mo",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQE8SOXGRyv7LA/company-logo_200_200/company-logo_200_200/0/1631339899678?e=1761782400&v=beta&t=y_awAw7BZjayH3T1qWX-eOseVY6oJ1jjISrX-gYg6Go",
+              "company_link": "https://www.linkedin.com/company/3523/"
+            }
+          ],
+          "experience_count": 2,
+          "total_experience_years": 29.0,
+          "industry_experience": {
+            "other": 13.9,
+            "education": 15.1
+          },
+          "education": [],
+          "education_count": 0,
+          "highest_degree": "Unknown",
+          "alma_maters": [],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Roswell Park Comprehensive Cancer Center",
+                  "caption": "28,453 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/19224/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Strut Systems Installation LLC",
+                  "caption": "688 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/27227481/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "University at Buffalo School of Architecture and Planning",
+                  "caption": "1,200 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/4867921",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Healthcare Facilities Professionals",
+                  "caption": "5,163 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/3861727",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 135,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 46,
+          "total_sections_completed": 5,
+          "interests_count": 2,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 10,
+          "accessibility_score": 50,
+          "professional_authority_score": 45,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 65,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/david-newman-73523b11",
+            "firstName": "David",
+            "lastName": "Newman",
+            "fullName": "David Newman",
+            "headline": "Executive Director of Capital Projects Roswell Park Cancer Institute",
+            "connections": 365,
+            "followers": 364,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Executive Director Capital Projects",
+            "companyName": "Roswell Park Comprehensive Cancer Center",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "roswellpark.org",
+            "companyLinkedin": "linkedin.com/company/roswellpark",
+            "companyFoundedIn": 1898,
+            "companySize": "1001-5000",
+            "currentJobDuration": "13 yrs 11 mos",
+            "currentJobDurationInYrs": 13.92,
+            "topSkillsByEndorsements": "Construction Management, Facilities Management, Contract Management, Contract Negotiation, Budgets",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Getzville, New York, United States",
+            "addressWithoutCountry": "Getzville, New York",
+            "profilePic": null,
+            "profilePicHighQuality": null,
+            "about": null,
+            "publicIdentifier": "david-newman-73523b11",
+            "openConnection": null,
+            "urn": "ACoAAAJZKVkBP5ZIbKNTNMcpoSkOcOHzGKQq0gs",
+            "experiences": [
+              {
+                "companyId": "19224",
+                "companyUrn": "urn:li:fsd_company:19224",
+                "companyLink1": "https://www.linkedin.com/company/19224/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQH06yxhigqZHg/company-logo_200_200/company-logo_200_200/0/1631320005409?e=1761782400&v=beta&t=Vu7SbxM2VRwCv-xEUomow_94QAmkoGAHAjkIGR0-ZDU",
+                "title": "Executive Director Capital Projects",
+                "subtitle": "Roswell Park Cancer Institute",
+                "caption": "Nov 2011 - Present \u00b7 13 yrs 11 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "3523",
+                "companyUrn": "urn:li:fsd_company:3523",
+                "companyLink1": "https://www.linkedin.com/company/3523/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQE8SOXGRyv7LA/company-logo_200_200/company-logo_200_200/0/1631339899678?e=1761782400&v=beta&t=y_awAw7BZjayH3T1qWX-eOseVY6oJ1jjISrX-gYg6Go",
+                "title": "Director of Construction Management",
+                "subtitle": "Cornell University",
+                "caption": "Oct 1996 - Oct 2011 \u00b7 15 yrs 1 mo",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Construction Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Selena Lo DIPARCH (Oxford) and 3 others who are highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 12 colleagues at Cornell University"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "29 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Negotiation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Selena Lo DIPARCH (Oxford) who is highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 3 colleagues at Cornell University"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "11 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by Selena Lo DIPARCH (Oxford) who is highly skilled at this"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 4 colleagues at Cornell University"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "14 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Budgets",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "9 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Facilities Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "18 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Renovation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Pre-construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Value Engineering",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contractors",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Team Building",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Cost Control",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "8 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Scheduler",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Supervisory Skills",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [],
+            "educations": [],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Roswell Park Comprehensive Cancer Center",
+                    "caption": "28,453 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/19224/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Strut Systems Installation LLC",
+                    "caption": "688 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/27227481/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "University at Buffalo School of Architecture and Planning",
+                    "caption": "1,200 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/4867921",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Healthcare Facilities Professionals",
+                    "caption": "5,163 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/3861727",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 89,
+          "current_title": "executive director capital projects",
+          "current_company": "roswell park comprehensive cancer center"
+        },
+        "ai_ranking": {
+          "ranking_score": 85,
+          "decision_authority_level": "High",
+          "persona_category": "C-Suite",
+          "ranking_reasoning": "Executive Director of Capital Projects with extensive experience and authority in capital decision-making.",
+          "key_qualifications": [
+            "29 years experience",
+            "executive level",
+            "capital project management"
+          ],
+          "potential_influence": "Direct decision maker for capital projects and infrastructure investments",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 2.1,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 2.22
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-24T17:35:13.128522"
+}

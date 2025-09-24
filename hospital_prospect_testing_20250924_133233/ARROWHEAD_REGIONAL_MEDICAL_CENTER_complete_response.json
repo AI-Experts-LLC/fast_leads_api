@@ -1,0 +1,393 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "ARROWHEAD REGIONAL MEDICAL CENTER",
+    "pipeline_summary": {
+      "search_results_found": 20,
+      "prospects_after_basic_filter": 12,
+      "linkedin_profiles_scraped": 10,
+      "prospects_after_advanced_filter": 4,
+      "final_ranked_prospects": 1
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Eric Arnott - Arrowhead Regional Medical Center",
+        "search_snippet": "Eric Arnott. Facilities, Central Plant, Bio-Medical Engineering, Grounds and Security Manager at Arrowhead Regional Medical Center. Arrowhead Regional Medical ...",
+        "linkedin_url": "https://www.linkedin.com/in/eric-arnott-788398110",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/eric-arnott-788398110",
+          "name": "Eric Arnott",
+          "first_name": "Eric",
+          "last_name": "Arnott",
+          "headline": " Facilities, Central Plant, Bio-Medical Engineering, Grounds and Security Manager at\nArrowhead Regional Medical Center ",
+          "company": "Arrowhead Regional Medical Center",
+          "location": "Colton, California",
+          "summary": null,
+          "about": null,
+          "job_title": "Manager of Building, Central Plant, Bio-Medical Engineering and Security ",
+          "company_name": "Arrowhead Regional Medical Center",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "arrowheadregional.org",
+          "company_linkedin": "linkedin.com/company/arrowhead-regional-medical-center",
+          "company_size": "1001-5000",
+          "company_founded": 1999,
+          "current_job_duration": "21 yrs 8 mos",
+          "current_job_duration_years": 21.67,
+          "connections": 221,
+          "followers": 224,
+          "top_skills_by_endorsements": null,
+          "skills": [],
+          "skills_count": 0,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "eric-arnott-788398110",
+          "urn": "ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Colton, California, United States",
+          "address_without_country": "Colton, California",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Manager of Building, Central Plant, Bio-Medical Engineering and Security ",
+              "company": "Arrowhead Regional Medical Center",
+              "duration": "Feb 2004 - Present \u00b7 21 yrs 8 mos",
+              "location": "400 N. Pepper Colton CA.",
+              "description": [
+                {
+                  "type": "textComponent",
+                  "text": "I started with Facilities Management in 2004 as a Plumber. I was promoted to Facilities Supervisor after 8 years and then to Manager 2 years after that. It has been a very rewarding journey!"
+                }
+              ],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQETADCeFsO1QA/company-logo_200_200/company-logo_200_200/0/1631348914455?e=1761782400&v=beta&t=W0kKCHW0R0wkB2gk0o4H9mLXMGq923nKwhmBTfECaHE",
+              "company_link": "https://www.linkedin.com/company/8887572/"
+            }
+          ],
+          "experience_count": 1,
+          "total_experience_years": 21.7,
+          "industry_experience": {
+            "healthcare": 21.7
+          },
+          "education": [],
+          "education_count": 0,
+          "highest_degree": "Unknown",
+          "alma_maters": [],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Sodexo",
+                  "caption": "1,523,604 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/3402/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "San Bernardino County",
+                  "caption": "24,005 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/13664/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "ASHE",
+                  "caption": "7,707 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/2132968",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [
+            {
+              "section_name": "Received",
+              "section_components": []
+            },
+            {
+              "section_name": "Given",
+              "section_components": [
+                {
+                  "titleV2": "Pierre Macaso",
+                  "caption": "April 4, 2016, Eric was Pierre\u2019s client",
+                  "subtitle": "Commercial Account Manager at Grainger",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/in/pierremacaso",
+                  "image": "https://media.licdn.com/dms/image/v2/C4E03AQGpPApPOIOPqA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1589493687301?e=1761782400&v=beta&t=EyLz5S2XGaqUeYgwbHRDauH1fzQby2U9l-S0oQZU2X4",
+                  "subComponents": [
+                    {
+                      "fixedListComponent": [
+                        {
+                          "type": "textComponent",
+                          "text": "\r\n\"\"We brought Pierre in to help manage and time our event. He was very helpful in transitioning us from paper to computers. He had great insight into managing the registration process, and course planning. He was present at our planning meetings, and managed our off site registration, and was very easy to work with and contact. His customer service was outstanding. We will be using Pierre and his team again in 2016\" Thanks and I look forward to working with you again.\" \r\n -Eric Arnott\r\n+Event Planner \r\n"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "recommendations_count": {
+            "received": 0,
+            "given": 1
+          },
+          "endorsements_received": 0,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 42,
+          "total_sections_completed": 5,
+          "interests_count": 2,
+          "languages_count": 0,
+          "certifications_count": 0,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 10,
+          "accessibility_score": 50,
+          "professional_authority_score": 31,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 65,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/eric-arnott-788398110",
+            "firstName": "Eric",
+            "lastName": "Arnott",
+            "fullName": "Eric Arnott",
+            "headline": " Facilities, Central Plant, Bio-Medical Engineering, Grounds and Security Manager at\nArrowhead Regional Medical Center ",
+            "connections": 221,
+            "followers": 224,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Manager of Building, Central Plant, Bio-Medical Engineering and Security ",
+            "companyName": "Arrowhead Regional Medical Center",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "arrowheadregional.org",
+            "companyLinkedin": "linkedin.com/company/arrowhead-regional-medical-center",
+            "companyFoundedIn": 1999,
+            "companySize": "1001-5000",
+            "currentJobDuration": "21 yrs 8 mos",
+            "currentJobDurationInYrs": 21.67,
+            "topSkillsByEndorsements": null,
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Colton, California, United States",
+            "addressWithoutCountry": "Colton, California",
+            "profilePic": null,
+            "profilePicHighQuality": null,
+            "about": null,
+            "publicIdentifier": "eric-arnott-788398110",
+            "openConnection": null,
+            "urn": "ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+            "experiences": [
+              {
+                "companyId": "8887572",
+                "companyUrn": "urn:li:fsd_company:8887572",
+                "companyLink1": "https://www.linkedin.com/company/8887572/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQETADCeFsO1QA/company-logo_200_200/company-logo_200_200/0/1631348914455?e=1761782400&v=beta&t=W0kKCHW0R0wkB2gk0o4H9mLXMGq923nKwhmBTfECaHE",
+                "title": "Manager of Building, Central Plant, Bio-Medical Engineering and Security ",
+                "subtitle": "Arrowhead Regional Medical Center",
+                "caption": "Feb 2004 - Present \u00b7 21 yrs 8 mos",
+                "metadata": "400 N. Pepper Colton CA.",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "I started with Facilities Management in 2004 as a Plumber. I was promoted to Facilities Supervisor after 8 years and then to Manager 2 years after that. It has been a very rewarding journey!"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "updates": [
+              {
+                "image": "https://media.licdn.com/dms/image/v2/C562DAQFvtHNoPGXqIw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1598540081607?e=1759341600&v=beta&t=eToU16FvtVVg7QTamB9zOkTz_QsutaVT1ZC0QWrKxxg",
+                "postLink": "https://www.linkedin.com/in/eric-arnott-788398110/overlay/1542118856210/single-media-viewer?type=IMAGE&profileId=ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+                "reactionTypeCounts": []
+              },
+              {
+                "image": "https://media.licdn.com/dms/image/v2/C562DAQH-FmDTbOg5aQ/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1598865860000?e=1759341600&v=beta&t=jpEjHB1uAD5s7-BftPstsWObnx92A1WNIwfoXT90my0",
+                "postLink": "https://www.linkedin.com/in/eric-arnott-788398110/overlay/1542118856109/single-media-viewer?type=IMAGE&profileId=ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+                "reactionTypeCounts": []
+              },
+              {
+                "image": "https://media.licdn.com/dms/image/v2/C562DAQH-Yiz-ywi6ew/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1601449027357?e=1759341600&v=beta&t=b76y6B3cMj3cajW2skM9DMF2aZMx-5r9xUR1pEU02zo",
+                "postLink": "https://www.linkedin.com/in/eric-arnott-788398110/overlay/1542118855970/single-media-viewer?type=IMAGE&profileId=ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+                "reactionTypeCounts": []
+              },
+              {
+                "image": "https://media.licdn.com/dms/image/v2/C562DAQH0ygorgHF3gw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1598446924833?e=1759341600&v=beta&t=KZ5v-ReLKXaPUNAQPXYhxwW-8W5AtsLkWNoxdqIleAU",
+                "postLink": "https://www.linkedin.com/in/eric-arnott-788398110/overlay/1529934257316/single-media-viewer?type=IMAGE&profileId=ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+                "reactionTypeCounts": []
+              },
+              {
+                "image": "https://media.licdn.com/dms/image/v2/C562DAQFDQbAi7-RK3g/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1602164536332?e=1759341600&v=beta&t=to3QdGCxTBhuxsQOPs3vvAL8iHjXRJe96JwsOtDVZBQ",
+                "postLink": "https://www.linkedin.com/in/eric-arnott-788398110/overlay/1529934257195/single-media-viewer?type=IMAGE&profileId=ACoAABvSN1gBl-_k3Om6eynee8MYZhpLZFxFxWM",
+                "reactionTypeCounts": []
+              }
+            ],
+            "skills": [],
+            "profilePicAllDimensions": [],
+            "educations": [],
+            "licenseAndCertificates": [],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Sodexo",
+                    "caption": "1,523,604 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/3402/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "San Bernardino County",
+                    "caption": "24,005 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/13664/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "ASHE",
+                    "caption": "7,707 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/2132968",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": [
+              {
+                "section_name": "Received",
+                "section_components": []
+              },
+              {
+                "section_name": "Given",
+                "section_components": [
+                  {
+                    "titleV2": "Pierre Macaso",
+                    "caption": "April 4, 2016, Eric was Pierre\u2019s client",
+                    "subtitle": "Commercial Account Manager at Grainger",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/in/pierremacaso",
+                    "image": "https://media.licdn.com/dms/image/v2/C4E03AQGpPApPOIOPqA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1589493687301?e=1761782400&v=beta&t=EyLz5S2XGaqUeYgwbHRDauH1fzQby2U9l-S0oQZU2X4",
+                    "subComponents": [
+                      {
+                        "fixedListComponent": [
+                          {
+                            "type": "textComponent",
+                            "text": "\r\n\"\"We brought Pierre in to help manage and time our event. He was very helpful in transitioning us from paper to computers. He had great insight into managing the registration process, and course planning. He was present at our planning meetings, and managed our off site registration, and was very easy to work with and contact. His customer service was outstanding. We will be using Pierre and his team again in 2016\" Thanks and I look forward to working with you again.\" \r\n -Eric Arnott\r\n+Event Planner \r\n"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 68,
+          "current_title": "manager of building, central plant, bio-medical engineering and security ",
+          "current_company": "arrowhead regional medical center"
+        },
+        "ai_ranking": {
+          "ranking_score": 85,
+          "decision_authority_level": "High",
+          "persona_category": "Facilities Director",
+          "ranking_reasoning": "21+ years experience in facilities management with direct oversight of critical infrastructure.",
+          "key_qualifications": [
+            "managerial experience",
+            "long tenure",
+            "technical oversight"
+          ],
+          "potential_influence": "Direct decision maker for energy infrastructure projects",
+          "ranked_by": "ai",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      }
+    ],
+    "cost_estimates": {
+      "search_cost": 0.1,
+      "linkedin_cost": 1.7999999999999998,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 1.92
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-09-24T17:33:45.600762"
+}
