@@ -6,6 +6,7 @@ AI does NOT create, modify, or invent data
 
 import os
 import logging
+import asyncio
 from typing import List, Dict, Any, Optional
 import openai
 from openai import OpenAI
@@ -288,7 +289,7 @@ IMPORTANT RULES:
         for prospect in all_ranked_prospects:
             target_title = prospect.get("target_title", "Unknown")
             
-            # If we haven't seen this target title yet, take this prospect (the highest scoring one)
+                # If we haven't seen this target title yet, take this prospect (the highest scoring one)
             if target_title not in prospects_by_title:
                 prospects_by_title[target_title] = True
                 final_prospects.append(prospect)
@@ -297,12 +298,60 @@ IMPORTANT RULES:
                 if len(final_prospects) >= 8:
                     break
         
+        # If no AI rankings were successful, fall back to seniority-based ranking
+        if not final_prospects and original_prospects:
+            logger.warning("No AI rankings available, falling back to seniority-based ranking")
+            return self._fallback_ranking_by_seniority(original_prospects)
+        
         # Add rank position based on final order
         for i, prospect in enumerate(final_prospects):
             prospect["ai_ranking"]["rank_position"] = i + 1
         
         logger.info(f"Selected top {len(final_prospects)} prospects (one per target title) from {len(all_ranked_prospects)} ranked prospects")
         
+        return final_prospects
+    
+    def _fallback_ranking_by_seniority(self, prospects: List[Dict]) -> List[Dict]:
+        """Fallback ranking using seniority scores when AI ranking fails"""
+        logger.info("Using seniority-based fallback ranking")
+        
+        # Add fallback ranking based on seniority scores
+        for prospect in prospects:
+            seniority_score = prospect.get("advanced_filter", {}).get("seniority_score", 0)
+            linkedin_data = prospect.get("linkedin_data", {})
+            
+            prospect["ai_ranking"] = {
+                "ranking_score": seniority_score,  # Use seniority as fallback score
+                "ranking_reasoning": f"Fallback ranking based on seniority score ({seniority_score})",
+                "ranked_by": "seniority_fallback",
+                "ranking_timestamp": None
+            }
+        
+        # Sort by seniority score
+        prospects.sort(
+            key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
+            reverse=True
+        )
+        
+        # Select best prospect for each unique target title (max 8)
+        prospects_by_title = {}
+        final_prospects = []
+        
+        for prospect in prospects:
+            target_title = prospect.get("target_title", "Unknown")
+            
+            if target_title not in prospects_by_title:
+                prospects_by_title[target_title] = True
+                final_prospects.append(prospect)
+                
+                if len(final_prospects) >= 8:
+                    break
+        
+        # Add rank positions
+        for i, prospect in enumerate(final_prospects):
+            prospect["ai_ranking"]["rank_position"] = i + 1
+        
+        logger.info(f"Fallback ranking selected {len(final_prospects)} prospects using seniority scores")
         return final_prospects
     
     async def generate_outreach_strategy(self, top_prospect: Dict, company_context: Dict = None) -> Dict[str, Any]:
