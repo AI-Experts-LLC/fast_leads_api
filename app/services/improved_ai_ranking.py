@@ -247,10 +247,10 @@ IMPORTANT RULES:
 """
     
     def _apply_individual_rankings_to_prospects(self, ranking_results: List[Dict], original_prospects: List[Dict]) -> List[Dict]:
-        """Apply individual AI rankings and return top 2 prospects per target job title"""
+        """Apply individual AI rankings and return the BEST prospect per target job title (max 5-8 total)"""
         
-        # Group prospects by target job title (keeping top 2 per title)
-        prospects_by_title = {}
+        # Create list of all successfully ranked prospects
+        all_ranked_prospects = []
         
         for i, prospect in enumerate(original_prospects):
             # Find corresponding ranking result
@@ -261,8 +261,6 @@ IMPORTANT RULES:
                     break
             
             if ranking_result:  # Only process prospects that got successfully ranked
-                target_title = prospect.get("target_title", "Unknown")
-                
                 # Add ranking data WITHOUT modifying original prospect data
                 ranked_prospect = {
                     **prospect,  # Original prospect data (unchanged)
@@ -273,34 +271,37 @@ IMPORTANT RULES:
                         "ranking_timestamp": None  # Would add in production
                     }
                 }
-                
-                # Group by target title and keep top 2 prospects per title
-                if target_title not in prospects_by_title:
-                    prospects_by_title[target_title] = [ranked_prospect]
-                else:
-                    prospects_by_title[target_title].append(ranked_prospect)
-                    # Sort by score and keep only top 2
-                    prospects_by_title[target_title].sort(
-                        key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
-                        reverse=True
-                    )
-                    prospects_by_title[target_title] = prospects_by_title[target_title][:2]
+                all_ranked_prospects.append(ranked_prospect)
             else:
                 logger.warning(f"No successful ranking for prospect {i}: {prospect.get('linkedin_data', {}).get('name', 'Unknown')}")
         
-        # Flatten the results and sort by overall score
-        final_prospects = []
-        for title_prospects in prospects_by_title.values():
-            final_prospects.extend(title_prospects)
-        
-        final_prospects.sort(
+        # Sort ALL prospects by score (highest first)
+        all_ranked_prospects.sort(
             key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
             reverse=True
         )
         
-        # Add rank position
+        # Select the BEST prospect for each unique target title (max 8 prospects)
+        prospects_by_title = {}
+        final_prospects = []
+        
+        for prospect in all_ranked_prospects:
+            target_title = prospect.get("target_title", "Unknown")
+            
+            # If we haven't seen this target title yet, take this prospect (the highest scoring one)
+            if target_title not in prospects_by_title:
+                prospects_by_title[target_title] = True
+                final_prospects.append(prospect)
+                
+                # Stop at 8 prospects maximum
+                if len(final_prospects) >= 8:
+                    break
+        
+        # Add rank position based on final order
         for i, prospect in enumerate(final_prospects):
             prospect["ai_ranking"]["rank_position"] = i + 1
+        
+        logger.info(f"Selected top {len(final_prospects)} prospects (one per target title) from {len(all_ranked_prospects)} ranked prospects")
         
         return final_prospects
     

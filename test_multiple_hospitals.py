@@ -103,21 +103,24 @@ def test_hospital(hospital, output_dir):
                 print(f"   Pipeline: {pipeline.get('search_results_found', 0)} → {len(prospects)}")
                 print(f"   Cost: ${costs.get('total_estimated', 0):.2f}")
                 
-                # Show top prospects
+                # Show top prospects with LinkedIn URLs
                 if prospects:
-                    print(f"\n🎯 Top Prospects:")
-                    for i, prospect in enumerate(prospects[:3]):
+                    print(f"\n🎯 Final Prospects (Top {len(prospects)}, One per Job Title):")
+                    for i, prospect in enumerate(prospects):
                         linkedin_data = prospect.get('linkedin_data', {})
                         ai_ranking = prospect.get('ai_ranking', {})
                         
                         name = linkedin_data.get('name', 'N/A')
                         title = linkedin_data.get('job_title', 'N/A')
+                        target_title = prospect.get('target_title', 'N/A')
                         score = ai_ranking.get('ranking_score', 0)
-                        persona = ai_ranking.get('persona_category', 'N/A')
+                        linkedin_url = prospect.get('linkedin_url', 'N/A')
                         
                         print(f"   {i+1}. {name} - {score}/100")
-                        print(f"      Title: {title}")
-                        print(f"      Persona: {persona}")
+                        print(f"      LinkedIn Title: {title}")
+                        print(f"      Target Role: {target_title}")
+                        print(f"      LinkedIn: {linkedin_url}")
+                        print()
                 
                 return {
                     "success": True,
