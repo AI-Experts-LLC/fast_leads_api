@@ -1,9 +1,10 @@
 """
 IMPROVED Prospect Discovery Service
 Fixes accuracy issues by:
-1. Basic filtering BEFORE AI involvement
-2. LinkedIn scraping BEFORE AI qualification  
-3. AI only ranks real data, doesn't create data
+1. Company name expansion to find all LinkedIn variations
+2. Basic filtering BEFORE AI involvement
+3. LinkedIn scraping BEFORE AI qualification
+4. AI only ranks real data, doesn't create data
 """
 
 import logging
@@ -12,6 +13,7 @@ from typing import Dict, Any, List, Optional
 import asyncio
 from .search import serper_service
 from .linkedin import linkedin_service
+from .company_name_expansion import company_name_expansion_service
 
 logger = logging.getLogger(__name__)
 
@@ -26,25 +28,62 @@ class ImprovedProspectDiscoveryService:
     async def discover_prospects(self, company_name: str, target_titles: List[str] = None, company_city: str = None, company_state: str = None) -> Dict[str, Any]:
         """
         Improved prospect discovery pipeline
-        
+
         Args:
             company_name: Name of the target company
             target_titles: Optional list of specific job titles to search for
             company_city: Optional company city for location matching
             company_state: Optional company state for location matching
-        
+
         Returns:
             Dictionary with discovered prospects and their complete LinkedIn data
         """
         try:
             logger.info(f"Starting IMPROVED prospect discovery for: {company_name}")
-            
-            # Step 1: Search for LinkedIn profiles
-            logger.info("Step 1: Searching for LinkedIn profiles...")
-            search_result = await self.search_service.search_linkedin_profiles(
+
+            # Step 0: Expand company name into all LinkedIn variations
+            logger.info("Step 0: Expanding company name variations...")
+            expansion_result = await company_name_expansion_service.expand_company_name(
                 company_name=company_name,
-                target_titles=target_titles
+                company_city=company_city,
+                company_state=company_state
             )
+
+            company_variations = expansion_result.get("variations", [company_name])
+            logger.info(f"Expanded to {len(company_variations)} variations: {', '.join(company_variations[:5])}{'...' if len(company_variations) > 5 else ''}")
+
+            # Step 1: Search for LinkedIn profiles using ALL company name variations
+            logger.info("Step 1: Searching for LinkedIn profiles across all company variations...")
+            all_search_results = []
+
+            for variation in company_variations:
+                logger.info(f"  Searching for: {variation}")
+                search_result = await self.search_service.search_linkedin_profiles(
+                    company_name=variation,
+                    target_titles=target_titles
+                )
+
+                if search_result.get("success") and search_result.get("results"):
+                    # Tag each result with which variation it came from
+                    for result in search_result.get("results", []):
+                        result["search_company_variation"] = variation
+                    all_search_results.extend(search_result.get("results", []))
+
+            # Deduplicate by LinkedIn URL
+            seen_urls = set()
+            search_results = []
+            for result in all_search_results:
+                url = result.get("link", "")
+                if url and url not in seen_urls:
+                    seen_urls.add(url)
+                    search_results.append(result)
+
+            # Update search_result for compatibility with rest of pipeline
+            search_result = {
+                "success": True if search_results else False,
+                "results": search_results,
+                "company_variations_searched": len(company_variations)
+            }
             
             if not search_result.get("success"):
                 return {
@@ -89,10 +128,34 @@ class ImprovedProspectDiscoveryService:
                     "filtered_prospects": [],
                     "filter_summary": {"removed_prospects": len(search_results)}
                 }
+
             
-            # Step 3: LinkedIn scraping (GET REAL DATA FIRST)
-            logger.info("Step 3: Scraping complete LinkedIn data...")
-            linkedin_urls = [p.get("link") for p in filtered_prospects if p.get("link")]
+            
+            # Step 3: AI-powered basic filter for company accuracy and connection count
+            logger.info("Step 3: AI-powered company accuracy and connection filter...")
+            ai_filtered_prospects = await self._ai_basic_filter_prospects(filtered_prospects, company_name)
+            logger.info(f"AI filtered to {len(ai_filtered_prospects)} prospects after removing wrong companies and low-connection profiles")
+            
+            # Log prospects that passed AI basic filtering
+            logger.info("=== PROSPECTS AFTER AI BASIC FILTER ===")
+            for i, prospect in enumerate(ai_filtered_prospects):
+                ai_filter = prospect.get('ai_basic_filter', {})
+                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Target: {prospect.get('target_title', 'N/A')} | Company Match: {ai_filter.get('company_match_confidence', 0)}/100 | Connections: {ai_filter.get('connection_count', 'Unknown')}")
+            logger.info("=== END AI BASIC FILTER RESULTS ===")
+            
+            if not ai_filtered_prospects:
+                return {
+                    "success": True,
+                    "message": "No prospects passed AI basic filtering",
+                    "search_results": len(search_results),
+                    "basic_filtered_prospects": len(filtered_prospects),
+                    "ai_filtered_prospects": [],
+                    "filter_summary": {"removed_prospects": len(search_results)}
+                }
+            
+            # Step 4: LinkedIn scraping (GET REAL DATA FIRST)
+            logger.info("Step 4: Scraping complete LinkedIn data...")
+            linkedin_urls = [p.get("link") for p in ai_filtered_prospects if p.get("link")]
             
             linkedin_result = await self.linkedin_service.scrape_profiles(linkedin_urls)
             
@@ -106,14 +169,14 @@ class ImprovedProspectDiscoveryService:
             linkedin_profiles = linkedin_result.get("profiles", [])
             logger.info(f"Successfully scraped {len(linkedin_profiles)} complete LinkedIn profiles")
             
-            # Step 4: Combine search results with scraped LinkedIn data
-            logger.info("Step 4: Combining search results with LinkedIn data...")
+            # Step 5: Combine search results with scraped LinkedIn data
+            logger.info("Step 5: Combining search results with LinkedIn data...")
             enriched_prospects = self._combine_search_and_linkedin_data(
-                filtered_prospects, linkedin_profiles
+                ai_filtered_prospects, linkedin_profiles
             )
             
-            # Step 5: FINAL filtering based on complete LinkedIn data
-            logger.info("Step 5: Final filtering based on complete LinkedIn data...")
+            # Step 6: FINAL filtering based on complete LinkedIn data
+            logger.info("Step 6: Final filtering based on complete LinkedIn data...")
             final_prospects = self._advanced_filter_with_linkedin_data(
                 enriched_prospects, company_name
             )
@@ -126,8 +189,8 @@ class ImprovedProspectDiscoveryService:
                 logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Title: {linkedin_data.get('job_title', 'N/A')} | Company: {linkedin_data.get('company', 'N/A')} | Seniority Score: {advanced_filter.get('seniority_score', 0)}")
             logger.info("=== END ADVANCED FILTER RESULTS ===")
             
-            # Step 6: AI ranking (ONLY ranking, no data modification)
-            logger.info("Step 6: AI ranking of validated prospects...")
+            # Step 7: AI ranking (ONLY ranking, no data modification)
+            logger.info("Step 7: AI ranking of validated prospects...")
             ranked_prospects = await self._ai_rank_prospects(final_prospects, company_name)
             
             # Log final ranked prospects (one per target title)
@@ -142,7 +205,9 @@ class ImprovedProspectDiscoveryService:
             return {
                 "success": True,
                 "company_name": company_name,
+                "company_variations_used": company_variations,
                 "pipeline_summary": {
+                    "company_variations_searched": len(company_variations),
                     "search_results_found": len(search_results),
                     "prospects_after_basic_filter": len(filtered_prospects),
                     "linkedin_profiles_scraped": len(linkedin_profiles),
@@ -151,10 +216,11 @@ class ImprovedProspectDiscoveryService:
                 },
                 "qualified_prospects": ranked_prospects,
                 "cost_estimates": {
-                    "search_cost": 0.01 * len(search_results[:10]),
+                    "company_expansion_cost": 0.01,  # Cost of AI name expansion
+                    "search_cost": 0.01 * len(company_variations),  # Search cost per variation
                     "linkedin_cost": linkedin_result.get("cost_estimate", 0),
-                    "ai_ranking_cost": 0.02,  # Only for ranking, not data creation
-                    "total_estimated": 0.01 * len(search_results[:10]) + linkedin_result.get("cost_estimate", 0) + 0.02
+                    "ai_ranking_cost": 0.02,
+                    "total_estimated": 0.01 + (0.01 * len(company_variations)) + linkedin_result.get("cost_estimate", 0) + 0.02
                 }
             }
             
@@ -223,9 +289,9 @@ class ImprovedProspectDiscoveryService:
             # State location matching (prefer local prospects)
             location_score = self._calculate_location_score(combined_text, company_state)
             
-            # Include if has senior indicator AND company is mentioned
-            # Location is a bonus but not required (for now)
-            if has_senior_indicator and company_mentioned:
+            # Include if has senior indicator OR company is mentioned (more permissive)
+            # We want to capture more prospects at this stage and filter later
+            if has_senior_indicator or company_mentioned:
                 # Add filtering metadata
                 prospect["basic_filter"] = {
                     "passed": True,
@@ -350,30 +416,36 @@ class ImprovedProspectDiscoveryService:
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - intern/student title")
                 continue
             
-            # Company verification using LinkedIn data (more flexible matching)
+            # Company verification using LinkedIn data (VERY flexible matching for healthcare)
             company_variations = self._generate_company_variations(company_name)
+
+            # Check if any variation matches
             company_match = any(
                 variation.lower() in current_company for variation in company_variations
             )
-            
-            # Also check reverse matching (current company name parts in target)
+
+            # Reverse matching: check if company parts appear in target
             if not company_match and current_company:
                 company_parts = [part.strip() for part in current_company.split() if len(part) > 3]
                 company_match = any(
                     part.lower() in company_name.lower() for part in company_parts
                 )
-            
+
+            # For healthcare: Check if the main identifier (first word) matches
+            # E.g., "Lankenau" in both "Lankenau Medical Center" and "Lankenau Institute"
+            if not company_match and current_company and company_name:
+                main_identifier = company_name.split()[0].lower()
+                if len(main_identifier) > 4:  # Only for non-generic words
+                    company_match = main_identifier in current_company.lower()
+
             if not company_match:
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - company mismatch: '{current_company}' vs '{company_name}'")
                 continue
             
-            # Check for decision-making seniority
+            # Calculate seniority score for metadata, but don't filter based on it
+            # Let AI ranking determine qualification instead
             seniority_score = self._calculate_seniority_score(linkedin_data)
-            
-            if seniority_score < 10:  # Further lowered threshold to include more diverse contacts
-                logger.debug(f"Excluded: {linkedin_data.get('name')} - low seniority score: {seniority_score}")
-                continue
-            
+
             # Add advanced filter metadata
             prospect["advanced_filter"] = {
                 "passed": True,
@@ -382,7 +454,7 @@ class ImprovedProspectDiscoveryService:
                 "current_title": current_title,
                 "current_company": current_company
             }
-            
+
             filtered.append(prospect)
         
         return filtered
@@ -420,13 +492,14 @@ class ImprovedProspectDiscoveryService:
         
         title = linkedin_data.get("job_title", "").lower()
         
-        # Senior title indicators
+        # Senior title indicators (more inclusive)
         senior_keywords = {
             "ceo": 100, "cfo": 95, "coo": 95, "chief": 90,
             "president": 85, "vp": 80, "vice president": 80,
             "director": 70, "head": 65, "lead": 60,
-            "manager": 50, "senior": 40, "principal": 40,
-            "supervisor": 35, "coordinator": 25
+            "manager": 50, "senior": 45, "principal": 45,
+            "supervisor": 40, "coordinator": 30, "specialist": 28,
+            "engineer": 26, "consultant": 26, "analyst": 25
         }
         
         for keyword, points in senior_keywords.items():
@@ -449,6 +522,59 @@ class ImprovedProspectDiscoveryService:
         
         return min(score, 100)
     
+    async def _ai_basic_filter_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
+        """
+        Simple rule-based filtering to validate company match and connection count
+        This should be MORE permissive to allow more prospects through
+        """
+        if not prospects:
+            return []
+
+        filtered = []
+
+        for prospect in prospects:
+            title = prospect.get("title", "").lower()
+            snippet = prospect.get("snippet", "").lower()
+            combined_text = f"{title} {snippet}"
+
+            # Extract connection count from snippet if available (e.g., "500+ connections")
+            connection_count = 0
+            connection_match = re.search(r'(\d+)\+?\s*connections?', snippet, re.IGNORECASE)
+            if connection_match:
+                connection_count = int(connection_match.group(1))
+
+            # Check for spam indicators (very low connection count < 75)
+            if connection_count > 0 and connection_count < 75:
+                logger.debug(f"Filtered out low connection account: {prospect.get('title')} - {connection_count} connections")
+                continue
+
+            # Verify company is mentioned (flexible matching)
+            company_variations = self._generate_company_variations(company_name)
+            company_match = any(
+                variation.lower() in combined_text for variation in company_variations
+            )
+
+            if not company_match:
+                # Try partial word matching
+                company_parts = [part.strip() for part in company_name.split() if len(part) > 3]
+                company_match = any(
+                    part.lower() in combined_text for part in company_parts
+                )
+
+            # Only filter out if company is clearly NOT mentioned
+            if company_match or connection_count >= 75:
+                prospect["ai_basic_filter"] = {
+                    "passed": True,
+                    "company_match": company_match,
+                    "connection_count": connection_count if connection_count > 0 else "Unknown",
+                    "company_match_confidence": 100 if company_match else 50
+                }
+                filtered.append(prospect)
+            else:
+                logger.debug(f"Filtered out: {prospect.get('title')} - no company match and low/unknown connections")
+
+        return filtered
+
     async def _ai_rank_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
         """
         Use AI ONLY for ranking prospects based on complete LinkedIn data

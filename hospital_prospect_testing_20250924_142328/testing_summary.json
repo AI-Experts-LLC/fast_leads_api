@@ -1,0 +1,18 @@
+{
+  "test_timestamp": "2025-09-24T14:23:59.720552",
+  "total_hospitals_tested": 1,
+  "successful_tests": 1,
+  "failed_tests": 0,
+  "success_rate_percent": 100.0,
+  "total_testing_time_minutes": 0.5271024505297343,
+  "results": [
+    {
+      "success": true,
+      "hospital": "CLEVELAND CLINIC",
+      "prospects_found": 12,
+      "cost": 7.469999999999999,
+      "response_time": 31.612881898880005,
+      "json_file": "hospital_prospect_testing_20250924_142328/CLEVELAND_CLINIC_complete_response.json"
+    }
+  ]
+}

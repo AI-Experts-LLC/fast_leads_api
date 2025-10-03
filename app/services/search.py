@@ -71,10 +71,11 @@ class SerperSearchService:
                 
                 results = await self._perform_search(search_query)
                 if results.get("success"):
-                    # Add title context to results
-                    for result in results.get("results", []):
+                    # Add title context to results and limit to first 5 per title
+                    title_results = results.get("results", [])[:5]  # Limit to first 5 results per title
+                    for result in title_results:
                         result["target_title"] = title
-                    all_results.extend(results.get("results", []))
+                    all_results.extend(title_results)
                 
                 # Small delay to respect rate limits
                 await asyncio.sleep(0.1)

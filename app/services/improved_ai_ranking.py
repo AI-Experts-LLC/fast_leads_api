@@ -126,14 +126,14 @@ class ImprovedAIRankingService:
                     messages=[
                         {
                             "role": "system",
-                            "content": "You are an expert sales analyst. Analyze the prospect and return ONLY a JSON response with 'reasoning' and 'score' fields."
+                            "content": "You are a strict scoring system. Follow the rubric EXACTLY. Clinical roles (surgical, nursing, physicians) get <40. Safety-only roles get <40. Only facilities, engineering, finance, sustainability, and compliance roles related to infrastructure get high scores."
                         },
                         {
                             "role": "user",
                             "content": prompt
                         }
                     ],
-                    temperature=0.2,
+                    temperature=0.1,
                     max_tokens=500,
                     response_format={"type": "json_object"}
                 )
@@ -164,35 +164,80 @@ class ImprovedAIRankingService:
     def _build_individual_ranking_prompt(self, prospect_data: Dict, company_name: str) -> str:
         """Build ranking prompt for individual prospect"""
         return f"""
-Analyze this prospect for {company_name} and rate their likelihood to make energy infrastructure purchasing decisions.
+Analyze this prospect for Metrus Energy's energy-as-a-service solution at {company_name}.
 
-PROSPECT DATA:
+PROSPECT:
 Name: {prospect_data.get('name', 'N/A')}
 Title: {prospect_data.get('current_title', 'N/A')}
 Company: {prospect_data.get('current_company', 'N/A')}
-Headline: {prospect_data.get('headline', 'N/A')}
-Summary: {prospect_data.get('summary', 'N/A')[:200]}...
-Experience Years: {prospect_data.get('total_experience_years', 0)}
-Authority Score: {prospect_data.get('professional_authority_score', 0)}
-Seniority Score: {prospect_data.get('seniority_score', 0)}
+Summary: {prospect_data.get('summary', 'N/A')[:300]}
+Skills: {', '.join(prospect_data.get('skills', [])[:5])}
+Experience: {prospect_data.get('total_experience_years', 0)} years
 
-RANKING CRITERIA (0-100 scale):
-- Decision-making authority (40%) - C-Suite, Directors, VPs
-- Technical relevance (25%) - Facilities, engineering, energy background  
-- Budget influence (20%) - Financial or operational responsibility
-- Company seniority (15%) - Years of experience and authority indicators
+METRUS ENERGY OFFERING:
+- Large infrastructure projects (central plant replacement, cooling/heating systems, HVAC)
+- Energy efficiency retrofits (LED lighting, chillers, building systems)
+- Financed off-balance-sheet with zero capex
+- Addresses deferred maintenance and reduces operational costs
 
-TARGET PERSONAS (priority order):
-1. C-Suite (CEO, CFO, COO) - Ultimate decision authority
-2. Facilities/Engineering Directors - Technical decision makers
-3. Sustainability/Energy Managers - Environmental compliance
-4. Operations Directors - Efficiency focus
-5. Finance Directors - Budget authority
+TARGET BUYER PERSONAS (ranked by importance):
+1. **Director of Facilities/Engineering/Maintenance** (PRIMARY) - Day-to-day pain with deferred maintenance, broken equipment, high costs. They sell projects to CFO.
+2. **CFO/Controller/VP Finance** (DECISION MAKER) - Final approval authority for capital projects and financing
+3. **Sustainability Director/Energy Manager** (CHAMPION) - Good foot in the door, champions environmental benefits, but limited buying power
+4. **Compliance Officer/Chief Medical Officer** (INFLUENCER) - Concerned with infrastructure affecting patient care quality (Joint Commission/DNV auditing)
+5. **COO/VP Operations** (DECISION MAKER) - Operational efficiency focus, approves major facility changes
 
-Return ONLY this JSON format:
+ROLES TO EXCLUDE (score <40):
+- Clinical roles (surgeons, physicians, nurses, surgical services)
+- Safety-only roles without facilities responsibility
+- IT/Technology roles (unless related to building systems/energy)
+- HR, Marketing, Legal, Administrative support
+
+SCORING RUBRIC:
+1. Role Match (40 pts max):
+   - Director/VP Facilities/Engineering/Maintenance: 38
+   - CFO/Controller/Finance Director: 35
+   - Director Sustainability/Energy: 32
+   - Compliance/CMO (if mentions infrastructure): 28
+   - COO/VP Operations: 30
+   - Manager-level (Facilities/Energy): 22
+   - Clinical/Safety/IT roles: 0-5
+
+2. Technical Relevance (30 pts max):
+   - Facilities/Engineering/Maintenance/Energy: 28
+   - Sustainability/Environmental: 24
+   - Finance (capital projects/procurement): 18
+   - Compliance (infrastructure auditing): 18
+   - Operations: 15
+   - Clinical/Surgical/Safety-only: 0-5
+
+3. Budget Authority (20 pts max):
+   - Direct budget control (CFO, Director level): 18
+   - Budget influence (Manager, champions projects): 12
+   - No budget authority: 5
+
+4. Experience (10 pts max):
+   - 10+ years: 9
+   - 5-10 years: 6
+   - <5 years: 3
+
+EXAMPLES:
+- Director of Facilities (12 yrs): 38+28+18+9 = 93 → EXCELLENT
+- CFO (8 yrs): 35+18+18+6 = 77 → GOOD
+- Sustainability Manager (6 yrs): 32+24+12+6 = 74 → GOOD
+- Compliance Officer w/ facility focus (10 yrs): 28+18+12+9 = 67 → GOOD
+- VP Surgical Services (15 yrs): 5+3+5+9 = 22 → EXCLUDE
+- Safety Engineer (20 yrs): 5+5+5+9 = 24 → EXCLUDE
+
+QUALIFICATION:
+- 70+: QUALIFIED (decision maker or strong influencer)
+- 50-69: MAYBE (potential contact)
+- <50: NOT QUALIFIED (wrong role)
+
+Return ONLY JSON:
 {{
-  "reasoning": "Brief explanation of score based on title, experience, and decision authority",
-  "score": 85
+  "reasoning": "Role(X) + Technical(Y) + Budget(Z) + Exp(W) = Total",
+  "score": <sum>
 }}
 """
     
@@ -248,11 +293,11 @@ IMPORTANT RULES:
 """
     
     def _apply_individual_rankings_to_prospects(self, ranking_results: List[Dict], original_prospects: List[Dict]) -> List[Dict]:
-        """Apply individual AI rankings and return the BEST prospect per target job title (max 5-8 total)"""
-        
+        """Apply individual AI rankings and return ALL prospects with scores >= 70"""
+
         # Create list of all successfully ranked prospects
         all_ranked_prospects = []
-        
+
         for i, prospect in enumerate(original_prospects):
             # Find corresponding ranking result
             ranking_result = None
@@ -260,7 +305,7 @@ IMPORTANT RULES:
                 if isinstance(result, dict) and result.get("index") == i and result.get("success"):
                     ranking_result = result
                     break
-            
+
             if ranking_result:  # Only process prospects that got successfully ranked
                 # Add ranking data WITHOUT modifying original prospect data
                 ranked_prospect = {
@@ -275,41 +320,46 @@ IMPORTANT RULES:
                 all_ranked_prospects.append(ranked_prospect)
             else:
                 logger.warning(f"No successful ranking for prospect {i}: {prospect.get('linkedin_data', {}).get('name', 'Unknown')}")
-        
-        # Sort ALL prospects by score (highest first)
-        all_ranked_prospects.sort(
+
+        # Filter by qualification threshold (60+) and sort by score
+        # Set to 60 to focus on strong decision makers and influencers
+        QUALIFICATION_THRESHOLD = 60
+        qualified_prospects = [
+            p for p in all_ranked_prospects
+            if p.get("ai_ranking", {}).get("ranking_score", 0) >= QUALIFICATION_THRESHOLD
+        ]
+
+        # Sort qualified prospects by score (highest first)
+        qualified_prospects.sort(
             key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
             reverse=True
         )
-        
-        # Select the BEST prospect for each unique target title (max 8 prospects)
-        prospects_by_title = {}
-        final_prospects = []
-        
-        for prospect in all_ranked_prospects:
-            target_title = prospect.get("target_title", "Unknown")
-            
-                # If we haven't seen this target title yet, take this prospect (the highest scoring one)
-            if target_title not in prospects_by_title:
-                prospects_by_title[target_title] = True
-                final_prospects.append(prospect)
-                
-                # Stop at 8 prospects maximum
-                if len(final_prospects) >= 8:
-                    break
-        
-        # If no AI rankings were successful, fall back to seniority-based ranking
-        if not final_prospects and original_prospects:
+
+        # Add rank position based on final order
+        for i, prospect in enumerate(qualified_prospects):
+            prospect["ai_ranking"]["rank_position"] = i + 1
+
+        # If no prospects meet the threshold, return top 3 anyway
+        if not qualified_prospects and all_ranked_prospects:
+            logger.warning(f"No prospects scored >= {QUALIFICATION_THRESHOLD}. Returning top 3 prospects.")
+            all_ranked_prospects.sort(
+                key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
+                reverse=True
+            )
+            top_prospects = all_ranked_prospects[:3]
+            for i, prospect in enumerate(top_prospects):
+                prospect["ai_ranking"]["rank_position"] = i + 1
+                prospect["ai_ranking"]["below_threshold_warning"] = True
+            return top_prospects
+
+        # If no AI rankings were successful at all, fall back to seniority-based ranking
+        if not all_ranked_prospects and original_prospects:
             logger.warning("No AI rankings available, falling back to seniority-based ranking")
             return self._fallback_ranking_by_seniority(original_prospects)
-        
-        # Add rank position based on final order
-        for i, prospect in enumerate(final_prospects):
-            prospect["ai_ranking"]["rank_position"] = i + 1
-        
-        logger.info(f"Selected top {len(final_prospects)} prospects (one per target title) from {len(all_ranked_prospects)} ranked prospects")
-        
-        return final_prospects
+
+        logger.info(f"Returning {len(qualified_prospects)} qualified prospects (score >= {QUALIFICATION_THRESHOLD}) from {len(all_ranked_prospects)} ranked prospects")
+
+        return qualified_prospects
     
     def _fallback_ranking_by_seniority(self, prospects: List[Dict]) -> List[Dict]:
         """Fallback ranking using seniority scores when AI ranking fails"""
