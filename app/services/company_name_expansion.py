@@ -9,6 +9,12 @@ from typing import List, Dict, Any
 from openai import OpenAI
 import json
 
+# Import centralized prompts
+from app.prompts import (
+    COMPANY_NAME_EXPANSION_SYSTEM_PROMPT,
+    COMPANY_NAME_EXPANSION_USER_PROMPT_TEMPLATE
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -83,7 +89,7 @@ Return ONLY a JSON array of strings (no explanations):
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a healthcare organization expert. Return ONLY valid JSON with company name variations."
+                        "content": COMPANY_NAME_EXPANSION_SYSTEM_PROMPT
                     },
                     {
                         "role": "user",

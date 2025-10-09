@@ -31,14 +31,16 @@ class SerperSearchService:
         if not self.api_key:
             logger.warning("SERPER_API_KEY not found in environment variables")
     
-    async def search_linkedin_profiles(self, company_name: str, target_titles: List[str] = None) -> Dict[str, Any]:
+    async def search_linkedin_profiles(self, company_name: str, target_titles: List[str] = None, company_city: str = None, company_state: str = None) -> Dict[str, Any]:
         """
         Search for LinkedIn profiles at a specific company
-        
+
         Args:
             company_name: Name of the company to search
             target_titles: List of job titles to search for (optional)
-        
+            company_city: City where company is located (optional, improves search accuracy)
+            company_state: State where company is located (optional, improves search accuracy)
+
         Returns:
             Dictionary with search results and metadata
         """
@@ -47,26 +49,44 @@ class SerperSearchService:
                 "success": False,
                 "error": "Serper API key not configured"
             }
-        
+
         try:
             # Default target titles if none provided
+            # Based on buyer_persona.md: Primary decision-makers for energy infrastructure projects
             if not target_titles:
                 target_titles = [
+                    # Primary decision-makers (Directors & VPs)
                     "Director of Facilities",
-                    "CFO", 
+                    "Director of Engineering",
+                    "Director of Maintenance",
+                    "VP Facilities",
+                    "VP Operations",
+
+                    # Financial decision-makers
                     "Chief Financial Officer",
-                    "Sustainability Manager",
-                    "Energy Manager",
                     "Chief Operating Officer",
-                    "Facilities Manager"
+
+                    # Manager-level contacts
+                    "Facilities Manager",
+                    "Energy Manager",
+                    "Plant Manager",
+                    "Maintenance Manager"
                 ]
-            
+
             all_results = []
-            
+
+            # Build location string for search query
+            location_str = ""
+            if company_city and company_state:
+                location_str = f"{company_city} {company_state} "
+            elif company_state:
+                location_str = f"{company_state} "
+
             # Search for each target title
             for title in target_titles:
-                search_query = f'{company_name} {title} site:linkedin.com/in'
-                
+                # Format: "Company City State Title site:linkedin.com/in"
+                search_query = f'{company_name} {location_str}{title} site:linkedin.com/in'
+
                 logger.info(f"Searching: {search_query}")
                 
                 results = await self._perform_search(search_query)

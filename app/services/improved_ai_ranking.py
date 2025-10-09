@@ -12,6 +12,12 @@ import openai
 from openai import OpenAI
 import json
 
+# Import centralized prompts
+from app.prompts import (
+    AI_RANKING_SYSTEM_PROMPT,
+    AI_RANKING_USER_PROMPT_TEMPLATE
+)
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,11 +26,14 @@ class ImprovedAIRankingService:
     
     def __init__(self):
         self.api_key = os.getenv('OPENAI_API_KEY')
-        self.model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
-        
+        # Use GPT-5 with Responses API
+        self.model = os.getenv('OPENAI_MODEL', 'gpt-5-mini-2025-08-07')
+        # Reasoning effort for reasoning models (minimal = fast, high = thorough)
+        self.reasoning_effort = os.getenv('OPENAI_REASONING_EFFORT', 'minimal')
+
         if self.api_key:
             self.client = OpenAI(api_key=self.api_key)
-            logger.info(f"AI ranking service initialized with model: {self.model}")
+            logger.info(f"AI ranking service initialized with model: {self.model}, reasoning: {self.reasoning_effort}")
         else:
             self.client = None
             logger.warning("OPENAI_API_KEY not found in environment variables")
@@ -58,33 +67,53 @@ class ImprovedAIRankingService:
             for i, prospect in enumerate(prospects):
                 task = self._rank_single_prospect(prospect, company_name, i)
                 ranking_tasks.append(task)
-            
+
             # Execute all ranking calls in parallel
+            logger.info(f"Starting AI ranking for {len(prospects)} prospects using {self.model}")
             ranking_results = await asyncio.gather(*ranking_tasks, return_exceptions=True)
-            
+
+            # Track errors for debugging
+            errors = []
+            for i, result in enumerate(ranking_results):
+                if isinstance(result, Exception):
+                    error_msg = f"Prospect {i}: {type(result).__name__}: {str(result)}"
+                    errors.append(error_msg)
+                    logger.error(error_msg)
+                elif isinstance(result, dict) and not result.get("success"):
+                    error_msg = f"Prospect {i}: {result.get('error', 'Unknown error')}"
+                    errors.append(error_msg)
+                    logger.error(error_msg)
+
             # Process results and apply rankings to prospects
             ranked_prospects = self._apply_individual_rankings_to_prospects(
                 ranking_results, prospects
             )
-            
+
             # Calculate successful rankings
             successful_rankings = len([r for r in ranking_results if isinstance(r, dict) and r.get("success")])
-            
+
+            logger.info(f"AI ranking complete: {successful_rankings}/{len(prospects)} succeeded")
+
             return {
                 "success": True,
                 "company_name": company_name,
                 "total_prospects": len(prospects),
                 "successfully_ranked": successful_rankings,
+                "failed_rankings": len(prospects) - successful_rankings,
                 "total_ranked": len(ranked_prospects),
                 "ranked_prospects": ranked_prospects,
-                "cost_estimate": successful_rankings * 0.001  # Estimate per individual call
+                "errors": errors if errors else None,
+                "cost_estimate": successful_rankings * 0.003  # GPT-5 with minimal reasoning
             }
-            
+
         except Exception as e:
             logger.error(f"Error ranking prospects: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return {
                 "success": False,
-                "error": str(e)
+                "error": str(e),
+                "traceback": traceback.format_exc()
             }
     
     async def _rank_single_prospect(self, prospect: Dict, company_name: str, index: int) -> Dict[str, Any]:
@@ -120,126 +149,88 @@ class ImprovedAIRankingService:
         for attempt in range(2):
             try:
                 prompt = self._build_individual_ranking_prompt(prospect_data, company_name)
-                
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": "You are a strict scoring system. Follow the rubric EXACTLY. Clinical roles (surgical, nursing, physicians) get <40. Safety-only roles get <40. Only facilities, engineering, finance, sustainability, and compliance roles related to infrastructure get high scores."
-                        },
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ],
-                    temperature=0.1,
-                    max_tokens=500,
-                    response_format={"type": "json_object"}
-                )
-                
-                # Parse response
-                ranking_data = json.loads(response.choices[0].message.content)
-                
+
+                logger.debug(f"Ranking prospect {index} ({prospect_data.get('name', 'Unknown')}), attempt {attempt + 1}")
+
+                # Use Responses API for GPT-5 models
+                # Combine system prompt and user prompt into single input
+                full_input = f"{AI_RANKING_SYSTEM_PROMPT}\n\n{prompt}"
+
+                # Create response using Responses API
+                # Note: reasoning.effort only supported by gpt-5 and o-series models
+                api_params = {
+                    "model": self.model,
+                    "input": full_input,
+                    "text": {"format": {"type": "json_object"}},
+                    "temperature": 0.1,
+                    "max_output_tokens": 500,
+                    "timeout": 30
+                }
+
+                # Only add reasoning parameter for gpt-5 or o-series models
+                if "gpt-5" in self.model or self.model.startswith("o"):
+                    api_params["reasoning"] = {"effort": self.reasoning_effort}
+
+                response = self.client.responses.create(**api_params)
+
+                # Parse response from Responses API
+                # Response format: response.output[0].content[0].text
+                output_text = response.output[0].content[0].text
+                ranking_data = json.loads(output_text)
+
                 # Validate required fields
-                if "reasoning" in ranking_data and "score" in ranking_data:
+                if "score" in ranking_data:
+                    # "reasoning" is optional but preferred
+                    reasoning = ranking_data.get("reasoning", f"Score: {ranking_data['score']}")
+                    logger.debug(f"Successfully ranked prospect {index}: {ranking_data['score']}/100")
                     return {
                         "success": True,
                         "index": index,
-                        "reasoning": ranking_data["reasoning"],
+                        "reasoning": reasoning,
                         "score": int(ranking_data["score"])
                     }
                 else:
-                    logger.warning(f"Invalid response format for prospect {index}, attempt {attempt + 1}")
+                    error_msg = f"Missing 'score' field in response: {ranking_data}"
+                    logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
                     if attempt == 1:  # Last attempt
-                        return {"success": False, "index": index, "error": "Invalid response format"}
-                    
+                        return {"success": False, "index": index, "error": error_msg}
+
+            except json.JSONDecodeError as e:
+                error_msg = f"JSON parse error: {str(e)}"
+                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                if attempt == 1:
+                    return {"success": False, "index": index, "error": error_msg}
+            except openai.APITimeoutError as e:
+                error_msg = f"API timeout: {str(e)}"
+                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                if attempt == 1:
+                    return {"success": False, "index": index, "error": error_msg}
+            except openai.RateLimitError as e:
+                error_msg = f"Rate limit exceeded: {str(e)}"
+                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                # Wait longer on rate limits
+                await asyncio.sleep(2)
+                if attempt == 1:
+                    return {"success": False, "index": index, "error": error_msg}
             except Exception as e:
-                logger.warning(f"Error ranking prospect {index}, attempt {attempt + 1}: {str(e)}")
+                error_msg = f"{type(e).__name__}: {str(e)}"
+                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
                 if attempt == 1:  # Last attempt
-                    return {"success": False, "index": index, "error": str(e)}
-        
+                    return {"success": False, "index": index, "error": error_msg}
+
         return {"success": False, "index": index, "error": "Failed after retries"}
     
     def _build_individual_ranking_prompt(self, prospect_data: Dict, company_name: str) -> str:
-        """Build ranking prompt for individual prospect"""
-        return f"""
-Analyze this prospect for Metrus Energy's energy-as-a-service solution at {company_name}.
-
-PROSPECT:
-Name: {prospect_data.get('name', 'N/A')}
-Title: {prospect_data.get('current_title', 'N/A')}
-Company: {prospect_data.get('current_company', 'N/A')}
-Summary: {prospect_data.get('summary', 'N/A')[:300]}
-Skills: {', '.join(prospect_data.get('skills', [])[:5])}
-Experience: {prospect_data.get('total_experience_years', 0)} years
-
-METRUS ENERGY OFFERING:
-- Large infrastructure projects (central plant replacement, cooling/heating systems, HVAC)
-- Energy efficiency retrofits (LED lighting, chillers, building systems)
-- Financed off-balance-sheet with zero capex
-- Addresses deferred maintenance and reduces operational costs
-
-TARGET BUYER PERSONAS (ranked by importance):
-1. **Director of Facilities/Engineering/Maintenance** (PRIMARY) - Day-to-day pain with deferred maintenance, broken equipment, high costs. They sell projects to CFO.
-2. **CFO/Controller/VP Finance** (DECISION MAKER) - Final approval authority for capital projects and financing
-3. **Sustainability Director/Energy Manager** (CHAMPION) - Good foot in the door, champions environmental benefits, but limited buying power
-4. **Compliance Officer/Chief Medical Officer** (INFLUENCER) - Concerned with infrastructure affecting patient care quality (Joint Commission/DNV auditing)
-5. **COO/VP Operations** (DECISION MAKER) - Operational efficiency focus, approves major facility changes
-
-ROLES TO EXCLUDE (score <40):
-- Clinical roles (surgeons, physicians, nurses, surgical services)
-- Safety-only roles without facilities responsibility
-- IT/Technology roles (unless related to building systems/energy)
-- HR, Marketing, Legal, Administrative support
-
-SCORING RUBRIC:
-1. Role Match (40 pts max):
-   - Director/VP Facilities/Engineering/Maintenance: 38
-   - CFO/Controller/Finance Director: 35
-   - Director Sustainability/Energy: 32
-   - Compliance/CMO (if mentions infrastructure): 28
-   - COO/VP Operations: 30
-   - Manager-level (Facilities/Energy): 22
-   - Clinical/Safety/IT roles: 0-5
-
-2. Technical Relevance (30 pts max):
-   - Facilities/Engineering/Maintenance/Energy: 28
-   - Sustainability/Environmental: 24
-   - Finance (capital projects/procurement): 18
-   - Compliance (infrastructure auditing): 18
-   - Operations: 15
-   - Clinical/Surgical/Safety-only: 0-5
-
-3. Budget Authority (20 pts max):
-   - Direct budget control (CFO, Director level): 18
-   - Budget influence (Manager, champions projects): 12
-   - No budget authority: 5
-
-4. Experience (10 pts max):
-   - 10+ years: 9
-   - 5-10 years: 6
-   - <5 years: 3
-
-EXAMPLES:
-- Director of Facilities (12 yrs): 38+28+18+9 = 93 → EXCELLENT
-- CFO (8 yrs): 35+18+18+6 = 77 → GOOD
-- Sustainability Manager (6 yrs): 32+24+12+6 = 74 → GOOD
-- Compliance Officer w/ facility focus (10 yrs): 28+18+12+9 = 67 → GOOD
-- VP Surgical Services (15 yrs): 5+3+5+9 = 22 → EXCLUDE
-- Safety Engineer (20 yrs): 5+5+5+9 = 24 → EXCLUDE
-
-QUALIFICATION:
-- 70+: QUALIFIED (decision maker or strong influencer)
-- 50-69: MAYBE (potential contact)
-- <50: NOT QUALIFIED (wrong role)
-
-Return ONLY JSON:
-{{
-  "reasoning": "Role(X) + Technical(Y) + Budget(Z) + Exp(W) = Total",
-  "score": <sum>
-}}
-"""
+        """Build ranking prompt for individual prospect using centralized template"""
+        return AI_RANKING_USER_PROMPT_TEMPLATE.format(
+            company_name=company_name,
+            name=prospect_data.get('name', 'N/A'),
+            title=prospect_data.get('current_title', 'N/A'),
+            company=prospect_data.get('current_company', 'N/A'),
+            summary=prospect_data.get('summary', 'N/A')[:300],
+            skills=', '.join(prospect_data.get('skills', [])[:5]),
+            experience_years=prospect_data.get('total_experience_years', 0)
+        )
     
     def _build_ranking_prompt(self, prospects: List[Dict], company_name: str) -> str:
         """Build ranking prompt that focuses on scoring, not data creation"""
@@ -321,88 +312,26 @@ IMPORTANT RULES:
             else:
                 logger.warning(f"No successful ranking for prospect {i}: {prospect.get('linkedin_data', {}).get('name', 'Unknown')}")
 
-        # Filter by qualification threshold (60+) and sort by score
-        # Set to 60 to focus on strong decision makers and influencers
-        QUALIFICATION_THRESHOLD = 60
-        qualified_prospects = [
-            p for p in all_ranked_prospects
-            if p.get("ai_ranking", {}).get("ranking_score", 0) >= QUALIFICATION_THRESHOLD
-        ]
-
-        # Sort qualified prospects by score (highest first)
-        qualified_prospects.sort(
+        # Sort ALL ranked prospects by score (highest first)
+        # Let the main discovery service handle the final threshold filtering
+        all_ranked_prospects.sort(
             key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
             reverse=True
         )
 
         # Add rank position based on final order
-        for i, prospect in enumerate(qualified_prospects):
+        for i, prospect in enumerate(all_ranked_prospects):
             prospect["ai_ranking"]["rank_position"] = i + 1
 
-        # If no prospects meet the threshold, return top 3 anyway
-        if not qualified_prospects and all_ranked_prospects:
-            logger.warning(f"No prospects scored >= {QUALIFICATION_THRESHOLD}. Returning top 3 prospects.")
-            all_ranked_prospects.sort(
-                key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
-                reverse=True
-            )
-            top_prospects = all_ranked_prospects[:3]
-            for i, prospect in enumerate(top_prospects):
-                prospect["ai_ranking"]["rank_position"] = i + 1
-                prospect["ai_ranking"]["below_threshold_warning"] = True
-            return top_prospects
+        # If no AI rankings were successful, return empty list
+        if not all_ranked_prospects:
+            logger.error("No AI rankings were successful - returning empty prospect list")
+            return []
 
-        # If no AI rankings were successful at all, fall back to seniority-based ranking
-        if not all_ranked_prospects and original_prospects:
-            logger.warning("No AI rankings available, falling back to seniority-based ranking")
-            return self._fallback_ranking_by_seniority(original_prospects)
+        logger.info(f"Returning {len(all_ranked_prospects)} ranked prospects")
 
-        logger.info(f"Returning {len(qualified_prospects)} qualified prospects (score >= {QUALIFICATION_THRESHOLD}) from {len(all_ranked_prospects)} ranked prospects")
-
-        return qualified_prospects
+        return all_ranked_prospects
     
-    def _fallback_ranking_by_seniority(self, prospects: List[Dict]) -> List[Dict]:
-        """Fallback ranking using seniority scores when AI ranking fails"""
-        logger.info("Using seniority-based fallback ranking")
-        
-        # Add fallback ranking based on seniority scores
-        for prospect in prospects:
-            seniority_score = prospect.get("advanced_filter", {}).get("seniority_score", 0)
-            linkedin_data = prospect.get("linkedin_data", {})
-            
-            prospect["ai_ranking"] = {
-                "ranking_score": seniority_score,  # Use seniority as fallback score
-                "ranking_reasoning": f"Fallback ranking based on seniority score ({seniority_score})",
-                "ranked_by": "seniority_fallback",
-                "ranking_timestamp": None
-            }
-        
-        # Sort by seniority score
-        prospects.sort(
-            key=lambda x: x.get("ai_ranking", {}).get("ranking_score", 0),
-            reverse=True
-        )
-        
-        # Select best prospect for each unique target title (max 8)
-        prospects_by_title = {}
-        final_prospects = []
-        
-        for prospect in prospects:
-            target_title = prospect.get("target_title", "Unknown")
-            
-            if target_title not in prospects_by_title:
-                prospects_by_title[target_title] = True
-                final_prospects.append(prospect)
-                
-                if len(final_prospects) >= 8:
-                    break
-        
-        # Add rank positions
-        for i, prospect in enumerate(final_prospects):
-            prospect["ai_ranking"]["rank_position"] = i + 1
-        
-        logger.info(f"Fallback ranking selected {len(final_prospects)} prospects using seniority scores")
-        return final_prospects
     
     async def generate_outreach_strategy(self, top_prospect: Dict, company_context: Dict = None) -> Dict[str, Any]:
         """Generate outreach strategy based on ranked prospect data"""

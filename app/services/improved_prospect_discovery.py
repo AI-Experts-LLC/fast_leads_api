@@ -25,7 +25,7 @@ class ImprovedProspectDiscoveryService:
         self.search_service = serper_service
         self.linkedin_service = linkedin_service
     
-    async def discover_prospects(self, company_name: str, target_titles: List[str] = None, company_city: str = None, company_state: str = None) -> Dict[str, Any]:
+    async def discover_prospects(self, company_name: str, target_titles: List[str] = None, company_city: str = None, company_state: str = None, location_filter_enabled: bool = True) -> Dict[str, Any]:
         """
         Improved prospect discovery pipeline
 
@@ -40,6 +40,12 @@ class ImprovedProspectDiscoveryService:
         """
         try:
             logger.info(f"Starting IMPROVED prospect discovery for: {company_name}")
+
+            # Initialize filtering funnel report
+            filtering_funnel = {
+                "stages": [],
+                "filtered_out": []
+            }
 
             # Step 0: Expand company name into all LinkedIn variations
             logger.info("Step 0: Expanding company name variations...")
@@ -60,7 +66,9 @@ class ImprovedProspectDiscoveryService:
                 logger.info(f"  Searching for: {variation}")
                 search_result = await self.search_service.search_linkedin_profiles(
                     company_name=variation,
-                    target_titles=target_titles
+                    target_titles=target_titles,
+                    company_city=company_city,
+                    company_state=company_state
                 )
 
                 if search_result.get("success") and search_result.get("results"):
@@ -110,7 +118,9 @@ class ImprovedProspectDiscoveryService:
             
             # Step 2: Basic data filtering (NO AI - just rule-based filtering)
             logger.info("Step 2: Basic data filtering...")
-            filtered_prospects = self._basic_filter_prospects(search_results, company_name, company_state)
+            basic_filter_result = self._basic_filter_prospects(search_results, company_name, company_state)
+            filtered_prospects = basic_filter_result['passed']
+            filtering_funnel['filtered_out'].extend(basic_filter_result['filtered_out'])
             logger.info(f"Filtered to {len(filtered_prospects)} prospects after removing obvious mismatches")
             
             # Log prospects that passed basic filtering
@@ -177,9 +187,11 @@ class ImprovedProspectDiscoveryService:
             
             # Step 6: FINAL filtering based on complete LinkedIn data
             logger.info("Step 6: Final filtering based on complete LinkedIn data...")
-            final_prospects = self._advanced_filter_with_linkedin_data(
-                enriched_prospects, company_name
+            advanced_filter_result = self._advanced_filter_with_linkedin_data(
+                enriched_prospects, company_name, company_city, company_state, location_filter_enabled
             )
+            final_prospects = advanced_filter_result['passed']
+            filtering_funnel['filtered_out'].extend(advanced_filter_result['filtered_out'])
             
             # Log prospects that passed advanced filtering
             logger.info("=== PROSPECTS AFTER ADVANCED FILTER ===")
@@ -192,14 +204,34 @@ class ImprovedProspectDiscoveryService:
             # Step 7: AI ranking (ONLY ranking, no data modification)
             logger.info("Step 7: AI ranking of validated prospects...")
             ranked_prospects = await self._ai_rank_prospects(final_prospects, company_name)
-            
-            # Log final ranked prospects (one per target title)
-            logger.info("=== FINAL RANKED PROSPECTS (One per Target Title) ===")
-            for i, prospect in enumerate(ranked_prospects):
+
+            # Step 8: Apply minimum score threshold and limit to top prospects
+            logger.info("Step 8: Applying score threshold and limiting to top prospects...")
+            MIN_SCORE_THRESHOLD = 70  # Minimum score to be considered qualified
+            MAX_PROSPECTS = 10  # Maximum number of prospects to return
+
+            # Filter by minimum score
+            qualified_prospects = [
+                p for p in ranked_prospects
+                if p.get('ai_ranking', {}).get('ranking_score', 0) >= MIN_SCORE_THRESHOLD
+            ]
+
+            # Sort by score (descending) and limit to top MAX_PROSPECTS
+            qualified_prospects.sort(
+                key=lambda p: p.get('ai_ranking', {}).get('ranking_score', 0),
+                reverse=True
+            )
+            top_prospects = qualified_prospects[:MAX_PROSPECTS]
+
+            logger.info(f"Filtered to {len(top_prospects)} prospects (min score {MIN_SCORE_THRESHOLD}, max {MAX_PROSPECTS})")
+
+            # Log final ranked prospects
+            logger.info("=== FINAL TOP PROSPECTS ===")
+            for i, prospect in enumerate(top_prospects):
                 linkedin_data = prospect.get('linkedin_data', {})
                 ai_ranking = prospect.get('ai_ranking', {})
                 target_title = prospect.get('target_title', 'N/A')
-                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Target: {target_title} | LinkedIn Title: {linkedin_data.get('job_title', 'N/A')} | AI Score: {ai_ranking.get('ranking_score', 0)}/100 | Persona: {ai_ranking.get('persona_category', 'N/A')}")
+                logger.info(f"{i+1}. {linkedin_data.get('name', 'N/A')} | Target: {target_title} | LinkedIn Title: {linkedin_data.get('job_title', 'N/A')} | AI Score: {ai_ranking.get('ranking_score', 0)}/100")
             logger.info("=== END FINAL PROSPECTS ===")
             
             return {
@@ -212,9 +244,18 @@ class ImprovedProspectDiscoveryService:
                     "prospects_after_basic_filter": len(filtered_prospects),
                     "linkedin_profiles_scraped": len(linkedin_profiles),
                     "prospects_after_advanced_filter": len(final_prospects),
-                    "final_ranked_prospects": len(ranked_prospects)
+                    "prospects_after_ai_ranking": len(ranked_prospects),
+                    "prospects_meeting_threshold": len(qualified_prospects),
+                    "final_top_prospects": len(top_prospects)
                 },
-                "qualified_prospects": ranked_prospects,
+                "qualified_prospects": top_prospects,
+                "all_ranked_prospects": ranked_prospects,  # All prospects with AI ranking (before threshold)
+                "prospects_after_advanced_filter": final_prospects,  # All 9 prospects that passed advanced filter (before AI ranking)
+                "filtering_funnel": {
+                    "total_filtered_out": len(filtering_funnel['filtered_out']),
+                    "filtered_out_by_stage": self._group_filtered_by_stage(filtering_funnel['filtered_out']),
+                    "detailed_filtered_prospects": filtering_funnel['filtered_out']
+                },
                 "cost_estimates": {
                     "company_expansion_cost": 0.01,  # Cost of AI name expansion
                     "search_cost": 0.01 * len(company_variations),  # Search cost per variation
@@ -232,13 +273,17 @@ class ImprovedProspectDiscoveryService:
                 "step_failed": "pipeline"
             }
     
-    def _basic_filter_prospects(self, prospects: List[Dict], company_name: str, company_state: str = None) -> List[Dict]:
+    def _basic_filter_prospects(self, prospects: List[Dict], company_name: str, company_state: str = None) -> Dict[str, List]:
         """
         Basic rule-based filtering to remove obvious mismatches
         NO AI involved - just simple text analysis
+
+        Returns:
+            dict with 'passed' and 'filtered_out' lists
         """
-        filtered = []
-        
+        passed = []
+        filtered_out = []
+
         # Common exclusion patterns
         exclusion_patterns = [
             r'\bintern\b',
@@ -264,13 +309,21 @@ class ImprovedProspectDiscoveryService:
             
             # Check for exclusion patterns
             excluded = False
+            exclusion_reason = None
             for pattern in exclusion_patterns:
                 if re.search(pattern, combined_text, re.IGNORECASE):
                     excluded = True
+                    exclusion_reason = f"Matched exclusion pattern: {pattern}"
                     logger.debug(f"Excluded prospect: {prospect.get('title')} - matched pattern: {pattern}")
                     break
-            
+
             if excluded:
+                filtered_out.append({
+                    "stage": "basic_filter",
+                    "name": prospect.get('title', 'Unknown'),
+                    "linkedin_url": prospect.get('link', ''),
+                    "reason": exclusion_reason
+                })
                 continue
             
             # Check for senior role indicators
@@ -300,11 +353,17 @@ class ImprovedProspectDiscoveryService:
                     "location_score": location_score,
                     "filter_reason": "Passed basic filtering"
                 }
-                filtered.append(prospect)
+                passed.append(prospect)
             else:
+                filtered_out.append({
+                    "stage": "basic_filter",
+                    "name": prospect.get('title', 'Unknown'),
+                    "linkedin_url": prospect.get('link', ''),
+                    "reason": f"No senior indicator and no company mention (senior: {has_senior_indicator}, company: {company_mentioned})"
+                })
                 logger.debug(f"Filtered out: {prospect.get('title')} - senior: {has_senior_indicator}, company: {company_mentioned}")
-        
-        return filtered
+
+        return {"passed": passed, "filtered_out": filtered_out}
     
     def _calculate_location_score(self, combined_text: str, company_state: str = None) -> int:
         """
@@ -397,50 +456,78 @@ class ImprovedProspectDiscoveryService:
         
         return enriched_prospects
     
-    def _advanced_filter_with_linkedin_data(self, prospects: List[Dict], company_name: str) -> List[Dict]:
+    def _advanced_filter_with_linkedin_data(self, prospects: List[Dict], company_name: str, company_city: str = None, company_state: str = None, location_filter_enabled: bool = True) -> Dict[str, List]:
         """
         Advanced filtering using complete LinkedIn data
         Still rule-based, not AI-based
+
+        Returns:
+            dict with 'passed' and 'filtered_out' lists
         """
-        filtered = []
-        
+        passed = []
+        filtered_out = []
+
         for prospect in prospects:
             linkedin_data = prospect.get("linkedin_data", {})
-            
+
+            # FILTER 1: Minimum connections threshold (≥75)
+            connections = linkedin_data.get("connections", 0)
+            if connections and connections < 75:
+                filtered_out.append({
+                    "stage": "linkedin_connections",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": f"Low connections ({connections} < 75)"
+                })
+                logger.info(f"Filtered out: {linkedin_data.get('name', 'Unknown')} - Low connections ({connections} < 75)")
+                continue
+
             # Check current job title from LinkedIn
             current_title = (linkedin_data.get("job_title") or "").lower()
             current_company = (linkedin_data.get("company") or "").lower()
-            
+
             # Advanced exclusion checks
             if "intern" in current_title or "student" in current_title:
                 logger.debug(f"Excluded: {linkedin_data.get('name')} - intern/student title")
                 continue
-            
-            # Company verification using LinkedIn data (VERY flexible matching for healthcare)
-            company_variations = self._generate_company_variations(company_name)
 
-            # Check if any variation matches
-            company_match = any(
-                variation.lower() in current_company for variation in company_variations
+            # FILTER 2: Strict company validation
+            company_match_result = self._validate_company_match(
+                current_company,
+                company_name,
+                linkedin_data.get('name', 'Unknown')
             )
 
-            # Reverse matching: check if company parts appear in target
-            if not company_match and current_company:
-                company_parts = [part.strip() for part in current_company.split() if len(part) > 3]
-                company_match = any(
-                    part.lower() in company_name.lower() for part in company_parts
+            if not company_match_result['is_match']:
+                filtered_out.append({
+                    "stage": "company_validation",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": company_match_result['reason'],
+                    "company_listed": current_company
+                })
+                logger.info(f"Filtered out: {linkedin_data.get('name')} - {company_match_result['reason']}")
+                continue
+
+            # FILTER 3: Location-based filtering (if enabled and location data available)
+            if location_filter_enabled and company_state:
+                location_match_result = self._validate_location_match(
+                    linkedin_data.get('location', ''),
+                    company_city,
+                    company_state,
+                    linkedin_data.get('name', 'Unknown')
                 )
 
-            # For healthcare: Check if the main identifier (first word) matches
-            # E.g., "Lankenau" in both "Lankenau Medical Center" and "Lankenau Institute"
-            if not company_match and current_company and company_name:
-                main_identifier = company_name.split()[0].lower()
-                if len(main_identifier) > 4:  # Only for non-generic words
-                    company_match = main_identifier in current_company.lower()
-
-            if not company_match:
-                logger.debug(f"Excluded: {linkedin_data.get('name')} - company mismatch: '{current_company}' vs '{company_name}'")
-                continue
+                if not location_match_result['is_match']:
+                    filtered_out.append({
+                        "stage": "location_validation",
+                        "name": linkedin_data.get('name', 'Unknown'),
+                        "linkedin_url": prospect.get('linkedin_url', ''),
+                        "reason": location_match_result['reason'],
+                        "location_listed": linkedin_data.get('location', '')
+                    })
+                    logger.info(f"Filtered out: {linkedin_data.get('name')} - {location_match_result['reason']}")
+                    continue
             
             # Calculate seniority score for metadata, but don't filter based on it
             # Let AI ranking determine qualification instead
@@ -449,16 +536,173 @@ class ImprovedProspectDiscoveryService:
             # Add advanced filter metadata
             prospect["advanced_filter"] = {
                 "passed": True,
-                "company_match": company_match,
+                "company_match": company_match_result['is_match'],
                 "seniority_score": seniority_score,
                 "current_title": current_title,
                 "current_company": current_company
             }
 
-            filtered.append(prospect)
-        
-        return filtered
-    
+            passed.append(prospect)
+
+        return {"passed": passed, "filtered_out": filtered_out}
+
+    def _validate_location_match(self, prospect_location: str, company_city: str, company_state: str, prospect_name: str) -> Dict[str, Any]:
+        """
+        Validate if prospect location is within reasonable distance of company location
+
+        Strategy: Allow prospects within ~50 miles of the company city.
+        - Same city = always match
+        - Same state = likely match (we rely on location being accurate)
+        - Different state = only match if it's a border city or metro area
+
+        Returns:
+            dict with 'is_match' (bool) and 'reason' (str)
+        """
+        if not prospect_location or prospect_location.lower() == 'none':
+            # If no location data, allow through (benefit of the doubt)
+            return {'is_match': True, 'reason': 'No location data available'}
+
+        location_lower = prospect_location.lower().strip()
+
+        # 1. Check for exact city match (within 50 miles is basically same city area)
+        if company_city and company_city.lower() in location_lower:
+            return {'is_match': True, 'reason': f'Same city ({company_city})'}
+
+        # 2. Get state variations
+        state_variations = self._get_state_variations(company_state)
+        state_variations_lower = [v.lower() for v in state_variations]
+
+        # Check if prospect is in the same state (assume within reasonable distance if same state)
+        state_match = any(state_var in location_lower for state_var in state_variations_lower)
+
+        if state_match:
+            # Same state - likely within commuting/operating distance
+            return {'is_match': True, 'reason': f'Same state ({company_state})'}
+
+        # 3. Check for adjacent/regional states that might be within 50 miles
+        # (e.g., border cities)
+        regional_matches = self._get_regional_states(company_state)
+        regional_match = any(state.lower() in location_lower for state in regional_matches)
+
+        if regional_match:
+            # Adjacent state - could be border city within 50 miles
+            return {'is_match': True, 'reason': 'Adjacent state (possible border city)'}
+
+        # 4. Check for major metro areas that span states (e.g., DC/MD/VA)
+        metro_areas = {
+            'maryland': ['washington', 'dc', 'district of columbia', 'virginia', 'falls church'],
+            'virginia': ['washington', 'dc', 'district of columbia', 'maryland'],
+            'pennsylvania': ['philadelphia', 'delaware', 'new jersey'],
+            'oregon': ['washington', 'vancouver'],  # Portland metro spans OR/WA
+            'washington': ['oregon', 'portland'],
+        }
+
+        if company_state.lower() in metro_areas:
+            metro_keywords = metro_areas[company_state.lower()]
+            metro_match = any(keyword in location_lower for keyword in metro_keywords)
+
+            if metro_match:
+                return {'is_match': True, 'reason': 'Metro area spans state border'}
+
+        # No match - prospect is clearly too far away (different state, not adjacent)
+        return {
+            'is_match': False,
+            'reason': f"Location too far: '{prospect_location}' vs '{company_city}, {company_state}'"
+        }
+
+    def _get_regional_states(self, state: str) -> List[str]:
+        """Get adjacent/regional states that might be acceptable"""
+        # Regional groupings for healthcare systems (they often span nearby states)
+        regions = {
+            'maryland': ['Virginia', 'DC', 'District of Columbia', 'Delaware', 'Pennsylvania'],
+            'virginia': ['Maryland', 'DC', 'District of Columbia', 'North Carolina'],
+            'pennsylvania': ['New Jersey', 'Delaware', 'Maryland', 'Ohio'],
+            'new york': ['New Jersey', 'Connecticut', 'Pennsylvania'],
+            'california': [],  # California hospitals usually don't span states
+            'texas': [],  # Texas is large enough to not need adjacent states
+            'florida': [],
+            'illinois': ['Indiana', 'Wisconsin'],
+            'ohio': ['Pennsylvania', 'Indiana', 'Michigan'],
+        }
+
+        return regions.get(state.lower(), [])
+
+    def _validate_company_match(self, current_company: str, target_company: str, prospect_name: str) -> Dict[str, Any]:
+        """
+        Flexible company validation with focus on location proximity over exact name match
+
+        Strategy: If prospect's company shares the main identifier (e.g., "Providence")
+        with target company, allow it through. Location filtering will handle geographic relevance.
+
+        Returns:
+            dict with 'is_match' (bool) and 'reason' (str)
+        """
+        if not current_company:
+            return {'is_match': False, 'reason': 'No company listed'}
+
+        current_lower = current_company.lower().strip()
+        target_lower = target_company.lower().strip()
+
+        # Exact match
+        if current_lower == target_lower:
+            return {'is_match': True, 'reason': 'Exact match'}
+
+        # Get base company names (remove common suffixes)
+        healthcare_suffixes = [
+            "medical center", "hospital", "health system", "healthcare",
+            "medical", "health", "clinic", "regional medical center",
+            "health care", "medical group", "health services", "health & services"
+        ]
+
+        current_base = current_lower
+        target_base = target_lower
+
+        for suffix in healthcare_suffixes:
+            current_base = current_base.replace(suffix, "").strip()
+            target_base = target_base.replace(suffix, "").strip()
+
+        # Exact base match
+        if current_base == target_base:
+            return {'is_match': True, 'reason': 'Base name match'}
+
+        # FLEXIBLE MATCHING: Check if main company identifier matches
+        # E.g., "Providence" in both "Providence Health & Services" and "Providence Medford Medical Center"
+        target_words = [w for w in target_base.split() if len(w) > 4]  # Significant words only
+
+        if target_words:
+            # Get the main identifier (usually first significant word)
+            main_identifier = target_words[0]
+
+            # If the main identifier appears in current company, it's likely a match
+            # Examples:
+            # - "Providence Health & Services" matches "Providence Medford Medical Center" (both have "Providence")
+            # - "MedStar Health" matches "MedStar Georgetown Hospital" (both have "MedStar")
+            # - But "MedStar Mobile Healthcare" would NOT match because location filter will catch it
+
+            if main_identifier in current_base:
+                return {'is_match': True, 'reason': f'Shared main identifier ({main_identifier}) - location will validate geographic fit'}
+
+        # Check for division/subsidiary patterns
+        # E.g., "MedStar Georgetown University Hospital" should match "MedStar Health"
+        subsidiary_indicators = [
+            "university", "medical center", "hospital", "institute",
+            "foundation", "research", "regional", "community", "medical group"
+        ]
+
+        has_subsidiary_indicator = any(ind in current_lower for ind in subsidiary_indicators)
+
+        if has_subsidiary_indicator and target_words:
+            # If current company has a subsidiary indicator and shares ANY significant word with target
+            for word in target_words:
+                if word in current_base:
+                    return {'is_match': True, 'reason': f'Division/subsidiary ({word})'}
+
+        # No match
+        return {
+            'is_match': False,
+            'reason': f"Company mismatch: '{current_company}' vs '{target_company}'"
+        }
+
     def _generate_company_variations(self, company_name: str) -> List[str]:
         """Generate common variations of company name for matching"""
         variations = [company_name]
@@ -574,6 +818,14 @@ class ImprovedProspectDiscoveryService:
                 logger.debug(f"Filtered out: {prospect.get('title')} - no company match and low/unknown connections")
 
         return filtered
+
+    def _group_filtered_by_stage(self, filtered_list: List[Dict]) -> Dict[str, int]:
+        """Group filtered prospects by stage and count them"""
+        stage_counts = {}
+        for item in filtered_list:
+            stage = item.get('stage', 'unknown')
+            stage_counts[stage] = stage_counts.get(stage, 0) + 1
+        return stage_counts
 
     async def _ai_rank_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
         """
