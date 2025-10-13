@@ -6,12 +6,20 @@ Usage:
     python test_enrichment_api.py --account 001VR00000UhY3oYAF
     python test_enrichment_api.py --contact 003VR00000YLIzRYAX --linkedin
     python test_enrichment_api.py --account 001VR00000UhY3oYAF --financial
+    
+    # With custom API key
+    python test_enrichment_api.py --account 001VR00000UhY3oYAF --api-key your-key
+    
+    # Or set environment variable
+    export API_KEY=your-api-key
+    python test_enrichment_api.py --account 001VR00000UhY3oYAF
 """
 
 import requests
 import argparse
 import json
 import sys
+import os
 from datetime import datetime
 
 
@@ -19,8 +27,11 @@ from datetime import datetime
 API_BASE_URL = "https://fast-leads-api.up.railway.app"
 # API_BASE_URL = "http://localhost:8000"  # Uncomment for local testing
 
+# Get API key from environment or use default for dev
+DEFAULT_API_KEY = os.getenv("API_KEY") or os.getenv("METRUS_API_KEY")
 
-def test_account_enrichment(account_id: str, overwrite: bool = False, include_financial: bool = False):
+
+def test_account_enrichment(account_id: str, api_key: str, overwrite: bool = False, include_financial: bool = False):
     """Test account enrichment endpoint"""
     print(f"\n{'='*80}")
     print(f"Testing Account Enrichment")
@@ -37,12 +48,18 @@ def test_account_enrichment(account_id: str, overwrite: bool = False, include_fi
         "include_financial": include_financial
     }
     
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key": api_key
+    }
+    
     print(f"📡 Sending request to: {url}")
-    print(f"📦 Payload: {json.dumps(payload, indent=2)}\n")
+    print(f"📦 Payload: {json.dumps(payload, indent=2)}")
+    print(f"🔑 API Key: {api_key[:8]}...{api_key[-4:] if len(api_key) > 12 else '****'}\n")
     
     try:
         start_time = datetime.now()
-        response = requests.post(url, json=payload, timeout=300)
+        response = requests.post(url, json=payload, headers=headers, timeout=300)
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         
@@ -68,7 +85,7 @@ def test_account_enrichment(account_id: str, overwrite: bool = False, include_fi
         return False
 
 
-def test_contact_enrichment(contact_id: str, overwrite: bool = False, include_linkedin: bool = False):
+def test_contact_enrichment(contact_id: str, api_key: str, overwrite: bool = False, include_linkedin: bool = False):
     """Test contact enrichment endpoint"""
     print(f"\n{'='*80}")
     print(f"Testing Contact Enrichment")
@@ -85,12 +102,18 @@ def test_contact_enrichment(contact_id: str, overwrite: bool = False, include_li
         "include_linkedin": include_linkedin
     }
     
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key": api_key
+    }
+    
     print(f"📡 Sending request to: {url}")
-    print(f"📦 Payload: {json.dumps(payload, indent=2)}\n")
+    print(f"📦 Payload: {json.dumps(payload, indent=2)}")
+    print(f"🔑 API Key: {api_key[:8]}...{api_key[-4:] if len(api_key) > 12 else '****'}\n")
     
     try:
         start_time = datetime.now()
-        response = requests.post(url, json=payload, timeout=300)
+        response = requests.post(url, json=payload, headers=headers, timeout=300)
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         
@@ -150,8 +173,19 @@ def main():
     parser.add_argument('--financial', action='store_true', help='Include financial analysis (accounts only)')
     parser.add_argument('--linkedin', action='store_true', help='Include LinkedIn enrichment (contacts only)')
     parser.add_argument('--health', action='store_true', help='Just check API health')
+    parser.add_argument('--api-key', help='API key for authentication (or set API_KEY environment variable)')
     
     args = parser.parse_args()
+    
+    # Get API key from args or environment
+    api_key = args.api_key or DEFAULT_API_KEY
+    
+    if not api_key and (args.account or args.contact):
+        print("\n❌ Error: API key required for enrichment endpoints")
+        print("   Set API_KEY environment variable or use --api-key argument")
+        print("   Example: export API_KEY=your-api-key")
+        print("   Or: python test_enrichment_api.py --account ID --api-key your-key")
+        sys.exit(1)
     
     # Check if any test was requested
     if not any([args.account, args.contact, args.health]):
@@ -169,6 +203,7 @@ def main():
     if args.account:
         success = test_account_enrichment(
             account_id=args.account,
+            api_key=api_key,
             overwrite=args.overwrite,
             include_financial=args.financial
         ) and success
@@ -177,6 +212,7 @@ def main():
     if args.contact:
         success = test_contact_enrichment(
             contact_id=args.contact,
+            api_key=api_key,
             overwrite=args.overwrite,
             include_linkedin=args.linkedin
         ) and success

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from datetime import datetime
 import os
 from dotenv import load_dotenv
@@ -15,6 +15,7 @@ from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
 from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
 from app.services.enrichment import enrichment_service, AccountEnrichmentRequest, ContactEnrichmentRequest
+from app.auth import verify_api_key
 
 # Force fresh deployment - no database dependencies
 
@@ -632,9 +633,14 @@ async def batch_enrich_companies(request: dict):
 # Salesforce Enrichment Endpoints
 
 @app.post("/enrich/account")
-async def enrich_account(request: AccountEnrichmentRequest):
+async def enrich_account(
+    request: AccountEnrichmentRequest,
+    api_key: str = Depends(verify_api_key)
+):
     """
     Enrich a Salesforce account with comprehensive data
+    
+    **Authentication Required:** Include X-API-Key header
     
     This endpoint enriches an account with:
     - Company description, HQ location, employee count
@@ -649,6 +655,9 @@ async def enrich_account(request: AccountEnrichmentRequest):
         "overwrite": false,
         "include_financial": true
     }
+    
+    Headers:
+    - X-API-Key: your-api-key
     """
     try:
         result = await enrichment_service.enrich_account(
@@ -679,9 +688,14 @@ async def enrich_account(request: AccountEnrichmentRequest):
 
 
 @app.post("/enrich/contact")
-async def enrich_contact(request: ContactEnrichmentRequest):
+async def enrich_contact(
+    request: ContactEnrichmentRequest,
+    api_key: str = Depends(verify_api_key)
+):
     """
     Enrich a Salesforce contact with personalized data
+    
+    **Authentication Required:** Include X-API-Key header
     
     This endpoint enriches a contact with:
     - Personalized rapport summaries (4 variations)
@@ -698,6 +712,9 @@ async def enrich_contact(request: ContactEnrichmentRequest):
         "overwrite": false,
         "include_linkedin": true
     }
+    
+    Headers:
+    - X-API-Key: your-api-key
     """
     try:
         result = await enrichment_service.enrich_contact(
