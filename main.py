@@ -14,6 +14,7 @@ from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
 from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
+from app.services.enrichment import enrichment_service, AccountEnrichmentRequest, ContactEnrichmentRequest
 
 # Force fresh deployment - no database dependencies
 
@@ -627,6 +628,104 @@ async def batch_enrich_companies(request: dict):
             status_code=500,
             detail=f"Error in batch credit enrichment: {str(e)}"
         )
+
+# Salesforce Enrichment Endpoints
+
+@app.post("/enrich/account")
+async def enrich_account(request: AccountEnrichmentRequest):
+    """
+    Enrich a Salesforce account with comprehensive data
+    
+    This endpoint enriches an account with:
+    - Company description, HQ location, employee count
+    - Geographic footprint and recent news
+    - Capital project history and infrastructure upgrades
+    - Energy efficiency projects
+    - Financial data (if include_financial is True)
+    
+    Expected request format:
+    {
+        "account_id": "001VR00000UhY3oYAF",
+        "overwrite": false,
+        "include_financial": true
+    }
+    """
+    try:
+        result = await enrichment_service.enrich_account(
+            account_id=request.account_id,
+            overwrite=request.overwrite,
+            include_financial=request.include_financial
+        )
+        
+        if result["status"] == "success":
+            return {
+                "status": "success",
+                "message": result["message"],
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Account enrichment failed: {result.get('message', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error enriching account: {str(e)}"
+        )
+
+
+@app.post("/enrich/contact")
+async def enrich_contact(request: ContactEnrichmentRequest):
+    """
+    Enrich a Salesforce contact with personalized data
+    
+    This endpoint enriches a contact with:
+    - Personalized rapport summaries (4 variations)
+    - Local sports teams and personal interests
+    - Role description and work experience
+    - Energy project history
+    - Why their role is relevant to Metrus
+    - Custom email campaign subject lines (4 variations)
+    - LinkedIn profile data (if include_linkedin is True)
+    
+    Expected request format:
+    {
+        "contact_id": "003VR00000YLIzRYAX",
+        "overwrite": false,
+        "include_linkedin": true
+    }
+    """
+    try:
+        result = await enrichment_service.enrich_contact(
+            contact_id=request.contact_id,
+            overwrite=request.overwrite,
+            include_linkedin=request.include_linkedin
+        )
+        
+        if result["status"] == "success":
+            return {
+                "status": "success",
+                "message": result["message"],
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Contact enrichment failed: {result.get('message', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error enriching contact: {str(e)}"
+        )
+
 
 @app.get("/debug/environment")
 async def debug_environment():
