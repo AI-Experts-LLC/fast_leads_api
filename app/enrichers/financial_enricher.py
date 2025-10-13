@@ -27,9 +27,12 @@ from dotenv import load_dotenv
 
 # Import field validator for data quality
 try:
-    from field_validator import FieldValidator
-except ImportError:
     from .field_validator import FieldValidator
+except ImportError:
+    try:
+        from field_validator import FieldValidator
+    except ImportError:
+        from enrichers.field_validator import FieldValidator
 
 logger = logging.getLogger(__name__)
 

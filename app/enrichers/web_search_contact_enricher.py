@@ -23,18 +23,24 @@ import time
 
 # Import field validator for data quality
 try:
-    from field_validator import FieldValidator
+    from .field_validator import FieldValidator
 except ImportError:
-    from enrichers.field_validator import FieldValidator
+    try:
+        from field_validator import FieldValidator
+    except ImportError:
+        from enrichers.field_validator import FieldValidator
 
 # Import LinkedIn enricher
 try:
-    from linkedin_contact_enricher import LinkedInContactEnricher
+    from .linkedin_contact_enricher import LinkedInContactEnricher
 except ImportError:
     try:
-        from enrichers.linkedin_contact_enricher import LinkedInContactEnricher
+        from linkedin_contact_enricher import LinkedInContactEnricher
     except ImportError:
-        LinkedInContactEnricher = None
+        try:
+            from enrichers.linkedin_contact_enricher import LinkedInContactEnricher
+        except ImportError:
+            LinkedInContactEnricher = None
 
 # Set up logging
 logging.basicConfig(

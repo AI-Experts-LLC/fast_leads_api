@@ -23,19 +23,28 @@ import time
 
 # Import field validator for data quality
 try:
-    from field_validator import FieldValidator
-except ImportError:
     from .field_validator import FieldValidator
+except ImportError:
+    try:
+        from field_validator import FieldValidator
+    except ImportError:
+        from enrichers.field_validator import FieldValidator
 
 try:
-    from financial_enricher import FinancialEnricher
-except ImportError:
     from .financial_enricher import FinancialEnricher
+except ImportError:
+    try:
+        from financial_enricher import FinancialEnricher
+    except ImportError:
+        from enrichers.financial_enricher import FinancialEnricher
 
 try:
-    from salesforce_credit_enricher import SalesforceAccountEnricher as CreditEnricher
-except ImportError:
     from .salesforce_credit_enricher import SalesforceAccountEnricher as CreditEnricher
+except ImportError:
+    try:
+        from salesforce_credit_enricher import SalesforceAccountEnricher as CreditEnricher
+    except ImportError:
+        from enrichers.salesforce_credit_enricher import SalesforceAccountEnricher as CreditEnricher
 
 # Set up logging
 logging.basicConfig(
