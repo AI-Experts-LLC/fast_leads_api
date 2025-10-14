@@ -47,16 +47,11 @@ class ImprovedProspectDiscoveryService:
                 "filtered_out": []
             }
 
-            # Step 0: Expand company name into all LinkedIn variations
-            logger.info("Step 0: Expanding company name variations...")
-            expansion_result = await company_name_expansion_service.expand_company_name(
-                company_name=company_name,
-                company_city=company_city,
-                company_state=company_state
-            )
-
-            company_variations = expansion_result.get("variations", [company_name])
-            logger.info(f"Expanded to {len(company_variations)} variations: {', '.join(company_variations[:5])}{'...' if len(company_variations) > 5 else ''}")
+            # Step 0: SKIP company name expansion for speed (expensive AI call)
+            # Using only the provided company name instead of variations
+            logger.info("Step 0: Using company name as-is (skipping expansion for speed)...")
+            company_variations = [company_name]
+            logger.info(f"Using single company name: {company_name}")
 
             # Step 1: Search for LinkedIn profiles using ALL company name variations (IN PARALLEL)
             logger.info("Step 1: Searching for LinkedIn profiles across all company variations...")
@@ -185,10 +180,11 @@ class ImprovedProspectDiscoveryService:
                     "filter_summary": {"removed_prospects": len(search_results)}
                 }
             
-            # Step 4: LinkedIn scraping (GET REAL DATA FIRST)
+            # Step 4: LinkedIn scraping (GET REAL DATA FIRST) - LIMIT TO 5 for speed
             logger.info("Step 4: Scraping complete LinkedIn data...")
-            linkedin_urls = [p.get("link") for p in ai_filtered_prospects if p.get("link")]
-            
+            linkedin_urls = [p.get("link") for p in ai_filtered_prospects if p.get("link")][:5]  # MAX 5 profiles
+            logger.info(f"Limiting LinkedIn scraping to {len(linkedin_urls)} profiles for speed")
+
             linkedin_result = await self.linkedin_service.scrape_profiles(linkedin_urls)
             
             if not linkedin_result.get("success"):

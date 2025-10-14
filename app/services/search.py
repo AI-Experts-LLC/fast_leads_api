@@ -52,25 +52,16 @@ class SerperSearchService:
 
         try:
             # Default target titles if none provided
+            # OPTIMIZED: Reduced to top 5 most important titles for speed
             # Based on buyer_persona.md: Primary decision-makers for energy infrastructure projects
             if not target_titles:
                 target_titles = [
-                    # Primary decision-makers (Directors & VPs)
+                    # Top decision-makers only (reduced from 11 to 5 for speed)
                     "Director of Facilities",
-                    "Director of Engineering",
-                    "Director of Maintenance",
-                    "VP Facilities",
-                    "VP Operations",
-
-                    # Financial decision-makers
                     "Chief Financial Officer",
                     "Chief Operating Officer",
-
-                    # Manager-level contacts
-                    "Facilities Manager",
-                    "Energy Manager",
-                    "Plant Manager",
-                    "Maintenance Manager"
+                    "VP Facilities",
+                    "Facilities Manager"
                 ]
 
             all_results = []
@@ -91,14 +82,14 @@ class SerperSearchService:
                 
                 results = await self._perform_search(search_query)
                 if results.get("success"):
-                    # Add title context to results and limit to first 5 per title
-                    title_results = results.get("results", [])[:5]  # Limit to first 5 results per title
+                    # OPTIMIZED: Limit to first 3 per title (reduced from 5)
+                    title_results = results.get("results", [])[:3]
                     for result in title_results:
                         result["target_title"] = title
                     all_results.extend(title_results)
-                
-                # Small delay to respect rate limits
-                await asyncio.sleep(0.1)
+
+                # No delay needed when running in parallel
+                # await asyncio.sleep(0.1)
             
             # Remove duplicates based on LinkedIn URL
             unique_results = self._deduplicate_results(all_results)
