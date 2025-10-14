@@ -163,7 +163,7 @@ class ImprovedAIRankingService:
                     "model": self.model,
                     "input": full_input,
                     "text": {"format": {"type": "json_object"}},
-                    "max_output_tokens": 500,
+                    "max_output_tokens": 300,  # Reduced from 500 for faster responses
                     "timeout": 30
                 }
 
