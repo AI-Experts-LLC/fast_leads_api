@@ -721,20 +721,24 @@ If no good information found for that category, format as EMPTY STRING "" in the
 
             # Search for financial information if requested
             if include_financial:
-                # Step 1: Run credit enricher FIRST to populate credit quality fields
-                logger.info("\n📊 Step 1: Running credit enricher before financial enricher...")
+                # Step 1: Run credit enricher FIRST to populate credit quality fields with EDFx data
+                logger.info("\n📊 Step 1: Running credit enricher (EDFx) before financial enricher...")
                 credit_enriched = self.run_credit_enricher(account['Id'], hospital_name, website)
 
                 if credit_enriched:
-                    logger.info("✅ Credit enrichment completed - credit fields populated")
+                    logger.info("✅ Credit enrichment completed - credit fields populated with EDFx data")
                     # Refresh account details to get the updated credit fields
                     account = self.get_account_details(record_id)
+                    
+                    # CRITICAL: Remove credit fields from updatable_fields to prevent AI from overwriting EDFx data
+                    logger.info("🔒 Locking credit quality fields to preserve EDFx data (AI will not overwrite)")
+                    updatable_fields = [f for f in updatable_fields if f not in ['credit_quality', 'credit_quality_detailed']]
                 else:
-                    logger.warning("⚠️ Credit enrichment did not succeed - financial enricher will search for credit quality")
+                    logger.warning("⚠️ Credit enrichment did not succeed - financial enricher will use AI for credit quality")
 
                 time.sleep(1)  # Rate limiting between enrichers
 
-                # Step 2: Run financial enricher, skipping credit fields if they were already populated
+                # Step 2: Run financial enricher, skipping credit fields if they were already populated by EDFx
                 logger.info("\n💰 Step 2: Running financial enricher...")
                 financial_fields = [f for f in updatable_fields if f in ['recent_disclosures', 'wacc', 'debt_appetite', 'other_debt', 'financial_outlook', 'off_balance_appetite', 'off_balance_appetite_summary', 'revenue', 'credit_quality', 'credit_quality_detailed']]
                 if financial_fields:

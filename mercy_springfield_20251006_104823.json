@@ -1,0 +1,4046 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "Mercy Medical Center",
+    "company_variations_used": [
+      "Mercy Medical Center",
+      "Mercy Health",
+      "Mercy Springfield",
+      "Mercy Medical Center - Springfield",
+      "Mercy Medical Center - MA",
+      "Mercy Health System",
+      "Mercy Health - Springfield",
+      "Mercy Medical Center of Springfield",
+      "Mercy Medical Center (Springfield, MA)",
+      "Mercy Springfield Medical Center",
+      "Mercy Springfield Hospital",
+      "Mercy Medical Center - Massachusetts"
+    ],
+    "pipeline_summary": {
+      "company_variations_searched": 12,
+      "search_results_found": 96,
+      "prospects_after_basic_filter": 87,
+      "linkedin_profiles_scraped": 58,
+      "prospects_after_advanced_filter": 9,
+      "prospects_after_ai_ranking": 2,
+      "prospects_meeting_threshold": 2,
+      "final_top_prospects": 2
+    },
+    "qualified_prospects": [
+      {
+        "search_title": "Michael Murdzia, CHFM, CIH, CSP - Mercy Medical Center",
+        "search_snippet": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA \u00b7 Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries.",
+        "linkedin_url": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "location_score": 100,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+          "name": "Michael Murdzia, CHFM, CIH, CSP",
+          "first_name": "Michael",
+          "last_name": "Murdzia, CHFM, CIH, CSP",
+          "headline": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA",
+          "company": "Mercy Medical Center - Springfield, Ma",
+          "location": "Springfield, Massachusetts",
+          "summary": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+          "about": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+          "job_title": "Director of Facilities, Safety, and Environmental Affairs",
+          "company_name": "Mercy Medical Center - Springfield, Ma",
+          "company_industry": "Hospital & Health Care",
+          "company_website": null,
+          "company_linkedin": "linkedin.com/company/mercymedicalma",
+          "company_size": "1001-5000",
+          "company_founded": null,
+          "current_job_duration": "4 yrs 7 mos",
+          "current_job_duration_years": 4.58,
+          "connections": 513,
+          "followers": 513,
+          "top_skills_by_endorsements": "Hazardous Waste Management, Industrial Hygiene, Environmental Compliance, Environmental Consulting, Environmental Awareness",
+          "skills": [
+            {
+              "name": "Industrial Hygiene",
+              "endorsements": [
+                "Endorsed by 1 person in the last 6 months",
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Environment, Health, and Safety (EHS)",
+              "endorsements": [
+                "Endorsed by 1 person in the last 6 months",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Program Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Compliance",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Hazardous Waste Management",
+              "endorsements": [
+                "8 endorsements"
+              ]
+            },
+            {
+              "name": "Environmental Consulting",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Environmental Awareness",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Remediation",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Project Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "EHS",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Waste Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Management Systems",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Hazardous Materials",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Science",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Occupational Health",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Sustainability",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Contract Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Construction",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Impact Assessment",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Project Planning",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "michael-murdzia-chfm-cih-csp-35146019",
+          "urn": "ACoAAAPN5-0BrYZ0FI5BDcmO-UdIrXlNK9MWfyo",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Springfield, Massachusetts, United States",
+          "address_without_country": "Springfield, Massachusetts",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director of Facilities, Safety, and Environmental Affairs",
+              "company": "Mercy Medical Center - Springfield, MA",
+              "duration": "Apr 2021 - Present \u00b7 4 yrs 7 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGJMmmt3Uv40Q/company-logo_200_200/company-logo_200_200/0/1630601856137?e=1762387200&v=beta&t=iDm1xiquJ3GHWuvHb4oRAO9KxY5iFroQ46jTaepHUcE",
+              "company_link": "https://www.linkedin.com/company/35627980/"
+            },
+            {
+              "title": "Regional Director of Safety and Environmental Affairs",
+              "company": "Trinity Health Of New England",
+              "duration": "Jul 2020 - Apr 2021 \u00b7 10 mos",
+              "location": "Hartford County, Connecticut, United States",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQHxhnUxiLk_3g/company-logo_200_200/company-logo_200_200/0/1631349303912?e=1762387200&v=beta&t=DF5elI-jedZYJKBtRRGWP517f-cKvl2irYqY72CSV8s",
+              "company_link": "https://www.linkedin.com/company/11266342/"
+            },
+            {
+              "title": "Sr. Manager, Health and Safety",
+              "company": "Collins Aerospace",
+              "duration": "Oct 2015 - Jul 2020 \u00b7 4 yrs 10 mos",
+              "location": "Windsor Locks, CT",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQGOO3rPemY70w/company-logo_200_200/company-logo_200_200/0/1687169228107/collins_aerospace_logo?e=1762387200&v=beta&t=JtO6czCvDrKAahS6tn0Uyb8nNZMOLcTIugfg3Ivr_jg",
+              "company_link": "https://www.linkedin.com/company/11695727/"
+            },
+            {
+              "title": "Senior Health and Safety Engineer",
+              "company": "United Technologies Research Center",
+              "duration": "Oct 2012 - Oct 2015 \u00b7 3 yrs 1 mo",
+              "location": "East Hartford, CT",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQFVhu-PRAV-Dw/company-logo_200_200/company-logo_200_200/0/1631306120499?e=1762387200&v=beta&t=POwj_-yLXe_4OR0TazsiFXA_tqBn9aDJQFlTmz6Ums4",
+              "company_link": "https://www.linkedin.com/company/2424/"
+            },
+            {
+              "title": "VA Connecticut Healthcare System",
+              "company": "2 yrs 7 mos",
+              "duration": null,
+              "location": null,
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=VA+Connecticut+Healthcare+System"
+            }
+          ],
+          "experience_count": 5,
+          "total_experience_years": 13.3,
+          "industry_experience": {
+            "healthcare": 5.4,
+            "other": 4.8,
+            "technology": 3.1
+          },
+          "education": [
+            {
+              "school": "Tulane University",
+              "degree": "MSPH, Public Health - Industrial Hygiene",
+              "duration": "2004 - 2007",
+              "activities": [
+                {
+                  "type": "textComponent",
+                  "text": "School of Public Health and Tropical Medicine"
+                }
+              ],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D560BAQHH3n2MYFFTTg/company-logo_200_200/company-logo_200_200/0/1718303532234/tulane_university_logo?e=1762387200&v=beta&t=vDEaWkS921VsyMq3EM4yQxHlbV0u1F6yAHSanRxssQ8",
+              "school_link": "https://www.linkedin.com/company/6806/"
+            },
+            {
+              "school": "Penn State University",
+              "degree": "Master of Public Administration - MPA, Public Administration",
+              "duration": "2014 - 2017",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEFv0lqpE-gsQ/company-logo_200_200/company-logo_200_200/0/1631308876392?e=1762387200&v=beta&t=ZDNeKsB6U99uZtUg3tWalZgT5oqgGu5cBEl6cu_NkLs",
+              "school_link": "https://www.linkedin.com/company/3657/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "MSPH, Public Health - Industrial Hygiene",
+          "alma_maters": [
+            "Tulane University",
+            "Penn State University"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Raytheon",
+                  "caption": "1,213,166 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1505/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "United Technologies Research Center",
+                  "caption": "23,167 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/2424/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "Safety Professionals Connect ",
+                  "caption": "24,221 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/1689847",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Alumni of Tulane University",
+                  "caption": "4,055 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/59281",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Tulane University",
+                  "caption": "142,441 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/6806/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Penn State University",
+                  "caption": "818,848 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/3657/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Facility Manager (CHFM)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Sep 2021",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyLink1": null,
+              "title": "Certified Hazardous Materials Manager (CHMM)",
+              "subtitle": "Institute of Hazardous Materials Management (IHMM)",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 55,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 66,
+          "total_sections_completed": 7,
+          "interests_count": 3,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 54,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+            "firstName": "Michael",
+            "lastName": "Murdzia, CHFM, CIH, CSP",
+            "fullName": "Michael Murdzia, CHFM, CIH, CSP",
+            "headline": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA",
+            "connections": 513,
+            "followers": 513,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Director of Facilities, Safety, and Environmental Affairs",
+            "companyName": "Mercy Medical Center - Springfield, Ma",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": null,
+            "companyLinkedin": "linkedin.com/company/mercymedicalma",
+            "companyFoundedIn": null,
+            "companySize": "1001-5000",
+            "currentJobDuration": "4 yrs 7 mos",
+            "currentJobDurationInYrs": 4.58,
+            "topSkillsByEndorsements": "Hazardous Waste Management, Industrial Hygiene, Environmental Compliance, Environmental Consulting, Environmental Awareness",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Springfield, Massachusetts, United States",
+            "addressWithoutCountry": "Springfield, Massachusetts",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567085914939?e=1762387200&v=beta&t=M3zNXUqVQQDU08EB3Xy7oJa6Rrr-_zGxt-tcoNvBHFE",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567085915020?e=1762387200&v=beta&t=bx74rSsIexAUccXVWZFZa9CLUEsRiPFaREIJv09bElg",
+            "about": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+            "publicIdentifier": "michael-murdzia-chfm-cih-csp-35146019",
+            "openConnection": null,
+            "urn": "ACoAAAPN5-0BrYZ0FI5BDcmO-UdIrXlNK9MWfyo",
+            "experiences": [
+              {
+                "companyId": "35627980",
+                "companyUrn": "urn:li:fsd_company:35627980",
+                "companyLink1": "https://www.linkedin.com/company/35627980/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGJMmmt3Uv40Q/company-logo_200_200/company-logo_200_200/0/1630601856137?e=1762387200&v=beta&t=iDm1xiquJ3GHWuvHb4oRAO9KxY5iFroQ46jTaepHUcE",
+                "title": "Director of Facilities, Safety, and Environmental Affairs",
+                "subtitle": "Mercy Medical Center - Springfield, MA \u00b7 Full-time",
+                "caption": "Apr 2021 - Present \u00b7 4 yrs 7 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "11266342",
+                "companyUrn": "urn:li:fsd_company:11266342",
+                "companyLink1": "https://www.linkedin.com/company/11266342/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHxhnUxiLk_3g/company-logo_200_200/company-logo_200_200/0/1631349303912?e=1762387200&v=beta&t=DF5elI-jedZYJKBtRRGWP517f-cKvl2irYqY72CSV8s",
+                "title": "Regional Director of Safety and Environmental Affairs",
+                "subtitle": "Trinity Health Of New England \u00b7 Full-time",
+                "caption": "Jul 2020 - Apr 2021 \u00b7 10 mos",
+                "metadata": "Hartford County, Connecticut, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "11695727",
+                "companyUrn": "urn:li:fsd_company:11695727",
+                "companyLink1": "https://www.linkedin.com/company/11695727/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQGOO3rPemY70w/company-logo_200_200/company-logo_200_200/0/1687169228107/collins_aerospace_logo?e=1762387200&v=beta&t=JtO6czCvDrKAahS6tn0Uyb8nNZMOLcTIugfg3Ivr_jg",
+                "title": "Sr. Manager, Health and Safety",
+                "subtitle": "Collins Aerospace \u00b7 Full-time",
+                "caption": "Oct 2015 - Jul 2020 \u00b7 4 yrs 10 mos",
+                "metadata": "Windsor Locks, CT",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "2424",
+                "companyUrn": "urn:li:fsd_company:2424",
+                "companyLink1": "https://www.linkedin.com/company/2424/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQFVhu-PRAV-Dw/company-logo_200_200/company-logo_200_200/0/1631306120499?e=1762387200&v=beta&t=POwj_-yLXe_4OR0TazsiFXA_tqBn9aDJQFlTmz6Ums4",
+                "title": "Senior Health and Safety Engineer",
+                "subtitle": "United Technologies Research Center",
+                "caption": "Oct 2012 - Oct 2015 \u00b7 3 yrs 1 mo",
+                "metadata": "East Hartford, CT",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=VA+Connecticut+Healthcare+System",
+                "title": "VA Connecticut Healthcare System",
+                "subtitle": "2 yrs 7 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Industrial Hygienist",
+                    "caption": "Aug 2010 - Oct 2012 \u00b7 2 yrs 3 mos",
+                    "description": []
+                  },
+                  {
+                    "title": "Construction Safety Engineer",
+                    "caption": "Apr 2010 - Aug 2010 \u00b7 5 mos",
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Industrial Hygiene",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environment, Health, and Safety (EHS)",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Program Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Compliance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Hazardous Waste Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "8 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Consulting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Awareness",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Remediation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "EHS",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Waste Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Management Systems",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Hazardous Materials",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Science",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Occupational Health",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Sustainability",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Impact Assessment",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Planning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "expiresAt": 1762387200000,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567085914939?e=1762387200&v=beta&t=M3zNXUqVQQDU08EB3Xy7oJa6Rrr-_zGxt-tcoNvBHFE"
+              },
+              {
+                "width": 200,
+                "expiresAt": 1762387200000,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1567085914910?e=1762387200&v=beta&t=tbL00VUFnViE-gtBj7xWW-g9LfiQgOoX5JnnJ9qpocc"
+              },
+              {
+                "width": 400,
+                "expiresAt": 1762387200000,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1567085914977?e=1762387200&v=beta&t=5XSjfD5W1MEoz7e4VZ9ZbFPRKsF-p7Hij93H5CrVRmg"
+              },
+              {
+                "width": 500,
+                "expiresAt": 1762387200000,
+                "height": 500,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567085915020?e=1762387200&v=beta&t=bx74rSsIexAUccXVWZFZa9CLUEsRiPFaREIJv09bElg"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "6806",
+                "companyUrn": "urn:li:fsd_company:6806",
+                "companyLink1": "https://www.linkedin.com/company/6806/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQHH3n2MYFFTTg/company-logo_200_200/company-logo_200_200/0/1718303532234/tulane_university_logo?e=1762387200&v=beta&t=vDEaWkS921VsyMq3EM4yQxHlbV0u1F6yAHSanRxssQ8",
+                "title": "Tulane University",
+                "subtitle": "MSPH, Public Health - Industrial Hygiene",
+                "caption": "2004 - 2007",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "School of Public Health and Tropical Medicine"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "3657",
+                "companyUrn": "urn:li:fsd_company:3657",
+                "companyLink1": "https://www.linkedin.com/company/3657/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEFv0lqpE-gsQ/company-logo_200_200/company-logo_200_200/0/1631308876392?e=1762387200&v=beta&t=ZDNeKsB6U99uZtUg3tWalZgT5oqgGu5cBEl6cu_NkLs",
+                "title": "Penn State University",
+                "subtitle": "Master of Public Administration - MPA, Public Administration",
+                "caption": "2014 - 2017",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Facility Manager (CHFM)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Sep 2021",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": null,
+                "title": "Certified Hazardous Materials Manager (CHMM)",
+                "subtitle": "Institute of Hazardous Materials Management (IHMM)",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [
+              {
+                "title": "American Industrial Hygiene Association",
+                "subtitle": "May 2014 - Present",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Raytheon",
+                    "caption": "1,213,166 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1505/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "United Technologies Research Center",
+                    "caption": "23,167 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/2424/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "Safety Professionals Connect ",
+                    "caption": "24,221 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/1689847",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Alumni of Tulane University",
+                    "caption": "4,055 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/59281",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Tulane University",
+                    "caption": "142,441 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/6806/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Penn State University",
+                    "caption": "818,848 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/3657/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 90,
+          "current_title": "director of facilities, safety, and environmental affairs",
+          "current_company": "mercy medical center - springfield, ma"
+        },
+        "ai_ranking": {
+          "ranking_score": 93,
+          "ranking_reasoning": "38 + 28 + 18 + 9 = 93",
+          "ranked_by": "ai_individual",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      },
+      {
+        "search_title": "Nick Munro - Director, Facilities Management | Northern ...",
+        "search_snippet": "Director, Facilities Management | Northern Light Mercy Hospital \u00b7 Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects. After spending 5 years in the field as a laborer, I completed a degree program and began working in ...",
+        "linkedin_url": "https://www.linkedin.com/in/nick-munro-6b677379",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "location_score": 100,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/nick-munro-6b677379",
+          "name": "Nick Munro",
+          "first_name": "Nick",
+          "last_name": "Munro",
+          "headline": "Director, Facilities Management | Northern Light Mercy Hospital",
+          "company": "Northern Light Mercy Hospital",
+          "location": "Portland, Maine",
+          "summary": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+          "about": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+          "job_title": "Director of Facilities Management",
+          "company_name": "Northern Light Mercy Hospital",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "mercyhospital.org",
+          "company_linkedin": "linkedin.com/company/northernlightmercyhospital",
+          "company_size": "1001-5000",
+          "company_founded": 1918,
+          "current_job_duration": "2 yrs 3 mos",
+          "current_job_duration_years": 2.25,
+          "connections": 854,
+          "followers": 859,
+          "top_skills_by_endorsements": "Change Orders, Construction Management, Pre-construction, RFI, Contract Management",
+          "skills": [
+            {
+              "name": "Change Orders",
+              "endorsements": [
+                "Endorsed by 2 colleagues at Consigli Construction Co., Inc.",
+                "10 endorsements"
+              ]
+            },
+            {
+              "name": "Construction Management",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Value Engineering",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Primavera P6",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Pre-construction",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "RFI",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Process Scheduler",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Construction",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Subcontracting",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Negotiation",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Contractors",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "CPM Scheduling",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Project Estimation",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Renovation",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            }
+          ],
+          "skills_count": 15,
+          "email": null,
+          "mobile_number": "5084737252",
+          "phone": null,
+          "website": null,
+          "public_identifier": "nick-munro-6b677379",
+          "urn": "ACoAABCqMyoBepZn1ale0PwwxIQwRQ8Xo5_J6-k",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Portland, Maine, United States",
+          "address_without_country": "Portland, Maine",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director of Facilities Management",
+              "company": "Northern Light Mercy Hospital",
+              "duration": "Aug 2023 - Present \u00b7 2 yrs 3 mos",
+              "location": "Portland, Maine, United States \u00b7 On-site",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGd-41IQ01fJg/company-logo_200_200/company-logo_200_200/0/1630547163330/northernlightmercyhospital_logo?e=1762387200&v=beta&t=yCO9srYk3NM-UfSeoDD5R32699I2-qFaLYwJmopC_wo",
+              "company_link": "https://www.linkedin.com/company/547164/"
+            },
+            {
+              "title": "Senior Project Manager - Facilities Planning, Design & Construction",
+              "company": "Northern Light Health",
+              "duration": "Apr 2018 - Sep 2023 \u00b7 5 yrs 6 mos",
+              "location": "Portland, Maine Metropolitan Area",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF39V_lNVllvQ/company-logo_200_200/company-logo_200_200/0/1630535841569/northern_light_health_logo?e=1762387200&v=beta&t=WxAENnEgIYmiw2G5aHoBCe_8dM17Cd2hNBl5x2tLHRY",
+              "company_link": "https://www.linkedin.com/company/33434730/"
+            },
+            {
+              "title": "Consigli Construction Co., Inc.",
+              "company": "12 yrs 9 mos",
+              "duration": "Portland, Maine Metropolitan Area",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGhWOQrmqyyaw/company-logo_200_200/company-logo_200_200/0/1688161002393/consigli_construction_logo?e=1762387200&v=beta&t=rVqyeErqTN0jFuZG1g3xmmcfpxJBKv9v6AgYz4naBM0",
+              "company_link": "https://www.linkedin.com/company/73304/"
+            },
+            {
+              "title": "Debarker Operator",
+              "company": "C&R Lumber Mill",
+              "duration": "Sep 2003 - Aug 2005 \u00b7 2 yrs",
+              "location": null,
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=C%26R+Lumber+Mill"
+            }
+          ],
+          "experience_count": 4,
+          "total_experience_years": 9.8,
+          "industry_experience": {
+            "healthcare": 7.8,
+            "other": 2.0
+          },
+          "education": [
+            {
+              "school": "San Joaquin Valley College",
+              "degree": "Associate of Science (A.S.), Construction Management",
+              "duration": "2009 - 2010",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEsGDlgjbEaFQ/company-logo_200_200/company-logo_200_200/0/1636488585222/san_joaquin_valley_college_logo?e=1762387200&v=beta&t=oUPcHa8MybTTBitKJ69RT3lzBBvuvmCXfSA93Q9BhiM",
+              "school_link": "https://www.linkedin.com/company/27395/"
+            }
+          ],
+          "education_count": 1,
+          "highest_degree": "Associate of Science (A.S.), Construction Management",
+          "alma_maters": [
+            "San Joaquin Valley College"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "San Joaquin Valley College",
+                  "caption": "26,137 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/27395/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Consigli Construction Co., Inc.",
+                  "caption": "62,455 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/73304/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "2 Degrees Portland",
+                  "caption": "262 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/3802481",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "San Joaquin Valley College",
+                  "caption": "26,137 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/27395/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Constructor (CHC)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Feb 2025 \u00b7 Expires Feb 2028",
+              "metadata": "Credential ID 3108",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Facility Manager (CHFM)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Nov 2024 \u00b7 Expires Nov 2027",
+              "metadata": "Credential ID 4118",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [
+            {
+              "title": "Northern Light Mercy Hospital Expansion",
+              "subtitle": "Apr 2018 - Mar 2022",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "textComponent",
+                      "text": "I oversaw all aspects of planning, design, permitting and construction of a 50,000 SF expansion to NL Mercy Hospital in Portland, ME.  The expansion included a new Emergency Department, Intensive Care unit and other acute hospital departments.  I also helped plan and complete a consolidation of 2 hospitals to 1 at the completion of this project including the succesful turnover of the older hospital to its new owners."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Norther Light Mercy MOB Renovation",
+              "subtitle": "Apr 2018 - Sep 2021",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "textComponent",
+                      "text": "I oversaw all aspects of planning, design, permitting and construction of 13,000 SF of medical office space to create newly constructed spaces for an outpatient imaging center, pain management practice, cardiology practice, diabetes & endocrinology practice, midwifery practice, and administrative spaces."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 57,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 72,
+          "total_sections_completed": 8,
+          "interests_count": 3,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 2,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 44,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/nick-munro-6b677379",
+            "firstName": "Nick",
+            "lastName": "Munro",
+            "fullName": "Nick Munro",
+            "headline": "Director, Facilities Management | Northern Light Mercy Hospital",
+            "connections": 854,
+            "followers": 859,
+            "email": null,
+            "mobileNumber": "5084737252",
+            "jobTitle": "Director of Facilities Management",
+            "companyName": "Northern Light Mercy Hospital",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "mercyhospital.org",
+            "companyLinkedin": "linkedin.com/company/northernlightmercyhospital",
+            "companyFoundedIn": 1918,
+            "companySize": "1001-5000",
+            "currentJobDuration": "2 yrs 3 mos",
+            "currentJobDurationInYrs": 2.25,
+            "topSkillsByEndorsements": "Change Orders, Construction Management, Pre-construction, RFI, Contract Management",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Portland, Maine, United States",
+            "addressWithoutCountry": "Portland, Maine",
+            "profilePic": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1731425540116?e=1762387200&v=beta&t=G90w6-G0UxQrmzeJNXbsUU7h90XDKvFBSVKG5nAByXE",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731425540152?e=1762387200&v=beta&t=etp22CnzPihV78UrSQhb5XMNOJ-8kx8wbr-pUkkeejI",
+            "about": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+            "publicIdentifier": "nick-munro-6b677379",
+            "openConnection": null,
+            "urn": "ACoAABCqMyoBepZn1ale0PwwxIQwRQ8Xo5_J6-k",
+            "experiences": [
+              {
+                "companyId": "547164",
+                "companyUrn": "urn:li:fsd_company:547164",
+                "companyLink1": "https://www.linkedin.com/company/547164/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGd-41IQ01fJg/company-logo_200_200/company-logo_200_200/0/1630547163330/northernlightmercyhospital_logo?e=1762387200&v=beta&t=yCO9srYk3NM-UfSeoDD5R32699I2-qFaLYwJmopC_wo",
+                "title": "Director of Facilities Management",
+                "subtitle": "Northern Light Mercy Hospital \u00b7 Full-time",
+                "caption": "Aug 2023 - Present \u00b7 2 yrs 3 mos",
+                "metadata": "Portland, Maine, United States \u00b7 On-site",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "33434730",
+                "companyUrn": "urn:li:fsd_company:33434730",
+                "companyLink1": "https://www.linkedin.com/company/33434730/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF39V_lNVllvQ/company-logo_200_200/company-logo_200_200/0/1630535841569/northern_light_health_logo?e=1762387200&v=beta&t=WxAENnEgIYmiw2G5aHoBCe_8dM17Cd2hNBl5x2tLHRY",
+                "title": "Senior Project Manager - Facilities Planning, Design & Construction",
+                "subtitle": "Northern Light Health \u00b7 Full-time",
+                "caption": "Apr 2018 - Sep 2023 \u00b7 5 yrs 6 mos",
+                "metadata": "Portland, Maine Metropolitan Area",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "73304",
+                "companyUrn": "urn:li:fsd_company:73304",
+                "companyLink1": "https://www.linkedin.com/company/73304/",
+                "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGhWOQrmqyyaw/company-logo_200_200/company-logo_200_200/0/1688161002393/consigli_construction_logo?e=1762387200&v=beta&t=rVqyeErqTN0jFuZG1g3xmmcfpxJBKv9v6AgYz4naBM0",
+                "title": "Consigli Construction Co., Inc.",
+                "subtitle": "12 yrs 9 mos",
+                "caption": "Portland, Maine Metropolitan Area",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Project Manager",
+                    "caption": "Jul 2010 - Apr 2018 \u00b7 7 yrs 10 mos",
+                    "description": []
+                  },
+                  {
+                    "title": "Laborer",
+                    "caption": "Aug 2005 - Jul 2010 \u00b7 5 yrs",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=C%26R+Lumber+Mill",
+                "title": "Debarker Operator",
+                "subtitle": "C&R Lumber Mill",
+                "caption": "Sep 2003 - Aug 2005 \u00b7 2 yrs",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Change Orders",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 colleagues at Consigli Construction Co., Inc."
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "10 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Value Engineering",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Primavera P6",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Pre-construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "RFI",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Scheduler",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Subcontracting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Negotiation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contractors",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "CPM Scheduling",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Estimation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Renovation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "expiresAt": 1762387200000,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1731425540116?e=1762387200&v=beta&t=G90w6-G0UxQrmzeJNXbsUU7h90XDKvFBSVKG5nAByXE"
+              },
+              {
+                "width": 200,
+                "expiresAt": 1762387200000,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1731425540116?e=1762387200&v=beta&t=xNyLjVv44WCJA8uYz-2vWYwzJJbsEsFiOPdPBEAZ9eU"
+              },
+              {
+                "width": 400,
+                "expiresAt": 1762387200000,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731425540116?e=1762387200&v=beta&t=MfpCsCMpCcQmsj6gdWrR06noZuSks4rJQXHk1fMIg3A"
+              },
+              {
+                "width": 800,
+                "expiresAt": 1762387200000,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731425540152?e=1762387200&v=beta&t=etp22CnzPihV78UrSQhb5XMNOJ-8kx8wbr-pUkkeejI"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "27395",
+                "companyUrn": "urn:li:fsd_company:27395",
+                "companyLink1": "https://www.linkedin.com/company/27395/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEsGDlgjbEaFQ/company-logo_200_200/company-logo_200_200/0/1636488585222/san_joaquin_valley_college_logo?e=1762387200&v=beta&t=oUPcHa8MybTTBitKJ69RT3lzBBvuvmCXfSA93Q9BhiM",
+                "title": "San Joaquin Valley College",
+                "subtitle": "Associate of Science (A.S.), Construction Management",
+                "caption": "2009 - 2010",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Constructor (CHC)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Feb 2025 \u00b7 Expires Feb 2028",
+                "metadata": "Credential ID 3108",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Facility Manager (CHFM)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Nov 2024 \u00b7 Expires Nov 2027",
+                "metadata": "Credential ID 4118",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [
+              {
+                "title": "Northern Light Mercy Hospital Expansion",
+                "subtitle": "Apr 2018 - Mar 2022",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "I oversaw all aspects of planning, design, permitting and construction of a 50,000 SF expansion to NL Mercy Hospital in Portland, ME.  The expansion included a new Emergency Department, Intensive Care unit and other acute hospital departments.  I also helped plan and complete a consolidation of 2 hospitals to 1 at the completion of this project including the succesful turnover of the older hospital to its new owners."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Norther Light Mercy MOB Renovation",
+                "subtitle": "Apr 2018 - Sep 2021",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "I oversaw all aspects of planning, design, permitting and construction of 13,000 SF of medical office space to create newly constructed spaces for an outpatient imaging center, pain management practice, cardiology practice, diabetes & endocrinology practice, midwifery practice, and administrative spaces."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "San Joaquin Valley College",
+                    "caption": "26,137 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/27395/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Consigli Construction Co., Inc.",
+                    "caption": "62,455 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/73304/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "2 Degrees Portland",
+                    "caption": "262 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/3802481",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "San Joaquin Valley College",
+                    "caption": "26,137 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/27395/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 84,
+          "current_title": "director of facilities management",
+          "current_company": "northern light mercy hospital"
+        },
+        "ai_ranking": {
+          "ranking_score": 93,
+          "ranking_reasoning": "Role(38) + Technical(28) + Budget(18) + Exp(9) = Total",
+          "ranked_by": "ai_individual",
+          "ranking_timestamp": null,
+          "rank_position": 2
+        }
+      }
+    ],
+    "all_ranked_prospects": [
+      {
+        "search_title": "Michael Murdzia, CHFM, CIH, CSP - Mercy Medical Center",
+        "search_snippet": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA \u00b7 Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries.",
+        "linkedin_url": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "location_score": 100,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+          "name": "Michael Murdzia, CHFM, CIH, CSP",
+          "first_name": "Michael",
+          "last_name": "Murdzia, CHFM, CIH, CSP",
+          "headline": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA",
+          "company": "Mercy Medical Center - Springfield, Ma",
+          "location": "Springfield, Massachusetts",
+          "summary": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+          "about": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+          "job_title": "Director of Facilities, Safety, and Environmental Affairs",
+          "company_name": "Mercy Medical Center - Springfield, Ma",
+          "company_industry": "Hospital & Health Care",
+          "company_website": null,
+          "company_linkedin": "linkedin.com/company/mercymedicalma",
+          "company_size": "1001-5000",
+          "company_founded": null,
+          "current_job_duration": "4 yrs 7 mos",
+          "current_job_duration_years": 4.58,
+          "connections": 513,
+          "followers": 513,
+          "top_skills_by_endorsements": "Hazardous Waste Management, Industrial Hygiene, Environmental Compliance, Environmental Consulting, Environmental Awareness",
+          "skills": [
+            {
+              "name": "Industrial Hygiene",
+              "endorsements": [
+                "Endorsed by 1 person in the last 6 months",
+                "6 endorsements"
+              ]
+            },
+            {
+              "name": "Environment, Health, and Safety (EHS)",
+              "endorsements": [
+                "Endorsed by 1 person in the last 6 months",
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Program Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Compliance",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Hazardous Waste Management",
+              "endorsements": [
+                "8 endorsements"
+              ]
+            },
+            {
+              "name": "Environmental Consulting",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Environmental Awareness",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Remediation",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Project Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "EHS",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Waste Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Management Systems",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Hazardous Materials",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Science",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Occupational Health",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Sustainability",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Contract Management",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Construction",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Environmental Impact Assessment",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Project Planning",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            }
+          ],
+          "skills_count": 20,
+          "email": null,
+          "mobile_number": null,
+          "phone": null,
+          "website": null,
+          "public_identifier": "michael-murdzia-chfm-cih-csp-35146019",
+          "urn": "ACoAAAPN5-0BrYZ0FI5BDcmO-UdIrXlNK9MWfyo",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Springfield, Massachusetts, United States",
+          "address_without_country": "Springfield, Massachusetts",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director of Facilities, Safety, and Environmental Affairs",
+              "company": "Mercy Medical Center - Springfield, MA",
+              "duration": "Apr 2021 - Present \u00b7 4 yrs 7 mos",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGJMmmt3Uv40Q/company-logo_200_200/company-logo_200_200/0/1630601856137?e=1762387200&v=beta&t=iDm1xiquJ3GHWuvHb4oRAO9KxY5iFroQ46jTaepHUcE",
+              "company_link": "https://www.linkedin.com/company/35627980/"
+            },
+            {
+              "title": "Regional Director of Safety and Environmental Affairs",
+              "company": "Trinity Health Of New England",
+              "duration": "Jul 2020 - Apr 2021 \u00b7 10 mos",
+              "location": "Hartford County, Connecticut, United States",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C560BAQHxhnUxiLk_3g/company-logo_200_200/company-logo_200_200/0/1631349303912?e=1762387200&v=beta&t=DF5elI-jedZYJKBtRRGWP517f-cKvl2irYqY72CSV8s",
+              "company_link": "https://www.linkedin.com/company/11266342/"
+            },
+            {
+              "title": "Sr. Manager, Health and Safety",
+              "company": "Collins Aerospace",
+              "duration": "Oct 2015 - Jul 2020 \u00b7 4 yrs 10 mos",
+              "location": "Windsor Locks, CT",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D560BAQGOO3rPemY70w/company-logo_200_200/company-logo_200_200/0/1687169228107/collins_aerospace_logo?e=1762387200&v=beta&t=JtO6czCvDrKAahS6tn0Uyb8nNZMOLcTIugfg3Ivr_jg",
+              "company_link": "https://www.linkedin.com/company/11695727/"
+            },
+            {
+              "title": "Senior Health and Safety Engineer",
+              "company": "United Technologies Research Center",
+              "duration": "Oct 2012 - Oct 2015 \u00b7 3 yrs 1 mo",
+              "location": "East Hartford, CT",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4E0BAQFVhu-PRAV-Dw/company-logo_200_200/company-logo_200_200/0/1631306120499?e=1762387200&v=beta&t=POwj_-yLXe_4OR0TazsiFXA_tqBn9aDJQFlTmz6Ums4",
+              "company_link": "https://www.linkedin.com/company/2424/"
+            },
+            {
+              "title": "VA Connecticut Healthcare System",
+              "company": "2 yrs 7 mos",
+              "duration": null,
+              "location": null,
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=VA+Connecticut+Healthcare+System"
+            }
+          ],
+          "experience_count": 5,
+          "total_experience_years": 13.3,
+          "industry_experience": {
+            "healthcare": 5.4,
+            "other": 4.8,
+            "technology": 3.1
+          },
+          "education": [
+            {
+              "school": "Tulane University",
+              "degree": "MSPH, Public Health - Industrial Hygiene",
+              "duration": "2004 - 2007",
+              "activities": [
+                {
+                  "type": "textComponent",
+                  "text": "School of Public Health and Tropical Medicine"
+                }
+              ],
+              "school_logo": "https://media.licdn.com/dms/image/v2/D560BAQHH3n2MYFFTTg/company-logo_200_200/company-logo_200_200/0/1718303532234/tulane_university_logo?e=1762387200&v=beta&t=vDEaWkS921VsyMq3EM4yQxHlbV0u1F6yAHSanRxssQ8",
+              "school_link": "https://www.linkedin.com/company/6806/"
+            },
+            {
+              "school": "Penn State University",
+              "degree": "Master of Public Administration - MPA, Public Administration",
+              "duration": "2014 - 2017",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEFv0lqpE-gsQ/company-logo_200_200/company-logo_200_200/0/1631308876392?e=1762387200&v=beta&t=ZDNeKsB6U99uZtUg3tWalZgT5oqgGu5cBEl6cu_NkLs",
+              "school_link": "https://www.linkedin.com/company/3657/"
+            }
+          ],
+          "education_count": 2,
+          "highest_degree": "MSPH, Public Health - Industrial Hygiene",
+          "alma_maters": [
+            "Tulane University",
+            "Penn State University"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "Raytheon",
+                  "caption": "1,213,166 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/1505/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "United Technologies Research Center",
+                  "caption": "23,167 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/2424/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "Safety Professionals Connect ",
+                  "caption": "24,221 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/1689847",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Alumni of Tulane University",
+                  "caption": "4,055 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/59281",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "Tulane University",
+                  "caption": "142,441 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/6806/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Penn State University",
+                  "caption": "818,848 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/3657/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Facility Manager (CHFM)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Sep 2021",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyLink1": null,
+              "title": "Certified Hazardous Materials Manager (CHMM)",
+              "subtitle": "Institute of Hazardous Materials Management (IHMM)",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 55,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 66,
+          "total_sections_completed": 7,
+          "interests_count": 3,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 0,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 54,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/michael-murdzia-chfm-cih-csp-35146019",
+            "firstName": "Michael",
+            "lastName": "Murdzia, CHFM, CIH, CSP",
+            "fullName": "Michael Murdzia, CHFM, CIH, CSP",
+            "headline": "Director of Facilities, Safety, and Environmental Affairs at Mercy Medical Center - Springfield, MA",
+            "connections": 513,
+            "followers": 513,
+            "email": null,
+            "mobileNumber": null,
+            "jobTitle": "Director of Facilities, Safety, and Environmental Affairs",
+            "companyName": "Mercy Medical Center - Springfield, Ma",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": null,
+            "companyLinkedin": "linkedin.com/company/mercymedicalma",
+            "companyFoundedIn": null,
+            "companySize": "1001-5000",
+            "currentJobDuration": "4 yrs 7 mos",
+            "currentJobDurationInYrs": 4.58,
+            "topSkillsByEndorsements": "Hazardous Waste Management, Industrial Hygiene, Environmental Compliance, Environmental Consulting, Environmental Awareness",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Springfield, Massachusetts, United States",
+            "addressWithoutCountry": "Springfield, Massachusetts",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567085914939?e=1762387200&v=beta&t=M3zNXUqVQQDU08EB3Xy7oJa6Rrr-_zGxt-tcoNvBHFE",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567085915020?e=1762387200&v=beta&t=bx74rSsIexAUccXVWZFZa9CLUEsRiPFaREIJv09bElg",
+            "about": "Experienced Director of Facilities, Safety, and Environmental affairs with a successful history of working in healthcare, aviation and aerospace, research, construction, and consulting industries. Skilled in Facilities Management, Policy and Program Development, Environmental Compliance, Health and Safety, Ergonomics, Audits, and Inspections. Strong EH&S and Facilities professional with graduate degrees from Penn State and Tulane University and undergraduate degree from the University of Massachusetts.\n\nAll views and opinions are mine and do not reflect those of my employer.",
+            "publicIdentifier": "michael-murdzia-chfm-cih-csp-35146019",
+            "openConnection": null,
+            "urn": "ACoAAAPN5-0BrYZ0FI5BDcmO-UdIrXlNK9MWfyo",
+            "experiences": [
+              {
+                "companyId": "35627980",
+                "companyUrn": "urn:li:fsd_company:35627980",
+                "companyLink1": "https://www.linkedin.com/company/35627980/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQGJMmmt3Uv40Q/company-logo_200_200/company-logo_200_200/0/1630601856137?e=1762387200&v=beta&t=iDm1xiquJ3GHWuvHb4oRAO9KxY5iFroQ46jTaepHUcE",
+                "title": "Director of Facilities, Safety, and Environmental Affairs",
+                "subtitle": "Mercy Medical Center - Springfield, MA \u00b7 Full-time",
+                "caption": "Apr 2021 - Present \u00b7 4 yrs 7 mos",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "11266342",
+                "companyUrn": "urn:li:fsd_company:11266342",
+                "companyLink1": "https://www.linkedin.com/company/11266342/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQHxhnUxiLk_3g/company-logo_200_200/company-logo_200_200/0/1631349303912?e=1762387200&v=beta&t=DF5elI-jedZYJKBtRRGWP517f-cKvl2irYqY72CSV8s",
+                "title": "Regional Director of Safety and Environmental Affairs",
+                "subtitle": "Trinity Health Of New England \u00b7 Full-time",
+                "caption": "Jul 2020 - Apr 2021 \u00b7 10 mos",
+                "metadata": "Hartford County, Connecticut, United States",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "11695727",
+                "companyUrn": "urn:li:fsd_company:11695727",
+                "companyLink1": "https://www.linkedin.com/company/11695727/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQGOO3rPemY70w/company-logo_200_200/company-logo_200_200/0/1687169228107/collins_aerospace_logo?e=1762387200&v=beta&t=JtO6czCvDrKAahS6tn0Uyb8nNZMOLcTIugfg3Ivr_jg",
+                "title": "Sr. Manager, Health and Safety",
+                "subtitle": "Collins Aerospace \u00b7 Full-time",
+                "caption": "Oct 2015 - Jul 2020 \u00b7 4 yrs 10 mos",
+                "metadata": "Windsor Locks, CT",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "2424",
+                "companyUrn": "urn:li:fsd_company:2424",
+                "companyLink1": "https://www.linkedin.com/company/2424/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4E0BAQFVhu-PRAV-Dw/company-logo_200_200/company-logo_200_200/0/1631306120499?e=1762387200&v=beta&t=POwj_-yLXe_4OR0TazsiFXA_tqBn9aDJQFlTmz6Ums4",
+                "title": "Senior Health and Safety Engineer",
+                "subtitle": "United Technologies Research Center",
+                "caption": "Oct 2012 - Oct 2015 \u00b7 3 yrs 1 mo",
+                "metadata": "East Hartford, CT",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=VA+Connecticut+Healthcare+System",
+                "title": "VA Connecticut Healthcare System",
+                "subtitle": "2 yrs 7 mos",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Industrial Hygienist",
+                    "caption": "Aug 2010 - Oct 2012 \u00b7 2 yrs 3 mos",
+                    "description": []
+                  },
+                  {
+                    "title": "Construction Safety Engineer",
+                    "caption": "Apr 2010 - Aug 2010 \u00b7 5 mos",
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Industrial Hygiene",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "6 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environment, Health, and Safety (EHS)",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 1 person in the last 6 months"
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Program Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Compliance",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Hazardous Waste Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "8 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Consulting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Awareness",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Remediation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "EHS",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Waste Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Management Systems",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Hazardous Materials",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Science",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Occupational Health",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Sustainability",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Environmental Impact Assessment",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Planning",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "expiresAt": 1762387200000,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567085914939?e=1762387200&v=beta&t=M3zNXUqVQQDU08EB3Xy7oJa6Rrr-_zGxt-tcoNvBHFE"
+              },
+              {
+                "width": 200,
+                "expiresAt": 1762387200000,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1567085914910?e=1762387200&v=beta&t=tbL00VUFnViE-gtBj7xWW-g9LfiQgOoX5JnnJ9qpocc"
+              },
+              {
+                "width": 400,
+                "expiresAt": 1762387200000,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1567085914977?e=1762387200&v=beta&t=5XSjfD5W1MEoz7e4VZ9ZbFPRKsF-p7Hij93H5CrVRmg"
+              },
+              {
+                "width": 500,
+                "expiresAt": 1762387200000,
+                "height": 500,
+                "url": "https://media.licdn.com/dms/image/v2/C4E03AQEzrOy-ysA9YQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567085915020?e=1762387200&v=beta&t=bx74rSsIexAUccXVWZFZa9CLUEsRiPFaREIJv09bElg"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "6806",
+                "companyUrn": "urn:li:fsd_company:6806",
+                "companyLink1": "https://www.linkedin.com/company/6806/",
+                "logo": "https://media.licdn.com/dms/image/v2/D560BAQHH3n2MYFFTTg/company-logo_200_200/company-logo_200_200/0/1718303532234/tulane_university_logo?e=1762387200&v=beta&t=vDEaWkS921VsyMq3EM4yQxHlbV0u1F6yAHSanRxssQ8",
+                "title": "Tulane University",
+                "subtitle": "MSPH, Public Health - Industrial Hygiene",
+                "caption": "2004 - 2007",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "School of Public Health and Tropical Medicine"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "companyId": "3657",
+                "companyUrn": "urn:li:fsd_company:3657",
+                "companyLink1": "https://www.linkedin.com/company/3657/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEFv0lqpE-gsQ/company-logo_200_200/company-logo_200_200/0/1631308876392?e=1762387200&v=beta&t=ZDNeKsB6U99uZtUg3tWalZgT5oqgGu5cBEl6cu_NkLs",
+                "title": "Penn State University",
+                "subtitle": "Master of Public Administration - MPA, Public Administration",
+                "caption": "2014 - 2017",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Facility Manager (CHFM)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Sep 2021",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": null,
+                "title": "Certified Hazardous Materials Manager (CHMM)",
+                "subtitle": "Institute of Hazardous Materials Management (IHMM)",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [
+              {
+                "title": "American Industrial Hygiene Association",
+                "subtitle": "May 2014 - Present",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "Raytheon",
+                    "caption": "1,213,166 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/1505/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "United Technologies Research Center",
+                    "caption": "23,167 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/2424/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "Safety Professionals Connect ",
+                    "caption": "24,221 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/1689847",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Alumni of Tulane University",
+                    "caption": "4,055 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/59281",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "Tulane University",
+                    "caption": "142,441 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/6806/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Penn State University",
+                    "caption": "818,848 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/3657/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 90,
+          "current_title": "director of facilities, safety, and environmental affairs",
+          "current_company": "mercy medical center - springfield, ma"
+        },
+        "ai_ranking": {
+          "ranking_score": 93,
+          "ranking_reasoning": "38 + 28 + 18 + 9 = 93",
+          "ranked_by": "ai_individual",
+          "ranking_timestamp": null,
+          "rank_position": 1
+        }
+      },
+      {
+        "search_title": "Nick Munro - Director, Facilities Management | Northern ...",
+        "search_snippet": "Director, Facilities Management | Northern Light Mercy Hospital \u00b7 Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects. After spending 5 years in the field as a laborer, I completed a degree program and began working in ...",
+        "linkedin_url": "https://www.linkedin.com/in/nick-munro-6b677379",
+        "target_title": "Director of Facilities",
+        "basic_filter": {
+          "passed": true,
+          "has_senior_indicator": true,
+          "company_mentioned": true,
+          "location_score": 100,
+          "filter_reason": "Passed basic filtering"
+        },
+        "linkedin_data": {
+          "url": "https://www.linkedin.com/in/nick-munro-6b677379",
+          "name": "Nick Munro",
+          "first_name": "Nick",
+          "last_name": "Munro",
+          "headline": "Director, Facilities Management | Northern Light Mercy Hospital",
+          "company": "Northern Light Mercy Hospital",
+          "location": "Portland, Maine",
+          "summary": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+          "about": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+          "job_title": "Director of Facilities Management",
+          "company_name": "Northern Light Mercy Hospital",
+          "company_industry": "Hospital & Health Care",
+          "company_website": "mercyhospital.org",
+          "company_linkedin": "linkedin.com/company/northernlightmercyhospital",
+          "company_size": "1001-5000",
+          "company_founded": 1918,
+          "current_job_duration": "2 yrs 3 mos",
+          "current_job_duration_years": 2.25,
+          "connections": 854,
+          "followers": 859,
+          "top_skills_by_endorsements": "Change Orders, Construction Management, Pre-construction, RFI, Contract Management",
+          "skills": [
+            {
+              "name": "Change Orders",
+              "endorsements": [
+                "Endorsed by 2 colleagues at Consigli Construction Co., Inc.",
+                "10 endorsements"
+              ]
+            },
+            {
+              "name": "Construction Management",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "Value Engineering",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Primavera P6",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Pre-construction",
+              "endorsements": [
+                "7 endorsements"
+              ]
+            },
+            {
+              "name": "RFI",
+              "endorsements": [
+                "5 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Management",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Process Scheduler",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Construction",
+              "endorsements": [
+                "4 endorsements"
+              ]
+            },
+            {
+              "name": "Subcontracting",
+              "endorsements": [
+                "3 endorsements"
+              ]
+            },
+            {
+              "name": "Contract Negotiation",
+              "endorsements": [
+                "2 endorsements"
+              ]
+            },
+            {
+              "name": "Contractors",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "CPM Scheduling",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Project Estimation",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            },
+            {
+              "name": "Renovation",
+              "endorsements": [
+                "1 endorsement"
+              ]
+            }
+          ],
+          "skills_count": 15,
+          "email": null,
+          "mobile_number": "5084737252",
+          "phone": null,
+          "website": null,
+          "public_identifier": "nick-munro-6b677379",
+          "urn": "ACoAABCqMyoBepZn1ale0PwwxIQwRQ8Xo5_J6-k",
+          "linkedin_id": null,
+          "profile_id": null,
+          "address_with_country": "Portland, Maine, United States",
+          "address_without_country": "Portland, Maine",
+          "country": null,
+          "city": null,
+          "state": null,
+          "postal_code": null,
+          "geo_location": null,
+          "experience": [
+            {
+              "title": "Director of Facilities Management",
+              "company": "Northern Light Mercy Hospital",
+              "duration": "Aug 2023 - Present \u00b7 2 yrs 3 mos",
+              "location": "Portland, Maine, United States \u00b7 On-site",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGd-41IQ01fJg/company-logo_200_200/company-logo_200_200/0/1630547163330/northernlightmercyhospital_logo?e=1762387200&v=beta&t=yCO9srYk3NM-UfSeoDD5R32699I2-qFaLYwJmopC_wo",
+              "company_link": "https://www.linkedin.com/company/547164/"
+            },
+            {
+              "title": "Senior Project Manager - Facilities Planning, Design & Construction",
+              "company": "Northern Light Health",
+              "duration": "Apr 2018 - Sep 2023 \u00b7 5 yrs 6 mos",
+              "location": "Portland, Maine Metropolitan Area",
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF39V_lNVllvQ/company-logo_200_200/company-logo_200_200/0/1630535841569/northern_light_health_logo?e=1762387200&v=beta&t=WxAENnEgIYmiw2G5aHoBCe_8dM17Cd2hNBl5x2tLHRY",
+              "company_link": "https://www.linkedin.com/company/33434730/"
+            },
+            {
+              "title": "Consigli Construction Co., Inc.",
+              "company": "12 yrs 9 mos",
+              "duration": "Portland, Maine Metropolitan Area",
+              "location": null,
+              "description": [],
+              "company_logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGhWOQrmqyyaw/company-logo_200_200/company-logo_200_200/0/1688161002393/consigli_construction_logo?e=1762387200&v=beta&t=rVqyeErqTN0jFuZG1g3xmmcfpxJBKv9v6AgYz4naBM0",
+              "company_link": "https://www.linkedin.com/company/73304/"
+            },
+            {
+              "title": "Debarker Operator",
+              "company": "C&R Lumber Mill",
+              "duration": "Sep 2003 - Aug 2005 \u00b7 2 yrs",
+              "location": null,
+              "description": [],
+              "company_logo": null,
+              "company_link": "https://www.linkedin.com/search/results/all/?keywords=C%26R+Lumber+Mill"
+            }
+          ],
+          "experience_count": 4,
+          "total_experience_years": 9.8,
+          "industry_experience": {
+            "healthcare": 7.8,
+            "other": 2.0
+          },
+          "education": [
+            {
+              "school": "San Joaquin Valley College",
+              "degree": "Associate of Science (A.S.), Construction Management",
+              "duration": "2009 - 2010",
+              "activities": [],
+              "school_logo": "https://media.licdn.com/dms/image/v2/C560BAQEsGDlgjbEaFQ/company-logo_200_200/company-logo_200_200/0/1636488585222/san_joaquin_valley_college_logo?e=1762387200&v=beta&t=oUPcHa8MybTTBitKJ69RT3lzBBvuvmCXfSA93Q9BhiM",
+              "school_link": "https://www.linkedin.com/company/27395/"
+            }
+          ],
+          "education_count": 1,
+          "highest_degree": "Associate of Science (A.S.), Construction Management",
+          "alma_maters": [
+            "San Joaquin Valley College"
+          ],
+          "interests": [
+            {
+              "section_name": "Companies",
+              "section_components": [
+                {
+                  "titleV2": "San Joaquin Valley College",
+                  "caption": "26,137 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/27395/",
+                  "subComponents": []
+                },
+                {
+                  "titleV2": "Consigli Construction Co., Inc.",
+                  "caption": "62,455 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/company/73304/",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Groups",
+              "section_components": [
+                {
+                  "titleV2": "2 Degrees Portland",
+                  "caption": "262 members",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/groups/3802481",
+                  "subComponents": []
+                }
+              ]
+            },
+            {
+              "section_name": "Schools",
+              "section_components": [
+                {
+                  "titleV2": "San Joaquin Valley College",
+                  "caption": "26,137 followers",
+                  "size": "LARGE",
+                  "textActionTarget": "https://www.linkedin.com/school/27395/",
+                  "subComponents": []
+                }
+              ]
+            }
+          ],
+          "languages": [],
+          "certifications": [
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Constructor (CHC)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Feb 2025 \u00b7 Expires Feb 2028",
+              "metadata": "Credential ID 3108",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            },
+            {
+              "companyId": "17563",
+              "companyUrn": "urn:li:fsd_company:17563",
+              "companyLink1": "https://www.linkedin.com/company/17563/",
+              "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+              "title": "Certified Healthcare Facility Manager (CHFM)",
+              "subtitle": "American Hospital Association",
+              "caption": "Issued Nov 2024 \u00b7 Expires Nov 2027",
+              "metadata": "Credential ID 4118",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": []
+                }
+              ]
+            }
+          ],
+          "honors_awards": [],
+          "volunteer_work": [],
+          "projects": [
+            {
+              "title": "Northern Light Mercy Hospital Expansion",
+              "subtitle": "Apr 2018 - Mar 2022",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "textComponent",
+                      "text": "I oversaw all aspects of planning, design, permitting and construction of a 50,000 SF expansion to NL Mercy Hospital in Portland, ME.  The expansion included a new Emergency Department, Intensive Care unit and other acute hospital departments.  I also helped plan and complete a consolidation of 2 hospitals to 1 at the completion of this project including the succesful turnover of the older hospital to its new owners."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Norther Light Mercy MOB Renovation",
+              "subtitle": "Apr 2018 - Sep 2021",
+              "breakdown": false,
+              "subComponents": [
+                {
+                  "description": [
+                    {
+                      "type": "textComponent",
+                      "text": "I oversaw all aspects of planning, design, permitting and construction of 13,000 SF of medical office space to create newly constructed spaces for an outpatient imaging center, pain management practice, cardiology practice, diabetes & endocrinology practice, midwifery practice, and administrative spaces."
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "publications": [],
+          "patents": [],
+          "courses": [],
+          "test_scores": [],
+          "recommendations": [],
+          "recommendations_count": {
+            "received": 0,
+            "given": 0
+          },
+          "endorsements_received": 57,
+          "activity": [],
+          "posts": [],
+          "articles": [],
+          "recent_activity_count": 0,
+          "is_premium": false,
+          "is_open_to_work": false,
+          "is_hiring": false,
+          "premium_badge": null,
+          "profile_picture_url": null,
+          "background_image_url": null,
+          "has_profile_picture": false,
+          "profile_completeness_score": 72,
+          "total_sections_completed": 8,
+          "interests_count": 3,
+          "languages_count": 0,
+          "certifications_count": 2,
+          "honors_awards_count": 0,
+          "volunteer_work_count": 0,
+          "projects_count": 2,
+          "publications_count": 0,
+          "engagement_score": 15,
+          "accessibility_score": 50,
+          "professional_authority_score": 44,
+          "has_detailed_data": true,
+          "scrape_timestamp": null,
+          "data_source": "apify_linkedin_scraper",
+          "data_quality_score": 85,
+          "last_updated": null,
+          "raw_data": {
+            "linkedinUrl": "https://www.linkedin.com/in/nick-munro-6b677379",
+            "firstName": "Nick",
+            "lastName": "Munro",
+            "fullName": "Nick Munro",
+            "headline": "Director, Facilities Management | Northern Light Mercy Hospital",
+            "connections": 854,
+            "followers": 859,
+            "email": null,
+            "mobileNumber": "5084737252",
+            "jobTitle": "Director of Facilities Management",
+            "companyName": "Northern Light Mercy Hospital",
+            "companyIndustry": "Hospital & Health Care",
+            "companyWebsite": "mercyhospital.org",
+            "companyLinkedin": "linkedin.com/company/northernlightmercyhospital",
+            "companyFoundedIn": 1918,
+            "companySize": "1001-5000",
+            "currentJobDuration": "2 yrs 3 mos",
+            "currentJobDurationInYrs": 2.25,
+            "topSkillsByEndorsements": "Change Orders, Construction Management, Pre-construction, RFI, Contract Management",
+            "addressCountryOnly": "United States",
+            "addressWithCountry": "Portland, Maine, United States",
+            "addressWithoutCountry": "Portland, Maine",
+            "profilePic": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1731425540116?e=1762387200&v=beta&t=G90w6-G0UxQrmzeJNXbsUU7h90XDKvFBSVKG5nAByXE",
+            "profilePicHighQuality": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731425540152?e=1762387200&v=beta&t=etp22CnzPihV78UrSQhb5XMNOJ-8kx8wbr-pUkkeejI",
+            "about": "Experienced construction professional with 15+ years experience in commercial vertical building construction with a focus on healthcare projects.  After spending 5 years in the field as a laborer, I completed a degree program and began working in project management.  I pride myself in my ability to make connections and relate complex concepts as needed to various stakeholders in order to achieve project objectives.  I work with a high level of integrity at all times which has served me well when transitioning from contractor to owner/client roles.",
+            "publicIdentifier": "nick-munro-6b677379",
+            "openConnection": null,
+            "urn": "ACoAABCqMyoBepZn1ale0PwwxIQwRQ8Xo5_J6-k",
+            "experiences": [
+              {
+                "companyId": "547164",
+                "companyUrn": "urn:li:fsd_company:547164",
+                "companyLink1": "https://www.linkedin.com/company/547164/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQGd-41IQ01fJg/company-logo_200_200/company-logo_200_200/0/1630547163330/northernlightmercyhospital_logo?e=1762387200&v=beta&t=yCO9srYk3NM-UfSeoDD5R32699I2-qFaLYwJmopC_wo",
+                "title": "Director of Facilities Management",
+                "subtitle": "Northern Light Mercy Hospital \u00b7 Full-time",
+                "caption": "Aug 2023 - Present \u00b7 2 yrs 3 mos",
+                "metadata": "Portland, Maine, United States \u00b7 On-site",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "33434730",
+                "companyUrn": "urn:li:fsd_company:33434730",
+                "companyLink1": "https://www.linkedin.com/company/33434730/",
+                "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQF39V_lNVllvQ/company-logo_200_200/company-logo_200_200/0/1630535841569/northern_light_health_logo?e=1762387200&v=beta&t=WxAENnEgIYmiw2G5aHoBCe_8dM17Cd2hNBl5x2tLHRY",
+                "title": "Senior Project Manager - Facilities Planning, Design & Construction",
+                "subtitle": "Northern Light Health \u00b7 Full-time",
+                "caption": "Apr 2018 - Sep 2023 \u00b7 5 yrs 6 mos",
+                "metadata": "Portland, Maine Metropolitan Area",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "73304",
+                "companyUrn": "urn:li:fsd_company:73304",
+                "companyLink1": "https://www.linkedin.com/company/73304/",
+                "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQGhWOQrmqyyaw/company-logo_200_200/company-logo_200_200/0/1688161002393/consigli_construction_logo?e=1762387200&v=beta&t=rVqyeErqTN0jFuZG1g3xmmcfpxJBKv9v6AgYz4naBM0",
+                "title": "Consigli Construction Co., Inc.",
+                "subtitle": "12 yrs 9 mos",
+                "caption": "Portland, Maine Metropolitan Area",
+                "breakdown": true,
+                "subComponents": [
+                  {
+                    "title": "Project Manager",
+                    "caption": "Jul 2010 - Apr 2018 \u00b7 7 yrs 10 mos",
+                    "description": []
+                  },
+                  {
+                    "title": "Laborer",
+                    "caption": "Aug 2005 - Jul 2010 \u00b7 5 yrs",
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyLink1": "https://www.linkedin.com/search/results/all/?keywords=C%26R+Lumber+Mill",
+                "title": "Debarker Operator",
+                "subtitle": "C&R Lumber Mill",
+                "caption": "Sep 2003 - Aug 2005 \u00b7 2 yrs",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "updates": [],
+            "skills": [
+              {
+                "title": "Change Orders",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "Endorsed by 2 colleagues at Consigli Construction Co., Inc."
+                      },
+                      {
+                        "type": "insightComponent",
+                        "text": "10 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Value Engineering",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Primavera P6",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Pre-construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "7 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "RFI",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "5 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Management",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Process Scheduler",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Construction",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "4 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Subcontracting",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "3 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contract Negotiation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "2 endorsements"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Contractors",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "CPM Scheduling",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Project Estimation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Renovation",
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "insightComponent",
+                        "text": "1 endorsement"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "profilePicAllDimensions": [
+              {
+                "width": 100,
+                "expiresAt": 1762387200000,
+                "height": 100,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1731425540116?e=1762387200&v=beta&t=G90w6-G0UxQrmzeJNXbsUU7h90XDKvFBSVKG5nAByXE"
+              },
+              {
+                "width": 200,
+                "expiresAt": 1762387200000,
+                "height": 200,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1731425540116?e=1762387200&v=beta&t=xNyLjVv44WCJA8uYz-2vWYwzJJbsEsFiOPdPBEAZ9eU"
+              },
+              {
+                "width": 400,
+                "expiresAt": 1762387200000,
+                "height": 400,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731425540116?e=1762387200&v=beta&t=MfpCsCMpCcQmsj6gdWrR06noZuSks4rJQXHk1fMIg3A"
+              },
+              {
+                "width": 800,
+                "expiresAt": 1762387200000,
+                "height": 800,
+                "url": "https://media.licdn.com/dms/image/v2/D4E03AQH0migIbjXpXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731425540152?e=1762387200&v=beta&t=etp22CnzPihV78UrSQhb5XMNOJ-8kx8wbr-pUkkeejI"
+              }
+            ],
+            "educations": [
+              {
+                "companyId": "27395",
+                "companyUrn": "urn:li:fsd_company:27395",
+                "companyLink1": "https://www.linkedin.com/company/27395/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEsGDlgjbEaFQ/company-logo_200_200/company-logo_200_200/0/1636488585222/san_joaquin_valley_college_logo?e=1762387200&v=beta&t=oUPcHa8MybTTBitKJ69RT3lzBBvuvmCXfSA93Q9BhiM",
+                "title": "San Joaquin Valley College",
+                "subtitle": "Associate of Science (A.S.), Construction Management",
+                "caption": "2009 - 2010",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "licenseAndCertificates": [
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Constructor (CHC)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Feb 2025 \u00b7 Expires Feb 2028",
+                "metadata": "Credential ID 3108",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              },
+              {
+                "companyId": "17563",
+                "companyUrn": "urn:li:fsd_company:17563",
+                "companyLink1": "https://www.linkedin.com/company/17563/",
+                "logo": "https://media.licdn.com/dms/image/v2/C560BAQEHAuL9Bad_TQ/company-logo_200_200/company-logo_200_200/0/1652906140114/american_hospital_association_logo?e=1762387200&v=beta&t=HlwbPzpZy4sz6LQhAfUkVz4DJCvfnXK9RhRWEP1mc1Y",
+                "title": "Certified Healthcare Facility Manager (CHFM)",
+                "subtitle": "American Hospital Association",
+                "caption": "Issued Nov 2024 \u00b7 Expires Nov 2027",
+                "metadata": "Credential ID 4118",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": []
+                  }
+                ]
+              }
+            ],
+            "honorsAndAwards": [],
+            "languages": [],
+            "volunteerAndAwards": [],
+            "verifications": [],
+            "promos": [],
+            "highlights": [],
+            "projects": [
+              {
+                "title": "Northern Light Mercy Hospital Expansion",
+                "subtitle": "Apr 2018 - Mar 2022",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "I oversaw all aspects of planning, design, permitting and construction of a 50,000 SF expansion to NL Mercy Hospital in Portland, ME.  The expansion included a new Emergency Department, Intensive Care unit and other acute hospital departments.  I also helped plan and complete a consolidation of 2 hospitals to 1 at the completion of this project including the succesful turnover of the older hospital to its new owners."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Norther Light Mercy MOB Renovation",
+                "subtitle": "Apr 2018 - Sep 2021",
+                "breakdown": false,
+                "subComponents": [
+                  {
+                    "description": [
+                      {
+                        "type": "textComponent",
+                        "text": "I oversaw all aspects of planning, design, permitting and construction of 13,000 SF of medical office space to create newly constructed spaces for an outpatient imaging center, pain management practice, cardiology practice, diabetes & endocrinology practice, midwifery practice, and administrative spaces."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "publications": [],
+            "patents": [],
+            "courses": [],
+            "testScores": [],
+            "organizations": [],
+            "volunteerCauses": [],
+            "interests": [
+              {
+                "section_name": "Companies",
+                "section_components": [
+                  {
+                    "titleV2": "San Joaquin Valley College",
+                    "caption": "26,137 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/27395/",
+                    "subComponents": []
+                  },
+                  {
+                    "titleV2": "Consigli Construction Co., Inc.",
+                    "caption": "62,455 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/company/73304/",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Groups",
+                "section_components": [
+                  {
+                    "titleV2": "2 Degrees Portland",
+                    "caption": "262 members",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/groups/3802481",
+                    "subComponents": []
+                  }
+                ]
+              },
+              {
+                "section_name": "Schools",
+                "section_components": [
+                  {
+                    "titleV2": "San Joaquin Valley College",
+                    "caption": "26,137 followers",
+                    "size": "LARGE",
+                    "textActionTarget": "https://www.linkedin.com/school/27395/",
+                    "subComponents": []
+                  }
+                ]
+              }
+            ],
+            "recommendations": []
+          }
+        },
+        "has_complete_data": true,
+        "data_source": "linkedin_scrape",
+        "advanced_filter": {
+          "passed": true,
+          "company_match": true,
+          "seniority_score": 84,
+          "current_title": "director of facilities management",
+          "current_company": "northern light mercy hospital"
+        },
+        "ai_ranking": {
+          "ranking_score": 93,
+          "ranking_reasoning": "Role(38) + Technical(28) + Budget(18) + Exp(9) = Total",
+          "ranked_by": "ai_individual",
+          "ranking_timestamp": null,
+          "rank_position": 2
+        }
+      }
+    ],
+    "filtering_funnel": {
+      "total_filtered_out": 58,
+      "filtered_out_by_stage": {
+        "basic_filter": 9,
+        "company_validation": 21,
+        "linkedin_connections": 15,
+        "location_validation": 13
+      },
+      "detailed_filtered_prospects": [
+        {
+          "stage": "basic_filter",
+          "name": "David Baker - AdventHealth",
+          "linkedin_url": "https://www.linkedin.com/in/david-baker-2755671ba",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Elmar Alikhanov - Div. Dir of Engineering at Sunbridge ...",
+          "linkedin_url": "https://www.linkedin.com/in/elmar-alikhanov-b95a7411",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Phil Polo - Catholic Health",
+          "linkedin_url": "https://www.linkedin.com/in/phil-polo-61a17b42",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Jeff Schlosser - Healthcare Operations Leader ...",
+          "linkedin_url": "https://www.linkedin.com/in/jeffrey-schlosser",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Dan Moen - Trinity Health",
+          "linkedin_url": "https://www.linkedin.com/in/dan-moen-0b98b417",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Steven Mangan, CHFM, MECH - Facilities Systems ...",
+          "linkedin_url": "https://www.linkedin.com/in/steven-mangan",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Dennis Jurgenson - Dir of Engineering at Southern Coos Hospital",
+          "linkedin_url": "https://www.linkedin.com/in/dennis-jurgenson-099789b1",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Antonio Braz - Baystate Health",
+          "linkedin_url": "https://www.linkedin.com/in/antonio-braz-368b5341",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Bryan Clark - Field Service Engineer",
+          "linkedin_url": "https://www.linkedin.com/in/bryan-clark-9b7563107",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Thomas Hodovanec",
+          "linkedin_url": "https://www.linkedin.com/in/thomas-hodovanec",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Tom Hodovanec Tom",
+          "linkedin_url": "https://www.linkedin.com/in/tom-hodovanec-tom-26530b40",
+          "reason": "Low connections (64 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Jose Valentin",
+          "linkedin_url": "https://www.linkedin.com/in/jose-valentin-075a7a223",
+          "reason": "Low connections (54 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Sheila Aubrey Fiala",
+          "linkedin_url": "https://www.linkedin.com/in/sheilafiala",
+          "reason": "Low connections (33 < 75)"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Amanda Gooch",
+          "linkedin_url": "https://www.linkedin.com/in/amanda-gooch-638bab87",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Michele Schaefer",
+          "linkedin_url": "https://www.linkedin.com/in/michele-schaefer-80610531",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Cindy Beck, MBA, RN, CENP, FACHE",
+          "linkedin_url": "https://www.linkedin.com/in/cindy-beck-mba-rn-cenp-fache-41221463",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "company_validation",
+          "name": "BJ Roberts",
+          "linkedin_url": "https://www.linkedin.com/in/bj-roberts-7397bb51",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Melissa Campbell",
+          "linkedin_url": "https://www.linkedin.com/in/melissa-campbell-61aa781a9",
+          "reason": "Low connections (5 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Tom Robert",
+          "linkedin_url": "https://www.linkedin.com/in/tom-robert-78329a25",
+          "reason": "Company mismatch: 'trinity health' vs 'Mercy Medical Center'",
+          "company_listed": "trinity health"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Chip Flinn, MBA FACHE",
+          "linkedin_url": "https://www.linkedin.com/in/chip-flinn-mba-fache-381b1b7",
+          "reason": "Company mismatch: 'essen health care' vs 'Mercy Medical Center'",
+          "company_listed": "essen health care"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Geoff Hoyt",
+          "linkedin_url": "https://www.linkedin.com/in/geoff-hoyt-2bbb995",
+          "reason": "Company mismatch: 'trinity health of new england' vs 'Mercy Medical Center'",
+          "company_listed": "trinity health of new england"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Chris McLaughlin",
+          "linkedin_url": "https://www.linkedin.com/in/chrismclaughlinlongtermcare",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Walter Ludwig",
+          "linkedin_url": "https://www.linkedin.com/in/walter-ludwig-78a0079",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Robert Maynard",
+          "linkedin_url": "https://www.linkedin.com/in/robert-maynard-5b345b107",
+          "reason": "Low connections (2 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Richard Kapise",
+          "linkedin_url": "https://www.linkedin.com/in/richard-kapise-39017044",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "location_validation",
+          "name": "Michael Trower",
+          "linkedin_url": "https://www.linkedin.com/in/michael-trower-a21b0539",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Jeff Hamilton",
+          "linkedin_url": "https://www.linkedin.com/in/jeff-hamilton-3457b624",
+          "reason": "Location too far: 'St Louis, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "St Louis, Missouri"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Barbara Flint",
+          "linkedin_url": "https://www.linkedin.com/in/barbara-flint-36a211124",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Debra Dorshorst",
+          "linkedin_url": "https://www.linkedin.com/in/debra-dorshorst-4140b54b",
+          "reason": "Low connections (42 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "David Sunden",
+          "linkedin_url": "https://www.linkedin.com/in/david-sunden-b2786b1a5",
+          "reason": "Low connections (36 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jennifer Garcia",
+          "linkedin_url": "https://www.linkedin.com/in/jennifer-garcia-802938381",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "location_validation",
+          "name": "Blaine Wallace MHA, MLS, (ASCP)",
+          "linkedin_url": "https://www.linkedin.com/in/blaine-wallace-mha-mls-ascp-aa0936114",
+          "reason": "Location too far: 'Springfield-Branson, Missouri Area' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield-Branson, Missouri Area"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Kay Moynihan",
+          "linkedin_url": "https://www.linkedin.com/in/kay-moynihan-34b3456",
+          "reason": "Low connections (1 < 75)"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Justin Gonzalez",
+          "linkedin_url": "https://www.linkedin.com/in/jgonzalez86",
+          "reason": "Location too far: 'San Diego Metropolitan Area' vs 'Springfield, Massachusetts'",
+          "location_listed": "San Diego Metropolitan Area"
+        },
+        {
+          "stage": "location_validation",
+          "name": "John Myers",
+          "linkedin_url": "https://www.linkedin.com/in/john-myers-9974b23",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Karen Simpson-Neasby",
+          "linkedin_url": "https://www.linkedin.com/in/karen-simpson-neasby-03523017b",
+          "reason": "Location too far: 'Springfield-Branson, Missouri Area' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield-Branson, Missouri Area"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Curtis Myers",
+          "linkedin_url": "https://www.linkedin.com/in/curtis-myers-5083851b9",
+          "reason": "Company mismatch: 'select medical' vs 'Mercy Medical Center'",
+          "company_listed": "select medical"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Sam Drysdale",
+          "linkedin_url": "https://www.linkedin.com/in/sam-drysdale-48518511",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Tonja Robinson",
+          "linkedin_url": "https://www.linkedin.com/in/tonja-robinson-60257777",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Sadaf Sohrab, MD , FCCP",
+          "linkedin_url": "https://www.linkedin.com/in/sadaf-sohrab-md-fccp-71731ab9",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Fred Harrison",
+          "linkedin_url": "https://www.linkedin.com/in/fred-harrison-14308a75",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Pam Wallace, BSN, RN",
+          "linkedin_url": "https://www.linkedin.com/in/pam-wallace-bsn-rn-816814109",
+          "reason": "Low connections (4 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Katherine Welch",
+          "linkedin_url": "https://www.linkedin.com/in/katherine-welch-246503269",
+          "reason": "Low connections (11 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Richard Wojtowicz",
+          "linkedin_url": "https://www.linkedin.com/in/richard-wojtowicz-82b13849",
+          "reason": "Company mismatch: 'trinity health of new england' vs 'Mercy Medical Center'",
+          "company_listed": "trinity health of new england"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Erin Squires",
+          "linkedin_url": "https://www.linkedin.com/in/erin-squires-4aa5b01b1",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Beth Davidson",
+          "linkedin_url": "https://www.linkedin.com/in/beth-davidson-4191708b",
+          "reason": "Company mismatch: 'centers health care' vs 'Mercy Medical Center'",
+          "company_listed": "centers health care"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Vikram Sondhi",
+          "linkedin_url": "https://www.linkedin.com/in/vikram-sondhi-20876331",
+          "reason": "Location too far: 'South Glastonbury, Connecticut' vs 'Springfield, Massachusetts'",
+          "location_listed": "South Glastonbury, Connecticut"
+        },
+        {
+          "stage": "company_validation",
+          "name": "William Bithoney, MD",
+          "linkedin_url": "https://www.linkedin.com/in/williambithoney",
+          "reason": "Company mismatch: 'bdo usa' vs 'Mercy Medical Center'",
+          "company_listed": "bdo usa"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Darlene Biggs",
+          "linkedin_url": "https://www.linkedin.com/in/darlene-biggs-98322522",
+          "reason": "Low connections (70 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Maryellen Rousseau",
+          "linkedin_url": "https://www.linkedin.com/in/maryellen-rousseau-29b49b37",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Jennifer Negron",
+          "linkedin_url": "https://www.linkedin.com/in/jennifer-negron-6061a8118",
+          "reason": "Low connections (8 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Omar Faruk,MD.",
+          "linkedin_url": "https://www.linkedin.com/in/omar-faruk-md-1901953b",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Lois Osetek",
+          "linkedin_url": "https://www.linkedin.com/in/lois-osetek-07571424",
+          "reason": "Low connections (53 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Michele Raney",
+          "linkedin_url": "https://www.linkedin.com/in/michele-raney-a38337154",
+          "reason": "Low connections (56 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Deborah Leonard",
+          "linkedin_url": "https://www.linkedin.com/in/deborah-leonard-53359120",
+          "reason": "Low connections (65 < 75)"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Joe Poelker",
+          "linkedin_url": "https://www.linkedin.com/in/joe-poelker-37557536",
+          "reason": "Location too far: 'Greater St. Louis' vs 'Springfield, Massachusetts'",
+          "location_listed": "Greater St. Louis"
+        },
+        {
+          "stage": "company_validation",
+          "name": "William Hernandez",
+          "linkedin_url": "https://www.linkedin.com/in/william-hernandez-5499016b",
+          "reason": "Company mismatch: 'beacon communities llc' vs 'Mercy Medical Center'",
+          "company_listed": "beacon communities llc"
+        },
+        {
+          "stage": "location_validation",
+          "name": "Luke Walker, MHA, NRP, FACHE",
+          "linkedin_url": "https://www.linkedin.com/in/lukedwalker",
+          "reason": "Location too far: 'Springfield, Missouri' vs 'Springfield, Massachusetts'",
+          "location_listed": "Springfield, Missouri"
+        }
+      ]
+    },
+    "cost_estimates": {
+      "company_expansion_cost": 0.01,
+      "search_cost": 0.12,
+      "linkedin_cost": 8.7,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 8.85
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-10-06T14:48:23.129263"
+}

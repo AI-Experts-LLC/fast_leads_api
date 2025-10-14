@@ -1,0 +1,681 @@
+{
+  "status": "success",
+  "message": "Improved prospect discovery completed",
+  "data": {
+    "success": true,
+    "company_name": "Providence Medford Medical Center",
+    "company_variations_used": [
+      "Providence Medford Medical Center",
+      "Providence Health & Services",
+      "Providence Medford",
+      "PMMC",
+      "Providence Medford Medical Center - Medford, OR",
+      "Providence Medford Medical Center - Oregon",
+      "Providence Medford Medical Center - Southern Oregon",
+      "Providence Medford Medical Center - Emergency Department",
+      "Providence Medford Medical Center - Surgical Services",
+      "Providence Medford Medical Center - Outpatient Services"
+    ],
+    "pipeline_summary": {
+      "company_variations_searched": 10,
+      "search_results_found": 128,
+      "prospects_after_basic_filter": 110,
+      "linkedin_profiles_scraped": 77,
+      "prospects_after_advanced_filter": 0,
+      "prospects_after_ai_ranking": 0,
+      "prospects_meeting_threshold": 0,
+      "final_top_prospects": 0
+    },
+    "qualified_prospects": [],
+    "all_ranked_prospects": [],
+    "prospects_after_advanced_filter": [],
+    "filtering_funnel": {
+      "total_filtered_out": 95,
+      "filtered_out_by_stage": {
+        "basic_filter": 18,
+        "company_validation": 55,
+        "linkedin_connections": 22
+      },
+      "detailed_filtered_prospects": [
+        {
+          "stage": "basic_filter",
+          "name": "Kurt Anderson - NextUp Renewables LLC",
+          "linkedin_url": "https://www.linkedin.com/in/kurt-andersonisnextup",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Lois Catts - Quality Management Consultant at MultiCare ...",
+          "linkedin_url": "https://www.linkedin.com/in/lois-catts-76658915",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Derek Tran - GeoSpatial Technologies, Inc.",
+          "linkedin_url": "https://www.linkedin.com/in/derekptran",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Shanta Armstrong - Cerner and Med host Trainer, Software ...",
+          "linkedin_url": "https://www.linkedin.com/in/shanta-armstrong-86904b43",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Cody Jenson - Web Development and Online Marketing ...",
+          "linkedin_url": "https://www.linkedin.com/in/cody-jenson-94b18b195",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Lori Rennecke - Lumen Technologies",
+          "linkedin_url": "https://www.linkedin.com/in/lori-rennecke",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Jennifer Scott - Self Employed - Clinical Exercise Physiologist",
+          "linkedin_url": "https://www.linkedin.com/in/jennifer-scott-10918720a",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Nicolette Ghimire - Marc-Henry Cruise Holdings LTD, Joint ...",
+          "linkedin_url": "https://www.linkedin.com/in/nicoletteghimire",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Liz Mascarenas - Hospital Worker",
+          "linkedin_url": "https://www.linkedin.com/in/liz-mascarenas-9b86b2b8",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "peggy rabatin - Marketing Specialist at Veyance ...",
+          "linkedin_url": "https://www.linkedin.com/in/peggy-rabatin-85092a48",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Catherine York - Reliable and Driven",
+          "linkedin_url": "https://www.linkedin.com/in/catherine-york-192b8475",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Jason Murray - GIS Administrator at Town of Parker ...",
+          "linkedin_url": "https://www.linkedin.com/in/jason-murray-992482130",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Josh R. - Facilities Management, Construction and ...",
+          "linkedin_url": "https://www.linkedin.com/in/joshramsell",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Paul Dinkins - Leader and Difference Maker with a passion ...",
+          "linkedin_url": "https://www.linkedin.com/in/paul-dinkins-b60a8b52",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Scott Wilber, MD, MPH - Emergency Physician",
+          "linkedin_url": "https://www.linkedin.com/in/scott-wilber-md-mph",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Caroline Coraggio, CHEP - Emergency Preparedness ...",
+          "linkedin_url": "https://www.linkedin.com/in/caroline-coraggio-chep-6651571b",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Amanda Perkins - Procedural Scheduler/Customer Service ...",
+          "linkedin_url": "https://www.linkedin.com/in/amanda-perkins-484b0082",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "basic_filter",
+          "name": "Hugo Rodas - Self employed",
+          "linkedin_url": "https://www.linkedin.com/in/hugo-rodas-863141200",
+          "reason": "No senior indicator and no company mention (senior: False, company: False)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Berry Brock",
+          "linkedin_url": "https://www.linkedin.com/in/berry-brock-4ba414b",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Scott Brock",
+          "linkedin_url": "https://www.linkedin.com/in/scott-brock-08834869",
+          "reason": "Low connections (33 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Ryan Hutchinson, MBA,CNMT",
+          "linkedin_url": "https://www.linkedin.com/in/ryan-hutchinson-mba-cnmt-86971011",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Bryan Jensen",
+          "linkedin_url": "https://www.linkedin.com/in/bryan-jensen-37083a50",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Antonio Hernandez",
+          "linkedin_url": "https://www.linkedin.com/in/antonio-hernandez-251485aa",
+          "reason": "Low connections (72 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Lisa Forster, CF APMP, PMP",
+          "linkedin_url": "https://www.linkedin.com/in/lisaforsterpmp",
+          "reason": "Company mismatch: 'pride industries' vs 'Providence Medford Medical Center'",
+          "company_listed": "pride industries"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Don Boucher",
+          "linkedin_url": "https://www.linkedin.com/in/don-boucher-1b738516",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Matt Elliott, MBA",
+          "linkedin_url": "https://www.linkedin.com/in/matt-elliott-mba-13905546",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Scott Leffler",
+          "linkedin_url": "https://www.linkedin.com/in/scott-leffler-89598298",
+          "reason": "Low connections (52 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "William Johnson, CAPM",
+          "linkedin_url": "https://www.linkedin.com/in/william-johnson-capm-5b9b02132",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Shannon Blood",
+          "linkedin_url": "https://www.linkedin.com/in/shannonblood1",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Christopher Pizzi",
+          "linkedin_url": "https://www.linkedin.com/in/christopher-pizzi-55979325",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Matt Chesler",
+          "linkedin_url": "https://www.linkedin.com/in/matt-chesler-29874753",
+          "reason": "Company mismatch: 'california advanced imaging medical associates' vs 'Providence Medford Medical Center'",
+          "company_listed": "california advanced imaging medical associates"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Paul Ziegele, MBA, CHFP",
+          "linkedin_url": "https://www.linkedin.com/in/ziegele",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Susan Sauder, MBA-HCM, MlS, MSHI, CMPE, ICGB",
+          "linkedin_url": "https://www.linkedin.com/in/susan-sauder",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Sharon Rogers",
+          "linkedin_url": "https://www.linkedin.com/in/sharon-rogers-b51270a",
+          "reason": "Low connections (6 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Benjamin LeBlanc",
+          "linkedin_url": "https://www.linkedin.com/in/benjamin-leblanc-b28597a3",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jeremy Ostrowicki",
+          "linkedin_url": "https://www.linkedin.com/in/jeremy-ostrowicki-8762a888",
+          "reason": "Company mismatch: 'providence medical group south' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence medical group south"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jared Stockwell",
+          "linkedin_url": "https://www.linkedin.com/in/jared-stockwell-14b16899",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "John Worthylake",
+          "linkedin_url": "https://www.linkedin.com/in/john-worthylake-18b975138",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Lydia Partida",
+          "linkedin_url": "https://www.linkedin.com/in/lydia-partida-28287619a",
+          "reason": "Low connections (14 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Ashleigh Shreeve",
+          "linkedin_url": "https://www.linkedin.com/in/ashleighshreeve1103",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Levi Williams",
+          "linkedin_url": "https://www.linkedin.com/in/levi-williams-8b488153",
+          "reason": "Low connections (5 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Anne Fahey",
+          "linkedin_url": "https://www.linkedin.com/in/anne-fahey-421298163",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "William (Al) Fluke",
+          "linkedin_url": "https://www.linkedin.com/in/alfluke",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Del Shaw",
+          "linkedin_url": "https://www.linkedin.com/in/del-shaw-a19a9275",
+          "reason": "Low connections (71 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Robert Mayfield",
+          "linkedin_url": "https://www.linkedin.com/in/robert-mayfield-35231879",
+          "reason": "Low connections (26 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Blake Bowen",
+          "linkedin_url": "https://www.linkedin.com/in/blake-bowen-44726650",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Arlene Wedsted (Whitney)",
+          "linkedin_url": "https://www.linkedin.com/in/arlene-wedsted-whitney-b810084",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Heather Rowenhorst",
+          "linkedin_url": "https://www.linkedin.com/in/heather-rowenhorst-a39b2419",
+          "reason": "Company mismatch: 'asante' vs 'Providence Medford Medical Center'",
+          "company_listed": "asante"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Will Brake",
+          "linkedin_url": "https://www.linkedin.com/in/will-brake-829a4210",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Cindy Mayo",
+          "linkedin_url": "https://www.linkedin.com/in/cindy-mayo-a3478210",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Catherine Bourgault",
+          "linkedin_url": "https://www.linkedin.com/in/catherine-bourgault-41242855",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Daniel Welcome",
+          "linkedin_url": "https://www.linkedin.com/in/daniel-welcome-a3995328",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Kathleen Marriott",
+          "linkedin_url": "https://www.linkedin.com/in/kathleen-marriott-65b51185",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Becky Gray",
+          "linkedin_url": "https://www.linkedin.com/in/becky-gray-522a15a1",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Valerie Smith",
+          "linkedin_url": "https://www.linkedin.com/in/valerie-smith-65948397",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Jennifer Morgan",
+          "linkedin_url": "https://www.linkedin.com/in/jennifer-morgan-5581a7141",
+          "reason": "Low connections (45 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Kimberly Porter",
+          "linkedin_url": "https://www.linkedin.com/in/kimberly-porter-8869055",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Mary Mertens",
+          "linkedin_url": "https://www.linkedin.com/in/mary-mertens-01113911",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Karen Bartalini",
+          "linkedin_url": "https://www.linkedin.com/in/karen-bartalini-2a744752",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Mike Bradshaw",
+          "linkedin_url": "https://www.linkedin.com/in/mike-bradshaw-662a5498",
+          "reason": "Low connections (1 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Sharon DeLong",
+          "linkedin_url": "https://www.linkedin.com/in/sharon-delong-8b294393",
+          "reason": "Company mismatch: 'the oregon clinic' vs 'Providence Medford Medical Center'",
+          "company_listed": "the oregon clinic"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Wayne Healy",
+          "linkedin_url": "https://www.linkedin.com/in/wayne-healy-90b1b97",
+          "reason": "Low connections (1 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Larry Salle",
+          "linkedin_url": "https://www.linkedin.com/in/larry-salle-6aaa154a",
+          "reason": "Company mismatch: 'pmmc' vs 'Providence Medford Medical Center'",
+          "company_listed": "pmmc"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Francie Ogle",
+          "linkedin_url": "https://www.linkedin.com/in/francie-ogle-3065a1a3",
+          "reason": "Low connections (45 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Todd Caulfield",
+          "linkedin_url": "https://www.linkedin.com/in/todd-caulfield-85373921a",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Pam Levins",
+          "linkedin_url": "https://www.linkedin.com/in/pam-levins-7564103a",
+          "reason": "Low connections (58 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Heather Timmons",
+          "linkedin_url": "https://www.linkedin.com/in/heather-timmons-rn",
+          "reason": "Low connections (62 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Heather Friend, DNP, FNP-C, MSCP",
+          "linkedin_url": "https://www.linkedin.com/in/heather-friend",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Gayle Johnson",
+          "linkedin_url": "https://www.linkedin.com/in/gayle-johnson-96a395b4",
+          "reason": "Low connections (32 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Michael Scott",
+          "linkedin_url": "https://www.linkedin.com/in/michael-scott-49a2294",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Lori Bento",
+          "linkedin_url": "https://www.linkedin.com/in/lori-bento-10672539",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Laurie Tanita",
+          "linkedin_url": "https://www.linkedin.com/in/laurie-tanita-5b056311",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Kim Bruff, CPCS",
+          "linkedin_url": "https://www.linkedin.com/in/kim-bruff-cpcs-15769b140",
+          "reason": "Low connections (56 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jerod Dabrowski",
+          "linkedin_url": "https://www.linkedin.com/in/jerod-dabrowski-69b80614a",
+          "reason": "Company mismatch: 'radia inc., p.s.' vs 'Providence Medford Medical Center'",
+          "company_listed": "radia inc., p.s."
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Katie Howell",
+          "linkedin_url": "https://www.linkedin.com/in/katie-howell-3005bb71",
+          "reason": "Low connections (28 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Dian Farber, RN, MSN, MHA, CPHQ",
+          "linkedin_url": "https://www.linkedin.com/in/dian-farber-rn-msn-mha-cphq-45219b149",
+          "reason": "Low connections (49 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jack Hawkins",
+          "linkedin_url": "https://www.linkedin.com/in/jack-hawkins-a436a79a",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Brent Sharpe",
+          "linkedin_url": "https://www.linkedin.com/in/brent-sharpe-7219128a",
+          "reason": "Low connections (1 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Tom Forsythe",
+          "linkedin_url": "https://www.linkedin.com/in/tom-forsythe-33bb734",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Jamie Schultz, MBA",
+          "linkedin_url": "https://www.linkedin.com/in/jschultz9879",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Cylix Shane",
+          "linkedin_url": "https://www.linkedin.com/in/cylix-shane-1110307b",
+          "reason": "Company mismatch: 'providence' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Brian Herwig",
+          "linkedin_url": "https://www.linkedin.com/in/brian-herwig-321453b0",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Anita Thomson",
+          "linkedin_url": "https://www.linkedin.com/in/anita-thomson-bab567272",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Brian Saling",
+          "linkedin_url": "https://www.linkedin.com/in/brian-saling-ab5026126",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Aidan McGuinness",
+          "linkedin_url": "https://www.linkedin.com/in/aidan-mcguinness-a9b792177",
+          "reason": "Low connections (12 < 75)"
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Sue Hagar",
+          "linkedin_url": "https://www.linkedin.com/in/sue-hagar-513749240",
+          "reason": "Low connections (8 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Patty Church",
+          "linkedin_url": "https://www.linkedin.com/in/patty-church-a4b65355",
+          "reason": "Company mismatch: 'kaiser permanente' vs 'Providence Medford Medical Center'",
+          "company_listed": "kaiser permanente"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Kenneth Westenkirchner",
+          "linkedin_url": "https://www.linkedin.com/in/kenneth-westenkirchner-012032a9",
+          "reason": "Company mismatch: 'pinnacle home care' vs 'Providence Medford Medical Center'",
+          "company_listed": "pinnacle home care"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Kate Kitchell, RN, MBA",
+          "linkedin_url": "https://www.linkedin.com/in/kate-kitchell-rn-mba-3a9a0a26",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Gregg Florentin",
+          "linkedin_url": "https://www.linkedin.com/in/gregg-florentin",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "linkedin_connections",
+          "name": "Erin Walsh",
+          "linkedin_url": "https://www.linkedin.com/in/erin-walsh-26baa490",
+          "reason": "Low connections (10 < 75)"
+        },
+        {
+          "stage": "company_validation",
+          "name": "Amanda Frankowski",
+          "linkedin_url": "https://www.linkedin.com/in/amanda-frankowski-nurse-qualitymanager",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Don Boucher",
+          "linkedin_url": "https://www.linkedin.com/in/don-boucher-9800564a",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Sherry Maughan",
+          "linkedin_url": "https://www.linkedin.com/in/sherry-maughan-90b3613a",
+          "reason": "No company listed",
+          "company_listed": ""
+        },
+        {
+          "stage": "company_validation",
+          "name": "Tom Lennon",
+          "linkedin_url": "https://www.linkedin.com/in/tom-lennon-3690197",
+          "reason": "Company mismatch: 'providence health & services' vs 'Providence Medford Medical Center'",
+          "company_listed": "providence health & services"
+        }
+      ]
+    },
+    "cost_estimates": {
+      "company_expansion_cost": 0.01,
+      "search_cost": 0.1,
+      "linkedin_cost": 11.549999999999999,
+      "ai_ranking_cost": 0.02,
+      "total_estimated": 11.679999999999998
+    }
+  },
+  "improvements": {
+    "pipeline_order": "Search \u2192 Filter \u2192 Scrape \u2192 AI Rank",
+    "data_accuracy": "AI only ranks real LinkedIn data",
+    "filtering": "Rule-based filtering before AI involvement"
+  },
+  "timestamp": "2025-10-07T18:48:29.666898"
+}
