@@ -242,9 +242,12 @@ def step3_rank_prospects(step2_result: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def step4_validate_contacts(step3_result: Dict[str, Any]) -> Dict[str, Any]:
+def step4_validate_contacts(step3_result: Dict[str, Any], enable_zoominfo: bool = False) -> Dict[str, Any]:
     """
-    STEP 4: ZoomInfo contact validation
+    STEP 4: ZoomInfo contact validation (DISABLED BY DEFAULT)
+
+    ZoomInfo requires OAuth authentication which doesn't work on Railway.
+    Set enable_zoominfo=True to enable (only works locally with proper auth setup).
     """
     print_section("STEP 4: ZoomInfo Contact Validation")
 
@@ -254,10 +257,16 @@ def step4_validate_contacts(step3_result: Dict[str, Any]) -> Dict[str, Any]:
 
     payload = {
         "qualified_prospects": qualified_prospects,
-        "company_name": HOSPITAL["company_name"]
+        "company_name": HOSPITAL["company_name"],
+        "enable_zoominfo": enable_zoominfo
     }
 
-    print(f"⏳ Validating {len(qualified_prospects)} prospects with ZoomInfo...")
+    if not enable_zoominfo:
+        print(f"⚠️  ZoomInfo validation DISABLED (OAuth issues on Railway)")
+        print(f"   Skipping validation for {len(qualified_prospects)} prospects...")
+    else:
+        print(f"⏳ Validating {len(qualified_prospects)} prospects with ZoomInfo...")
+
     print(f"   Sending request to: {url}")
 
     start_time = time.time()

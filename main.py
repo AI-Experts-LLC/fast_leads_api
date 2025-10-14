@@ -529,24 +529,30 @@ async def discover_prospects_step3(request: dict):
 @app.post("/discover-prospects-step4")
 async def discover_prospects_step4(request: dict):
     """
-    STEP 4 of 4-Step Pipeline: ZoomInfo Validation
+    STEP 4 of 4-Step Pipeline: ZoomInfo Validation (DISABLED BY DEFAULT)
+
+    ⚠️ DISABLED: ZoomInfo requires OAuth authentication which doesn't work on Railway.
+    This endpoint will skip validation unless enable_zoominfo=true is passed.
+
     - Takes qualified prospects from Step 3
-    - Validates contact info (email, phone) with ZoomInfo
+    - Validates contact info (email, phone) with ZoomInfo (if enabled)
     - Compares LinkedIn vs ZoomInfo data
     - Uses ZoomInfo data when different (more current)
     - Returns validated prospects with enriched contact information
 
-    Expected: ~10-20 seconds
+    Expected: ~10-20 seconds (if enabled)
 
     Request format:
     {
         "qualified_prospects": [...],  # From Step 3 response
-        "company_name": "Mayo Clinic"
+        "company_name": "Mayo Clinic",
+        "enable_zoominfo": false  # Set to true to enable ZoomInfo validation
     }
     """
     try:
         qualified_prospects = request.get("qualified_prospects", [])
         company_name = request.get("company_name")
+        enable_zoominfo = request.get("enable_zoominfo", False)  # Disabled by default
 
         if not qualified_prospects:
             raise HTTPException(
@@ -554,6 +560,26 @@ async def discover_prospects_step4(request: dict):
                 detail="qualified_prospects is required"
             )
 
+        # Skip ZoomInfo validation by default (OAuth issues on Railway)
+        if not enable_zoominfo:
+            return {
+                "status": "success",
+                "message": "Step 4: Skipped (ZoomInfo disabled by default - requires OAuth)",
+                "data": {
+                    "success": True,
+                    "prospects": qualified_prospects,
+                    "stats": {
+                        "total": len(qualified_prospects),
+                        "skipped": len(qualified_prospects),
+                        "validated": 0,
+                        "email_enriched": 0,
+                        "phone_enriched": 0
+                    }
+                },
+                "timestamp": datetime.utcnow().isoformat()
+            }
+
+        # Only run ZoomInfo validation if explicitly enabled
         result = await zoominfo_validation_service.validate_and_enrich_prospects(
             prospects=qualified_prospects
         )

@@ -1,8 +1,14 @@
 """
 ZoomInfo Contact Validation Service for Prospect Discovery
 
+⚠️ DISABLED BY DEFAULT - OAuth authentication issues on Railway
+
 Step 4: Validates and enriches contact information (email, phone) using ZoomInfo API.
 Compares LinkedIn data with ZoomInfo data and uses the most accurate information.
+
+This service is disabled by default in the Step 4 endpoint due to ZoomInfo's OAuth
+requirements which are incompatible with Railway's serverless deployment.
+To enable, pass enable_zoominfo=true in the API request.
 """
 
 import os

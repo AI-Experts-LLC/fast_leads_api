@@ -105,6 +105,18 @@ Search → Basic Filter → AI Company Filter → LinkedIn Scraping → AI Ranki
 - **Key**: AI only ranks real data, never creates or modifies prospect information
 - See `PROSPECT_DISCOVERY_IMPROVEMENTS.md` for detailed explanation
 
+**3. Three-Step Pipeline** (`/discover-prospects-step1`, `/step2`, `/step3`):
+```
+Step 1: Search & Filter (30-50s)
+Step 2: Scrape Profiles (50-90s)
+Step 3: AI Ranking (15-25s)
+```
+- **Purpose**: Avoid Railway's 5-minute timeout by splitting into separate API calls
+- **Use Case**: Production deployment on Railway
+- **Step 4 Available**: ZoomInfo validation (DISABLED by default due to OAuth issues)
+  - See `STEP4_ZOOMINFO_VALIDATION.md` for details
+  - Enable with `enable_zoominfo: true` (local development only)
+
 ### Core Service Architecture
 
 ```
@@ -117,6 +129,8 @@ app/services/
 ├── company_name_expansion.py          # Handles company name variations (aliases)
 ├── prospect_discovery.py              # Original pipeline orchestrator
 ├── improved_prospect_discovery.py     # Improved pipeline orchestrator
+├── three_step_prospect_discovery.py   # 3-step pipeline for Railway (avoids timeout)
+├── zoominfo_validation.py             # ZoomInfo contact validation (Step 4, disabled)
 ├── salesforce.py                      # Salesforce CRM integration
 ├── credit_enrichment.py               # EDF-X credit rating/PD enrichment
 └── enrichment.py                      # Account/Contact enrichment orchestrator
@@ -167,9 +181,21 @@ app/services/
 
 ### Prospect Discovery
 - `POST /discover-prospects` - Original pipeline (has accuracy issues, deprecated)
-- `POST /discover-prospects-improved` - **Use this** - Improved pipeline with accurate data
+- `POST /discover-prospects-improved` - Improved pipeline with accurate data
   - Required: `company_name`
   - Optional: `target_titles`, `company_city`, `company_state`
+- `POST /discover-prospects-step1` - **Recommended for Railway** - Step 1: Search & Filter
+  - Required: `company_name`
+  - Optional: `target_titles`, `company_city`, `company_state`
+- `POST /discover-prospects-step2` - Step 2: Scrape LinkedIn Profiles
+  - Required: `linkedin_urls`, `company_name`
+  - Optional: `company_city`, `company_state`, `location_filter_enabled`
+- `POST /discover-prospects-step3` - Step 3: AI Ranking
+  - Required: `enriched_prospects`, `company_name`
+  - Optional: `min_score_threshold`, `max_prospects`
+- `POST /discover-prospects-step4` - Step 4: ZoomInfo Validation (DISABLED by default)
+  - Required: `qualified_prospects`, `company_name`
+  - Optional: `enable_zoominfo` (default: false, requires OAuth setup)
 
 ### Salesforce Integration
 - `POST /salesforce/connect` - Test Salesforce authentication
