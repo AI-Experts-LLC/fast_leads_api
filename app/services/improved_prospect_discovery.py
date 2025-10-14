@@ -909,7 +909,12 @@ class ImprovedProspectDiscoveryService:
                 }
 
             try:
-                output_text = response.output[0].content[0].text
+                # When reasoning is enabled, response.output has 2 items:
+                # [0] = ResponseReasoningItem (thinking, content=None)
+                # [1] = ResponseOutputMessage (actual response)
+                # So we need to access the last item which contains the actual output
+                output_item = response.output[-1]  # Get last item (the actual output message)
+                output_text = output_item.content[0].text
             except (IndexError, AttributeError, TypeError) as e:
                 return {
                     "success": False,
