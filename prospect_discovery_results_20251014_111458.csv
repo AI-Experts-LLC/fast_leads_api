@@ -1,2 +1,0 @@
-Hospital Name,City,State,Account ID,Status,Error,Prospect Name,Title,LinkedIn URL,AI Score,Rejection Reason,Company,Location,Email,Phone
-St. Vincent Healthcare,,,001VR00000UhXv2YAF,ERROR,"('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))",,,,,,,,,

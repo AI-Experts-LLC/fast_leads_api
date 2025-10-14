@@ -1,8 +1,0 @@
-[
-  {
-    "success": false,
-    "company_name": "Saint Alphonsus Regional Medical Center",
-    "account_id": "001VR00000UhY7xYAF",
-    "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
-  }
-]
