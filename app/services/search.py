@@ -52,16 +52,25 @@ class SerperSearchService:
 
         try:
             # Default target titles if none provided
-            # OPTIMIZED: Reduced to top 5 most important titles for speed
             # Based on buyer_persona.md: Primary decision-makers for energy infrastructure projects
             if not target_titles:
                 target_titles = [
-                    # Top decision-makers only (reduced from 11 to 5 for speed)
+                    # Primary decision-makers (Directors & VPs)
                     "Director of Facilities",
+                    "Director of Engineering",
+                    "Director of Maintenance",
+                    "VP Facilities",
+                    "VP Operations",
+
+                    # Financial decision-makers
                     "Chief Financial Officer",
                     "Chief Operating Officer",
-                    "VP Facilities",
-                    "Facilities Manager"
+
+                    # Manager-level contacts
+                    "Facilities Manager",
+                    "Energy Manager",
+                    "Plant Manager",
+                    "Maintenance Manager"
                 ]
 
             all_results = []
