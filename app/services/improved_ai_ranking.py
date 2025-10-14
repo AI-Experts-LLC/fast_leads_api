@@ -173,9 +173,32 @@ class ImprovedAIRankingService:
 
                 response = self.client.responses.create(**api_params)
 
+                # Check if response is valid
+                if not response:
+                    error_msg = "API returned None response"
+                    logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                    if attempt == 1:
+                        return {"success": False, "index": index, "error": error_msg}
+                    continue
+
                 # Parse response from Responses API
                 # Response format: response.output[0].content[0].text
-                output_text = response.output[0].content[0].text
+                if not hasattr(response, 'output') or not response.output:
+                    error_msg = "Response missing output field"
+                    logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                    if attempt == 1:
+                        return {"success": False, "index": index, "error": error_msg}
+                    continue
+                
+                try:
+                    output_text = response.output[0].content[0].text
+                except (IndexError, AttributeError, TypeError) as e:
+                    error_msg = f"Error accessing response fields: {type(e).__name__}: {str(e)}"
+                    logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                    if attempt == 1:
+                        return {"success": False, "index": index, "error": error_msg}
+                    continue
+                
                 ranking_data = json.loads(output_text)
 
                 # Validate required fields
