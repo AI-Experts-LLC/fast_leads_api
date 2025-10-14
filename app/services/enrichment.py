@@ -22,6 +22,7 @@ class AccountEnrichmentRequest(BaseModel):
     account_id: str = Field(..., description="Salesforce Account ID")
     overwrite: bool = Field(False, description="Overwrite existing field data")
     include_financial: bool = Field(False, description="Include financial data analysis")
+    credit_only: bool = Field(False, description="Run ONLY EDFx credit enrichment (skips AI enrichment)")
 
 
 class ContactEnrichmentRequest(BaseModel):
@@ -66,7 +67,8 @@ class EnrichmentService:
         self,
         account_id: str,
         overwrite: bool = False,
-        include_financial: bool = False
+        include_financial: bool = False,
+        credit_only: bool = False
     ) -> Dict[str, Any]:
         """
         Enrich a Salesforce account with web search data
@@ -75,13 +77,14 @@ class EnrichmentService:
             account_id: Salesforce Account ID
             overwrite: Whether to overwrite existing data
             include_financial: Whether to include financial analysis
+            credit_only: Run ONLY EDFx credit enrichment (skips AI)
             
         Returns:
             Dict with enrichment results
         """
         try:
             logger.info(f"Starting account enrichment for {account_id}")
-            logger.info(f"Options: overwrite={overwrite}, include_financial={include_financial}")
+            logger.info(f"Options: overwrite={overwrite}, include_financial={include_financial}, credit_only={credit_only}")
 
             enricher = self._get_account_enricher()
             
@@ -89,7 +92,8 @@ class EnrichmentService:
             success = enricher.process_web_search_enrichment(
                 record_id=account_id,
                 overwrite=overwrite,
-                include_financial=include_financial
+                include_financial=include_financial,
+                credit_only=credit_only
             )
 
             if success:

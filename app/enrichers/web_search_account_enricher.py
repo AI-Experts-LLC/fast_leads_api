@@ -668,12 +668,39 @@ If no good information found for that category, format as EMPTY STRING "" in the
             logger.error(f"❌ Failed to update account: {str(e)}")
             return False
     
-    def process_web_search_enrichment(self, record_id: str, overwrite: bool = False, include_financial: bool = False) -> bool:
+    def process_web_search_enrichment(self, record_id: str, overwrite: bool = False, include_financial: bool = False, credit_only: bool = False) -> bool:
         """Main method to perform web search enrichment."""
         try:
             logger.info(f"🚀 Starting web search enrichment for record ID: {record_id}")
             logger.info(f"🔧 Overwrite mode: {'ON' if overwrite else 'OFF (empty fields only)'}")
             
+            # Handle credit-only mode (EDFx only, no AI)
+            if credit_only:
+                logger.info("💳 CREDIT-ONLY MODE: Running EDFx enrichment only (skipping AI)")
+                
+                # 1. Get account details
+                account = self.get_account_details(record_id)
+                if not account:
+                    logger.error(f"❌ Cannot proceed: Account not found for {record_id}")
+                    return False
+                
+                hospital_name = account.get('Name', '')
+                website = account.get('Website', '')
+                
+                logger.info(f"📋 Account: {hospital_name}")
+                logger.info(f"📋 Website: {website}")
+                
+                # Run ONLY the credit enricher (EDFx)
+                credit_enriched = self.run_credit_enricher(account['Id'], hospital_name, website)
+                
+                if credit_enriched:
+                    logger.info("✅ Credit-only enrichment completed successfully")
+                    return True
+                else:
+                    logger.warning("⚠️ Credit enrichment did not succeed")
+                    return False
+            
+            # Normal mode: Continue with full enrichment
             # 1. Get account details
             account = self.get_account_details(record_id)
             if not account:

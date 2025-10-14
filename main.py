@@ -648,12 +648,14 @@ async def enrich_account(
     - Capital project history and infrastructure upgrades
     - Energy efficiency projects
     - Financial data (if include_financial is True)
+    - Credit-only mode (if credit_only is True, runs ONLY EDFx credit enrichment)
     
     Expected request format:
     {
         "account_id": "001VR00000UhY3oYAF",
         "overwrite": false,
-        "include_financial": true
+        "include_financial": true,
+        "credit_only": false
     }
     
     Headers:
@@ -663,7 +665,8 @@ async def enrich_account(
         result = await enrichment_service.enrich_account(
             account_id=request.account_id,
             overwrite=request.overwrite,
-            include_financial=request.include_financial
+            include_financial=request.include_financial,
+            credit_only=request.credit_only
         )
         
         if result["status"] == "success":

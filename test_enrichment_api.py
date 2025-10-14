@@ -6,6 +6,7 @@ Usage:
     python test_enrichment_api.py --account 001VR00000UhY3oYAF
     python test_enrichment_api.py --contact 003VR00000YLIzRYAX --linkedin
     python test_enrichment_api.py --account 001VR00000UhY3oYAF --financial
+    python test_enrichment_api.py --account 001VR00000UhY3oYAF --credit-only  # EDFx only
     
     # With custom API key
     python test_enrichment_api.py --account 001VR00000UhY3oYAF --api-key your-key
@@ -31,7 +32,7 @@ API_BASE_URL = "https://fast-leads-api.up.railway.app"
 DEFAULT_API_KEY = os.getenv("API_KEY") or os.getenv("METRUS_API_KEY")
 
 
-def test_account_enrichment(account_id: str, api_key: str, overwrite: bool = False, include_financial: bool = False):
+def test_account_enrichment(account_id: str, api_key: str, overwrite: bool = False, include_financial: bool = False, credit_only: bool = False):
     """Test account enrichment endpoint"""
     print(f"\n{'='*80}")
     print(f"Testing Account Enrichment")
@@ -39,13 +40,15 @@ def test_account_enrichment(account_id: str, api_key: str, overwrite: bool = Fal
     print(f"Account ID: {account_id}")
     print(f"Overwrite: {overwrite}")
     print(f"Include Financial: {include_financial}")
+    print(f"Credit Only (EDFx): {credit_only}")
     print(f"{'='*80}\n")
     
     url = f"{API_BASE_URL}/enrich/account"
     payload = {
         "account_id": account_id,
         "overwrite": overwrite,
-        "include_financial": include_financial
+        "include_financial": include_financial,
+        "credit_only": credit_only
     }
     
     headers = {
@@ -171,6 +174,7 @@ def main():
     parser.add_argument('--contact', help='Salesforce Contact ID to enrich')
     parser.add_argument('--overwrite', action='store_true', help='Overwrite existing data')
     parser.add_argument('--financial', action='store_true', help='Include financial analysis (accounts only)')
+    parser.add_argument('--credit-only', action='store_true', help='Run ONLY EDFx credit enrichment, skip AI (accounts only)')
     parser.add_argument('--linkedin', action='store_true', help='Include LinkedIn enrichment (contacts only)')
     parser.add_argument('--health', action='store_true', help='Just check API health')
     parser.add_argument('--api-key', help='API key for authentication (or set API_KEY environment variable)')
@@ -205,7 +209,8 @@ def main():
             account_id=args.account,
             api_key=api_key,
             overwrite=args.overwrite,
-            include_financial=args.financial
+            include_financial=args.financial,
+            credit_only=args.credit_only
         ) and success
     
     # Contact enrichment
