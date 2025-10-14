@@ -158,11 +158,11 @@ class ImprovedAIRankingService:
 
                 # Create response using Responses API
                 # Note: reasoning.effort only supported by gpt-5 and o-series models
+                # Note: temperature is NOT supported in Responses API for GPT-5/o-series
                 api_params = {
                     "model": self.model,
                     "input": full_input,
                     "text": {"format": {"type": "json_object"}},
-                    "temperature": 0.1,
                     "max_output_tokens": 500,
                     "timeout": 30
                 }

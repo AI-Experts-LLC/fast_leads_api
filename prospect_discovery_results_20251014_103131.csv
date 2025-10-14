@@ -1,0 +1,2 @@
+Hospital Name,City,State,Account ID,Status,Error,Prospect Name,Title,LinkedIn URL,AI Score,Rejection Reason,Company,Location,Email,Phone
+Saint Alphonsus Regional Medical Center,,,001VR00000UhY7xYAF,ERROR,"('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))",,,,,,,,,

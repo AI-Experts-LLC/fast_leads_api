@@ -17,6 +17,9 @@ hypercorn main:app --reload
 
 # Production (Railway deployment)
 hypercorn main:app --bind "[::]:$PORT"
+
+# Check if server is running
+curl http://localhost:8000/health
 ```
 
 ### Testing
@@ -32,6 +35,26 @@ python test_batch_single.py
 
 # Quick validation test
 python quick_test.py
+
+# Test specific hospital (edit TEST_HOSPITAL_NAME in file)
+python batch_prospect_discovery.py
+
+# Test enrichment endpoints
+python test_enrichment_api.py --account <account_id> --api-key <key>
+```
+
+### API Testing (Local)
+```bash
+# Test improved discovery pipeline
+curl -X POST "http://127.0.0.1:8000/discover-prospects-improved" \
+  -H "Content-Type: application/json" \
+  -d '{"company_name": "Mayo Clinic", "company_city": "Rochester", "company_state": "Minnesota"}'
+
+# Test Salesforce connection
+curl http://localhost:8000/salesforce/status
+
+# Test all services
+curl http://localhost:8000/test-services
 ```
 
 ### Environment Setup
@@ -40,10 +63,27 @@ python quick_test.py
 pip install -r requirements.txt
 
 # Required environment variables in .env:
-# - SALESFORCE_DOMAIN, SALESFORCE_USERNAME, SALESFORCE_PASSWORD, SALESFORCE_SECURITY_TOKEN
-# - SERPER_API_KEY (Google Search API)
-# - OPENAI_API_KEY (GPT-4 for AI qualification)
-# - APIFY_API_TOKEN (LinkedIn profile scraping)
+# Salesforce
+SALESFORCE_DOMAIN=https://test.salesforce.com
+SALESFORCE_USERNAME=your_username
+SALESFORCE_PASSWORD=your_password
+SALESFORCE_SECURITY_TOKEN=your_token
+
+# Prospect Discovery APIs
+SERPER_API_KEY=your_serper_key          # Google Search API
+OPENAI_API_KEY=your_openai_key          # AI Qualification
+APIFY_API_TOKEN=your_apify_token        # LinkedIn Scraping
+
+# Credit Enrichment (EDF-X)
+EDFX_USERNAME=your_edfx_username
+EDFX_PASSWORD=your_edfx_password
+
+# API Security (for enrichment endpoints)
+API_KEY=your-secure-api-key
+
+# Optional
+ENVIRONMENT=development
+PORT=8000
 ```
 
 ## Architecture
@@ -74,11 +114,18 @@ app/services/
 ├── ai_qualification.py                # OpenAI - Original AI qualification (creates data)
 ├── improved_ai_ranking.py             # OpenAI - Improved ranking-only AI (preserves data)
 ├── company_validation.py              # AI employment validation (handles name variations)
+├── company_name_expansion.py          # Handles company name variations (aliases)
 ├── prospect_discovery.py              # Original pipeline orchestrator
 ├── improved_prospect_discovery.py     # Improved pipeline orchestrator
 ├── salesforce.py                      # Salesforce CRM integration
-└── credit_enrichment.py               # Additional enrichment services
+├── credit_enrichment.py               # EDF-X credit rating/PD enrichment
+└── enrichment.py                      # Account/Contact enrichment orchestrator
 ```
+
+**Supporting Files:**
+- `app/auth.py` - API key authentication for enrichment endpoints
+- `main.py` - FastAPI application with all endpoint definitions
+- `batch_prospect_discovery.py` - Batch processing script for multiple hospitals
 
 ### Key Design Principles
 
@@ -118,15 +165,40 @@ app/services/
 
 ## API Endpoints
 
-### Core Functionality
-- `POST /discover-prospects` - Original pipeline (has accuracy issues)
+### Prospect Discovery
+- `POST /discover-prospects` - Original pipeline (has accuracy issues, deprecated)
 - `POST /discover-prospects-improved` - **Use this** - Improved pipeline with accurate data
+  - Required: `company_name`
+  - Optional: `target_titles`, `company_city`, `company_state`
+
+### Salesforce Integration
 - `POST /salesforce/connect` - Test Salesforce authentication
 - `GET /salesforce/status` - Check connection status
+- `GET /salesforce/test-account` - Test account query
+- `GET /salesforce/test-lead` - Test lead creation
 - `POST /lead` - Create Salesforce lead
+- `GET /account/{account_id}` - Get account details
+
+### Enrichment (Requires X-API-Key header)
+- `POST /enrich/account` - Enrich Salesforce account with company data
+  - Required: `account_id`
+  - Optional: `overwrite`, `include_financial`, `credit_only`
+- `POST /enrich/contact` - Enrich Salesforce contact with personal data
+  - Required: `contact_id`
+  - Optional: `overwrite`, `include_linkedin`
+
+### Credit Enrichment (EDF-X)
+- `POST /credit/test-connection` - Test EDF-X API connection
+- `POST /credit/enrich-company` - Get credit rating for single company
+- `POST /credit/batch-enrich` - Batch enrich multiple companies
+
+### LinkedIn Scraping
+- `POST /linkedin/scrape-profiles` - Scrape LinkedIn profiles directly (max 10)
+- `GET /linkedin/test` - Test LinkedIn scraping service
 
 ### Testing/Debug
 - `GET /health` - Health check
+- `GET /version` - API version information
 - `GET /test-services` - Test all API integrations
 - `GET /debug/environment` - Environment variable check
 
@@ -153,3 +225,22 @@ app/services/
 **When modifying AI scoring**: Update `improved_ai_ranking.py` system prompt with new criteria
 **When adding new target titles**: Default titles are in `search.py:54-62`
 **When debugging LinkedIn scraping**: Check Apify Actor run logs via `linkedin_service.get_actor_run_status()`
+**When adding new enrichment fields**: Update `enrichment.py` service and Salesforce field mappings
+**When testing batch processing**: Use `batch_prospect_discovery.py` with `TEST_MODE=True` for single hospital tests
+
+## Important Notes
+
+**Authentication**: Enrichment endpoints (`/enrich/*`) require `X-API-Key` header. Set `API_KEY` environment variable. See `AUTHENTICATION.md` for details.
+
+**API Costs** (approximate per company):
+- Serper search: ~$0.05 (5 titles × 5 results × $0.002)
+- OpenAI AI ranking: ~$0.45 (15 prospects × ~$0.03)
+- Apify LinkedIn scraping: ~$0.07 (15 prospects × $0.0047)
+- **Total**: ~$0.57 per company analysis
+
+**Rate Limits**:
+- Serper: 5,000 searches/month on $50 plan
+- OpenAI: GPT-4 standard rate limits apply
+- Apify: $49/month + usage-based pricing
+
+**Output Files**: Test scripts generate timestamped output directories (`hospital_prospect_testing_*/`) with JSON and summary files. Batch processing generates CSV and JSON files in project root.

@@ -897,12 +897,12 @@ class ImprovedProspectDiscoveryService:
                 "model": ai_service.model,
                 "input": full_input,
                 "text": {"format": {"type": "json_object"}},
-                "temperature": 0.1,
                 "max_output_tokens": 300,
                 "timeout": 20
             }
-            
+
             # Only add reasoning parameter for gpt-5 or o-series models
+            # Note: temperature is NOT supported in Responses API for GPT-5/o-series
             if "gpt-5" in ai_service.model or ai_service.model.startswith("o"):
                 api_params["reasoning"] = {"effort": "minimal"}  # Fast for filtering
             

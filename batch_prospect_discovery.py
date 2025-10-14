@@ -8,6 +8,8 @@ on each one via the Fast Leads API on Railway.
 
 import csv
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import json
 import time
 import os
@@ -37,7 +39,7 @@ TEST_MODE = True
 MAX_HOSPITALS = 1 if TEST_MODE else None
 
 # TEST SPECIFIC HOSPITAL - Set hospital name to test specific one
-TEST_HOSPITAL_NAME = "St. Patrick Hospital"  # Set to None to test first in CSV
+TEST_HOSPITAL_NAME = "Saint Alphonsus Regional Medical Center"  # Set to None to test first in CSV
 
 # Target titles for hospital buyer persona
 DEFAULT_TARGET_TITLES = [
@@ -114,7 +116,9 @@ def call_prospect_discovery_api(
         logger.info("   This may take 5-10 minutes due to AI filtering and LinkedIn scraping...")
         start_time = time.time()
         
-        response = requests.post(url, json=payload, headers=headers, timeout=600)  # 10 minute timeout
+        # Set longer timeout: (connect timeout, read timeout)
+        # Connect timeout: 10s, Read timeout: 15 minutes for long-running prospect discovery
+        response = requests.post(url, json=payload, headers=headers, timeout=(10, 900))
         
         elapsed = time.time() - start_time
         logger.info(f"⏱️  Response received in {elapsed:.1f} seconds")
