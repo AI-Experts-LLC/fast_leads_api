@@ -11,6 +11,7 @@ from app.services.salesforce import salesforce_service
 from app.services.prospect_discovery import prospect_discovery_service
 from app.services.improved_prospect_discovery import improved_prospect_discovery_service
 from app.services.three_step_prospect_discovery import three_step_prospect_discovery_service
+from app.services.zoominfo_validation import zoominfo_validation_service
 from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
@@ -523,6 +524,71 @@ async def discover_prospects_step3(request: dict):
         raise HTTPException(
             status_code=500,
             detail=f"Error in step 3: {str(e)}"
+        )
+
+@app.post("/discover-prospects-step4")
+async def discover_prospects_step4(request: dict):
+    """
+    STEP 4 of 4-Step Pipeline: ZoomInfo Validation
+    - Takes qualified prospects from Step 3
+    - Validates contact info (email, phone) with ZoomInfo
+    - Compares LinkedIn vs ZoomInfo data
+    - Uses ZoomInfo data when different (more current)
+    - Returns validated prospects with enriched contact information
+
+    Expected: ~10-20 seconds
+
+    Request format:
+    {
+        "qualified_prospects": [...],  # From Step 3 response
+        "company_name": "Mayo Clinic"
+    }
+    """
+    try:
+        qualified_prospects = request.get("qualified_prospects", [])
+        company_name = request.get("company_name")
+
+        if not qualified_prospects:
+            raise HTTPException(
+                status_code=400,
+                detail="qualified_prospects is required"
+            )
+
+        result = await zoominfo_validation_service.validate_and_enrich_prospects(
+            prospects=qualified_prospects
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 4: ZoomInfo validation completed - Pipeline finished!",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            # If ZoomInfo is not configured, still return success with original data
+            if "not configured" in result.get("error", ""):
+                return {
+                    "status": "success",
+                    "message": "Step 4: Skipped (ZoomInfo not configured)",
+                    "data": {
+                        "success": True,
+                        "prospects": qualified_prospects,
+                        "stats": {"total": len(qualified_prospects), "skipped": len(qualified_prospects)}
+                    },
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 4 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 4: {str(e)}"
         )
 
 @app.get("/test-services")

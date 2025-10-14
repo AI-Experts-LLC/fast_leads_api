@@ -224,7 +224,7 @@ class ImprovedProspectDiscoveryService:
 
             # Step 8: Apply minimum score threshold and limit to top prospects
             logger.info("Step 8: Applying score threshold and limiting to top prospects...")
-            MIN_SCORE_THRESHOLD = 70  # Minimum score to be considered qualified
+            MIN_SCORE_THRESHOLD = 65  # Minimum score to be considered qualified
             MAX_PROSPECTS = 10  # Maximum number of prospects to return
 
             # Filter by minimum score

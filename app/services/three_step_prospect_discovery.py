@@ -238,7 +238,7 @@ class ThreeStepProspectDiscoveryService:
         self,
         enriched_prospects: List[Dict],
         company_name: str,
-        min_score_threshold: int = 70,
+        min_score_threshold: int = 65,
         max_prospects: int = 10
     ) -> Dict[str, Any]:
         """

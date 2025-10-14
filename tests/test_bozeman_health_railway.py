@@ -178,13 +178,13 @@ def step3_rank_prospects(step2_result: Dict[str, Any]) -> Dict[str, Any]:
     payload = {
         "enriched_prospects": enriched_prospects,
         "company_name": HOSPITAL["company_name"],
-        "min_score_threshold": 70,
+        "min_score_threshold": 65,
         "max_prospects": 10
     }
 
     print(f"⏳ Ranking {len(enriched_prospects)} prospects with AI...")
     print(f"   Sending request to: {url}")
-    print(f"   Min Score Threshold: 70")
+    print(f"   Min Score Threshold: 65")
     print(f"   Max Prospects: 10")
 
     start_time = time.time()
@@ -238,6 +238,79 @@ def step3_rank_prospects(step2_result: Dict[str, Any]) -> Dict[str, Any]:
             print()
     else:
         print("\n⚠️  No prospects scored above threshold")
+
+    return result
+
+
+def step4_validate_contacts(step3_result: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    STEP 4: ZoomInfo contact validation
+    """
+    print_section("STEP 4: ZoomInfo Contact Validation")
+
+    url = f"{BASE_URL}/discover-prospects-step4"
+
+    qualified_prospects = step3_result.get("qualified_prospects", [])
+
+    payload = {
+        "qualified_prospects": qualified_prospects,
+        "company_name": HOSPITAL["company_name"]
+    }
+
+    print(f"⏳ Validating {len(qualified_prospects)} prospects with ZoomInfo...")
+    print(f"   Sending request to: {url}")
+
+    start_time = time.time()
+    response = requests.post(url, json=payload, timeout=180)
+    elapsed = time.time() - start_time
+
+    print(f"\n✅ Response received in {elapsed:.2f} seconds")
+    print(f"   Status Code: {response.status_code}")
+
+    if response.status_code != 200:
+        print(f"❌ Error: {response.text}")
+        return None
+
+    response_data = response.json()
+
+    # Handle Railway API wrapper format {status, message, data}
+    if "data" in response_data:
+        result = response_data["data"]
+    else:
+        result = response_data
+
+    if not result.get("success"):
+        print(f"❌ Step 4 failed: {result.get('error')}")
+        return None
+
+    # Print summary
+    stats = result.get("stats", {})
+    print(f"\n📊 Step 4 Results:")
+    print(f"   • Total prospects: {stats.get('total')}")
+    print(f"   • ✅ Validated: {stats.get('validated')}")
+    print(f"   • Email enriched: {stats.get('email_enriched')}")
+    print(f"   • Phone enriched: {stats.get('phone_enriched')}")
+    print(f"   • Not found: {stats.get('not_found')}")
+    print(f"   • Skipped: {stats.get('skipped')}")
+
+    # Show validation details for a few prospects
+    validated_prospects = result.get("prospects", [])
+    if validated_prospects:
+        print(f"\n🔍 Sample Validation Results (showing first 3):")
+        for i, prospect in enumerate(validated_prospects[:3], 1):
+            linkedin_data = prospect.get("linkedin_data", {})
+            zoominfo = prospect.get("zoominfo_validation", {})
+
+            print(f"\n   {i}. {linkedin_data.get('name', 'Unknown')}")
+            print(f"      Status: {zoominfo.get('status', 'N/A')}")
+            if zoominfo.get('status') == 'validated':
+                comparisons = zoominfo.get('comparisons', {})
+                if 'email' in comparisons:
+                    email_comp = comparisons['email']
+                    print(f"      Email: {email_comp.get('selected_value', 'N/A')} (from {email_comp.get('source', 'N/A')})")
+                if 'mobile_phone' in comparisons:
+                    phone_comp = comparisons['mobile_phone']
+                    print(f"      Phone: {phone_comp.get('selected_value', 'N/A')} (from {phone_comp.get('source', 'N/A')})")
 
     return result
 
@@ -310,9 +383,9 @@ def save_to_csv(qualified_prospects: List[Dict[str, Any]], filename: str):
 
 def main():
     """
-    Run complete 3-step prospect discovery pipeline
+    Run complete 4-step prospect discovery pipeline
     """
-    print_section("🏥 BOZEMAN HEALTH - 3-STEP PROSPECT DISCOVERY TEST")
+    print_section("🏥 BOZEMAN HEALTH - 4-STEP PROSPECT DISCOVERY TEST")
     print(f"\n🚀 Testing Railway Deployment: {BASE_URL}")
     print(f"🎯 Target: {HOSPITAL['company_name']}")
     print(f"📍 Location: {HOSPITAL['address']}")
@@ -342,12 +415,20 @@ def main():
         print("\n❌ Pipeline failed at Step 3")
         return
 
+    time.sleep(2)  # Brief pause between steps
+
+    # Step 4: ZoomInfo Validation
+    step4_result = step4_validate_contacts(step3_result)
+    if not step4_result:
+        print("\n❌ Pipeline failed at Step 4")
+        return
+
     overall_elapsed = time.time() - overall_start
 
-    # Save results to CSV
-    qualified_prospects = step3_result.get("qualified_prospects", [])
+    # Save results to CSV (use step4 results if available, otherwise step3)
+    final_prospects = step4_result.get("prospects", []) if step4_result else step3_result.get("qualified_prospects", [])
     csv_filename = f"bozeman_health_prospects_{timestamp}.csv"
-    save_to_csv(qualified_prospects, csv_filename)
+    save_to_csv(final_prospects, csv_filename)
 
     # Save full JSON output
     json_filename = f"bozeman_health_full_results_{timestamp}.json"
@@ -355,7 +436,8 @@ def main():
         json.dump({
             "step1": step1_result,
             "step2": step2_result,
-            "step3": step3_result
+            "step3": step3_result,
+            "step4": step4_result
         }, f, indent=2)
     print(f"💾 Full JSON saved to: {json_filename}")
 
@@ -367,6 +449,7 @@ def main():
     step1_summary = step1_result.get("summary", {})
     step2_summary = step2_result.get("summary", {})
     step3_summary = step3_result.get("summary", {})
+    step4_stats = step4_result.get("stats", {}) if step4_result else {}
 
     print(f"\n📊 Pipeline Statistics:")
     print(f"   • Initial search results: {step1_summary.get('total_search_results', 0)}")
@@ -375,6 +458,10 @@ def main():
     print(f"   • After advanced filtering: {step2_summary.get('after_advanced_filter', 0)}")
     print(f"   • After AI ranking: {step3_summary.get('prospects_ranked', 0)}")
     print(f"   • 🎯 Final qualified (≥70): {step3_summary.get('final_top_prospects', 0)}")
+    if step4_stats:
+        print(f"   • ZoomInfo validated: {step4_stats.get('validated', 0)}")
+        print(f"   • Emails enriched: {step4_stats.get('email_enriched', 0)}")
+        print(f"   • Phones enriched: {step4_stats.get('phone_enriched', 0)}")
 
     # Calculate conversion rate
     initial = step1_summary.get('total_search_results', 0)
