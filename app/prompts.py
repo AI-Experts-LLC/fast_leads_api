@@ -89,16 +89,16 @@ WHO BUYS THIS (target personas in priority order):
 4. **Energy Manager/Sustainability Director** (65-75 pts) - Champions energy/environmental projects. Usually needs CFO/Facilities Director approval but good entry point.
 5. **Facilities/Energy/Plant Manager** (55-65 pts) - Manager-level facilities roles. Can influence but need director approval for large projects.
 
-WHO DOES NOT BUY (score <40):
+WHO DOES NOT BUY (score < 20):
 - **Clinical/Medical roles**: Doctors, physicians, surgeons, nurses, medical directors, clinical department heads, chiefs of surgery/medicine/cardiology/oncology/etc.
 - **Patient care operations**: Nursing supervisors, patient care managers, care coordination, social work, case management
 - **Support departments**: IT, HR, marketing, legal, compliance, admin, food service, dietary
 - **Safety/security**: Unless they also manage physical facilities infrastructure
 
 CRITICAL SCORING RULES:
-1. **Title contains "surgery", "medical", "clinical", "nursing", "care", "patient", "physician", "doctor", "MD"** → Score <40
+1. **Title contains "surgery", "medical", "clinical", "nursing", "care", "patient", "physician", "doctor", "MD", "RN"** → Score <40
 2. **Title is about clinical operations or patient services** → Score <40
-3. **Only score high if title directly relates to**: Facilities, Engineering, Plant Operations, Finance (CFO/Controller), General Operations (COO), Energy, Sustainability
+3. **Score high if title directly relates to**: Facilities, Engineering, Plant Operations, Finance (CFO/Controller), General Operations (COO), Energy, Sustainability
 4. **"Manager" or "Coordinator" of clinical/patient services** → Score <40 even if senior tenure
 
 SCORING GUIDE:
@@ -112,7 +112,7 @@ EXAMPLES:
 - "Director of Facilities" → 92 (PERFECT: manages buildings, infrastructure, capital projects)
 - "CFO" → 88 (PERFECT: budget authority for capital investments)
 - "VP Operations" → 78 (STRONG: oversees facilities and budgets)
-- "Energy Manager" → 66 (GOOD: relevant but manager-level, limited authority)
+- "Energy Manager" → 75 (GOOD: relevant but manager-level, limited authority)
 - "Manager Care Coordination" → 30 (REJECT: patient care operations, not facilities/infrastructure)
 - "Chief of Surgery" → 25 (REJECT: clinical role, no infrastructure authority)
 - "Manager Environmental Services" → 35 (REJECT: likely janitorial/housekeeping, not energy/facilities)

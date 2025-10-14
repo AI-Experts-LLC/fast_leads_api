@@ -36,6 +36,9 @@ OUTPUT_DIR = "/Users/lucaserb/Documents/MetrusEnergy/fast_leads_api"
 TEST_MODE = True
 MAX_HOSPITALS = 1 if TEST_MODE else None
 
+# TEST SPECIFIC HOSPITAL - Set hospital name to test specific one
+TEST_HOSPITAL_NAME = "St. Patrick Hospital"  # Set to None to test first in CSV
+
 # Target titles for hospital buyer persona
 DEFAULT_TARGET_TITLES = [
     "Chief Financial Officer",
@@ -108,9 +111,10 @@ def call_prospect_discovery_api(
     
     try:
         logger.info("⏳ Calling API...")
+        logger.info("   This may take 5-10 minutes due to AI filtering and LinkedIn scraping...")
         start_time = time.time()
         
-        response = requests.post(url, json=payload, headers=headers, timeout=300)
+        response = requests.post(url, json=payload, headers=headers, timeout=600)  # 10 minute timeout
         
         elapsed = time.time() - start_time
         logger.info(f"⏱️  Response received in {elapsed:.1f} seconds")
@@ -154,7 +158,7 @@ def call_prospect_discovery_api(
             }
             
     except requests.Timeout:
-        logger.error("⏰ Timeout after 300 seconds")
+        logger.error("⏰ Timeout after 600 seconds (10 minutes)")
         return {
             "success": False,
             "company_name": company_name,
@@ -290,8 +294,17 @@ def main():
         logger.error("❌ No hospitals found in CSV")
         return
     
+    # Filter for specific hospital if TEST_HOSPITAL_NAME is set
+    if TEST_HOSPITAL_NAME:
+        filtered_hospitals = [h for h in hospitals if h.get('Hospital Name', '').strip() == TEST_HOSPITAL_NAME]
+        if filtered_hospitals:
+            hospitals = filtered_hospitals
+            logger.info(f"Testing specific hospital: {TEST_HOSPITAL_NAME}")
+        else:
+            logger.error(f"Hospital '{TEST_HOSPITAL_NAME}' not found in CSV")
+            return
     # Limit hospitals in test mode
-    if TEST_MODE and MAX_HOSPITALS:
+    elif TEST_MODE and MAX_HOSPITALS:
         hospitals = hospitals[:MAX_HOSPITALS]
         logger.info(f"Limited to {len(hospitals)} hospital(s) for testing")
     

@@ -58,7 +58,7 @@ Key principle: Operations and Finance roles that manage buildings and budgets sc
   - 85-100: Perfect match (Director+ Facilities/Engineering/Finance)
   - 70-84: Strong prospect (Manager+ facilities/operations/finance)
   - 50-69: Possible contact (junior or adjacent roles)
-  - 0-49: Not a buyer (clinical, support, unrelated)
+  - 0-49: Not a buyer (clinical, nurse, RN, support, unrelated)
 
 **Better Examples:**
 - "Director of Facilities, 12 years" → 92 (perfect: senior facilities leader)
