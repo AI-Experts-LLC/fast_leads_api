@@ -92,7 +92,7 @@ class SerperSearchService:
                 results = await self._perform_search(search_query)
                 if results.get("success"):
                     # OPTIMIZED: Limit to first 3 per title (reduced from 5)
-                    title_results = results.get("results", [])[:3]
+                    title_results = results.get("results", [])[:8]
                     for result in title_results:
                         result["target_title"] = title
                     all_results.extend(title_results)
