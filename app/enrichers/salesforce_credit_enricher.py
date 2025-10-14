@@ -14,9 +14,18 @@ import os
 import sys
 import logging
 from typing import Optional, Dict, Any
-import requests
+import asyncio
 from simple_salesforce import Salesforce
 from dotenv import load_dotenv
+
+# Import the credit enrichment service
+try:
+    from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
+except ImportError:
+    try:
+        from ...services.credit_enrichment import credit_enrichment_service, CompanyRecord
+    except ImportError:
+        from credit_enrichment import credit_enrichment_service, CompanyRecord
 
 # Set up logging
 logging.basicConfig(
@@ -32,7 +41,7 @@ class SalesforceAccountEnricher:
     def __init__(self):
         """Initialize the enricher with Salesforce connection."""
         self.sf = None
-        self.fast_leads_api_url = "https://fast-leads-api.up.railway.app"
+        self.credit_service = credit_enrichment_service
         
         # Load environment variables from .env file
         load_dotenv()
@@ -181,9 +190,9 @@ class SalesforceAccountEnricher:
             logger.error(f"❌ Error checking credit quality: {str(e)}")
             return True  # Assume missing if error
     
-    def enrich_with_fast_leads_api(self, company_name: str, website: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    def enrich_with_edfx(self, company_name: str, website: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """
-        Call the Fast Leads API to get credit enrichment data.
+        Call the EDF-X credit enrichment service directly.
         
         Args:
             company_name: Company name to enrich
@@ -193,70 +202,63 @@ class SalesforceAccountEnricher:
             Credit data dict or None if failed
         """
         try:
-            logger.info(f"🌐 Calling Fast Leads API for: {company_name}")
+            logger.info(f"🌐 Calling EDF-X credit enrichment for: {company_name}")
             
-            payload = {
-                "company_name": company_name
-            }
             if website:
-                payload["website"] = website
                 logger.info(f"   Including website: {website}")
             
-            url = f"{self.fast_leads_api_url}/credit/enrich-company"
-            logger.info(f"   API URL: {url}")
-            logger.info(f"   Payload: {payload}")
+            # Create company record
+            company_record = CompanyRecord(
+                name=company_name,
+                website=website
+            )
             
-            logger.info("   Making API request...")
-            response = requests.post(url, json=payload, timeout=30)
-            
-            logger.info(f"   Response status: {response.status_code}")
-            logger.info(f"   Response headers: {dict(response.headers)}")
-            
-            if response.status_code == 200:
-                api_response = response.json()
-                logger.info(f"   Full API response: {api_response}")
-                
-                # Extract credit data from nested structure
-                if api_response.get('status') in ['success', 'partial'] and 'data' in api_response:
-                    credit_data = api_response['data']
-                    search_success = credit_data.get('search_success', False)
-                    logger.info(f"   Search success: {search_success}")
-                    
-                    if search_success:
-                        logger.info(f"✅ Successfully enriched: {company_name}")
-                        logger.info(f"   Rating: {credit_data.get('implied_rating', 'N/A')}")
-                        logger.info(f"   PD Value: {credit_data.get('pd_value', 'N/A')}")
-                        logger.info(f"   Confidence: {credit_data.get('confidence_translated', 'N/A')}")
-                        logger.info(f"   Entity ID: {credit_data.get('entity_id', 'N/A')}")
-                        logger.info(f"   Search results count: {credit_data.get('search_results_count', 0)}")
-                    else:
-                        logger.warning(f"⚠️ No credit data found for: {company_name}")
-                        logger.warning(f"   Error message: {credit_data.get('error_message', 'No error message')}")
-                        logger.warning(f"   Matching logic: {credit_data.get('matching_logic', 'No matching info')}")
-                    
-                    return credit_data
-                else:
-                    logger.error(f"❌ Unexpected API response structure: {api_response}")
-                    return None
+            # Call the credit enrichment service directly (it's async)
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # If we're already in an async context, create a new loop
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(asyncio.run, self.credit_service.enrich_company(company_record))
+                    credit_info = future.result()
             else:
-                logger.error(f"❌ API call failed: {response.status_code}")
-                logger.error(f"   Response text: {response.text}")
-                try:
-                    error_json = response.json()
-                    logger.error(f"   Error details: {error_json}")
-                except:
-                    logger.error("   Could not parse error response as JSON")
-                return None
+                # Not in an async context, use asyncio.run
+                credit_info = asyncio.run(self.credit_service.enrich_company(company_record))
+            
+            # Convert CreditInfo to dict format expected by downstream code
+            credit_data = {
+                'entity_id': credit_info.entity_id,
+                'pd_value': credit_info.pd_value,
+                'implied_rating': credit_info.implied_rating,
+                'confidence': credit_info.confidence,
+                'confidence_translated': credit_info.confidence_translated,
+                'as_of_date': credit_info.as_of_date,
+                'search_success': credit_info.search_success,
+                'error_message': credit_info.error_message,
+                'matching_logic': credit_info.matching_logic,
+                'selected_entity': credit_info.selected_entity,
+                'search_results_count': len(credit_info.search_results) if credit_info.search_results else 0,
+                'company_name': company_name
+            }
+            
+            if credit_data['search_success']:
+                logger.info(f"✅ Successfully enriched: {company_name}")
+                logger.info(f"   Rating: {credit_data.get('implied_rating', 'N/A')}")
+                logger.info(f"   PD Value: {credit_data.get('pd_value', 'N/A')}")
+                logger.info(f"   Confidence: {credit_data.get('confidence_translated', 'N/A')}")
+                logger.info(f"   Entity ID: {credit_data.get('entity_id', 'N/A')}")
+            else:
+                logger.warning(f"⚠️ No credit data found for: {company_name}")
+                logger.warning(f"   Error message: {credit_data.get('error_message', 'No error message')}")
+                logger.warning(f"   Matching logic: {credit_data.get('matching_logic', 'No matching info')}")
+            
+            return credit_data
                 
-        except requests.exceptions.Timeout:
-            logger.error(f"❌ API call timed out after 30 seconds")
-            return None
-        except requests.exceptions.ConnectionError as e:
-            logger.error(f"❌ Connection error: {str(e)}")
-            return None
         except Exception as e:
-            logger.error(f"❌ Error calling Fast Leads API: {str(e)}")
+            logger.error(f"❌ Error calling EDF-X enrichment: {str(e)}")
             logger.error(f"   Exception type: {type(e).__name__}")
+            import traceback
+            logger.error(f"   Traceback: {traceback.format_exc()}")
             return None
     
     def update_account_credit_data(self, account_id: str, credit_data: Dict[str, Any], current_account: Dict[str, Any]) -> bool:
@@ -404,8 +406,8 @@ class SalesforceAccountEnricher:
             else:
                 logger.info("ℹ️ No website found for account")
             
-            # 4. Call Fast Leads API
-            credit_data = self.enrich_with_fast_leads_api(company_name, website)
+            # 4. Call EDF-X enrichment service
+            credit_data = self.enrich_with_edfx(company_name, website)
             if not credit_data:
                 logger.error("❌ Failed to get credit data from API")
                 return False

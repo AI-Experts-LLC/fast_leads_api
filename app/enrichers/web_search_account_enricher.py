@@ -559,12 +559,12 @@ If no good information found for that category, format as EMPTY STRING "" in the
                 return True
 
             # Credit fields are empty, so run the enricher
-            logger.info("🔍 Credit fields empty - calling Fast Leads API via credit enricher...")
+            logger.info("🔍 Credit fields empty - calling EDF-X via credit enricher...")
 
-            # Call Fast Leads API
-            credit_data = self.credit_enricher.enrich_with_fast_leads_api(hospital_name, website)
+            # Call EDF-X enrichment service
+            credit_data = self.credit_enricher.enrich_with_edfx(hospital_name, website)
             if not credit_data:
-                logger.warning("⚠️ No credit data returned from Fast Leads API")
+                logger.warning("⚠️ No credit data returned from EDF-X")
                 return False
 
             # Update Salesforce with credit data
