@@ -180,10 +180,9 @@ class ImprovedProspectDiscoveryService:
                     "filter_summary": {"removed_prospects": len(search_results)}
                 }
             
-            # Step 4: LinkedIn scraping (GET REAL DATA FIRST) - LIMIT TO 5 for speed
+            # Step 4: LinkedIn scraping (GET REAL DATA FIRST)
             logger.info("Step 4: Scraping complete LinkedIn data...")
-            linkedin_urls = [p.get("link") for p in ai_filtered_prospects if p.get("link")][:5]  # MAX 5 profiles
-            logger.info(f"Limiting LinkedIn scraping to {len(linkedin_urls)} profiles for speed")
+            linkedin_urls = [p.get("link") for p in ai_filtered_prospects if p.get("link")]
 
             linkedin_result = await self.linkedin_service.scrape_profiles(linkedin_urls)
             
