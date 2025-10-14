@@ -145,20 +145,28 @@ class ImprovedProspectDiscoveryService:
             logger.info("Step 3: AI-powered company accuracy and connection filter...")
             ai_filtered_prospects = await self._ai_basic_filter_prospects(filtered_prospects, company_name)
             logger.info(f"AI filtered to {len(ai_filtered_prospects)} prospects after removing wrong companies and low-connection profiles")
+
+            # Step 3.5: AI filter for proper job titles - if job title is not relevant, remove the prospect
+            logger.info("Step 3.5: AI filter for proper job titles...")
+            prospects_before_title_filter = len(ai_filtered_prospects)
+            ai_filtered_prospects = await self._ai_title_filter_prospects(ai_filtered_prospects, company_name)
+            filtered_by_title = prospects_before_title_filter - len(ai_filtered_prospects)
+            logger.info(f"AI filtered to {len(ai_filtered_prospects)} prospects after removing {filtered_by_title} with irrelevant job titles")
             
-            # Log prospects that passed AI basic filtering
-            logger.info("=== PROSPECTS AFTER AI BASIC FILTER ===")
+            # Log prospects that passed title filtering
+            logger.info("=== PROSPECTS AFTER AI TITLE FILTER ===")
             for i, prospect in enumerate(ai_filtered_prospects):
-                ai_filter = prospect.get('ai_basic_filter', {})
-                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Target: {prospect.get('target_title', 'N/A')} | Company Match: {ai_filter.get('company_match_confidence', 0)}/100 | Connections: {ai_filter.get('connection_count', 'Unknown')}")
-            logger.info("=== END AI BASIC FILTER RESULTS ===")
+                title_filter = prospect.get('ai_title_filter', {})
+                logger.info(f"{i+1}. {prospect.get('title', 'N/A')} | Score: {title_filter.get('score', 'N/A')}/100 | {title_filter.get('reasoning', 'N/A')}")
+            logger.info("=== END AI TITLE FILTER RESULTS ===")
             
             if not ai_filtered_prospects:
                 return {
                     "success": True,
-                    "message": "No prospects passed AI basic filtering",
+                    "message": "No prospects passed AI title filtering",
                     "search_results": len(search_results),
                     "basic_filtered_prospects": len(filtered_prospects),
+                    "after_title_filter": 0,
                     "ai_filtered_prospects": [],
                     "filter_summary": {"removed_prospects": len(search_results)}
                 }
@@ -242,6 +250,9 @@ class ImprovedProspectDiscoveryService:
                     "company_variations_searched": len(company_variations),
                     "search_results_found": len(search_results),
                     "prospects_after_basic_filter": len(filtered_prospects),
+                    "prospects_after_ai_basic_filter": prospects_before_title_filter,
+                    "prospects_after_ai_title_filter": len(ai_filtered_prospects) if ai_filtered_prospects else 0,
+                    "filtered_by_title": filtered_by_title,
                     "linkedin_profiles_scraped": len(linkedin_profiles),
                     "prospects_after_advanced_filter": len(final_prospects),
                     "prospects_after_ai_ranking": len(ranked_prospects),
@@ -765,6 +776,164 @@ class ImprovedProspectDiscoveryService:
             score += min(authority_score // 10, 15)  # Max 15 bonus points
         
         return min(score, 100)
+    
+    async def _ai_title_filter_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
+        """
+        AI-powered job title filtering to remove irrelevant prospects
+        Uses the same scoring logic as AI ranking but filters early
+        
+        Args:
+            prospects: List of prospects to filter
+            company_name: Target company name
+            
+        Returns:
+            List of prospects with relevant job titles (score >= 55)
+        """
+        if not prospects:
+            return []
+        
+        try:
+            # Import AI ranking service to use same prompt logic
+            from .improved_ai_ranking import ImprovedAIRankingService
+            from app.prompts import AI_RANKING_USER_PROMPT_TEMPLATE
+            
+            ai_service = ImprovedAIRankingService()
+            
+            if not ai_service.client:
+                logger.warning("OpenAI client not available - skipping title filter")
+                return prospects
+            
+            # Score each prospect's title individually
+            filtering_tasks = []
+            for i, prospect in enumerate(prospects):
+                task = self._score_title_relevance(prospect, company_name, ai_service, i)
+                filtering_tasks.append(task)
+            
+            logger.info(f"Scoring {len(prospects)} prospects for title relevance...")
+            scoring_results = await asyncio.gather(*filtering_tasks, return_exceptions=True)
+            
+            # Filter prospects based on scores
+            filtered_prospects = []
+            MIN_TITLE_SCORE = 55  # Minimum score to pass title filter
+            
+            for i, (prospect, result) in enumerate(zip(prospects, scoring_results)):
+                if isinstance(result, Exception):
+                    logger.error(f"Error scoring prospect {i}: {result}")
+                    # Keep prospect on error (benefit of doubt)
+                    filtered_prospects.append(prospect)
+                    continue
+                
+                if isinstance(result, dict) and result.get("success"):
+                    score = result.get("score", 0)
+                    reasoning = result.get("reasoning", "")
+                    
+                    # Add title filter metadata
+                    prospect["ai_title_filter"] = {
+                        "score": score,
+                        "reasoning": reasoning,
+                        "passed": score >= MIN_TITLE_SCORE
+                    }
+                    
+                    if score >= MIN_TITLE_SCORE:
+                        filtered_prospects.append(prospect)
+                        logger.debug(f"✓ Passed: {prospect.get('title', 'Unknown')} - Score: {score}")
+                    else:
+                        logger.info(f"✗ Filtered: {prospect.get('title', 'Unknown')} - Score: {score} - {reasoning}")
+                else:
+                    # Keep on error
+                    logger.warning(f"No valid score for prospect {i} - keeping by default")
+                    filtered_prospects.append(prospect)
+            
+            logger.info(f"Title filter: {len(filtered_prospects)}/{len(prospects)} passed (score >= {MIN_TITLE_SCORE})")
+            return filtered_prospects
+            
+        except Exception as e:
+            logger.error(f"Error in title filtering: {str(e)}")
+            # Return all prospects on error
+            return prospects
+    
+    async def _score_title_relevance(self, prospect: Dict, company_name: str, ai_service, index: int) -> Dict[str, Any]:
+        """
+        Score a single prospect's title relevance using AI
+        
+        Args:
+            prospect: Prospect with title and snippet
+            company_name: Target company name
+            ai_service: AI ranking service instance
+            index: Prospect index for tracking
+            
+        Returns:
+            Dict with success, score, and reasoning
+        """
+        try:
+            from app.prompts import AI_RANKING_USER_PROMPT_TEMPLATE
+            
+            title = prospect.get("title", "")
+            snippet = prospect.get("snippet", "")
+            
+            # Extract basic info from search result
+            # Title format is usually: "Name - Job Title at Company"
+            parts = title.split(" - ")
+            name = parts[0] if len(parts) > 0 else "Unknown"
+            job_title = parts[1] if len(parts) > 1 else title
+            
+            # Build prompt using same template as ranking
+            prompt = AI_RANKING_USER_PROMPT_TEMPLATE.format(
+                company_name=company_name,
+                name=name,
+                title=job_title,
+                company=company_name,
+                summary=snippet[:300],
+                skills="N/A (search result)",
+                experience_years="N/A"
+            )
+            
+            # Combine system prompt with user prompt
+            from app.prompts import AI_RANKING_SYSTEM_PROMPT
+            full_input = f"{AI_RANKING_SYSTEM_PROMPT}\n\n{prompt}"
+            
+            # Use Responses API like in ranking service
+            api_params = {
+                "model": ai_service.model,
+                "input": full_input,
+                "text": {"format": {"type": "json_object"}},
+                "temperature": 0.1,
+                "max_output_tokens": 300,
+                "timeout": 20
+            }
+            
+            # Only add reasoning parameter for gpt-5 or o-series models
+            if "gpt-5" in ai_service.model or ai_service.model.startswith("o"):
+                api_params["reasoning"] = {"effort": "minimal"}  # Fast for filtering
+            
+            response = ai_service.client.responses.create(**api_params)
+            
+            # Parse response
+            import json
+            output_text = response.output[0].content[0].text
+            result_data = json.loads(output_text)
+            
+            if "score" in result_data:
+                return {
+                    "success": True,
+                    "index": index,
+                    "score": int(result_data["score"]),
+                    "reasoning": result_data.get("reasoning", "")
+                }
+            else:
+                return {
+                    "success": False,
+                    "index": index,
+                    "error": "Missing score in response"
+                }
+                
+        except Exception as e:
+            logger.error(f"Error scoring title for prospect {index}: {str(e)}")
+            return {
+                "success": False,
+                "index": index,
+                "error": str(e)
+            }
     
     async def _ai_basic_filter_prospects(self, prospects: List[Dict], company_name: str) -> List[Dict]:
         """

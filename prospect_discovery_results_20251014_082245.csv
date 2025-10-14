@@ -1,0 +1,7 @@
+Hospital Name,City,State,Account ID,Status,Error,Prospect Name,Title,LinkedIn URL,AI Score,Rejection Reason,Company,Location,Email,Phone
+St. Joseph Regional Medical Center,Lewiston,ID,001VR00000UhY3oYAF,NO PROSPECTS FOUND,,,,,,,,,,
+St. Patrick Hospital,,,001VR00000UhY4hYAF,ERROR,Request timeout,,,,,,,,,
+St. Vincent Healthcare,,,001VR00000UhXv2YAF,ERROR,API returned 400,,,,,,,,,
+Saint Alphonsus Regional Medical Center,,,001VR00000UhY7xYAF,ERROR,API returned 400,,,,,,,,,
+Benefis Hospitals Inc,,,001VR00000UhXwBYAV,ERROR,Request timeout,,,,,,,,,
+St. Luke’s Regional Medical Center,,,001VR00000UhY5JYAV,ERROR,Request timeout,,,,,,,,,
