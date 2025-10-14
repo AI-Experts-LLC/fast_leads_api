@@ -58,24 +58,38 @@ class ImprovedProspectDiscoveryService:
             company_variations = expansion_result.get("variations", [company_name])
             logger.info(f"Expanded to {len(company_variations)} variations: {', '.join(company_variations[:5])}{'...' if len(company_variations) > 5 else ''}")
 
-            # Step 1: Search for LinkedIn profiles using ALL company name variations
+            # Step 1: Search for LinkedIn profiles using ALL company name variations (IN PARALLEL)
             logger.info("Step 1: Searching for LinkedIn profiles across all company variations...")
-            all_search_results = []
 
+            # Create parallel search tasks for all variations
+            search_tasks = []
             for variation in company_variations:
-                logger.info(f"  Searching for: {variation}")
-                search_result = await self.search_service.search_linkedin_profiles(
+                logger.info(f"  Queuing search for: {variation}")
+                task = self.search_service.search_linkedin_profiles(
                     company_name=variation,
                     target_titles=target_titles,
                     company_city=company_city,
                     company_state=company_state
                 )
+                search_tasks.append((variation, task))
+
+            # Execute all searches in parallel
+            logger.info(f"Executing {len(search_tasks)} searches in parallel...")
+            search_results_raw = await asyncio.gather(*[task for _, task in search_tasks], return_exceptions=True)
+
+            # Process results and tag with variation
+            all_search_results = []
+            for (variation, _), search_result in zip(search_tasks, search_results_raw):
+                if isinstance(search_result, Exception):
+                    logger.error(f"Search failed for variation '{variation}': {search_result}")
+                    continue
 
                 if search_result.get("success") and search_result.get("results"):
                     # Tag each result with which variation it came from
                     for result in search_result.get("results", []):
                         result["search_company_variation"] = variation
                     all_search_results.extend(search_result.get("results", []))
+                    logger.info(f"  Found {len(search_result.get('results', []))} results for: {variation}")
 
             # Deduplicate by LinkedIn URL
             seen_urls = set()
