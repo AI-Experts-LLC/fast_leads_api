@@ -907,10 +907,27 @@ class ImprovedProspectDiscoveryService:
                 api_params["reasoning"] = {"effort": "minimal"}  # Fast for filtering
             
             response = ai_service.client.responses.create(**api_params)
-            
-            # Parse response
+
+            # Parse response with proper error handling
             import json
-            output_text = response.output[0].content[0].text
+
+            # Check if response is valid
+            if not response or not hasattr(response, 'output') or not response.output:
+                return {
+                    "success": False,
+                    "index": index,
+                    "error": "Invalid response structure from API"
+                }
+
+            try:
+                output_text = response.output[0].content[0].text
+            except (IndexError, AttributeError, TypeError) as e:
+                return {
+                    "success": False,
+                    "index": index,
+                    "error": f"Error accessing response fields: {type(e).__name__}: {str(e)}"
+                }
+
             result_data = json.loads(output_text)
             
             if "score" in result_data:
