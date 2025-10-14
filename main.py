@@ -10,6 +10,7 @@ load_dotenv()
 from app.services.salesforce import salesforce_service
 from app.services.prospect_discovery import prospect_discovery_service
 from app.services.improved_prospect_discovery import improved_prospect_discovery_service
+from app.services.three_step_prospect_discovery import three_step_prospect_discovery_service
 from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
@@ -333,12 +334,203 @@ async def discover_prospects_improved(request: dict):
             detail=f"Error in improved prospect discovery: {str(e)}"
         )
 
+@app.post("/discover-prospects-step1")
+async def discover_prospects_step1(request: dict):
+    """
+    STEP 1 of 3-Step Pipeline: Search and Filter
+    - Searches LinkedIn profiles
+    - Applies basic filters (removes interns, students, former employees)
+    - Applies AI title filter
+    - Returns filtered prospect URLs ready for scraping
+
+    Expected: ~30-50 seconds
+
+    Request format:
+    {
+        "company_name": "Mayo Clinic",
+        "company_city": "Rochester",
+        "company_state": "Minnesota",
+        "target_titles": []  # Optional - uses default titles if not provided
+    }
+    """
+    try:
+        company_name = request.get("company_name")
+        target_titles = request.get("target_titles", [])
+        company_city = request.get("company_city")
+        company_state = request.get("company_state")
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        result = await three_step_prospect_discovery_service.step1_search_and_filter(
+            company_name=company_name,
+            target_titles=target_titles if target_titles else None,
+            company_city=company_city,
+            company_state=company_state
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 1: Search and filter completed",
+                "data": result,
+                "next_step": "Call /discover-prospects-step2 with linkedin_urls from this response",
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 1 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 1: {str(e)}"
+        )
+
+@app.post("/discover-prospects-step2")
+async def discover_prospects_step2(request: dict):
+    """
+    STEP 2 of 3-Step Pipeline: Scrape LinkedIn Profiles
+    - Takes LinkedIn URLs from Step 1
+    - Scrapes full profile data via Apify
+    - Applies advanced location and employment filters
+    - Returns enriched prospect data ready for AI ranking
+
+    Expected: ~50-90 seconds
+
+    Request format:
+    {
+        "linkedin_urls": ["https://linkedin.com/in/...", ...],
+        "company_name": "Mayo Clinic",
+        "company_city": "Rochester",
+        "company_state": "Minnesota",
+        "location_filter_enabled": true  # Optional, defaults to true
+    }
+    """
+    try:
+        linkedin_urls = request.get("linkedin_urls", [])
+        company_name = request.get("company_name")
+        company_city = request.get("company_city")
+        company_state = request.get("company_state")
+        location_filter_enabled = request.get("location_filter_enabled", True)
+
+        if not linkedin_urls:
+            raise HTTPException(
+                status_code=400,
+                detail="linkedin_urls is required"
+            )
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        result = await three_step_prospect_discovery_service.step2_scrape_profiles(
+            linkedin_urls=linkedin_urls,
+            company_name=company_name,
+            company_city=company_city,
+            company_state=company_state,
+            location_filter_enabled=location_filter_enabled
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 2: LinkedIn scraping and filtering completed",
+                "data": result,
+                "next_step": "Call /discover-prospects-step3 with enriched_prospects from this response",
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 2 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 2: {str(e)}"
+        )
+
+@app.post("/discover-prospects-step3")
+async def discover_prospects_step3(request: dict):
+    """
+    STEP 3 of 3-Step Pipeline: AI Ranking
+    - Takes enriched prospects from Step 2
+    - Runs parallel AI ranking on each prospect
+    - Filters by minimum score threshold
+    - Returns top N prospects sorted by score
+
+    Expected: ~15-25 seconds
+
+    Request format:
+    {
+        "enriched_prospects": [...],  # From Step 2 response
+        "company_name": "Mayo Clinic",
+        "min_score_threshold": 70,     # Optional, defaults to 70
+        "max_prospects": 10            # Optional, defaults to 10
+    }
+    """
+    try:
+        enriched_prospects = request.get("enriched_prospects", [])
+        company_name = request.get("company_name")
+        min_score_threshold = request.get("min_score_threshold", 70)
+        max_prospects = request.get("max_prospects", 10)
+
+        if not enriched_prospects:
+            raise HTTPException(
+                status_code=400,
+                detail="enriched_prospects is required"
+            )
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        result = await three_step_prospect_discovery_service.step3_rank_prospects(
+            enriched_prospects=enriched_prospects,
+            company_name=company_name,
+            min_score_threshold=min_score_threshold,
+            max_prospects=max_prospects
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 3: AI ranking completed - Pipeline finished!",
+                "data": result,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 3 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 3: {str(e)}"
+        )
+
 @app.get("/test-services")
 async def test_prospect_services():
     """Test all prospect discovery services"""
     try:
         result = await prospect_discovery_service.test_services()
-        
+
         return {
             "status": "success",
             "message": "Service tests completed",

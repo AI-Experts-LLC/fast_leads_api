@@ -131,6 +131,9 @@ class ImprovedAIRankingService:
         linkedin_data = prospect.get("linkedin_data", {})
         
         # Extract prospect data for ranking
+        # Safely get advanced_filter (handle None case)
+        advanced_filter = prospect.get("advanced_filter") or {}
+
         prospect_data = {
             "name": linkedin_data.get("name", ""),
             "current_title": linkedin_data.get("job_title", ""),
@@ -139,7 +142,7 @@ class ImprovedAIRankingService:
             "summary": linkedin_data.get("summary", ""),
             "total_experience_years": linkedin_data.get("total_experience_years", 0),
             "professional_authority_score": linkedin_data.get("professional_authority_score", 0),
-            "seniority_score": prospect.get("advanced_filter", {}).get("seniority_score", 0),
+            "seniority_score": advanced_filter.get("seniority_score", 0),
             "recent_experience": linkedin_data.get("experience", [])[:3] if linkedin_data.get("experience") else [],
             "education": linkedin_data.get("education", [])[:2] if linkedin_data.get("education") else [],
             "skills": [skill.get("name", "") for skill in linkedin_data.get("skills", [])[:10]]
@@ -241,8 +244,10 @@ class ImprovedAIRankingService:
                 if attempt == 1:
                     return {"success": False, "index": index, "error": error_msg}
             except Exception as e:
+                import traceback
                 error_msg = f"{type(e).__name__}: {str(e)}"
-                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}")
+                stack_trace = traceback.format_exc()
+                logger.warning(f"Prospect {index}, attempt {attempt + 1}: {error_msg}\n{stack_trace}")
                 if attempt == 1:  # Last attempt
                     return {"success": False, "index": index, "error": error_msg}
 
@@ -250,13 +255,17 @@ class ImprovedAIRankingService:
     
     def _build_individual_ranking_prompt(self, prospect_data: Dict, company_name: str) -> str:
         """Build ranking prompt for individual prospect using centralized template"""
+        # Safely handle None values
+        summary = prospect_data.get('summary') or 'N/A'
+        skills = prospect_data.get('skills') or []
+
         return AI_RANKING_USER_PROMPT_TEMPLATE.format(
             company_name=company_name,
-            name=prospect_data.get('name', 'N/A'),
-            title=prospect_data.get('current_title', 'N/A'),
-            company=prospect_data.get('current_company', 'N/A'),
-            summary=prospect_data.get('summary', 'N/A')[:300],
-            skills=', '.join(prospect_data.get('skills', [])[:5]),
+            name=prospect_data.get('name') or 'N/A',
+            title=prospect_data.get('current_title') or 'N/A',
+            company=prospect_data.get('current_company') or 'N/A',
+            summary=summary[:300],
+            skills=', '.join(skills[:5]),
             experience_years=prospect_data.get('total_experience_years', 0)
         )
     
