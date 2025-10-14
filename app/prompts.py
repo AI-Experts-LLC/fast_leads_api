@@ -155,6 +155,68 @@ Return the top qualified prospects with persona categories."""
 # TITLE FILTERING PROMPTS
 # =============================================================================
 
+AI_TITLE_FILTER_SYSTEM_PROMPT = """You are an expert at filtering job titles for B2B energy infrastructure sales to hospitals.
+
+CRITICAL: We sell building infrastructure (HVAC, lighting, energy systems) to hospitals. We need people who manage BUILDINGS and BUDGETS, NOT people who provide healthcare.
+
+Your job is to AGGRESSIVELY REJECT any title related to clinical work, patient care, medical services, or healthcare delivery."""
+
+AI_TITLE_FILTER_USER_PROMPT_TEMPLATE = """Score this job title for relevance to selling energy infrastructure projects (HVAC, lighting, building systems) to {company_name}.
+
+Job Title: {title}
+Snippet: {snippet}
+
+ACCEPT ONLY (score 70-100):
+- Facilities/Engineering/Plant Operations Directors, VPs, Managers
+- CFO, COO, VP Finance, VP Operations, Controller
+- Energy Manager, Sustainability Director
+- Maintenance Director, Physical Plant Manager
+
+AGGRESSIVELY REJECT (score 0-40):
+- ANY clinical/medical role: Doctor, Physician, Surgeon, MD, RN, Nurse, Medical Director, Chief Medical Officer
+- ANY patient care role: Patient care, nursing, care coordination, case management, social work
+- ANY clinical department: Surgery, Cardiology, Radiology, Emergency, Oncology, Pediatrics, OB/GYN, Neurology, etc.
+- ANY diagnostic/treatment role: Imaging, Laboratory, Pharmacy, Respiratory, Physical Therapy
+- Food/Dietary/Nutrition services
+- IT, HR, Marketing, Legal, Compliance, Admin (unless also facilities responsibility)
+- Entry-level, Student, Intern, Coordinator (unless facilities/energy coordinator)
+
+CRITICAL REJECTION KEYWORDS - If title contains ANY of these, score <40:
+- cardiovascular, cardiac, heart
+- surgery, surgical, surgeon, operating room, OR
+- emergency, ER, trauma
+- radiology, imaging, diagnostic
+- oncology, cancer
+- pediatric, pediatrics, children
+- obstetrics, OB/GYN, women's health, maternity
+- neurology, neuro, brain
+- wound, wound care
+- clinical, medical, physician, doctor, MD, RN
+- nursing, nurse, patient care
+- pharmacy, pharmacist
+- laboratory, lab, pathology
+- respiratory, pulmonary
+- physical therapy, occupational therapy, rehabilitation
+- dietary, nutrition, food service
+- social work, case management
+- infection prevention, infection control
+- quality improvement (unless facilities quality)
+- care coordination, care management
+
+SCORING:
+- 85-100: Perfect match (Facilities Director, CFO, COO)
+- 70-84: Good match (Energy Manager, Facilities Manager, VP Operations)
+- 55-69: Possible (Assistant/Associate Facilities roles)
+- 40-54: Weak (Tangential to facilities/operations)
+- 0-39: REJECT (Clinical, patient care, or unrelated)
+
+Return JSON only:
+{{
+  "score": <0-100>,
+  "reasoning": "One sentence explanation"
+}}"""
+
+# Legacy prompt - kept for backwards compatibility
 TITLE_RELEVANCE_CHECK_PROMPT = """Is this job title relevant for selling energy infrastructure solutions to a healthcare facility?
 
 Job Title: {title}
@@ -223,7 +285,7 @@ PROMPT_VERSIONS = {
     "company_validation": "v1.0",
     "ai_ranking": "v3.1",  # Added strict rejection rules for clinical/patient care roles
     "ai_qualification_original": "v1.0",  # Deprecated
-    "title_filtering": "v1.0",
+    "title_filtering": "v2.0",  # AGGRESSIVE clinical role rejection before LinkedIn scraping
     "persona_classification": "v1.0"
 }
 
@@ -232,6 +294,6 @@ PROMPT_DESCRIPTIONS = {
     "company_validation": "Validates if prospect currently works at target company",
     "ai_ranking": "Scores prospects 0-100 based on buyer fit (v3.1: explicit rejection of clinical/care coordination roles)",
     "ai_qualification_original": "Original qualification logic (deprecated)",
-    "title_filtering": "Checks if job title is relevant for energy sales",
+    "title_filtering": "v2.0: AGGRESSIVE early rejection of clinical/patient care roles before LinkedIn scraping",
     "persona_classification": "Classifies prospect into buyer persona categories"
 }

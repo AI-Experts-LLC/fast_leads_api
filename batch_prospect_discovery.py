@@ -39,7 +39,7 @@ TEST_MODE = True
 MAX_HOSPITALS = 1 if TEST_MODE else None
 
 # TEST SPECIFIC HOSPITAL - Set hospital name to test specific one
-TEST_HOSPITAL_NAME = "Saint Alphonsus Regional Medical Center"  # Set to None to test first in CSV
+TEST_HOSPITAL_NAME = "St. Vincent Healthcare"  # Set to None to test first in CSV
 
 # Target titles for hospital buyer persona
 DEFAULT_TARGET_TITLES = [

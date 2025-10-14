@@ -866,31 +866,20 @@ class ImprovedProspectDiscoveryService:
             Dict with success, score, and reasoning
         """
         try:
-            from app.prompts import AI_RANKING_USER_PROMPT_TEMPLATE
-            
+            from app.prompts import AI_TITLE_FILTER_SYSTEM_PROMPT, AI_TITLE_FILTER_USER_PROMPT_TEMPLATE
+
             title = prospect.get("title", "")
             snippet = prospect.get("snippet", "")
-            
-            # Extract basic info from search result
-            # Title format is usually: "Name - Job Title at Company"
-            parts = title.split(" - ")
-            name = parts[0] if len(parts) > 0 else "Unknown"
-            job_title = parts[1] if len(parts) > 1 else title
-            
-            # Build prompt using same template as ranking
-            prompt = AI_RANKING_USER_PROMPT_TEMPLATE.format(
+
+            # Build title filter prompt
+            prompt = AI_TITLE_FILTER_USER_PROMPT_TEMPLATE.format(
                 company_name=company_name,
-                name=name,
-                title=job_title,
-                company=company_name,
-                summary=snippet[:300],
-                skills="N/A (search result)",
-                experience_years="N/A"
+                title=title,
+                snippet=snippet[:300]
             )
-            
+
             # Combine system prompt with user prompt
-            from app.prompts import AI_RANKING_SYSTEM_PROMPT
-            full_input = f"{AI_RANKING_SYSTEM_PROMPT}\n\n{prompt}"
+            full_input = f"{AI_TITLE_FILTER_SYSTEM_PROMPT}\n\n{prompt}"
             
             # Use Responses API like in ranking service
             api_params = {

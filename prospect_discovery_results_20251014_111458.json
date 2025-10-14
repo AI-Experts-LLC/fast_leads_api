@@ -1,0 +1,8 @@
+[
+  {
+    "success": false,
+    "company_name": "St. Vincent Healthcare",
+    "account_id": "001VR00000UhXv2YAF",
+    "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+  }
+]
