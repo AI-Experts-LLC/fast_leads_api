@@ -179,7 +179,7 @@ AGGRESSIVELY REJECT (score 0-40):
 - ANY diagnostic/treatment role: Imaging, Laboratory, Pharmacy, Respiratory, Physical Therapy
 - Food/Dietary/Nutrition services
 - IT, HR, Marketing, Legal, Compliance, Admin (unless also facilities responsibility)
-- Entry-level, Student, Intern, Coordinator (unless facilities/energy coordinator)
+- Entry-level, Student, Intern
 
 CRITICAL REJECTION KEYWORDS - If title contains ANY of these, score <40:
 - cardiovascular, cardiac, heart
@@ -205,8 +205,8 @@ CRITICAL REJECTION KEYWORDS - If title contains ANY of these, score <40:
 
 SCORING:
 - 85-100: Perfect match (Facilities Director, CFO, COO)
-- 70-84: Good match (Energy Manager, Facilities Manager, VP Operations)
-- 55-69: Possible (Assistant/Associate Facilities roles)
+- 85-100: Good match (Energy Manager, Facilities Manager, VP Operations)
+- 75-85: Possible (Assistant/Associate Facilities roles)
 - 40-54: Weak (Tangential to facilities/operations)
 - 0-39: REJECT (Clinical, patient care, or unrelated)
 
