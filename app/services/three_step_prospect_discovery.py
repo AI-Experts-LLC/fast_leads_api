@@ -179,13 +179,15 @@ class ThreeStepProspectDiscoveryService:
                     "step": "scraping"
                 }
 
-            # Step 2.2: Create enriched prospects
-            logger.info("Step 2.2: Creating enriched prospect data...")
+            # Step 2.2: Create enriched prospects with lightweight data
+            logger.info("Step 2.2: Creating enriched prospect data (consolidated)...")
             enriched_prospects = []
             for profile in linkedin_profiles:
+                # Consolidate LinkedIn data to only essential fields
+                consolidated_data = self._consolidate_linkedin_data(profile)
                 enriched_prospects.append({
                     "linkedin_url": profile.get("url"),
-                    "linkedin_data": profile,
+                    "linkedin_data": consolidated_data,
                     "has_complete_data": True,
                     "data_source": "linkedin_scrape"
                 })
@@ -698,6 +700,173 @@ class ThreeStepProspectDiscoveryService:
         except Exception as e:
             logger.error(f"Error in AI ranking: {str(e)}")
             return prospects
+
+    def _consolidate_linkedin_data(self, profile_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Consolidate LinkedIn data to keep only essential fields (matches Full_Linkedin_Data structure).
+        Based on linkedin_contact_enricher.py consolidation logic.
+        """
+        try:
+            consolidated = {}
+
+            # CORE PROFILE INFO
+            core_fields = [
+                'linkedinUrl', 'firstName', 'lastName', 'fullName', 'headline',
+                'connections', 'followers', 'email', 'mobileNumber'
+            ]
+            for field in core_fields:
+                consolidated[field] = profile_data.get(field)
+
+            # JOB DESCRIPTION/SUMMARY
+            consolidated['about'] = profile_data.get('about', '')
+
+            # CURRENT JOB INFO
+            job_fields = [
+                'jobTitle', 'companyName', 'companyIndustry', 'companyWebsite',
+                'companyLinkedin', 'companyFoundedIn', 'companySize',
+                'currentJobDuration', 'currentJobDurationInYrs'
+            ]
+            for field in job_fields:
+                consolidated[field] = profile_data.get(field)
+
+            # LOCATION INFO
+            location_fields = ['addressCountryOnly', 'addressWithCountry', 'addressWithoutCountry']
+            for field in location_fields:
+                consolidated[field] = profile_data.get(field)
+
+            # SKILLS (first 10 only)
+            skills_raw = profile_data.get('topSkillsByEndorsements', '')
+            if isinstance(skills_raw, str) and skills_raw:
+                skills_list = [skill.strip() for skill in skills_raw.split(',')]
+                consolidated['topSkillsByEndorsements'] = ', '.join(skills_list[:10])
+            else:
+                consolidated['topSkillsByEndorsements'] = skills_raw
+
+            # CERTIFICATIONS (comma-separated brief list)
+            certs = profile_data.get('licenseAndCertificates', [])
+            if certs:
+                cert_names = []
+                for cert in certs[:5]:  # Limit to top 5
+                    name = cert.get('name', '') or cert.get('title', '')
+                    issuer = cert.get('authority', '') or cert.get('subtitle', '')
+                    if name:
+                        if issuer:
+                            cert_names.append(f"{name} - {issuer}")
+                        else:
+                            cert_names.append(name)
+                consolidated['certifications'] = ', '.join(cert_names)
+            else:
+                consolidated['certifications'] = ''
+
+            # EXPERIENCE DATA (summarized - top 3 only)
+            experiences = profile_data.get('experiences', [])
+            consolidated_experiences = []
+
+            for exp in experiences[:3]:  # Limit to top 3 experiences
+                consolidated_exp = {
+                    'title': exp.get('title', ''),
+                    'company': exp.get('subtitle', '').split(' · ')[0] if exp.get('subtitle') else '',
+                    'duration': exp.get('caption', ''),
+                    'roles': []
+                }
+
+                # Add company LinkedIn if available
+                if exp.get('companyLink1'):
+                    consolidated_exp['companyLinkedin'] = exp.get('companyLink1')
+
+                # Summarize subComponents (keep only title + duration, limit to 2)
+                sub_components = exp.get('subComponents', [])
+                for sub in sub_components[:2]:
+                    if sub.get('title') and sub.get('caption'):
+                        consolidated_exp['roles'].append({
+                            'title': sub.get('title'),
+                            'duration': sub.get('caption')
+                        })
+
+                consolidated_experiences.append(consolidated_exp)
+
+            consolidated['experiences'] = consolidated_experiences
+
+            # EDUCATION (school + degree only, keep LinkedIn URLs - top 2 only)
+            educations = profile_data.get('educations', [])
+            consolidated_education = []
+
+            for edu in educations[:2]:  # Limit to top 2
+                consolidated_edu = {
+                    'school': edu.get('schoolName', ''),
+                    'degree': edu.get('degree', '')
+                }
+                # Add school LinkedIn if available
+                if edu.get('schoolUrl'):
+                    consolidated_edu['schoolLinkedin'] = edu.get('schoolUrl')
+
+                if consolidated_edu['school'] or consolidated_edu['degree']:
+                    consolidated_education.append(consolidated_edu)
+
+            consolidated['education'] = consolidated_education
+
+            # PUBLICATIONS (only if relevant to our domain - max 3)
+            publications = profile_data.get('publications', [])
+            relevant_publications = []
+
+            # Keywords that indicate relevance
+            relevant_keywords = [
+                'energy', 'facility', 'facilities', 'engineering', 'healthcare',
+                'hospital', 'mechanical', 'maintenance', 'operations', 'efficiency',
+                'sustainability', 'leed', 'hvac', 'building'
+            ]
+
+            for pub in publications:
+                if len(relevant_publications) >= 3:
+                    break
+                title = pub.get('title', '').lower()
+                if any(keyword in title for keyword in relevant_keywords):
+                    relevant_publications.append({
+                        'title': pub.get('title', ''),
+                        'date': pub.get('date', '')
+                    })
+
+            consolidated['publications'] = relevant_publications
+
+            # ADD MAPPED FIELDS FOR AI RANKING & FILTERING COMPATIBILITY
+            # Map Apify field names to expected field names (use original profile_data for reliable access)
+            consolidated['name'] = profile_data.get('fullName')
+            consolidated['job_title'] = profile_data.get('jobTitle')
+            consolidated['company'] = profile_data.get('companyName')
+            consolidated['company_name'] = profile_data.get('companyName')  # Alias for consistency
+            consolidated['summary'] = profile_data.get('about')
+            consolidated['location'] = profile_data.get('addressWithoutCountry') or profile_data.get('addressWithCountry')
+
+            # Calculate total experience years (simple estimation from current duration)
+            consolidated['total_experience_years'] = consolidated.get('currentJobDurationInYrs', 0)
+
+            # Professional authority score (simple heuristic based on connections)
+            connections = consolidated.get('connections', 0)
+            if isinstance(connections, int):
+                if connections >= 500:
+                    consolidated['professional_authority_score'] = 85
+                elif connections >= 200:
+                    consolidated['professional_authority_score'] = 70
+                elif connections >= 100:
+                    consolidated['professional_authority_score'] = 55
+                else:
+                    consolidated['professional_authority_score'] = 40
+            else:
+                consolidated['professional_authority_score'] = 50  # Default
+
+            # Map skills from string to list format expected by AI ranking
+            skills_str = consolidated.get('topSkillsByEndorsements', '')
+            if skills_str and isinstance(skills_str, str):
+                consolidated['skills'] = [{'name': skill.strip()} for skill in skills_str.split(',')[:10]]
+            else:
+                consolidated['skills'] = []
+
+            logger.info(f"📊 Consolidated LinkedIn data from {len(str(profile_data))} to {len(str(consolidated))} characters")
+            return consolidated
+
+        except Exception as e:
+            logger.error(f"❌ Error consolidating LinkedIn data: {str(e)}")
+            return profile_data  # Return original if consolidation fails
 
 
 # Global instance
