@@ -349,7 +349,8 @@ def save_to_csv(qualified_prospects: List[Dict[str, Any]], filename: str):
         'total_experience_years',
         'professional_authority_score',
         'skills_count',
-        'top_skills'
+        'top_skills',
+        'full_linkedin_data_json'  # Added: Full LinkedIn data as JSON string
     ]
 
     with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
@@ -381,7 +382,8 @@ def save_to_csv(qualified_prospects: List[Dict[str, Any]], filename: str):
                 'total_experience_years': linkedin_data.get('total_experience_years', ''),
                 'professional_authority_score': linkedin_data.get('professional_authority_score', ''),
                 'skills_count': linkedin_data.get('skills_count', ''),
-                'top_skills': linkedin_data.get('top_skills_by_endorsements', '')
+                'top_skills': linkedin_data.get('top_skills_by_endorsements', ''),
+                'full_linkedin_data_json': json.dumps(linkedin_data, ensure_ascii=False)  # Full data as JSON string
             }
 
             writer.writerow(row)

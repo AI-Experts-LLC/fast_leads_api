@@ -264,13 +264,75 @@ class SalesforceService:
         """Test lead creation functionality"""
         test_lead_data = {
             'First_Name__c': 'Test',
-            'Last_Name__c': 'Lead from API', 
+            'Last_Name__c': 'Lead from API',
             'Company__c': 'Test Company',
             'Email__c': 'test@example.com',
             'Title__c': 'Test Title'
         }
-        
+
         return await self.create_lead(test_lead_data)
+
+    async def get_account_details_for_prospect_search(self, account_id: str) -> Dict[str, Any]:
+        """
+        Get account details needed for prospect discovery
+        Returns account name, city, state, and parent account name (if available)
+        """
+        if not self._authenticated or not self.sf:
+            # Auto-connect if not authenticated
+            connected = await self.connect()
+            if not connected:
+                return {
+                    "success": False,
+                    "error": "Not connected to Salesforce"
+                }
+
+        try:
+            # Use direct get method like the enrichers do
+            account = self.sf.Account.get(account_id)
+
+            if not account:
+                return {
+                    "success": False,
+                    "error": f"No account found with ID: {account_id}"
+                }
+
+            # Extract account details
+            account_name = account.get('Name', '')
+            city = account.get('ShippingCity') or account.get('BillingCity', '')
+            state = account.get('ShippingState') or account.get('BillingState', '')
+
+            # Extract parent account info if ParentId exists
+            parent_name = None
+            parent_id = account.get('ParentId')
+
+            if parent_id:
+                try:
+                    # Get parent account details
+                    parent_account = self.sf.Account.get(parent_id)
+                    if parent_account:
+                        parent_name = parent_account.get('Name')
+                        logger.info(f"Parent account found: {parent_name}")
+                except Exception as e:
+                    logger.warning(f"Could not retrieve parent account: {str(e)}")
+
+            logger.info(f"Retrieved account details: {account_name} ({city}, {state})")
+
+            return {
+                "success": True,
+                "account_id": account_id,
+                "account_name": account_name,
+                "city": city,
+                "state": state,
+                "parent_name": parent_name,
+                "parent_id": parent_id
+            }
+
+        except Exception as e:
+            logger.error(f"Error getting account details: {str(e)}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
 
 
 # Global instance

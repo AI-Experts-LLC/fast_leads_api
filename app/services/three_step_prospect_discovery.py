@@ -29,42 +29,83 @@ class ThreeStepProspectDiscoveryService:
         company_name: str,
         target_titles: List[str] = None,
         company_city: str = None,
-        company_state: str = None
+        company_state: str = None,
+        parent_account_name: str = None
     ) -> Dict[str, Any]:
         """
         STEP 1: Search LinkedIn and filter to qualified prospects
+
+        Args:
+            company_name: Local account name (e.g., "St. Patrick Hospital")
+            target_titles: List of job titles to search for
+            company_city: City for location filtering
+            company_state: State for location filtering
+            parent_account_name: Parent account name (e.g., "Providence Health & Services")
+                                 If provided, will search with BOTH local and parent names
 
         Returns:
             List of LinkedIn URLs and metadata for prospects that passed filters
         """
         try:
             logger.info(f"STEP 1: Starting search and filter for: {company_name}")
+            if parent_account_name:
+                logger.info(f"   → Parent account: {parent_account_name} (will search with both names)")
 
-            # Step 1.1: Search for LinkedIn profiles
-            logger.info("Step 1.1: Searching LinkedIn profiles...")
-            search_result = await self.search_service.search_linkedin_profiles(
+            # Step 1.1: Search for LinkedIn profiles with LOCAL account name
+            logger.info("Step 1.1a: Searching LinkedIn profiles (LOCAL account name)...")
+            search_result_local = await self.search_service.search_linkedin_profiles(
                 company_name=company_name,
                 target_titles=target_titles,
                 company_city=company_city,
                 company_state=company_state
             )
 
-            if not search_result.get("success"):
-                return {
-                    "success": False,
-                    "error": f"LinkedIn search failed: {search_result.get('error')}",
-                    "step": "search"
-                }
+            search_results = []
 
-            search_results = search_result.get("results", [])
+            if search_result_local.get("success"):
+                local_results = search_result_local.get("results", [])
+                logger.info(f"   Found {len(local_results)} profiles using LOCAL name: {company_name}")
+                search_results.extend(local_results)
+            else:
+                logger.warning(f"   Local search failed: {search_result_local.get('error')}")
+
+            # Step 1.1b: If parent account name is provided, search with PARENT name too
+            if parent_account_name:
+                logger.info(f"Step 1.1b: Searching LinkedIn profiles (PARENT account name)...")
+                search_result_parent = await self.search_service.search_linkedin_profiles(
+                    company_name=parent_account_name,
+                    target_titles=target_titles,
+                    company_city=company_city,
+                    company_state=company_state
+                )
+
+                if search_result_parent.get("success"):
+                    parent_results = search_result_parent.get("results", [])
+                    logger.info(f"   Found {len(parent_results)} profiles using PARENT name: {parent_account_name}")
+
+                    # Deduplicate by LinkedIn URL
+                    existing_urls = {r.get("link") for r in search_results if r.get("link")}
+                    unique_parent_results = [r for r in parent_results if r.get("link") not in existing_urls]
+
+                    logger.info(f"   → {len(unique_parent_results)} unique profiles from parent search (after deduplication)")
+                    search_results.extend(unique_parent_results)
+                else:
+                    logger.warning(f"   Parent search failed: {search_result_parent.get('error')}")
+
+            # Check if we have any results from either search
             if not search_results:
+                error_msg = "No LinkedIn profiles found"
+                if parent_account_name:
+                    error_msg += f" for either '{company_name}' or '{parent_account_name}'"
+                else:
+                    error_msg += f" for '{company_name}'"
                 return {
                     "success": False,
-                    "error": "No LinkedIn profiles found for this company",
+                    "error": error_msg,
                     "step": "search"
                 }
 
-            logger.info(f"Found {len(search_results)} LinkedIn profiles")
+            logger.info(f"✅ Total profiles found: {len(search_results)} (from both local and parent searches)")
 
             # Step 1.2: Basic filtering (rule-based)
             logger.info("Step 1.2: Applying basic filters...")
@@ -109,19 +150,29 @@ class ThreeStepProspectDiscoveryService:
                 if p.get("link")
             ]
 
+            summary = {
+                "total_search_results": len(search_results),
+                "after_basic_filter": len(filtered_prospects),
+                "after_ai_basic_filter": len(ai_filtered_prospects),
+                "after_title_filter": len(title_filtered_prospects),
+                "qualified_for_scraping": len(qualified_urls)
+            }
+
+            # Add parent account search info if applicable
+            if parent_account_name:
+                summary["searched_with_parent_account"] = True
+                summary["parent_account_name"] = parent_account_name
+            else:
+                summary["searched_with_parent_account"] = False
+
             return {
                 "success": True,
                 "step": "search_and_filter_complete",
                 "company_name": company_name,
+                "parent_account_name": parent_account_name,
                 "company_city": company_city,
                 "company_state": company_state,
-                "summary": {
-                    "total_search_results": len(search_results),
-                    "after_basic_filter": len(filtered_prospects),
-                    "after_ai_basic_filter": len(ai_filtered_prospects),
-                    "after_title_filter": len(title_filtered_prospects),
-                    "qualified_for_scraping": len(qualified_urls)
-                },
+                "summary": summary,
                 "qualified_prospects": qualified_urls,
                 "next_step": "Call /discover-prospects-scrape with these LinkedIn URLs"
             }

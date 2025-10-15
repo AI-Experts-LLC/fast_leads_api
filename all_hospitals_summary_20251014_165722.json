@@ -1,0 +1,206 @@
+{
+  "timestamp": "2025-10-14T17:49:14.699406",
+  "total_hospitals": 13,
+  "successful_hospitals": 9,
+  "total_prospects": 24,
+  "total_time_seconds": 3112.4582059383392,
+  "hospital_stats": [
+    {
+      "name": "St. Joseph Regional Medical Center",
+      "city": "Lewiston",
+      "state": "Idaho",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "St. Patrick Hospital",
+      "city": "Missoula",
+      "state": "Montana",
+      "prospects_found": 1,
+      "success": true
+    },
+    {
+      "name": "St. Vincent Healthcare",
+      "city": "Billings",
+      "state": "Montana",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "Community Medical Center",
+      "city": "Missoula",
+      "state": "Montana",
+      "prospects_found": 1,
+      "success": true
+    },
+    {
+      "name": "West Valley Medical Center",
+      "city": "Caldwell",
+      "state": "Idaho",
+      "prospects_found": 1,
+      "success": true
+    },
+    {
+      "name": "St. Luke's Magic Valley RMC",
+      "city": "Twin Falls",
+      "state": "Idaho",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "Saint Alphonsus Regional Medical Center",
+      "city": "Boise",
+      "state": "Idaho",
+      "prospects_found": 4,
+      "success": true
+    },
+    {
+      "name": "Benefis Hospitals Inc",
+      "city": "Great Falls",
+      "state": "Montana",
+      "prospects_found": 3,
+      "success": true
+    },
+    {
+      "name": "Bozeman Health Deaconess Regional Medical Center",
+      "city": "Bozeman",
+      "state": "Montana",
+      "prospects_found": 5,
+      "success": true
+    },
+    {
+      "name": "Billings Clinic Hospital",
+      "city": "Billings",
+      "state": "Montana",
+      "prospects_found": 4,
+      "success": true
+    },
+    {
+      "name": "Logan Health Medical Center",
+      "city": "Kalispell",
+      "state": "Montana",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "Portneuf Medical Center",
+      "city": "Pocatello",
+      "state": "Idaho",
+      "prospects_found": 1,
+      "success": true
+    },
+    {
+      "name": "St. Luke's Regional Medical Center",
+      "city": "Boise",
+      "state": "Idaho",
+      "prospects_found": 4,
+      "success": true
+    }
+  ],
+  "hospitals": [
+    {
+      "name": "St. Joseph Regional Medical Center",
+      "city": "Lewiston",
+      "state": "Idaho",
+      "health_system": "RCCH HealthCare Partners (formerly Ascension)",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhY3oYAF"
+    },
+    {
+      "name": "St. Patrick Hospital",
+      "city": "Missoula",
+      "state": "Montana",
+      "health_system": "Providence Health & Services (Providence Montana)",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhY4hYAF"
+    },
+    {
+      "name": "St. Vincent Healthcare",
+      "city": "Billings",
+      "state": "Montana",
+      "health_system": "Intermountain Health (formerly SCL Health)",
+      "edfx_rating": "Ba2",
+      "account_id": "001VR00000UhXv2YAF"
+    },
+    {
+      "name": "Community Medical Center",
+      "city": "Missoula",
+      "state": "Montana",
+      "health_system": "Community Medical Center (Providence affiliated)",
+      "edfx_rating": "Ba3",
+      "account_id": "001VR00000VhCFNYA3"
+    },
+    {
+      "name": "West Valley Medical Center",
+      "city": "Caldwell",
+      "state": "Idaho",
+      "health_system": "HCA Healthcare",
+      "edfx_rating": "",
+      "account_id": "0017V00001SOG6LQAX"
+    },
+    {
+      "name": "St. Luke's Magic Valley RMC",
+      "city": "Twin Falls",
+      "state": "Idaho",
+      "health_system": "St. Luke's Health System",
+      "edfx_rating": "",
+      "account_id": "001VR00000VhECLYA3"
+    },
+    {
+      "name": "Saint Alphonsus Regional Medical Center",
+      "city": "Boise",
+      "state": "Idaho",
+      "health_system": "Saint Alphonsus Health System",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhY7xYAF"
+    },
+    {
+      "name": "Benefis Hospitals Inc",
+      "city": "Great Falls",
+      "state": "Montana",
+      "health_system": "Benefis Health System",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhXwBYAV"
+    },
+    {
+      "name": "Bozeman Health Deaconess Regional Medical Center",
+      "city": "Bozeman",
+      "state": "Montana",
+      "health_system": "Bozeman Health",
+      "edfx_rating": "",
+      "account_id": "0017V00001aggoqQAA"
+    },
+    {
+      "name": "Billings Clinic Hospital",
+      "city": "Billings",
+      "state": "Montana",
+      "health_system": "Billings Clinic (Independent)",
+      "edfx_rating": "",
+      "account_id": "0017V00001YEA77QAH"
+    },
+    {
+      "name": "Logan Health Medical Center",
+      "city": "Kalispell",
+      "state": "Montana",
+      "health_system": "Logan Health (formerly Kalispell Regional Healthcare)",
+      "edfx_rating": "B1",
+      "account_id": "001VR00000VhD3NYAV"
+    },
+    {
+      "name": "Portneuf Medical Center",
+      "city": "Pocatello",
+      "state": "Idaho",
+      "health_system": "Portneuf Health System",
+      "edfx_rating": "B1",
+      "account_id": "001VR00000Vh74QYAR"
+    },
+    {
+      "name": "St. Luke's Regional Medical Center",
+      "city": "Boise",
+      "state": "Idaho",
+      "health_system": "St. Luke's Health System",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhY5JYAV"
+    }
+  ]
+}

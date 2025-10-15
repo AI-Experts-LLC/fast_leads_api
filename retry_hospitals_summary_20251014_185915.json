@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-10-14T19:14:02.376579",
+  "total_hospitals": 4,
+  "successful_hospitals": 0,
+  "total_prospects": 0,
+  "total_time_seconds": 887.3588361740112,
+  "hospital_stats": [
+    {
+      "name": "St. Joseph Regional Medical Center",
+      "city": "Lewiston",
+      "state": "Idaho",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "St. Vincent Healthcare",
+      "city": "Billings",
+      "state": "Montana",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "St. Luke's Magic Valley RMC",
+      "city": "Twin Falls",
+      "state": "Idaho",
+      "prospects_found": 0,
+      "success": false
+    },
+    {
+      "name": "Logan Health Medical Center",
+      "city": "Kalispell",
+      "state": "Montana",
+      "prospects_found": 0,
+      "success": false
+    }
+  ],
+  "hospitals": [
+    {
+      "name": "St. Joseph Regional Medical Center",
+      "city": "Lewiston",
+      "state": "Idaho",
+      "health_system": "RCCH HealthCare Partners (formerly Ascension)",
+      "edfx_rating": "Ba1",
+      "account_id": "001VR00000UhY3oYAF"
+    },
+    {
+      "name": "St. Vincent Healthcare",
+      "city": "Billings",
+      "state": "Montana",
+      "health_system": "Intermountain Health (formerly SCL Health)",
+      "edfx_rating": "Ba2",
+      "account_id": "001VR00000UhXv2YAF"
+    },
+    {
+      "name": "St. Luke's Magic Valley RMC",
+      "city": "Twin Falls",
+      "state": "Idaho",
+      "health_system": "St. Luke's Health System",
+      "edfx_rating": "",
+      "account_id": "001VR00000VhECLYA3"
+    },
+    {
+      "name": "Logan Health Medical Center",
+      "city": "Kalispell",
+      "state": "Montana",
+      "health_system": "Logan Health (formerly Kalispell Regional Healthcare)",
+      "edfx_rating": "B1",
+      "account_id": "001VR00000VhD3NYAV"
+    }
+  ]
+}
