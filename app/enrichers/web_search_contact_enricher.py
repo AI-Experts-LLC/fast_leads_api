@@ -467,6 +467,10 @@ IMPORTANT FORMATTING:
             data = self._make_api_call_with_retry(prompt, expected_fields)
             logger.info(f"✅ Work experience search completed")
 
+            # Refine summary_why_care to be conversational with proper company name
+            if data and 'summary_why_care' in data:
+                data = self._refine_summary_why_care(data, first_name, company)
+
             return data
 
         except Exception as e:
@@ -746,6 +750,68 @@ Make them warm, genuine, and conversational while keeping the same core informat
 
         except Exception as e:
             logger.error(f"❌ Error refining rapport summaries: {str(e)}")
+            return data
+
+    def _refine_summary_why_care(self, data: Dict[str, str], first_name: str, company: str) -> Dict[str, str]:
+        """Refine summary_why_care to be conversational with proper company name formatting."""
+        try:
+            if 'summary_why_care' not in data or not data['summary_why_care']:
+                return data
+
+            logger.info("🎨 Refining summary_why_care to be more conversational...")
+
+            current_summary = data['summary_why_care']
+
+            prompt = f"""You are reviewing an email opening sentence to make it more conversational and natural.
+
+Contact's first name: {first_name}
+Company name: {company}
+
+Current sentence (too formal/robotic):
+{current_summary}
+
+Please refine this to be more conversational and natural. Guidelines:
+1. Use natural, casual language while remaining professional
+2. Format the company name conversationally (not all caps, no LLC/Inc/Corp suffixes)
+3. Make it sound like genuine personal observation, not a formal statement
+4. Use "I'm sure" or "I imagine" to soften the approach
+5. Keep it to 1-2 sentences maximum
+6. Remove overly formal language or corporate jargon
+7. Make the company name sound natural in conversation
+
+Examples of good company name formatting:
+❌ "CLEVELAND CLINIC HEALTH SYSTEM" → ✅ "Cleveland Clinic"
+❌ "BOZEMAN HEALTH DEACONESS REGIONAL MEDICAL CENTER" → ✅ "Bozeman Health"
+❌ "ST. VINCENT HEALTHCARE, LLC" → ✅ "St. Vincent Healthcare"
+❌ "Providence Health & Services, Inc." → ✅ "Providence Health"
+
+Examples of conversational tone:
+❌ "As the Chief Financial Officer at ACME CORPORATION, I am certain you have experienced challenges with energy costs representing a significant operational expense."
+✅ "In your role as CFO at Acme, I'm sure you've faced challenges with energy being a top operating cost."
+
+❌ "Given your position as Senior Director, Facilities Operations at MEMORIAL HOSPITAL SYSTEM, you have undoubtedly encountered difficulties with aging infrastructure and emergency repairs."
+✅ "I imagine as Senior Director of Facilities at Memorial Hospital, you've dealt with constant firefighting with old equipment and emergency repairs."
+
+Format as JSON with this exact key:
+- summary_why_care: Refined conversational version with proper company name formatting
+
+Make it warm, genuine, and conversational while keeping the same core pain points."""
+
+            # Use no-web-search API call with GPT-4o for better language refinement
+            refined_data = self._make_api_call_no_web_search(prompt, ['summary_why_care'], max_retries=2)
+
+            if refined_data and 'summary_why_care' in refined_data:
+                data['summary_why_care'] = refined_data['summary_why_care']
+                logger.info(f"   ✅ Refined summary_why_care")
+                logger.info(f"   Original: {current_summary[:80]}...")
+                logger.info(f"   Refined:  {refined_data['summary_why_care'][:80]}...")
+            else:
+                logger.warning("⚠️ Failed to refine summary_why_care, keeping original")
+
+            return data
+
+        except Exception as e:
+            logger.error(f"❌ Error refining summary_why_care: {str(e)}")
             return data
 
     def _validate_response_data(self, data: Dict[str, str], expected_fields: List[str]) -> bool:

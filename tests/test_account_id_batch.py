@@ -112,6 +112,28 @@ HOSPITALS = [
 BASE_URL = "http://127.0.0.1:8000"
 
 
+async def search_salesforce_account(client: httpx.AsyncClient, hospital: Dict[str, Any]) -> str:
+    """
+    Search Salesforce for account by name and location
+    Returns Account ID if found, None otherwise
+    """
+    try:
+        logger.info(f"  → Searching Salesforce for: {hospital['name']} in {hospital['city']}, {hospital['state']}")
+
+        # Create a simple Salesforce service endpoint to search for accounts
+        # For now, we'll make a direct query
+        # Note: This requires adding an endpoint to the API or using direct Salesforce queries
+
+        # TODO: Implement Salesforce account search endpoint
+        # For now, return None to fall back to manual name/city/state search
+        logger.warning(f"  → Salesforce search not yet implemented, will skip this hospital")
+        return None
+
+    except Exception as e:
+        logger.error(f"  → Error searching Salesforce: {str(e)}")
+        return None
+
+
 async def discover_prospects_for_hospital(client: httpx.AsyncClient, hospital: Dict[str, Any]) -> Dict[str, Any]:
     """
     Run Step 1 prospect discovery for a single hospital using Account ID
@@ -119,16 +141,34 @@ async def discover_prospects_for_hospital(client: httpx.AsyncClient, hospital: D
     try:
         logger.info(f"\n{'='*80}")
         logger.info(f"Processing: {hospital['name']} ({hospital['city']}, {hospital['state']})")
-        logger.info(f"Account ID: {hospital['account_id']}")
+
+        # Check if account_id exists, if not try to search for it
+        account_id = hospital.get('account_id')
+        if not account_id:
+            logger.warning(f"  → No Account ID provided, searching Salesforce...")
+            account_id = await search_salesforce_account(client, hospital)
+            if not account_id:
+                logger.error(f"  → Could not find Account ID, skipping hospital")
+                return {
+                    "hospital": hospital['name'],
+                    "city": hospital['city'],
+                    "state": hospital['state'],
+                    "account_id": None,
+                    "status": "skipped",
+                    "error": "No Account ID found"
+                }
+
+        logger.info(f"Account ID: {account_id}")
         logger.info(f"{'='*80}")
 
         start_time = datetime.now()
 
         # Call the new account ID-based endpoint
+        # Use longer timeout since prospect discovery can take 2-3 minutes per hospital
         response = await client.post(
             f"{BASE_URL}/discover-prospects-by-account-id",
-            json={"account_id": hospital['account_id']},
-            timeout=180.0
+            json={"account_id": account_id},
+            timeout=600.0  # 10 minutes to handle larger searches
         )
 
         elapsed = (datetime.now() - start_time).total_seconds()
@@ -155,7 +195,7 @@ async def discover_prospects_for_hospital(client: httpx.AsyncClient, hospital: D
                 "hospital": hospital['name'],
                 "city": hospital['city'],
                 "state": hospital['state'],
-                "account_id": hospital['account_id'],
+                "account_id": account_id,
                 "status": "success",
                 "elapsed_seconds": elapsed,
                 "salesforce_account_name": salesforce_account.get('account_name'),
@@ -175,21 +215,23 @@ async def discover_prospects_for_hospital(client: httpx.AsyncClient, hospital: D
                 "hospital": hospital['name'],
                 "city": hospital['city'],
                 "state": hospital['state'],
-                "account_id": hospital['account_id'],
+                "account_id": account_id,
                 "status": "failed",
                 "elapsed_seconds": elapsed,
                 "error": error_detail
             }
 
     except Exception as e:
-        logger.error(f"❌ EXCEPTION: {str(e)}")
+        import traceback
+        error_detail = f"{str(e)}\n{traceback.format_exc()}"
+        logger.error(f"❌ EXCEPTION: {error_detail}")
         return {
             "hospital": hospital['name'],
             "city": hospital['city'],
             "state": hospital['state'],
-            "account_id": hospital['account_id'],
+            "account_id": hospital.get('account_id'),
             "status": "error",
-            "error": str(e)
+            "error": error_detail
         }
 
 
