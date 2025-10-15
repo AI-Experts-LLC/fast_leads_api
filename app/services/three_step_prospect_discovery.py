@@ -776,26 +776,43 @@ class ThreeStepProspectDiscoveryService:
         }
 
     def _validate_location_match(self, prospect_location: str, company_city: str, company_state: str, prospect_name: str) -> Dict[str, Any]:
-        """Location validation - simplified from original"""
+        """
+        Location validation - STRICT matching for LOCAL ACCOUNT
+
+        IMPORTANT: We must filter out prospects who are NOT in the same state as the TARGET ACCOUNT.
+        Example: Jessica Combs in Nashville, Tennessee should NOT match West Valley Medical Center in Caldwell, Idaho
+
+        This is for the LOCAL account (not parent), so location must be close.
+        """
+        # If no location data at all, REJECT (don't assume it's a match)
         if not prospect_location or prospect_location.lower() == 'none':
-            return {'is_match': True, 'reason': 'No location data available'}
+            return {'is_match': False, 'reason': 'No location data available - cannot verify local employment'}
 
         location_lower = prospect_location.lower().strip()
 
+        # If no company city/state provided, we can't validate location properly
+        if not company_state:
+            logger.warning(f"No company_state provided for location validation - accepting prospect {prospect_name}")
+            return {'is_match': True, 'reason': 'No target location provided for comparison'}
+
+        # Check for exact city match first (best case)
         if company_city and company_city.lower() in location_lower:
             return {'is_match': True, 'reason': f'Same city ({company_city})'}
 
-        # Check state match
+        # Check state match - must be in the same state
         from .improved_prospect_discovery import improved_prospect_discovery_service
         state_variations = improved_prospect_discovery_service._get_state_variations(company_state)
         state_variations_lower = [v.lower() for v in state_variations]
 
+        # Check if prospect's location contains the target state
         state_match = any(state_var in location_lower for state_var in state_variations_lower)
 
         if state_match:
             return {'is_match': True, 'reason': f'Same state ({company_state})'}
 
-        return {'is_match': False, 'reason': f"Location too far: '{prospect_location}' vs '{company_city}, {company_state}'"}
+        # NOT in the same state - REJECT
+        # Extract what state they're actually in for better logging
+        return {'is_match': False, 'reason': f"Location mismatch: prospect in '{prospect_location}' but target is '{company_city}, {company_state}'"}
 
     def _generate_company_variations(self, company_name: str) -> List[str]:
         """Generate company name variations - same as original"""
