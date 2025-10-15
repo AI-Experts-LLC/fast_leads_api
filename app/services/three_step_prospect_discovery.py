@@ -434,7 +434,7 @@ class ThreeStepProspectDiscoveryService:
                 connection_count = int(connection_match.group(1))
 
             # Filter low connections
-            if connection_count > 0 and connection_count < 75:
+            if connection_count > 0 and connection_count < 50:
                 continue
 
             # Check company mention
@@ -447,7 +447,7 @@ class ThreeStepProspectDiscoveryService:
                 company_parts = [part.strip() for part in company_name.split() if len(part) > 3]
                 company_match = any(part.lower() in combined_text for part in company_parts)
 
-            if company_match or connection_count >= 75:
+            if company_match or connection_count >= 50:
                 prospect["ai_basic_filter"] = {
                     "passed": True,
                     "company_match": company_match,
@@ -584,12 +584,12 @@ class ThreeStepProspectDiscoveryService:
 
             # Filter by connections
             connections = linkedin_data.get("connections", 0)
-            if connections and connections < 75:
+            if connections and connections < 50:
                 filtered_out.append({
                     "stage": "linkedin_connections",
                     "name": linkedin_data.get('name', 'Unknown'),
                     "linkedin_url": prospect.get('linkedin_url', ''),
-                    "reason": f"Low connections ({connections} < 75)"
+                    "reason": f"Low connections ({connections} < 50)"
                 })
                 continue
 
@@ -611,6 +611,20 @@ class ThreeStepProspectDiscoveryService:
                     "name": linkedin_data.get('name', 'Unknown'),
                     "linkedin_url": prospect.get('linkedin_url', ''),
                     "reason": company_match_result['reason']
+                })
+                continue
+
+            # Employment status validation (check if retired/former employee)
+            employment_status_result = self._validate_employment_status(
+                linkedin_data, company_name
+            )
+
+            if not employment_status_result['is_current_employee']:
+                filtered_out.append({
+                    "stage": "employment_status",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": employment_status_result['reason']
                 })
                 continue
 
@@ -683,6 +697,83 @@ class ThreeStepProspectDiscoveryService:
                 return {'is_match': True, 'reason': f'Shared main identifier ({main_identifier})'}
 
         return {'is_match': False, 'reason': f"Company mismatch: '{current_company}' vs '{target_company}'"}
+
+    def _validate_employment_status(self, linkedin_data: Dict[str, Any], company_name: str) -> Dict[str, Any]:
+        """
+        Validate that the prospect is currently employed at the target company.
+        Filter out retired/former employees whose positions have ended.
+        """
+        import re
+        from datetime import datetime
+
+        current_company = (linkedin_data.get('company') or linkedin_data.get('company_name') or '').lower().strip()
+        current_job_title = (linkedin_data.get('job_title') or linkedin_data.get('headline') or '').lower()
+        experience = linkedin_data.get('experience', [])
+
+        # Check for "retired" keyword in current title/headline
+        if 'retired' in current_job_title:
+            return {
+                'is_current_employee': False,
+                'reason': f"Profile indicates retired status: '{linkedin_data.get('job_title') or linkedin_data.get('headline')}'"
+            }
+
+        # If current company matches, check if position is active
+        company_variations = self._generate_company_variations(company_name)
+        company_variations_lower = [v.lower().strip() for v in company_variations]
+
+        # Check if current company matches
+        current_company_matches = any(var in current_company or current_company in var for var in company_variations_lower)
+
+        if current_company_matches:
+            # Current company matches - they're currently employed
+            return {
+                'is_current_employee': True,
+                'reason': f"Currently employed at {linkedin_data.get('company')}"
+            }
+
+        # Check experience history for past employment
+        if not experience:
+            # No experience data, but current company doesn't match
+            return {
+                'is_current_employee': False,
+                'reason': f"No current employment at {company_name} (current company: {linkedin_data.get('company') or 'Unknown'})"
+            }
+
+        # Look through experience for company matches
+        for exp in experience:
+            exp_company = (exp.get('company') or '').lower().strip()
+            exp_duration = (exp.get('duration') or '').lower()
+
+            # Check if this experience is at the target company
+            company_match = any(var in exp_company or exp_company in var for var in company_variations_lower)
+
+            if company_match:
+                # Check if this position is current (no end date)
+                # Duration formats: "2018 - Present", "Jan 2020 - Present", "2015 - 2018"
+                if 'present' in exp_duration or 'current' in exp_duration:
+                    return {
+                        'is_current_employee': True,
+                        'reason': f"Currently employed at {exp.get('company')} (from experience data)"
+                    }
+
+                # If we find a past position, check if it's recent
+                # Format: "May 2020 - Sep 2025" or "2020 - 2023"
+                # If it has end date, they're no longer employed
+                if '-' in exp_duration and 'present' not in exp_duration:
+                    # Extract end date to provide more context
+                    parts = exp_duration.split('-')
+                    if len(parts) >= 2:
+                        end_part = parts[-1].strip()
+                        return {
+                            'is_current_employee': False,
+                            'reason': f"Former employee (position ended: {end_part})"
+                        }
+
+        # No matching experience found at target company
+        return {
+            'is_current_employee': False,
+            'reason': f"No employment record at {company_name}"
+        }
 
     def _validate_location_match(self, prospect_location: str, company_city: str, company_state: str, prospect_name: str) -> Dict[str, Any]:
         """Location validation - simplified from original"""
