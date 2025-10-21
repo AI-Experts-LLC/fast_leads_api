@@ -10,9 +10,9 @@ This folder contains real example Salesforce objects (anonymized) to demonstrate
 - `account_example_3.json` - St. Luke's Magic Valley RMC
 
 ### Contacts (3 examples)
-- `contact_example_1.json` - Tracy Fialli (Senior Energy Engineer)
-- `contact_example_2.json` - Lynn Bernard
-- `contact_example_3.json` - Jeff Shoaf
+- `contact_example_1.json` - Denis Balic (Senior Energy Engineer, Intermountain Health)
+- `contact_example_2.json` - Laurie Martin (Director, Capital Project Management)
+- `contact_example_3.json` - Jeffrey Steffens (Senior Project Manager, Information Systems)
 
 ## 🏢 Account Object Structure
 
@@ -135,14 +135,21 @@ print(account['Building_Automation_Controls__c'])  # false
 ### Contact Query
 ```python
 # Get contact with all fields
-contact_id = "0030B00001tC3E4QAK"
+contact_id = "003VR00000ZPZV5YAP"
 contact = sf.Contact.get(contact_id)
 
 # Access fields
-print(contact['Name'])  # "Tracy Fialli"
+print(contact['Name'])  # "Denis Balic"
 print(contact['Title'])  # "Senior Energy Engineer"
-print(contact['Email'])  # "tracy_l_fialli@raytheon.com"
-print(contact['MobilePhone'])  # "(978) 815-1776"
+print(contact['Email'])  # "dba@intermountainhealthcare.org"
+print(contact['MobilePhone'])  # "(801) 897-8450"
+print(contact['Department'])  # "Sustainability"
+
+# Access enriched custom fields
+print(contact['Role_description__c'])  # AI-generated role description
+print(contact['Rapport_summary__c'])  # AI-generated rapport summary
+print(contact['Campaign_1_Subject_Line__c'])  # Custom email subject line
+print(contact['Why_their_role_is_relevant_to_Metrus__c'])  # Relevance summary
 ```
 
 ### Enrichment API Usage
@@ -162,7 +169,7 @@ curl -X POST "http://localhost:8000/enrich/contact" \
   -H "X-API-Key: your-api-key" \
   -H "Content-Type: application/json" \
   -d '{
-    "contact_id": "0030B00001tC3E4QAK",
+    "contact_id": "003VR00000ZPZV5YAP",
     "overwrite": false,
     "include_linkedin": true
   }'
