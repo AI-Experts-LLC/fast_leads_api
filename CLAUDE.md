@@ -102,39 +102,39 @@ PORT=8000
 
 ## Architecture
 
-### Two Prospect Discovery Pipelines
+### Prospect Discovery Pipelines
 
-**1. Original Pipeline** (`/discover-prospects`):
+**✅ THREE-STEP PIPELINE (RECOMMENDED)** - `/discover-prospects-step1/2/3`
 ```
-Search → AI Qualification → AI Validation → LinkedIn Scraping
-```
-- **Issue**: AI creates/modifies data before getting complete LinkedIn profiles
-- **Problem**: Inaccurate persona assignments (e.g., calling interns "highly qualified COOs")
-
-**2. Improved Pipeline** (`/discover-prospects-improved`):
-```
-Search → Basic Filter → AI Company Filter → LinkedIn Scraping → AI Ranking
-```
-- **Fix**: Rule-based filtering first, LinkedIn scraping before AI analysis
-- **Key**: AI only ranks real data, never creates or modifies prospect information
-- **Note**: Works locally but may timeout on Railway (>5 minutes)
-
-**3. Three-Step Pipeline** (`/discover-prospects-step1`, `/step2`, `/step3`): ⭐ RECOMMENDED
-```
-Step 1: Search & Filter (30-90s)
-Step 2: Scrape & Validate (15-35s)
-Step 3: AI Ranking (5-25s)
+Step 1: Search & Filter (30-90s)  → LinkedIn search + basic filtering + AI title scoring
+Step 2: Scrape & Validate (15-35s) → Profile scraping + company/employment validation
+Step 3: AI Ranking (5-25s)        → AI scoring + qualification (≥65 threshold)
 Total: 50-150s (~1-2.5 minutes)
 ```
-- **Purpose**: Avoid Railway's 5-minute timeout by splitting into separate API calls
-- **Use Case**: Production deployment on Railway
-- **Success Rate**: 69% (9/13 hospitals in October 2025 test)
+- **Status**: Production-ready, 69% success rate (October 2025 test)
+- **Use Case**: All production workloads on Railway
+- **Benefits**: Avoids timeout, accurate data, comprehensive validation
 - **Key Fixes** (October 2025):
   - Company name matching: "St." ↔ "Saint" normalization
   - LinkedIn scraping: Fallback company extraction from experience array
   - Employment validation: Enhanced with company name variations
   - State abbreviation handling: Removes " MT", " ID", etc. from company names
-  - See `THREE_STEP_PIPELINE.md` for complete documentation
+- **Documentation**: See `THREE_STEP_PIPELINE.md`
+
+**🔍 OPTIONAL: ZOOMINFO VALIDATION** - `/discover-prospects-zoominfo`
+- **What it does**: Validates email/phone contact information after Step 3
+- **Status**: Optional enhancement, gracefully skips if not configured
+- **Use Case**: Contact validation before outreach campaigns
+
+**⚠️ DEPRECATED PIPELINES** (Maintained for backward compatibility)
+
+1. **Original Pipeline** (`/discover-prospects`):
+   - **Issue**: AI creates/modifies data before LinkedIn scraping
+   - **Status**: Deprecated, use 3-step pipeline instead
+
+2. **Improved Pipeline** (`/discover-prospects-improved`):
+   - **Issue**: Times out on Railway (>5 minute limit)
+   - **Status**: Deprecated for production, works locally only
 
 ### Core Service Architecture
 
@@ -211,22 +211,30 @@ app/services/
 ## API Endpoints
 
 ### Prospect Discovery
-- `POST /discover-prospects` - Original pipeline (has accuracy issues, deprecated)
-- `POST /discover-prospects-improved` - Improved pipeline with accurate data
+
+**✅ THREE-STEP PIPELINE (RECOMMENDED)**
+- `POST /discover-prospects-step1` - Step 1: Search & Filter
   - Required: `company_name`
   - Optional: `target_titles`, `company_city`, `company_state`
-- `POST /discover-prospects-step1` - **Recommended for Railway** - Step 1: Search & Filter
-  - Required: `company_name`
-  - Optional: `target_titles`, `company_city`, `company_state`
-- `POST /discover-prospects-step2` - Step 2: Scrape LinkedIn Profiles
+  - Time: 30-90 seconds
+- `POST /discover-prospects-step2` - Step 2: Scrape & Validate
   - Required: `linkedin_urls`, `company_name`
   - Optional: `company_city`, `company_state`, `location_filter_enabled`
+  - Time: 15-35 seconds
 - `POST /discover-prospects-step3` - Step 3: AI Ranking
   - Required: `enriched_prospects`, `company_name`
-  - Optional: `min_score_threshold`, `max_prospects`
-- `POST /discover-prospects-step4` - Step 4: ZoomInfo Validation (DISABLED by default)
+  - Optional: `min_score_threshold` (default: 65), `max_prospects` (default: 10)
+  - Time: 5-25 seconds
+
+**🔍 OPTIONAL ZOOMINFO VALIDATION**
+- `POST /discover-prospects-zoominfo` - ZoomInfo Contact Validation
   - Required: `qualified_prospects`, `company_name`
-  - Optional: `enable_zoominfo` (default: false, requires OAuth setup)
+  - Status: Optional, gracefully skips if not configured
+  - Time: 10-20 seconds
+
+**⚠️ DEPRECATED PIPELINES** (Backward compatibility only)
+- `POST /discover-prospects` - Original pipeline (⚠️ deprecated, AI accuracy issues)
+- `POST /discover-prospects-improved` - Improved pipeline (⚠️ deprecated, Railway timeout)
 
 ### Salesforce Integration
 - `POST /salesforce/connect` - Test Salesforce authentication

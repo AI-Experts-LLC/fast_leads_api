@@ -23,7 +23,18 @@ from app.auth import verify_api_key
 
 app = FastAPI(
     title="Metrus Energy - Account Enrichment API",
-    description="Automated lead enrichment system for Salesforce accounts",
+    description="""
+    Automated prospect discovery and lead enrichment system for Salesforce accounts.
+
+    **Recommended Pipeline**: Three-Step Prospect Discovery
+    - Step 1: Search & Filter LinkedIn profiles
+    - Step 2: Scrape & Validate employment/company
+    - Step 3: AI Ranking & Qualification
+
+    **Optional**: ZoomInfo validation for contact enrichment
+
+    See /docs for interactive API documentation.
+    """,
     version="1.0.0"
 )
 
@@ -59,7 +70,11 @@ async def get_version():
         "environment": os.getenv("ENVIRONMENT", "development")
     }
 
-# Salesforce Integration Endpoints
+########################################
+# SALESFORCE INTEGRATION ENDPOINTS
+########################################
+# These endpoints handle authentication and data operations with Salesforce CRM.
+# Used for creating leads, querying accounts, and syncing enrichment data.
 
 @app.post("/salesforce/connect")
 async def connect_salesforce():
@@ -243,11 +258,38 @@ async def create_lead(lead_data: dict):
             detail=f"Error creating lead: {str(e)}"
         )
 
+########################################
+# PROSPECT DISCOVERY PIPELINES
+########################################
+# Three different pipeline implementations for discovering LinkedIn prospects.
+#
+# 1. ORIGINAL PIPELINE (DEPRECATED) - /discover-prospects
+#    Issue: AI creates/modifies data before LinkedIn scraping
+#    Use Case: Legacy compatibility only
+#
+# 2. IMPROVED PIPELINE (DEPRECATED) - /discover-prospects-improved
+#    Issue: Times out on Railway (5-minute limit)
+#    Use Case: Local development only
+#
+# 3. THREE-STEP PIPELINE (RECOMMENDED) - /discover-prospects-step1/2/3
+#    Benefits: Avoids timeouts, accurate data, production-tested
+#    Use Case: All production workloads
+#
+# 4. ZOOMINFO VALIDATION (OPTIONAL) - /discover-prospects-zoominfo
+#    Benefits: Validates contact info (email, phone)
+#    Use Case: Optional enhancement after Step 3
+
 @app.post("/discover-prospects")
 async def discover_prospects(request: dict):
     """
-    Complete prospect discovery pipeline for a company
-    Searches LinkedIn, qualifies with AI, scrapes profiles
+    ⚠️ DEPRECATED - Use /discover-prospects-step1 instead
+
+    Original prospect discovery pipeline for a company.
+    Searches LinkedIn, qualifies with AI, scrapes profiles.
+
+    **Issue**: AI creates/modifies data before scraping, causing accuracy problems.
+    **Recommendation**: Use the three-step pipeline instead (/discover-prospects-step1).
+    **Status**: Maintained for backward compatibility only.
     """
     try:
         company_name = request.get("company_name")
@@ -287,9 +329,16 @@ async def discover_prospects(request: dict):
 @app.post("/discover-prospects-improved")
 async def discover_prospects_improved(request: dict):
     """
-    IMPROVED prospect discovery pipeline with better accuracy
-    1. Search → 2. Basic Filter → 3. LinkedIn Scrape → 4. AI Rank
-    AI only ranks real data, doesn't create/modify data
+    ⚠️ DEPRECATED - Use /discover-prospects-step1 instead
+
+    Improved prospect discovery pipeline with better accuracy.
+    Pipeline: Search → Basic Filter → LinkedIn Scrape → AI Rank
+
+    **Issue**: Times out on Railway (5-minute deployment limit).
+    **Recommendation**: Use the three-step pipeline instead (/discover-prospects-step1).
+    **Status**: Maintained for local development and backward compatibility.
+
+    **Improvement over original**: AI only ranks real data, doesn't create/modify data.
     """
     try:
         company_name = request.get("company_name")
@@ -335,24 +384,46 @@ async def discover_prospects_improved(request: dict):
             detail=f"Error in improved prospect discovery: {str(e)}"
         )
 
+########################################
+# THREE-STEP PIPELINE (RECOMMENDED)
+########################################
+# Production-ready pipeline that avoids Railway timeout by splitting into 3 API calls.
+# October 2025 Production Results: 69% success rate, 23 prospects from 13 hospitals
+#
+# Total Time: 50-150 seconds per hospital (~1-2.5 minutes)
+# Cost: ~$0.40 per hospital
+#
+# Pipeline Flow:
+#   Step 1 (30-90s)  → Search & Filter LinkedIn profiles
+#   Step 2 (15-35s)  → Scrape profiles & validate company/employment
+#   Step 3 (5-25s)   → AI ranking & qualification (score ≥65)
+#
+# See THREE_STEP_PIPELINE.md for complete documentation.
+
 @app.post("/discover-prospects-step1")
 async def discover_prospects_step1(request: dict):
     """
-    STEP 1 of 3-Step Pipeline: Search and Filter
-    - Searches LinkedIn profiles
+    ✅ RECOMMENDED - Step 1 of 3-Step Pipeline: Search and Filter
+
+    **What it does:**
+    - Searches LinkedIn profiles using Serper API (Google Search)
     - Applies basic filters (removes interns, students, former employees)
-    - Applies AI title filter
+    - Applies AI title relevance scoring (threshold: ≥55)
     - Returns filtered prospect URLs ready for scraping
 
-    Expected: ~30-50 seconds
+    **Expected Time:** 30-90 seconds
 
-    Request format:
+    **Request format:**
+    ```json
     {
         "company_name": "Mayo Clinic",
         "company_city": "Rochester",
         "company_state": "Minnesota",
-        "target_titles": []  # Optional - uses default titles if not provided
+        "target_titles": []  // Optional - uses defaults if not provided
     }
+    ```
+
+    **Next Step:** Call /discover-prospects-step2 with the returned linkedin_urls
     """
     try:
         company_name = request.get("company_name")
@@ -397,22 +468,37 @@ async def discover_prospects_step1(request: dict):
 @app.post("/discover-prospects-step2")
 async def discover_prospects_step2(request: dict):
     """
-    STEP 2 of 3-Step Pipeline: Scrape LinkedIn Profiles
+    ✅ RECOMMENDED - Step 2 of 3-Step Pipeline: Scrape LinkedIn Profiles
+
+    **What it does:**
     - Takes LinkedIn URLs from Step 1
-    - Scrapes full profile data via Apify
-    - Applies advanced location and employment filters
+    - Scrapes full profile data via Apify (35+ fields per profile)
+    - Validates company name with St/Saint normalization
+    - Validates current employment status
+    - Filters by location (same state as hospital)
+    - Checks LinkedIn connections (≥50 required)
     - Returns enriched prospect data ready for AI ranking
 
-    Expected: ~50-90 seconds
+    **Expected Time:** 15-35 seconds
 
-    Request format:
+    **Request format:**
+    ```json
     {
         "linkedin_urls": ["https://linkedin.com/in/...", ...],
         "company_name": "Mayo Clinic",
         "company_city": "Rochester",
         "company_state": "Minnesota",
-        "location_filter_enabled": true  # Optional, defaults to true
+        "location_filter_enabled": true  // Optional, defaults to true
     }
+    ```
+
+    **Key Filters:**
+    - Company matching: Handles "St." vs "Saint", state abbreviations
+    - Employment: Current employees only (not former)
+    - Location: Same state as hospital (if enabled)
+    - Connections: ≥50 LinkedIn connections (spam prevention)
+
+    **Next Step:** Call /discover-prospects-step3 with the returned enriched_prospects
     """
     try:
         linkedin_urls = request.get("linkedin_urls", [])
@@ -465,21 +551,37 @@ async def discover_prospects_step2(request: dict):
 @app.post("/discover-prospects-step3")
 async def discover_prospects_step3(request: dict):
     """
-    STEP 3 of 3-Step Pipeline: AI Ranking
+    ✅ RECOMMENDED - Step 3 of 3-Step Pipeline: AI Ranking
+
+    **What it does:**
     - Takes enriched prospects from Step 2
-    - Runs parallel AI ranking on each prospect
-    - Filters by minimum score threshold
+    - Runs parallel AI ranking on each prospect using GPT-4
+    - Scores 0-100 based on multiple factors
+    - Filters by minimum score threshold (≥65)
     - Returns top N prospects sorted by score
 
-    Expected: ~15-25 seconds
+    **Expected Time:** 5-25 seconds
 
-    Request format:
+    **Request format:**
+    ```json
     {
-        "enriched_prospects": [...],  # From Step 2 response
+        "enriched_prospects": [...],  // From Step 2 response
         "company_name": "Mayo Clinic",
-        "min_score_threshold": 65,     # Optional, defaults to 70
-        "max_prospects": 10            # Optional, defaults to 10
+        "min_score_threshold": 65,     // Optional, defaults to 65
+        "max_prospects": 10            // Optional, defaults to 10
     }
+    ```
+
+    **AI Scoring Factors (0-100 scale):**
+    - Job Title Relevance (35%) - Director of Facilities = 35-40 pts
+    - Decision Authority (25%) - High authority = 20-25 pts
+    - Employment Confidence (20%) - High confidence gets bonus points
+    - Company Size (15%) - Large healthcare systems = 12-15 pts
+    - Accessibility (5%) - Active LinkedIn profile = 8-10 pts
+
+    **Pipeline Complete:** This is the final step. Results ready for Salesforce import.
+
+    **Optional Next Step:** Call /discover-prospects-zoominfo for contact validation
     """
     try:
         enriched_prospects = request.get("enriched_prospects", [])
@@ -526,23 +628,45 @@ async def discover_prospects_step3(request: dict):
             detail=f"Error in step 3: {str(e)}"
         )
 
-@app.post("/discover-prospects-step4")
-async def discover_prospects_step4(request: dict):
+########################################
+# ZOOMINFO VALIDATION (OPTIONAL)
+########################################
+# Optional enhancement to validate and enrich contact information using ZoomInfo.
+# Can be used after Step 3 to validate email addresses and phone numbers.
+#
+# Note: ZoomInfo integration requires OAuth setup. If not configured, this endpoint
+# will gracefully return the original data without validation.
+
+@app.post("/discover-prospects-zoominfo")
+async def discover_prospects_zoominfo(request: dict):
     """
-    STEP 4 of 4-Step Pipeline: ZoomInfo Validation
+    🔍 OPTIONAL - ZoomInfo Contact Validation
+
+    **What it does:**
     - Takes qualified prospects from Step 3
-    - Validates contact info (email, phone) with ZoomInfo
-    - Compares LinkedIn vs ZoomInfo data
-    - Uses ZoomInfo data when different (more current)
+    - Validates contact info (email, phone) with ZoomInfo API
+    - Compares LinkedIn vs ZoomInfo data for accuracy
+    - Uses ZoomInfo data when different (assumed more current)
     - Returns validated prospects with enriched contact information
 
-    Expected: ~10-20 seconds
+    **Expected Time:** 10-20 seconds
 
-    Request format:
+    **Request format:**
+    ```json
     {
-        "qualified_prospects": [...],  # From Step 3 response
+        "qualified_prospects": [...],  // From Step 3 response
         "company_name": "Mayo Clinic"
     }
+    ```
+
+    **Status:** Optional enhancement. If ZoomInfo is not configured, returns
+    original prospects unchanged with a graceful skip message.
+
+    **Use Case:**
+    - Validate email deliverability before sending campaigns
+    - Get direct phone numbers for prospects
+    - Confirm current employment status
+    - Get more accurate contact information than LinkedIn provides
     """
     try:
         qualified_prospects = request.get("qualified_prospects", [])
@@ -561,7 +685,7 @@ async def discover_prospects_step4(request: dict):
         if result.get("success"):
             return {
                 "status": "success",
-                "message": "Step 4: ZoomInfo validation completed - Pipeline finished!",
+                "message": "ZoomInfo validation completed",
                 "data": result,
                 "timestamp": datetime.utcnow().isoformat()
             }
@@ -570,30 +694,46 @@ async def discover_prospects_step4(request: dict):
             if "not configured" in result.get("error", ""):
                 return {
                     "status": "success",
-                    "message": "Step 4: Skipped (ZoomInfo not configured)",
+                    "message": "ZoomInfo validation skipped (not configured)",
                     "data": {
                         "success": True,
                         "prospects": qualified_prospects,
-                        "stats": {"total": len(qualified_prospects), "skipped": len(qualified_prospects)}
+                        "stats": {"total": len(qualified_prospects), "skipped": len(qualified_prospects)},
+                        "note": "ZoomInfo is not configured. Returning original prospects unchanged."
                     },
                     "timestamp": datetime.utcnow().isoformat()
                 }
 
             raise HTTPException(
                 status_code=400,
-                detail=f"Step 4 failed: {result.get('error', 'Unknown error')}"
+                detail=f"ZoomInfo validation failed: {result.get('error', 'Unknown error')}"
             )
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Error in step 4: {str(e)}"
+            detail=f"Error in ZoomInfo validation: {str(e)}"
         )
+
+########################################
+# TESTING & DEBUG ENDPOINTS
+########################################
+# Utility endpoints for testing API integrations and debugging issues.
 
 @app.get("/test-services")
 async def test_prospect_services():
-    """Test all prospect discovery services"""
+    """
+    🧪 Test all prospect discovery service integrations
+
+    Tests connectivity and authentication for:
+    - Serper API (LinkedIn search)
+    - OpenAI API (AI qualification)
+    - Apify API (LinkedIn scraping)
+    - Salesforce API (CRM integration)
+
+    Returns status and sample responses for each service.
+    """
     try:
         result = await prospect_discovery_service.test_services()
 
@@ -609,14 +749,30 @@ async def test_prospect_services():
             detail=f"Error testing services: {str(e)}"
         )
 
-# LinkedIn Scraping Endpoints
+########################################
+# LINKEDIN SCRAPING ENDPOINTS
+########################################
+# Direct LinkedIn profile scraping via Apify.
+# Used internally by the prospect discovery pipeline, but also available as standalone endpoints.
 
 @app.post("/linkedin/scrape-profiles")
 async def scrape_linkedin_profiles(request: dict):
     """
-    Scrape LinkedIn profiles directly
-    
-    Expected request format:
+    🔍 Scrape LinkedIn profiles directly via Apify
+
+    **Use Case:** Standalone LinkedIn data extraction without the full pipeline.
+
+    **What it returns:**
+    - 35+ fields per profile (name, title, company, location, etc.)
+    - Full work experience history
+    - Education, skills, and certifications
+    - LinkedIn connections and follower count
+    - Contact information (email, phone if available)
+
+    **Rate Limits:** Maximum 10 LinkedIn URLs per request (cost control)
+
+    **Request format:**
+    ```json
     {
         "linkedin_urls": [
             "https://www.linkedin.com/in/lucaserb/",
@@ -624,6 +780,9 @@ async def scrape_linkedin_profiles(request: dict):
         ],
         "include_detailed_data": true
     }
+    ```
+
+    **Cost:** ~$0.005 per profile (~$0.05 for 10 profiles)
     """
     try:
         linkedin_urls = request.get("linkedin_urls", [])
@@ -663,7 +822,12 @@ async def scrape_linkedin_profiles(request: dict):
 
 @app.get("/linkedin/test")
 async def test_linkedin_service():
-    """Test LinkedIn scraping service with sample profiles"""
+    """
+    🧪 Test LinkedIn scraping service with sample profiles
+
+    Tests Apify LinkedIn scraper integration with a few sample profiles.
+    Useful for verifying API key and connectivity.
+    """
     try:
         result = await linkedin_service.test_scraping()
         
@@ -689,11 +853,20 @@ async def test_linkedin_service():
             "timestamp": datetime.utcnow().isoformat()
         }
 
-# Credit Enrichment Endpoints
+########################################
+# CREDIT ENRICHMENT ENDPOINTS (EDF-X)
+########################################
+# Company credit rating and probability of default (PD) enrichment via EDF-X.
+# Provides financial risk assessment for healthcare facilities.
 
 @app.post("/credit/test-connection")
 async def test_credit_connection():
-    """Test EDF-X API connection and authentication"""
+    """
+    🧪 Test EDF-X API connection and authentication
+
+    Verifies EDF-X credentials and API connectivity.
+    Returns sample entity search to confirm integration is working.
+    """
     try:
         result = await credit_enrichment_service.test_connection()
         
@@ -718,16 +891,32 @@ async def test_credit_connection():
 @app.post("/credit/enrich-company")
 async def enrich_company_credit(request: dict):
     """
-    Enrich a company with credit rating and PD data from EDF-X
-    
-    Expected request format:
+    💰 Enrich a company with credit rating and PD data from EDF-X
+
+    **What it returns:**
+    - Credit rating (AAA to D scale)
+    - Probability of Default (PD) percentage
+    - Confidence score (0-100%)
+    - Company size and industry classification
+    - As-of date for credit data
+
+    **Use Case:** Financial risk assessment for healthcare facility prospects.
+
+    **Request format:**
+    ```json
     {
-        "company_name": "Apple Inc",
-        "website": "apple.com",  # Optional but recommended for better matching
-        "city": "Cupertino",     # Optional
-        "state": "CA",           # Optional
-        "country": "USA"         # Optional
+        "company_name": "Mayo Clinic",
+        "website": "mayoclinic.org",  // Optional but recommended for better matching
+        "city": "Rochester",           // Optional
+        "state": "Minnesota",          // Optional
+        "country": "USA"               // Optional
     }
+    ```
+
+    **Matching Logic:**
+    - Exact name + website match (highest confidence)
+    - Fuzzy name match with location (medium confidence)
+    - Name-only match (lower confidence)
     """
     try:
         company_name = request.get("company_name")
@@ -793,23 +982,31 @@ async def enrich_company_credit(request: dict):
 @app.post("/credit/batch-enrich")
 async def batch_enrich_companies(request: dict):
     """
-    Batch enrich multiple companies with credit data
-    
-    Expected request format:
+    💰 Batch enrich multiple companies with credit data
+
+    **Rate Limits:** Maximum 50 companies per batch request
+
+    **Use Case:** Enrich multiple healthcare facilities with financial risk data in one call.
+
+    **Request format:**
+    ```json
     {
         "companies": [
             {
-                "company_name": "Apple Inc",
-                "website": "apple.com",
-                "city": "Cupertino",
-                "state": "CA"
+                "company_name": "Mayo Clinic",
+                "website": "mayoclinic.org",
+                "city": "Rochester",
+                "state": "Minnesota"
             },
             {
-                "company_name": "Microsoft Corporation", 
-                "website": "microsoft.com"
+                "company_name": "Cleveland Clinic",
+                "website": "clevelandclinic.org"
             }
         ]
     }
+    ```
+
+    **Returns:** Array of credit enrichment results with summary statistics.
     """
     try:
         companies_data = request.get("companies", [])
@@ -888,7 +1085,14 @@ async def batch_enrich_companies(request: dict):
             detail=f"Error in batch credit enrichment: {str(e)}"
         )
 
-# Salesforce Enrichment Endpoints
+########################################
+# SALESFORCE ENRICHMENT ENDPOINTS
+########################################
+# AI-powered enrichment of Salesforce accounts and contacts.
+# Requires API key authentication (X-API-Key header).
+#
+# Account Enrichment: Company data, financials, credit ratings
+# Contact Enrichment: Personalized rapport, role analysis, campaign content
 
 @app.post("/enrich/account")
 async def enrich_account(
@@ -896,28 +1100,34 @@ async def enrich_account(
     api_key: str = Depends(verify_api_key)
 ):
     """
-    Enrich a Salesforce account with comprehensive data
-    
-    **Authentication Required:** Include X-API-Key header
-    
-    This endpoint enriches an account with:
+    🏢 Enrich a Salesforce account with comprehensive company data
+
+    **Authentication Required:** Include `X-API-Key` header
+
+    **What it enriches:**
     - Company description, HQ location, employee count
     - Geographic footprint and recent news
     - Capital project history and infrastructure upgrades
     - Energy efficiency projects
     - Financial data (if include_financial is True)
-    - Credit-only mode (if credit_only is True, runs ONLY EDFx credit enrichment)
-    
-    Expected request format:
+    - Credit rating/PD (if credit_only is True, runs ONLY EDFx enrichment)
+
+    **Request format:**
+    ```json
     {
         "account_id": "001VR00000UhY3oYAF",
-        "overwrite": false,
-        "include_financial": true,
-        "credit_only": false
+        "overwrite": false,           // Skip if already enriched
+        "include_financial": true,    // Include credit rating
+        "credit_only": false          // Only run EDFx credit enrichment
     }
-    
-    Headers:
-    - X-API-Key: your-api-key
+    ```
+
+    **Headers:**
+    ```
+    X-API-Key: your-api-key
+    ```
+
+    **Use Case:** Enrich healthcare facility accounts before outreach campaigns.
     """
     try:
         result = await enrichment_service.enrich_account(
@@ -954,28 +1164,34 @@ async def enrich_contact(
     api_key: str = Depends(verify_api_key)
 ):
     """
-    Enrich a Salesforce contact with personalized data
-    
-    **Authentication Required:** Include X-API-Key header
-    
-    This endpoint enriches a contact with:
+    👤 Enrich a Salesforce contact with personalized outreach data
+
+    **Authentication Required:** Include `X-API-Key` header
+
+    **What it enriches:**
     - Personalized rapport summaries (4 variations)
     - Local sports teams and personal interests
     - Role description and work experience
     - Energy project history
-    - Why their role is relevant to Metrus
+    - Why their role is relevant to Metrus Energy
     - Custom email campaign subject lines (4 variations)
     - LinkedIn profile data (if include_linkedin is True)
-    
-    Expected request format:
+
+    **Request format:**
+    ```json
     {
         "contact_id": "003VR00000YLIzRYAX",
-        "overwrite": false,
-        "include_linkedin": true
+        "overwrite": false,        // Skip if already enriched
+        "include_linkedin": true   // Scrape LinkedIn profile
     }
-    
-    Headers:
-    - X-API-Key: your-api-key
+    ```
+
+    **Headers:**
+    ```
+    X-API-Key: your-api-key
+    ```
+
+    **Use Case:** Personalize outreach to decision-makers at healthcare facilities.
     """
     try:
         result = await enrichment_service.enrich_contact(
@@ -1007,7 +1223,16 @@ async def enrich_contact(
 
 @app.get("/debug/environment")
 async def debug_environment():
-    """Debug endpoint to check environment variables (for Railway deployment troubleshooting)"""
+    """
+    🐛 Debug endpoint to check environment variables
+
+    **Use Case:** Railway deployment troubleshooting
+
+    Returns boolean flags for whether each required environment variable is set,
+    plus total count of all environment variables.
+
+    **Does NOT** return actual credential values (security).
+    """
     env_vars = {
         "SALESFORCE_USERNAME": bool(os.getenv('SALESFORCE_USERNAME')),
         "SALESFORCE_PASSWORD": bool(os.getenv('SALESFORCE_PASSWORD')),
