@@ -10,15 +10,21 @@ Automated pipeline that discovers, qualifies, and enriches healthcare facility p
 
 ## 🚀 **System Overview**
 
-**Complete Pipeline**: Company Name → LinkedIn Search → **🆕 Company Validation** → AI Qualification → Profile Scraping → Salesforce Lead Creation
+**Three-Step Pipeline** (Production-Ready for Railway):
+```
+Step 1: Search & Filter → Step 2: Scrape & Validate → Step 3: AI Ranking
+30-90s                    15-35s                      5-25s
+Total: ~1-2.5 minutes per hospital
+```
 
 ### **🎯 Core Functionality:**
 - **🔍 Prospect Discovery**: Find LinkedIn profiles by company and target job titles
-- **🆕 Company Validation**: AI-powered verification of current employment & name variations
-- **🧠 AI Qualification**: Score and rank prospects using GPT-4 analysis 
+- **✅ Company Validation**: Normalized name matching (St. ↔ Saint, state abbreviations)
+- **🧠 AI Qualification**: Score and rank prospects using GPT-4 analysis
 - **📊 Profile Enrichment**: Extract detailed LinkedIn data via Apify
 - **⚡ Salesforce Integration**: Create qualified leads directly in Salesforce
-- **💰 Cost Tracking**: ~$0.57 per company analysis
+- **💰 Cost Tracking**: ~$0.40 per hospital (October 2025 update)
+- **📈 Success Rate**: 69% (9/13 hospitals, October 2025 production test)
 
 ---
 
@@ -69,12 +75,13 @@ Our AI uses **OpenAI GPT-4** to analyze each prospect with this precise scoring 
 - **≥70 points** = Qualified prospect (returned in results)
 - **<70 points** = Not qualified (filtered out)
 
-### **🆕 Company Validation System:**
-**AI-powered employment verification to ensure prospect quality**
-- ✅ Validates current employment vs. former employees
-- 🏢 Handles company name variations (UCI Medical Center = UCI Health = UC Irvine)
-- 📊 Confidence scoring for employment validation (70%+ required)
-- 🔗 See [Company Validation Documentation](COMPANY_VALIDATION_README.md) for details
+### **✅ Company Validation System:**
+**Enhanced name matching to handle healthcare facility variations**
+- ✅ Normalizes "St." ↔ "Saint" (St. Patrick Hospital = Saint Patrick Hospital)
+- 🏢 Removes healthcare suffixes (Medical Center, Hospital, Health System)
+- 📍 Strips state abbreviations ("Hospital MT" → "Hospital")
+- 🔗 Validates current employment vs. former employees
+- 📊 See [Three-Step Pipeline Documentation](THREE_STEP_PIPELINE.md) for details
 
 ### **🏆 Example Scoring (Johns Hopkins Hospital):**
 
@@ -88,49 +95,56 @@ Our AI uses **OpenAI GPT-4** to analyze each prospect with this precise scoring 
 
 ## 📡 **API Endpoints**
 
-### **🎯 Core Prospect Discovery**
-```bash
-POST /discover-prospects
-```
-**Complete prospect discovery pipeline for any company**
+### **🎯 Three-Step Prospect Discovery** (Recommended)
 
-**Request:**
+**Step 1: Search & Filter**
+```bash
+POST /discover-prospects-step1
+```
+Returns qualified LinkedIn URLs after search and title filtering.
+
+**Step 2: Scrape & Validate**
+```bash
+POST /discover-prospects-step2
+```
+Scrapes profiles and validates company/employment/location.
+
+**Step 3: AI Ranking**
+```bash
+POST /discover-prospects-step3
+```
+AI ranks prospects and returns top qualified (score ≥65).
+
+**Complete Example:**
 ```json
+// Step 1 Request
 {
   "company_name": "Mayo Clinic",
-  "target_titles": ["Director of Facilities", "CFO", "Energy Manager"]
+  "company_city": "Rochester",
+  "company_state": "Minnesota"
+}
+
+// Step 3 Final Response
+{
+  "qualified_prospects": [
+    {
+      "linkedin_data": {
+        "name": "John Smith",
+        "job_title": "Director of Facilities",
+        "email": "john@mayo.edu",
+        "connections": 450
+      },
+      "ai_ranking": {
+        "ranking_score": 92,
+        "ranking_reasoning": "Director-level facilities role...",
+        "rank_position": 1
+      }
+    }
+  ]
 }
 ```
 
-**Response:**
-```json
-{
-  "status": "success",
-  "data": {
-    "pipeline_summary": {
-      "search_results_found": 20,
-      "prospects_qualified": 3,
-      "linkedin_profiles_scraped": 3,
-      "final_prospects": 3
-    },
-    "qualified_prospects": [
-      {
-        "qualification_score": 95,
-        "persona_match": "Director of Facilities",
-        "decision_authority": "High",
-        "ai_reasoning": "Key decision maker for infrastructure projects...",
-        "pain_points": ["infrastructure costs", "deferred maintenance"],
-        "outreach_approach": "Focus on infrastructure upgrades...",
-        "linkedin_url": "https://linkedin.com/in/prospect",
-        "linkedin_data": { ... }
-      }
-    ],
-    "cost_estimates": {
-      "total_estimated": 0.57
-    }
-  }
-}
-```
+📚 **Full Documentation**: See [THREE_STEP_PIPELINE.md](THREE_STEP_PIPELINE.md)
 
 ### **⚡ Salesforce Integration**
 ```bash
@@ -207,31 +221,44 @@ hypercorn main:app --reload
 
 ---
 
-## 📊 **Performance Metrics**
+## 📊 **Performance Metrics** (October 2025 Production Test)
 
 ### **Pipeline Efficiency:**
-- **Search Results**: 15-25 LinkedIn profiles per company
-- **Qualification Rate**: ~15% (3-5 qualified prospects)
-- **Processing Time**: 30-60 seconds per company
-- **Cost Per Lead**: ~$0.12-0.20 per qualified prospect
+- **Processing Time**: 50-150 seconds per hospital (~1-2.5 minutes)
+- **Success Rate**: 69% (9 of 13 hospitals)
+- **Prospects Per Hospital**: 2.6 average for successful hospitals
+- **Total Prospects**: 23 qualified from 13 hospitals
+- **Cost Per Hospital**: ~$0.40
 
-### **AI Accuracy:**
-- **Job Title Matching**: 95%+ accuracy
-- **Decision Authority Assessment**: 90%+ accuracy
-- **Industry Relevance**: 98%+ (healthcare focus)
+### **Filtering Effectiveness:**
+- **Initial Search Results**: 40-61 profiles per hospital
+- **After Title Filter**: 2-17 qualified for scraping
+- **After Company Validation**: 1-9 pass employment checks
+- **After AI Ranking (≥65)**: 1-6 final qualified prospects
+
+### **Common Failure Modes:**
+- **Low Connections** (3 hospitals): All prospects <50 LinkedIn connections
+- **Employment Status** (1 hospital): All prospects identified as former employees
 
 ---
 
-## 🎯 **Real-World Example**
+## 🎯 **Real-World Examples** (October 2025)
 
-**Input**: `{"company_name": "Cleveland Clinic"}`
+### **Saint Alphonsus Regional Medical Center** (Boise, ID)
+**Best Performer**: 6 qualified prospects in 130 seconds
 
-**Output**: 3 qualified prospects with scores 95, 90, 85
-- **Tom Shepard** - Director of Facilities (Score: 95)
-- **Anthony Echazabal** - Senior Director Operations (Score: 90) 
-- **Tammy Shaw** - Director Compliance (Score: 85)
+**Top 3 Prospects:**
+1. **Joel DeBlasio** - Director of Operations (Score: 92)
+   - Email: joel.deblasio@saintalphonsus.org
+2. **Lannie Checketts** - VP Finance (Score: 88)
+3. **Shawn Dammarell** - Director of Finance (Score: 88)
 
-Each with detailed pain points, outreach strategies, and LinkedIn profiles ready for engagement.
+### **Benefis Hospitals Inc** (Great Falls, MT)
+**3 qualified prospects in 113 seconds**
+
+**Top Prospect:**
+- **Gunnar VanderMars** - Facilities Director (Score: 92)
+- 450+ LinkedIn connections, 15+ years experience
 
 ---
 

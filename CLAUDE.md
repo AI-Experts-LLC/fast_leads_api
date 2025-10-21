@@ -24,28 +24,42 @@ curl http://localhost:8000/health
 
 ### Testing
 ```bash
-# Test full prospect discovery pipeline
-python test_local_linkedin_discovery.py
+# Test 3-step pipeline (single hospital)
+python tests/test_three_step_discovery.py
 
-# Test multiple hospitals
-python test_multiple_hospitals.py
+# Test batch processing (2 hospitals)
+python tests/test_batch_three_step.py
 
-# Test single company batch processing
-python test_batch_single.py
+# Test full batch with CSV export (all hospitals)
+python tests/batch_all_hospitals_full_export.py
 
-# Quick validation test
-python quick_test.py
-
-# Test specific hospital (edit TEST_HOSPITAL_NAME in file)
-python batch_prospect_discovery.py
+# Legacy tests (may be outdated)
+python tests/test_local_linkedin_discovery.py
+python tests/test_multiple_hospitals.py
+python tests/batch_prospect_discovery.py
 
 # Test enrichment endpoints
-python test_enrichment_api.py --account <account_id> --api-key <key>
+python tests/test_enrichment_api.py --account <account_id> --api-key <key>
 ```
 
 ### API Testing (Local)
 ```bash
-# Test improved discovery pipeline
+# Test 3-step pipeline - Step 1
+curl -X POST "http://127.0.0.1:8000/discover-prospects-step1" \
+  -H "Content-Type: application/json" \
+  -d '{"company_name": "Mayo Clinic", "company_city": "Rochester", "company_state": "Minnesota"}'
+
+# Test 3-step pipeline - Step 2 (use linkedin_urls from Step 1)
+curl -X POST "http://127.0.0.1:8000/discover-prospects-step2" \
+  -H "Content-Type: application/json" \
+  -d '{"linkedin_urls": ["..."], "company_name": "Mayo Clinic", "company_city": "Rochester", "company_state": "Minnesota"}'
+
+# Test 3-step pipeline - Step 3 (use enriched_prospects from Step 2)
+curl -X POST "http://127.0.0.1:8000/discover-prospects-step3" \
+  -H "Content-Type: application/json" \
+  -d '{"enriched_prospects": [...], "company_name": "Mayo Clinic", "min_score_threshold": 65}'
+
+# Test improved discovery pipeline (local only - times out on Railway)
 curl -X POST "http://127.0.0.1:8000/discover-prospects-improved" \
   -H "Content-Type: application/json" \
   -d '{"company_name": "Mayo Clinic", "company_city": "Rochester", "company_state": "Minnesota"}'
@@ -103,19 +117,24 @@ Search → Basic Filter → AI Company Filter → LinkedIn Scraping → AI Ranki
 ```
 - **Fix**: Rule-based filtering first, LinkedIn scraping before AI analysis
 - **Key**: AI only ranks real data, never creates or modifies prospect information
-- See `PROSPECT_DISCOVERY_IMPROVEMENTS.md` for detailed explanation
+- **Note**: Works locally but may timeout on Railway (>5 minutes)
 
-**3. Three-Step Pipeline** (`/discover-prospects-step1`, `/step2`, `/step3`):
+**3. Three-Step Pipeline** (`/discover-prospects-step1`, `/step2`, `/step3`): ⭐ RECOMMENDED
 ```
-Step 1: Search & Filter (30-50s)
-Step 2: Scrape Profiles (50-90s)
-Step 3: AI Ranking (15-25s)
+Step 1: Search & Filter (30-90s)
+Step 2: Scrape & Validate (15-35s)
+Step 3: AI Ranking (5-25s)
+Total: 50-150s (~1-2.5 minutes)
 ```
 - **Purpose**: Avoid Railway's 5-minute timeout by splitting into separate API calls
 - **Use Case**: Production deployment on Railway
-- **Step 4 Available**: ZoomInfo validation (DISABLED by default due to OAuth issues)
-  - See `STEP4_ZOOMINFO_VALIDATION.md` for details
-  - Enable with `enable_zoominfo: true` (local development only)
+- **Success Rate**: 69% (9/13 hospitals in October 2025 test)
+- **Key Fixes** (October 2025):
+  - Company name matching: "St." ↔ "Saint" normalization
+  - LinkedIn scraping: Fallback company extraction from experience array
+  - Employment validation: Enhanced with company name variations
+  - State abbreviation handling: Removes " MT", " ID", etc. from company names
+  - See `THREE_STEP_PIPELINE.md` for complete documentation
 
 ### Core Service Architecture
 
@@ -176,6 +195,18 @@ app/services/
 - Regex patterns for exclusions: `\bintern\b`, `\bstudent\b`, `\bformer\b`
 - Senior indicators: `\bdirector\b`, `\bmanager\b`, `\bcfo\b`, `\bcoo\b`
 - Location matching using Levenshtein distance for fuzzy matching
+
+**Company Name Matching** (`three_step_prospect_discovery.py:665-725`):
+- Normalizes "St." ↔ "Saint" variations before comparison
+- Removes healthcare suffixes: "Medical Center", "Hospital", "Health System"
+- Removes state abbreviations: " MT", " ID", " CA", etc.
+- Collapses multiple whitespaces after suffix removal
+- Generates multiple company name variations for matching
+
+**LinkedIn Company Extraction** (`linkedin.py:180-185`):
+- Extracts company from `companyName` field if available
+- Falls back to most recent experience if `companyName` is null
+- Fixes issue where Apify returns null company despite valid experience data
 
 ## API Endpoints
 
