@@ -186,10 +186,24 @@ SALESFORCE_USERNAME=your_username
 SALESFORCE_PASSWORD=your_password
 SALESFORCE_SECURITY_TOKEN=your_token
 
-# Prospect Discovery API Keys
-SERPER_API_KEY=your_serper_key          # Google Search API
-OPENAI_API_KEY=your_openai_key          # AI Qualification
-APIFY_API_TOKEN=your_apify_token        # LinkedIn Scraping
+# Prospect Discovery API Keys (Required)
+SERPER_API_KEY=your_serper_key          # Google Search API for LinkedIn
+OPENAI_API_KEY=your_openai_key          # AI Qualification & Enrichment
+APIFY_API_TOKEN=your_apify_token        # LinkedIn Profile Scraping
+
+# Credit Enrichment (EDF-X) - Optional
+EDFX_USERNAME=your_edfx_username        # Company credit ratings
+EDFX_PASSWORD=your_edfx_password        # Probability of default data
+
+# API Security (Required for enrichment endpoints)
+API_KEY=your-secure-api-key             # Protect /enrich/* endpoints
+
+# Email Validation (Optional)
+ZEROBOUNCE_API_KEY=your_zerobounce_key  # Email deliverability validation
+
+# ZoomInfo Integration (Optional, not currently active)
+ZOOMINFO_CLIENT_ID=your_client_id       # Contact validation
+ZOOMINFO_CLIENT_SECRET=your_secret      # Requires OAuth setup
 
 # Optional Settings
 ENVIRONMENT=development
@@ -210,14 +224,25 @@ hypercorn main:app --reload
 
 ## 🔑 **Required API Services**
 
+### **Core Services (Required)**
+
 | Service | Purpose | Cost | Setup Link |
 |---------|---------|------|------------|
-| **Serper** | Google Search for LinkedIn profiles | $50/month for 5,000 searches | [serper.dev](https://serper.dev) |
-| **OpenAI** | AI qualification and analysis | ~$20/month usage | [platform.openai.com](https://platform.openai.com) |
+| **Serper** | Google Search for LinkedIn profiles | $50/month (5,000 searches) | [serper.dev](https://serper.dev) |
+| **OpenAI** | AI qualification, enrichment & analysis | ~$20-50/month usage | [platform.openai.com](https://platform.openai.com) |
 | **Apify** | LinkedIn profile scraping | $49/month + usage | [apify.com](https://apify.com) |
 | **Salesforce** | CRM integration | Existing account | Your Salesforce org |
 
-**Total Monthly Cost**: ~$120-150/month for full functionality
+### **Optional Services**
+
+| Service | Purpose | Cost | Setup Link |
+|---------|---------|------|------------|
+| **EDF-X** | Company credit ratings & PD data | Custom pricing | Contact EDF-X |
+| **ZeroBounce** | Email deliverability validation | $16/month (2,000 credits) | [zerobounce.net](https://www.zerobounce.net) |
+| **ZoomInfo** | Contact validation & enrichment | Enterprise pricing | [zoominfo.com](https://www.zoominfo.com) |
+
+**Core Services Cost**: ~$120-150/month
+**With Optional Services**: ~$150-200+/month
 
 ---
 

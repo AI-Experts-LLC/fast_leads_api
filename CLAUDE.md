@@ -77,25 +77,32 @@ curl http://localhost:8000/test-services
 pip install -r requirements.txt
 
 # Required environment variables in .env:
-# Salesforce
+# Salesforce Configuration
 SALESFORCE_DOMAIN=https://test.salesforce.com
 SALESFORCE_USERNAME=your_username
 SALESFORCE_PASSWORD=your_password
 SALESFORCE_SECURITY_TOKEN=your_token
 
-# Prospect Discovery APIs
-SERPER_API_KEY=your_serper_key          # Google Search API
-OPENAI_API_KEY=your_openai_key          # AI Qualification
-APIFY_API_TOKEN=your_apify_token        # LinkedIn Scraping
+# Prospect Discovery API Keys (Required)
+SERPER_API_KEY=your_serper_key          # Google Search API for LinkedIn
+OPENAI_API_KEY=your_openai_key          # AI Qualification & Enrichment
+APIFY_API_TOKEN=your_apify_token        # LinkedIn Profile Scraping
 
-# Credit Enrichment (EDF-X)
-EDFX_USERNAME=your_edfx_username
-EDFX_PASSWORD=your_edfx_password
+# Credit Enrichment (EDF-X) - Optional
+EDFX_USERNAME=your_edfx_username        # Company credit ratings
+EDFX_PASSWORD=your_edfx_password        # Probability of default data
 
-# API Security (for enrichment endpoints)
-API_KEY=your-secure-api-key
+# API Security (Required for enrichment endpoints)
+API_KEY=your-secure-api-key             # Protect /enrich/* endpoints
 
-# Optional
+# Email Validation (Optional)
+ZEROBOUNCE_API_KEY=your_zerobounce_key  # Email deliverability validation
+
+# ZoomInfo Integration (Optional, not currently active)
+ZOOMINFO_CLIENT_ID=your_client_id       # Contact validation
+ZOOMINFO_CLIENT_SECRET=your_secret      # Requires OAuth setup
+
+# Optional Settings
 ENVIRONMENT=development
 PORT=8000
 ```
