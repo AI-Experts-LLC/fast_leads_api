@@ -104,7 +104,7 @@ class WebSearchContactEnricher:
             'value_prop': 'Fewer emergencies and maintenance headaches, partnership with experts, proven vendor performance'
         },
         'Director_Sustainability': {
-            'titles': ['sustainability director', 'director sustainability', 'environmental director', 'energy manager', 'sustainability manager'],
+            'titles': ['sustainability director', 'director sustainability', 'environmental director', 'energy manager', 'senior energy engineer', 'energy engineer', 'sustainability manager'],
             'pain_points': 'Ambitious climate targets without clear funding, difficulty getting buy-in across departments, need to show measurable progress',
             'value_prop': 'Partner in hitting sustainability goals without CapEx, measurable carbon reduction, success stories to share'
         }

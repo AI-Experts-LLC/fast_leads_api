@@ -38,8 +38,8 @@ class SerperSearchService:
         Args:
             company_name: Name of the company to search
             target_titles: List of job titles to search for (optional)
-            company_city: City where company is located (optional, improves search accuracy)
-            company_state: State where company is located (optional, improves search accuracy)
+            company_city: City where company is located (REQUIRED for search accuracy)
+            company_state: State where company is located (REQUIRED for search accuracy)
 
         Returns:
             Dictionary with search results and metadata
@@ -48,6 +48,14 @@ class SerperSearchService:
             return {
                 "success": False,
                 "error": "Serper API key not configured"
+            }
+
+        # REQUIRE location (at minimum state) for search
+        if not company_state:
+            logger.error("Location (state) is REQUIRED for LinkedIn search but was not provided")
+            return {
+                "success": False,
+                "error": "Location is required: company_state must be provided for accurate prospect search"
             }
 
         try:
@@ -75,16 +83,19 @@ class SerperSearchService:
 
             all_results = []
 
-            # Build location string for search query
-            location_str = ""
+            # Build location string for search query (REQUIRED)
+            # Prefer city + state, but state alone is acceptable
             if company_city and company_state:
                 location_str = f"{company_city} {company_state} "
+                logger.info(f"Using location: {company_city}, {company_state}")
             elif company_state:
                 location_str = f"{company_state} "
+                logger.info(f"Using location: {company_state} (city not provided)")
 
             # Search for each target title
             for title in target_titles:
                 # Format: "Company City State Title site:linkedin.com/in"
+                # Location is ALWAYS included now
                 search_query = f'{company_name} {location_str}{title} site:linkedin.com/in'
 
                 logger.info(f"Searching: {search_query}")
