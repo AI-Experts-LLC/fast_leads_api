@@ -670,6 +670,10 @@ class ThreeStepProspectDiscoveryService:
         current_lower = current_company.lower().strip()
         target_lower = target_company.lower().strip()
 
+        # Normalize "St." vs "Saint" variations before comparison
+        current_lower = current_lower.replace('st.', 'saint').replace('st ', 'saint ')
+        target_lower = target_lower.replace('st.', 'saint').replace('st ', 'saint ')
+
         if current_lower == target_lower:
             return {'is_match': True, 'reason': 'Exact match'}
 
@@ -679,12 +683,34 @@ class ThreeStepProspectDiscoveryService:
             "health care", "medical group", "health services", "health & services"
         ]
 
+        # State abbreviations to remove
+        state_abbrevs = [
+            " al", " ak", " az", " ar", " ca", " co", " ct", " de", " fl", " ga",
+            " hi", " id", " il", " in", " ia", " ks", " ky", " la", " me", " md",
+            " ma", " mi", " mn", " ms", " mo", " mt", " ne", " nv", " nh", " nj",
+            " nm", " ny", " nc", " nd", " oh", " ok", " or", " pa", " ri", " sc",
+            " sd", " tn", " tx", " ut", " vt", " va", " wa", " wv", " wi", " wy"
+        ]
+
         current_base = current_lower
         target_base = target_lower
 
+        # Remove healthcare suffixes
         for suffix in healthcare_suffixes:
             current_base = current_base.replace(suffix, "").strip()
             target_base = target_base.replace(suffix, "").strip()
+
+        # Normalize whitespace (collapse multiple spaces)
+        import re
+        current_base = re.sub(r'\s+', ' ', current_base).strip()
+        target_base = re.sub(r'\s+', ' ', target_base).strip()
+
+        # Remove state abbreviations from the end
+        for state in state_abbrevs:
+            if current_base.endswith(state):
+                current_base = current_base[:-len(state)].strip()
+            if target_base.endswith(state):
+                target_base = target_base[:-len(state)].strip()
 
         if current_base == target_base:
             return {'is_match': True, 'reason': 'Base name match'}
@@ -815,10 +841,17 @@ class ThreeStepProspectDiscoveryService:
         return {'is_match': False, 'reason': f"Location mismatch: prospect in '{prospect_location}' but target is '{company_city}, {company_state}'"}
 
     def _generate_company_variations(self, company_name: str) -> List[str]:
-        """Generate company name variations - same as original"""
-        variations = [company_name]
+        """Generate company name variations - with St/Saint normalization"""
+        # Normalize St/Saint variations first
+        normalized_name = company_name.replace('St.', 'Saint').replace('St ', 'Saint ')
 
-        name_parts = company_name.split()
+        variations = [company_name, normalized_name]
+
+        # Also add variations without periods for all variations
+        variations.append(company_name.replace('.', ''))
+        variations.append(normalized_name.replace('.', ''))
+
+        name_parts = normalized_name.split()
         if len(name_parts) > 1:
             variations.append(" ".join(name_parts[:-1]))
             variations.append(name_parts[0])
@@ -828,10 +861,10 @@ class ThreeStepProspectDiscoveryService:
             "Medical", "Health", "Clinic", "Regional Medical Center"
         ]
 
-        base_name = company_name
+        base_name = normalized_name
         for suffix in healthcare_suffixes:
-            if suffix in company_name:
-                base_name = company_name.replace(suffix, "").strip()
+            if suffix in normalized_name:
+                base_name = normalized_name.replace(suffix, "").strip()
                 break
 
         for suffix in healthcare_suffixes:

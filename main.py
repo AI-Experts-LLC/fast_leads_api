@@ -394,94 +394,6 @@ async def discover_prospects_step1(request: dict):
             detail=f"Error in step 1: {str(e)}"
         )
 
-@app.post("/discover-prospects-by-account-id")
-async def discover_prospects_by_account_id(request: dict):
-    """
-    STEP 1 of 3-Step Pipeline: Search and Filter (using Salesforce Account ID)
-
-    **NEW:** Use Salesforce Account ID to automatically retrieve company details
-
-    - Retrieves account name, city, state, and parent account name from Salesforce
-    - Searches LinkedIn profiles using BOTH local and parent account names
-    - Applies basic filters (removes interns, students, former employees)
-    - Applies AI title filter
-    - Returns filtered prospect URLs ready for scraping
-
-    Expected: ~40-60 seconds (searches with both local and parent names)
-
-    Request format:
-    {
-        "account_id": "001VR00000UhY3oYAF",  # Salesforce Account ID
-        "target_titles": []                   # Optional - uses default titles if not provided
-    }
-
-    Benefits:
-    - Automatically gets accurate company details from Salesforce
-    - Searches with parent account name (e.g., "Providence Health") AND local name (e.g., "St. Patrick Hospital")
-    - Better matches for prospects who list parent organization on LinkedIn
-    - No need to manually specify company_name, city, state
-    """
-    try:
-        account_id = request.get("account_id")
-        target_titles = request.get("target_titles", [])
-
-        if not account_id:
-            raise HTTPException(
-                status_code=400,
-                detail="account_id is required"
-            )
-
-        # Step 1: Get account details from Salesforce
-        account_details = await salesforce_service.get_account_details_for_prospect_search(account_id)
-
-        if not account_details.get("success"):
-            raise HTTPException(
-                status_code=404,
-                detail=f"Failed to retrieve account from Salesforce: {account_details.get('error', 'Unknown error')}"
-            )
-
-        account_name = account_details["account_name"]
-        city = account_details["city"]
-        state = account_details["state"]
-        parent_name = account_details.get("parent_name")
-
-        # Step 2: Run prospect discovery with both local and parent account names
-        result = await three_step_prospect_discovery_service.step1_search_and_filter(
-            company_name=account_name,
-            target_titles=target_titles if target_titles else None,
-            company_city=city,
-            company_state=state,
-            parent_account_name=parent_name  # NEW: Pass parent account name for dual search
-        )
-
-        if result.get("success"):
-            return {
-                "status": "success",
-                "message": "Step 1: Search and filter completed (with Salesforce account data)",
-                "salesforce_account": {
-                    "account_id": account_id,
-                    "account_name": account_name,
-                    "city": city,
-                    "state": state,
-                    "parent_name": parent_name
-                },
-                "data": result,
-                "next_step": "Call /discover-prospects-step2 with linkedin_urls from this response",
-                "timestamp": datetime.utcnow().isoformat()
-            }
-        else:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Step 1 failed: {result.get('error', 'Unknown error')}"
-            )
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error in step 1 (account-based): {str(e)}"
-        )
-
 @app.post("/discover-prospects-step2")
 async def discover_prospects_step2(request: dict):
     """
@@ -565,14 +477,14 @@ async def discover_prospects_step3(request: dict):
     {
         "enriched_prospects": [...],  # From Step 2 response
         "company_name": "Mayo Clinic",
-        "min_score_threshold": 70,     # Optional, defaults to 70
+        "min_score_threshold": 65,     # Optional, defaults to 70
         "max_prospects": 10            # Optional, defaults to 10
     }
     """
     try:
         enriched_prospects = request.get("enriched_prospects", [])
         company_name = request.get("company_name")
-        min_score_threshold = request.get("min_score_threshold", 70)
+        min_score_threshold = request.get("min_score_threshold", 65)
         max_prospects = request.get("max_prospects", 10)
 
         if not enriched_prospects:
@@ -617,30 +529,24 @@ async def discover_prospects_step3(request: dict):
 @app.post("/discover-prospects-step4")
 async def discover_prospects_step4(request: dict):
     """
-    STEP 4 of 4-Step Pipeline: ZoomInfo Validation (DISABLED BY DEFAULT)
-
-    ⚠️ DISABLED: ZoomInfo requires OAuth authentication which doesn't work on Railway.
-    This endpoint will skip validation unless enable_zoominfo=true is passed.
-
+    STEP 4 of 4-Step Pipeline: ZoomInfo Validation
     - Takes qualified prospects from Step 3
-    - Validates contact info (email, phone) with ZoomInfo (if enabled)
+    - Validates contact info (email, phone) with ZoomInfo
     - Compares LinkedIn vs ZoomInfo data
     - Uses ZoomInfo data when different (more current)
     - Returns validated prospects with enriched contact information
 
-    Expected: ~10-20 seconds (if enabled)
+    Expected: ~10-20 seconds
 
     Request format:
     {
         "qualified_prospects": [...],  # From Step 3 response
-        "company_name": "Mayo Clinic",
-        "enable_zoominfo": false  # Set to true to enable ZoomInfo validation
+        "company_name": "Mayo Clinic"
     }
     """
     try:
         qualified_prospects = request.get("qualified_prospects", [])
         company_name = request.get("company_name")
-        enable_zoominfo = request.get("enable_zoominfo", False)  # Disabled by default
 
         if not qualified_prospects:
             raise HTTPException(
@@ -648,26 +554,6 @@ async def discover_prospects_step4(request: dict):
                 detail="qualified_prospects is required"
             )
 
-        # Skip ZoomInfo validation by default (OAuth issues on Railway)
-        if not enable_zoominfo:
-            return {
-                "status": "success",
-                "message": "Step 4: Skipped (ZoomInfo disabled by default - requires OAuth)",
-                "data": {
-                    "success": True,
-                    "prospects": qualified_prospects,
-                    "stats": {
-                        "total": len(qualified_prospects),
-                        "skipped": len(qualified_prospects),
-                        "validated": 0,
-                        "email_enriched": 0,
-                        "phone_enriched": 0
-                    }
-                },
-                "timestamp": datetime.utcnow().isoformat()
-            }
-
-        # Only run ZoomInfo validation if explicitly enabled
         result = await zoominfo_validation_service.validate_and_enrich_prospects(
             prospects=qualified_prospects
         )

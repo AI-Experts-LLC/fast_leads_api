@@ -176,12 +176,19 @@ class ApifyLinkedInService:
             
             # Extract top skills by endorsements
             top_skills = raw_data.get('topSkillsByEndorsements', '').split(', ') if raw_data.get('topSkillsByEndorsements') else []
-            
+
+            # Extract current company - fallback to most recent experience if companyName is null
+            current_company = raw_data.get('companyName')
+            if not current_company and experience:
+                # Get company from most recent experience (first in list)
+                most_recent = experience[0]
+                current_company = most_recent.get('company')
+
             return LinkedInProfile(
                 url=raw_data.get('linkedinUrl', ''),
                 name=raw_data.get('fullName'),
                 headline=raw_data.get('headline'),
-                company=raw_data.get('companyName'),
+                company=current_company,
                 location=raw_data.get('addressWithoutCountry') or raw_data.get('addressWithCountry'),
                 summary=raw_data.get('about'),
                 experience=experience,
