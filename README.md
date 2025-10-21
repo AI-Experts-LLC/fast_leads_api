@@ -1,10 +1,20 @@
-# 🎯 Metrus Energy - Account Enrichment API
+# 🎯 Salesforce Lead Enrichers
 
 **AI-Powered Prospect Discovery & Lead Enrichment System**
 
 Automated pipeline that discovers, qualifies, and enriches healthcare facility prospects using LinkedIn search, AI qualification, and Salesforce integration.
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/-NvLj4?referralCode=CRJ8FE)
+
+## 🤝 Contributing
+
+This project is open for contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to:
+- Set up your development environment
+- Submit pull requests
+- Report issues and suggest features
+- Follow coding standards
+
+**GitHub Repository:** [AI-Experts-LLC/salesforce_lead_enrichers](https://github.com/AI-Experts-LLC/salesforce_lead_enrichers)
 
 ---
 
