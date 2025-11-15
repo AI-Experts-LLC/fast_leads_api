@@ -19,6 +19,9 @@ class APILoggingMiddleware(BaseHTTPMiddleware):
     EXCLUDED_ENDPOINTS = {
         "/logs",
         "/logs/view",
+        "/logs/data",
+        "/logs/auth",
+        "/enrich",
         "/health",
         "/docs",
         "/openapi.json",
