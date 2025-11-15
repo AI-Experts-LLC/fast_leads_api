@@ -10,7 +10,7 @@
 
 ## Railway Environment Variables
 
-**Before deploying, verify this in Railway dashboard:**
+**Before deploying, verify these in Railway dashboard:**
 
 ### 1. Navigate to Variables
 ```
@@ -23,6 +23,19 @@ Railway Dashboard → fast-leads-api service → Variables tab
 ```
 DATABASE_URL=${{ Postgres.DATABASE_URL }}
 ```
+
+### 3. Set LOGS_PASSWORD (NEW!)
+
+**Add this variable:**
+```
+LOGS_PASSWORD=your-secure-password-here
+```
+
+**Important:**
+- This password protects the logs dashboard at `/logs/view`
+- Use a strong password (12+ characters)
+- Don't use the default `metrus2025` in production
+- Share this password securely with team members who need access
 
 **This resolves to private network URL:**
 ```

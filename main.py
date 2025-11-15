@@ -1,10 +1,12 @@
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, HTTPException, Depends, Header, Cookie
+from fastapi.responses import HTMLResponse, FileResponse, Response
 from fastapi.staticfiles import StaticFiles
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 import os
+import secrets
+from typing import Optional
 from dotenv import load_dotenv
 
 # Load environment variables BEFORE importing services
@@ -1275,22 +1277,267 @@ async def debug_environment():
 ########################################
 # API LOGGING ENDPOINTS
 ########################################
-# These endpoints provide a web UI for viewing API request/response logs
+# These endpoints provide a password-protected web UI for viewing API request/response logs
 # stored in PostgreSQL database.
 
-@app.get("/logs/view", response_class=HTMLResponse)
-async def view_logs():
+# Simple in-memory session storage (replace with Redis in production)
+active_sessions = {}
+
+def verify_logs_password(password: str) -> bool:
+    """Verify password against environment variable"""
+    correct_password = os.getenv("LOGS_PASSWORD", "changeme")
+    return password == correct_password
+
+def create_session_token() -> str:
+    """Create a secure random session token"""
+    return secrets.token_urlsafe(32)
+
+def verify_session_token(token: Optional[str]) -> bool:
+    """Verify session token is valid and not expired"""
+    if not token or token not in active_sessions:
+        return False
+
+    expiry = active_sessions[token]
+    if datetime.utcnow() > expiry:
+        del active_sessions[token]
+        return False
+
+    return True
+
+@app.post("/logs/auth")
+async def authenticate_logs(password: str):
     """
-    📊 Web UI for viewing API request/response logs
+    🔐 Authenticate for logs dashboard access
+
+    **Parameters:**
+    - password: The logs dashboard password (set in LOGS_PASSWORD env var)
+
+    **Returns:**
+    - Session token cookie that expires in 24 hours
+    """
+    if verify_logs_password(password):
+        token = create_session_token()
+        expiry = datetime.utcnow() + timedelta(hours=24)
+        active_sessions[token] = expiry
+
+        response = Response(content='{"status":"authenticated"}', media_type="application/json")
+        response.set_cookie(
+            key="logs_session",
+            value=token,
+            httponly=True,
+            max_age=86400,  # 24 hours
+            samesite="strict"
+        )
+        return response
+    else:
+        raise HTTPException(status_code=401, detail="Invalid password")
+
+@app.get("/logs/view", response_class=HTMLResponse)
+async def view_logs(logs_session: Optional[str] = Cookie(None)):
+    """
+    📊 Password-protected web UI for viewing API request/response logs
 
     **Features:**
     - Real-time log monitoring with auto-refresh
     - Expandable rows to see full request/response JSON
     - Statistics: total requests, avg response time, success rate
-    - Filterable by endpoint, method, status code
+    - Password protected with session-based authentication
 
-    **Access:** Navigate to /logs/view in your browser
+    **Access:** Navigate to /logs/view in your browser and enter password
     """
+    # Check if authenticated
+    if not verify_session_token(logs_session):
+        # Return login page
+        return HTMLResponse(content="""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs Dashboard - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 420px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+        }
+        .logo h1 {
+            font-size: 26px;
+            color: #1a365d;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .logo p {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .error.show {
+            display: block;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://cdn.prod.website-files.com/6645c7ede4572bff5e1bcfd5/6646259b5e59ac14d6e515e2_metrus-bolt-image-01-664624137b786.webp" alt="Metrus Energy">
+            <h1>Metrus Energy</h1>
+            <p>API Request Monitoring Dashboard</p>
+        </div>
+
+        <div id="error" class="error">Invalid password. Please try again.</div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter dashboard password"
+                    autocomplete="off"
+                    required
+                    autofocus
+                >
+            </div>
+            <button type="submit" class="btn">Access Dashboard</button>
+        </form>
+
+        <div class="footer">
+            Metrus Energy &copy; 2025
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+            const submitBtn = event.target.querySelector('button');
+
+            // Show loading state
+            submitBtn.textContent = 'Authenticating...';
+            submitBtn.disabled = true;
+            errorDiv.classList.remove('show');
+
+            try {
+                const response = await fetch('/logs/auth?password=' + encodeURIComponent(password), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Redirect to dashboard
+                    window.location.href = '/logs/view';
+                } else {
+                    // Show error
+                    errorDiv.classList.add('show');
+                    submitBtn.textContent = 'Access Dashboard';
+                    submitBtn.disabled = false;
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Connection error. Please try again.';
+                errorDiv.classList.add('show');
+                submitBtn.textContent = 'Access Dashboard';
+                submitBtn.disabled = false;
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>
+        """)
+
+    # Authenticated - show dashboard
     try:
         with open("app/templates/logs.html", "r") as f:
             return HTMLResponse(content=f.read())
@@ -1304,10 +1551,11 @@ async def view_logs():
 @app.get("/logs/data")
 async def get_logs_data(
     limit: int = 100,
+    logs_session: Optional[str] = Cookie(None),
     db: AsyncSession = Depends(get_db)
 ):
     """
-    📊 Get API logs data in JSON format
+    📊 Get API logs data in JSON format (password protected)
 
     **Parameters:**
     - `limit`: Maximum number of logs to return (default: 100)
@@ -1316,8 +1564,16 @@ async def get_logs_data(
     - List of log entries with request/response details
     - Statistics: total count, average duration, success rate
 
+    **Authentication:** Requires valid session cookie from /logs/auth
+
     **Used by:** /logs/view frontend for dynamic log display
     """
+    # Verify authentication
+    if not verify_session_token(logs_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Unauthorized. Please authenticate at /logs/view"
+        )
     try:
         # Get logs ordered by most recent first
         query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit)
