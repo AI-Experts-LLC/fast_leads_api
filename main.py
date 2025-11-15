@@ -66,7 +66,12 @@ async def root():
         "service": "Metrus Energy Account Enrichment API",
         "version": "1.0.0",
         "status": "active",
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.utcnow().isoformat(),
+        "dashboards": {
+            "enrichment": "/enrich",
+            "logs": "/logs/view",
+            "api_docs": "/docs"
+        }
     }
 
 @app.get("/health")
@@ -1272,6 +1277,34 @@ async def debug_environment():
         "environment_variables": env_vars,
         "timestamp": datetime.utcnow().isoformat()
     }
+
+
+########################################
+# ENRICHMENT DASHBOARD
+########################################
+# Web UI for manual enrichment operations
+
+@app.get("/enrich", response_class=HTMLResponse)
+async def enrichment_dashboard():
+    """
+    🎯 Enrichment Dashboard - Manual UI for enriching Salesforce records
+
+    **Features:**
+    - Paste Salesforce Account/Contact URLs
+    - Automatic ID extraction from URLs
+    - Configure enrichment options
+    - Real-time status updates
+
+    **Access:** Navigate to /enrich in your browser
+    """
+    try:
+        with open("app/templates/enrichment.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Enrichment dashboard template not found"
+        )
 
 
 ########################################
