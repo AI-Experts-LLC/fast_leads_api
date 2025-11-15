@@ -88,6 +88,18 @@ async def health_check():
         }
     }
 
+@app.get("/favicon.ico")
+async def favicon():
+    """
+    Serve favicon - redirects to Metrus Energy logo
+    Prevents 404 errors in logs from browser favicon requests
+    """
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(
+        url="https://cdn.prod.website-files.com/6645c7ede4572bff5e1bcfd5/6646259b5e59ac14d6e515e2_metrus-bolt-image-01-664624137b786.webp",
+        status_code=302
+    )
+
 @app.get("/version")
 async def get_version():
     """Get API version information"""
