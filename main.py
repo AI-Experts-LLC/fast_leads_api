@@ -1311,7 +1311,14 @@ async def enrichment_dashboard():
     """
     try:
         with open("app/templates/enrichment.html", "r") as f:
-            return HTMLResponse(content=f.read())
+            html_content = f.read()
+            # Inject the API key from environment into the HTML
+            api_key = os.getenv("API_KEY", "dev-key-change-in-production")
+            html_content = html_content.replace(
+                "'X-API-Key': 'dev-key-change-in-production'",
+                f"'X-API-Key': '{api_key}'"
+            )
+            return HTMLResponse(content=html_content)
     except FileNotFoundError:
         raise HTTPException(
             status_code=404,
