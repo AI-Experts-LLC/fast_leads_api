@@ -55,32 +55,25 @@ class BrightDataProspectDiscoveryService:
             # C-Suite (4 titles)
             "Chief Financial Officer",
             "CFO",
-
-            # VP Level (2 titles)
-            "VP Facilities",
-            "VP Operations",
-            "Finance",
-
+            "VP",
+            
+            
             # Director Level (7 titles - PRIORITIZE these, they scored highest in original)
-            "Director of Facilities",
-            "Facilities Director",          # IMPORTANT: Different word order
-            "Director of Engineering",
-            "Director of Maintenance",
-            "Engineering Director",
-            "Maintenance Director",
-            "Director of Operations",
+            "Director", 
 
             # Manager Level (5 titles)
-            "Facilities Manager",
-            "Maintenance Manager",
-            "Engineering Manager",
-            "Energy Manager",
             "Plant Manager",
             "Plant Operations",
 
-            # Finance roles (2 titles - to catch "System Finance Manager")
-            "Finance Manager",
-            "Financial Manager",
+            #General Title Keywords
+            "Finance",
+            "Energy",
+            "Facilities",
+            "Facility",
+            "Maintenance",
+            "Sustainability",
+            "Environmental",
+            "Financial"
         ]
 
     def _get_headers(self) -> Dict[str, str]:
@@ -128,7 +121,7 @@ class BrightDataProspectDiscoveryService:
             logger.info(f"   → Filtering with {len(target_titles)} job titles")
             logger.info(f"   → Minimum connections: {min_connections}")
 
-            # Get AI-generated company name variations
+            # Get AI-generated company name variations (combines both company + parent)
             logger.info("   → Generating company name variations using AI...")
             company_variations = await ai_company_normalization_service.normalize_company_name(
                 company_name=company_name,
@@ -138,6 +131,9 @@ class BrightDataProspectDiscoveryService:
             )
             logger.info(f"   → AI generated {len(company_variations)} company name variations")
             logger.debug(f"   → Variations: {company_variations}")
+
+            # Store variations for Step 2 validation
+            self._company_variations = company_variations
 
             # Build company name filters from AI variations (OR logic)
             company_filters = [
@@ -205,7 +201,7 @@ class BrightDataProspectDiscoveryService:
                 },
                 {
                     "name": "position",
-                    "value": "medical assistant",
+                    "value": "medical",
                     "operator": "not_includes"
                 },
                 {
@@ -217,6 +213,22 @@ class BrightDataProspectDiscoveryService:
                     "name": "position",
                     "value": "therapist",
                     "operator": "not_includes"
+                },
+                {
+                    "name": "position",
+                    "value": "analyst",
+                    "operator": "not_includes"
+                },
+                 {
+                    "name": "position",
+                    "value": "patient",
+                    "operator": "not_includes"
+                },
+                # Company state filter
+                {
+                    "name": "city",
+                    "value": company_state,
+                    "operator": "includes"
                 },
                 # Minimum connections filter
                 {
@@ -240,6 +252,7 @@ class BrightDataProspectDiscoveryService:
             # Create filter payload
             payload = {
                 "dataset_id": self.dataset_id,
+                "records_limit": 100,
                 "filter": {
                     "operator": "and",
                     "filters": main_filters
@@ -294,7 +307,7 @@ class BrightDataProspectDiscoveryService:
             if not profiles:
                 return {
                     "success": False,
-                    "error": "No profiles found, snapshot timed out, or result count exceeded limit (max 75)",
+                    "error": "No profiles found, snapshot timed out, or result count exceeded limit (max 100)",
                     "step": "brightdata_polling",
                     "snapshot_id": snapshot_id,
                     "suggestion": "Try adding more specific filters or reducing the number of target titles"
@@ -462,7 +475,7 @@ class BrightDataProspectDiscoveryService:
     async def _poll_snapshot_results(
         self,
         snapshot_id: str,
-        max_wait_time: int = 300,
+        max_wait_time: int = 600,
         poll_interval: int = 10
     ) -> Optional[List[Dict]]:
         """
@@ -503,19 +516,19 @@ class BrightDataProspectDiscoveryService:
                 logger.info(f"Attempt {attempt} (elapsed: {elapsed:.0f}s): Status = {status}")
 
                 if status == "ready":
-                    # CHECK RESULT COUNT BEFORE DOWNLOADING (max 75 profiles)
+                    # CHECK RESULT COUNT BEFORE DOWNLOADING (max 100 profiles)
                     # BrightData API returns "dataset_size" as the number of records
                     result_count = snapshot_info.get("dataset_size", 0)
                     logger.info(f"Snapshot ready with {result_count} records (dataset_size)")
 
-                    if result_count > 75:
-                        logger.warning(f"❌ Snapshot has {result_count} records (max allowed: 75)")
+                    if result_count > 100:
+                        logger.warning(f"❌ Snapshot has {result_count} records (max allowed: 100)")
                         logger.warning("   Rejecting snapshot to avoid excessive API costs")
                         logger.warning("   Suggestion: Add more specific filters or reduce target titles")
                         logger.warning(f"   Snapshot ID: {snapshot_id}")
                         return None
 
-                    logger.info(f"✅ Dataset size OK ({result_count} ≤ 75), proceeding with download...")
+                    logger.info(f"✅ Dataset size OK ({result_count} ≤ 100), proceeding with download...")
 
                     # Add small delay to allow download endpoint to catch up with status endpoint
                     await asyncio.sleep(5)
@@ -523,25 +536,26 @@ class BrightDataProspectDiscoveryService:
                     download_url = f"{snapshot_url}/download?format=json"
 
                     # Try downloading with retries for async download readiness
-                    max_download_attempts = 10
+                    max_download_attempts = 15
                     download_attempt = 0
 
                     while download_attempt < max_download_attempts:
                         download_attempt += 1
 
                         try:
+                            logger.info(f"   Download attempt {download_attempt}/{max_download_attempts}...")
                             download_response = requests.get(
                                 download_url,
                                 headers=self._get_headers(),
-                                timeout=60
+                                timeout=120
                             )
 
                             if download_response.ok:
                                 # Check if response is the "still building" message
                                 response_text = download_response.text
                                 if "building" in response_text.lower() and len(response_text) < 200:
-                                    logger.info(f"   Download attempt {download_attempt}/{max_download_attempts}: Endpoint still building, waiting...")
-                                    await asyncio.sleep(5)
+                                    logger.info(f"   Download endpoint still building, waiting 10s...")
+                                    await asyncio.sleep(10)
                                     continue
 
                                 # Try to parse as JSON
@@ -550,27 +564,27 @@ class BrightDataProspectDiscoveryService:
                                     logger.info(f"✅ Successfully retrieved {len(profiles)} profiles")
                                     return profiles
                                 except Exception as e:
-                                    logger.warning(f"   Download attempt {download_attempt}/{max_download_attempts}: JSON parse failed - {e}")
+                                    logger.warning(f"   JSON parse failed: {e}")
                                     if download_attempt < max_download_attempts:
-                                        await asyncio.sleep(5)
+                                        await asyncio.sleep(10)
                                         continue
                                     else:
                                         logger.error(f"❌ All download attempts exhausted")
                                         logger.error(f"   Response preview: {repr(response_text[:500])}")
                                         return None
                             else:
-                                logger.warning(f"   Download attempt {download_attempt}/{max_download_attempts}: HTTP {download_response.status_code}")
+                                logger.warning(f"   Download failed: HTTP {download_response.status_code}")
                                 if download_attempt < max_download_attempts:
-                                    await asyncio.sleep(5)
+                                    await asyncio.sleep(10)
                                     continue
                                 else:
                                     logger.error(f"❌ Download failed after {max_download_attempts} attempts")
                                     return None
 
                         except Exception as e:
-                            logger.error(f"   Download attempt {download_attempt}/{max_download_attempts}: Request failed - {e}")
+                            logger.error(f"   Download request failed: {e}")
                             if download_attempt < max_download_attempts:
-                                await asyncio.sleep(5)
+                                await asyncio.sleep(10)
                                 continue
                             else:
                                 logger.error(f"❌ Download failed with exception after {max_download_attempts} attempts")
@@ -615,7 +629,7 @@ class BrightDataProspectDiscoveryService:
         STEP 2: Filter Bright Data prospects (NO SCRAPING - we already have the data!)
 
         Applies validation filters directly to Bright Data profiles:
-        - Company validation (with St./Saint normalization)
+        - Company validation using AI-generated variations (accepts ANY variation)
         - Employment status validation (filters retired/former employees)
         - Location validation (same state required)
         - Connection filtering (≥50 connections)
@@ -634,10 +648,15 @@ class BrightDataProspectDiscoveryService:
             logger.info(f"STEP 2: Filtering {len(enriched_prospects)} Bright Data prospects")
             logger.info("   ✅ Skipping LinkedIn scraping - using Bright Data profiles directly")
 
-            # Apply advanced filtering (same logic as three_step_service but no scraping)
-            advanced_filter_result = self.three_step_service._advanced_filter_with_linkedin_data(
+            # Use AI-generated company variations from Step 1 for validation
+            company_variations = getattr(self, '_company_variations', [company_name])
+            logger.info(f"   → Using {len(company_variations)} AI company variations for validation")
+            logger.debug(f"   → Variations: {company_variations}")
+
+            # Apply advanced filtering with AI variations
+            advanced_filter_result = self._advanced_filter_with_ai_variations(
                 enriched_prospects,
-                company_name,
+                company_variations,
                 company_city,
                 company_state,
                 location_filter_enabled
@@ -681,6 +700,201 @@ class BrightDataProspectDiscoveryService:
                 "error": str(e),
                 "step": "step2_exception"
             }
+
+    def _advanced_filter_with_ai_variations(
+        self,
+        enriched_prospects: List[Dict],
+        company_variations: List[str],
+        company_city: str,
+        company_state: str,
+        location_filter_enabled: bool
+    ) -> Dict[str, Any]:
+        """
+        Advanced filter that uses AI-generated company variations
+        Accepts profiles that match ANY of the variations
+        """
+        passed = []
+        filtered_out = []
+
+        # Normalize all company variations for matching
+        variations_normalized = []
+        for variation in company_variations:
+            normalized = variation.lower().strip()
+            # Apply same normalization as _validate_company_match
+            normalized = normalized.replace('st.', 'saint').replace('st ', 'saint ')
+            variations_normalized.append(normalized)
+
+        logger.debug(f"   → Normalized variations for matching: {variations_normalized}")
+
+        for prospect in enriched_prospects:
+            linkedin_data = prospect.get('linkedin_data', {})
+            current_company = (linkedin_data.get('company') or linkedin_data.get('company_name') or '').strip()
+            current_title = (linkedin_data.get('job_title') or linkedin_data.get('headline') or '').lower().strip()
+
+            # Filter interns/students
+            if "intern" in current_title or "student" in current_title:
+                filtered_out.append({
+                    "stage": "intern_student_filter",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": f"Intern/student: {current_title}"
+                })
+                continue
+
+            # Company validation using AI variations
+            company_match_result = self._validate_company_match_with_variations(
+                current_company, variations_normalized, linkedin_data.get('name', 'Unknown')
+            )
+
+            if not company_match_result['is_match']:
+                filtered_out.append({
+                    "stage": "company_validation",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": company_match_result['reason']
+                })
+                continue
+
+            # Employment status validation
+            employment_status_result = self._validate_employment_status_with_variations(
+                linkedin_data, company_variations
+            )
+
+            if not employment_status_result['is_current_employee']:
+                filtered_out.append({
+                    "stage": "employment_status",
+                    "name": linkedin_data.get('name', 'Unknown'),
+                    "linkedin_url": prospect.get('linkedin_url', ''),
+                    "reason": employment_status_result['reason']
+                })
+                continue
+
+            # Location validation
+            if location_filter_enabled and company_state:
+                location_match_result = self.three_step_service._validate_location_match(
+                    linkedin_data.get('location', ''),
+                    company_city,
+                    company_state,
+                    linkedin_data.get('name', 'Unknown')
+                )
+
+                if not location_match_result['is_match']:
+                    filtered_out.append({
+                        "stage": "location_validation",
+                        "name": linkedin_data.get('name', 'Unknown'),
+                        "linkedin_url": prospect.get('linkedin_url', ''),
+                        "reason": location_match_result['reason']
+                    })
+                    continue
+
+            # Calculate seniority score
+            from .improved_prospect_discovery import improved_prospect_discovery_service
+            seniority_score = improved_prospect_discovery_service._calculate_seniority_score(linkedin_data)
+
+            prospect["advanced_filter"] = {
+                "passed": True,
+                "company_match": company_match_result['is_match'],
+                "seniority_score": seniority_score,
+                "current_title": current_title,
+                "current_company": current_company,
+                "matched_variation": company_match_result.get('matched_variation')
+            }
+
+            passed.append(prospect)
+
+        return {"passed": passed, "filtered_out": filtered_out}
+
+    def _validate_company_match_with_variations(
+        self, current_company: str, variations_normalized: List[str], prospect_name: str
+    ) -> Dict[str, Any]:
+        """
+        Validate company match against AI-generated variations
+        Returns True if current_company matches ANY variation
+        """
+        if not current_company:
+            return {'is_match': False, 'reason': 'No company listed'}
+
+        current_lower = current_company.lower().strip()
+
+        # Normalize the same way as variations
+        current_lower = current_lower.replace('st.', 'saint').replace('st ', 'saint ')
+
+        # Check against each variation
+        for variation in variations_normalized:
+            # Exact match
+            if current_lower == variation:
+                return {
+                    'is_match': True,
+                    'reason': f'Exact match with variation: {variation}',
+                    'matched_variation': variation
+                }
+
+            # Substring match (variation is in current company)
+            if variation in current_lower:
+                return {
+                    'is_match': True,
+                    'reason': f'Substring match with variation: {variation}',
+                    'matched_variation': variation
+                }
+
+            # Check if main identifier from variation matches
+            variation_words = [w for w in variation.split() if len(w) > 4]
+            if variation_words:
+                main_identifier = variation_words[0]
+                if main_identifier in current_lower:
+                    return {
+                        'is_match': True,
+                        'reason': f'Main identifier match: {main_identifier}',
+                        'matched_variation': variation
+                    }
+
+        return {
+            'is_match': False,
+            'reason': f"Company '{current_company}' does not match any of {len(variations_normalized)} AI variations"
+        }
+
+    def _validate_employment_status_with_variations(
+        self, linkedin_data: Dict[str, Any], company_variations: List[str]
+    ) -> Dict[str, Any]:
+        """
+        Validate employment status using company variations
+        """
+        import re
+
+        current_job_title = (linkedin_data.get('job_title') or linkedin_data.get('headline') or '').lower()
+
+        # Check for "retired" keyword
+        if 'retired' in current_job_title:
+            return {
+                'is_current_employee': False,
+                'reason': f"Profile indicates retired status: '{linkedin_data.get('job_title') or linkedin_data.get('headline')}'"
+            }
+
+        # Check for "former" keyword
+        if 'former' in current_job_title:
+            return {
+                'is_current_employee': False,
+                'reason': f"Profile indicates former employee: '{current_job_title}'"
+            }
+
+        # If we have experience data, check if most recent position is active
+        experience = linkedin_data.get('experience', [])
+        if experience:
+            most_recent = experience[0]
+            end_date = most_recent.get('end_date', '')
+
+            # If end_date is empty or None, position is current
+            if not end_date:
+                return {'is_current_employee': True, 'reason': 'Current position (no end date)'}
+
+            # Check if end_date indicates position has ended
+            if end_date and end_date.lower() not in ['present', 'current', '']:
+                return {
+                    'is_current_employee': False,
+                    'reason': f"Most recent position ended: {end_date}"
+                }
+
+        return {'is_current_employee': True, 'reason': 'Active employment status'}
 
     async def step3_rank_prospects(
         self,
