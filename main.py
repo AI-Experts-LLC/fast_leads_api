@@ -1,5 +1,9 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from datetime import datetime
+from sqlalchemy import select, func
+from sqlalchemy.ext.asyncio import AsyncSession
 import os
 from dotenv import load_dotenv
 
@@ -19,7 +23,10 @@ from app.services.credit_enrichment import credit_enrichment_service, CompanyRec
 from app.services.enrichment import enrichment_service, AccountEnrichmentRequest, ContactEnrichmentRequest
 from app.auth import verify_api_key
 
-# Force fresh deployment - no database dependencies
+# Import database and models
+from app.database import init_db, get_db
+from app.models import APILog
+from app.services.logging_middleware import APILoggingMiddleware
 
 app = FastAPI(
     title="Metrus Energy - Account Enrichment API",
@@ -37,6 +44,19 @@ app = FastAPI(
     """,
     version="1.0.0"
 )
+
+# Add logging middleware
+app.add_middleware(APILoggingMiddleware)
+
+# Initialize database on startup
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database tables on application startup"""
+    try:
+        await init_db()
+        print("✅ Database initialized successfully")
+    except Exception as e:
+        print(f"⚠️ Failed to initialize database: {e}")
 
 @app.get("/")
 async def root():
@@ -1250,3 +1270,107 @@ async def debug_environment():
         "environment_variables": env_vars,
         "timestamp": datetime.utcnow().isoformat()
     }
+
+
+########################################
+# API LOGGING ENDPOINTS
+########################################
+# These endpoints provide a web UI for viewing API request/response logs
+# stored in PostgreSQL database.
+
+@app.get("/logs/view", response_class=HTMLResponse)
+async def view_logs():
+    """
+    📊 Web UI for viewing API request/response logs
+
+    **Features:**
+    - Real-time log monitoring with auto-refresh
+    - Expandable rows to see full request/response JSON
+    - Statistics: total requests, avg response time, success rate
+    - Filterable by endpoint, method, status code
+
+    **Access:** Navigate to /logs/view in your browser
+    """
+    try:
+        with open("app/templates/logs.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Logs template not found"
+        )
+
+
+@app.get("/logs/data")
+async def get_logs_data(
+    limit: int = 100,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    📊 Get API logs data in JSON format
+
+    **Parameters:**
+    - `limit`: Maximum number of logs to return (default: 100)
+
+    **Returns:**
+    - List of log entries with request/response details
+    - Statistics: total count, average duration, success rate
+
+    **Used by:** /logs/view frontend for dynamic log display
+    """
+    try:
+        # Get logs ordered by most recent first
+        query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit)
+        result = await db.execute(query)
+        logs = result.scalars().all()
+
+        # Calculate statistics
+        total_query = select(func.count(APILog.id))
+        total_result = await db.execute(total_query)
+        total_count = total_result.scalar()
+
+        avg_duration_query = select(func.avg(APILog.duration_ms))
+        avg_duration_result = await db.execute(avg_duration_query)
+        avg_duration = avg_duration_result.scalar()
+
+        success_query = select(func.count(APILog.id)).where(
+            APILog.status_code >= 200,
+            APILog.status_code < 300
+        )
+        success_result = await db.execute(success_query)
+        success_count = success_result.scalar()
+
+        success_rate = (success_count / total_count * 100) if total_count > 0 else 0
+
+        # Convert logs to dict
+        logs_data = [
+            {
+                "id": log.id,
+                "timestamp": log.timestamp.isoformat(),
+                "method": log.method,
+                "endpoint": log.endpoint,
+                "request_body": log.request_body,
+                "response_body": log.response_body,
+                "status_code": log.status_code,
+                "duration_ms": log.duration_ms,
+                "client_ip": log.client_ip,
+                "user_agent": log.user_agent
+            }
+            for log in logs
+        ]
+
+        return {
+            "logs": logs_data,
+            "stats": {
+                "total_count": total_count,
+                "avg_duration": avg_duration,
+                "success_rate": success_rate,
+                "displayed_count": len(logs_data)
+            }
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching logs: {str(e)}"
+        )

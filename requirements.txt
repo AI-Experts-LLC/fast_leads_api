@@ -13,3 +13,8 @@ httpx>=0.25.0
 # Enrichment dependencies
 tenacity>=8.2.0
 requests>=2.31.0
+
+# Database dependencies
+asyncpg>=0.29.0
+sqlalchemy>=2.0.0
+alembic>=1.13.0
