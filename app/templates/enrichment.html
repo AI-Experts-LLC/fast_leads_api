@@ -586,9 +586,9 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Format credit rating results
-                    const credit = data.credit_info || {};
-                    const hasCredit = credit.search_success;
+                    // Format credit rating results - data is nested under 'data' key
+                    const creditData = data.data || data;
+                    const hasCredit = creditData.search_success;
 
                     resultDiv.className = hasCredit ? 'result success' : 'result error';
 
@@ -596,13 +596,13 @@
                         resultDiv.innerHTML = `
                             <strong>✓ Credit Rating Found!</strong>
                             <div style="margin-top: 12px; line-height: 1.8;">
-                                <strong>Company:</strong> ${data.company_name || companyName}<br>
-                                <strong>Credit Rating:</strong> <span style="font-size: 18px; color: #79c0ff;">${credit.implied_rating || 'N/A'}</span><br>
-                                <strong>Probability of Default:</strong> ${credit.pd_value ? (credit.pd_value * 100).toFixed(2) + '%' : 'N/A'}<br>
-                                <strong>Confidence:</strong> ${credit.confidence_translated || credit.confidence || 'N/A'}<br>
-                                <strong>As of Date:</strong> ${credit.as_of_date || 'N/A'}<br>
-                                <strong>Entity ID:</strong> ${credit.entity_id || 'N/A'}<br>
-                                ${credit.matching_logic ? '<strong>Match Type:</strong> ' + credit.matching_logic + '<br>' : ''}
+                                <strong>Company:</strong> ${creditData.company_name || companyName}<br>
+                                <strong>Credit Rating:</strong> <span style="font-size: 18px; color: #79c0ff;">${creditData.implied_rating || 'N/A'}</span><br>
+                                <strong>Probability of Default:</strong> ${creditData.pd_value ? (creditData.pd_value * 100).toFixed(2) + '%' : 'N/A'}<br>
+                                <strong>Confidence:</strong> ${creditData.confidence_translated || creditData.confidence || 'N/A'}<br>
+                                <strong>As of Date:</strong> ${creditData.as_of_date || 'N/A'}<br>
+                                <strong>Entity ID:</strong> ${creditData.entity_id || 'N/A'}<br>
+                                ${creditData.matching_logic ? '<strong>Match Type:</strong> ' + creditData.matching_logic + '<br>' : ''}
                             </div>
                             <pre>${JSON.stringify(data, null, 2)}</pre>
                         `;
@@ -610,8 +610,8 @@
                         resultDiv.innerHTML = `
                             <strong>⚠ No Credit Rating Found</strong>
                             <div style="margin-top: 12px;">
-                                ${credit.error_message || 'Company not found in Moody\'s EDF-X database.'}
-                                ${credit.search_results && credit.search_results.length > 0 ?
+                                ${creditData.error_message || 'Company not found in Moody\'s EDF-X database.'}
+                                ${creditData.search_results && creditData.search_results.length > 0 ?
                                     '<br><br>Try refining your search with website or location information.' : ''}
                             </div>
                             <pre>${JSON.stringify(data, null, 2)}</pre>
