@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrus Energy - Enrichment Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f1419;
+            color: #e6edf3;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .header-content img {
+            width: 48px;
+            height: 48px;
+            filter: brightness(0) invert(1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #58a6ff;
+        }
+
+        .header p {
+            color: #8b949e;
+            font-size: 14px;
+            margin: 4px 0 0 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            color: #e6edf3;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8b949e;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #e6edf3;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+
+        select {
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #58a6ff;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            text-transform: none;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 14px;
+            color: #e6edf3;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #2ea043;
+        }
+
+        .btn:disabled {
+            background: #21262d;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .result.success {
+            background: #0d4429;
+            border: 1px solid #238636;
+            color: #7ee787;
+            display: block;
+        }
+
+        .result.error {
+            background: #3d1018;
+            border: 1px solid #da3633;
+            color: #ffa198;
+            display: block;
+        }
+
+        .result.loading {
+            background: #1c2d41;
+            border: 1px solid #58a6ff;
+            color: #79c0ff;
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #21262d;
+            border-top: 3px solid #58a6ff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .code {
+            background: #0d1117;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #79c0ff;
+        }
+
+        .divider {
+            height: 1px;
+            background: #30363d;
+            margin: 24px 0;
+        }
+
+        .result pre {
+            background: #0d1117;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <img src="https://cdn.prod.website-files.com/6645c7ede4572bff5e1bcfd5/6646259b5e59ac14d6e515e2_metrus-bolt-image-01-664624137b786.webp"
+                     alt="Metrus Energy">
+                <div>
+                    <h1>Metrus Energy - Enrichment Dashboard</h1>
+                    <p>Enrich Salesforce Accounts and Contacts with external data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Enrichment -->
+        <div class="card">
+            <h2>📊 Enrich Account</h2>
+            <form id="accountForm" onsubmit="return enrichAccount(event)">
+                <div class="form-group">
+                    <label for="accountUrl">Salesforce Account URL</label>
+                    <input
+                        type="text"
+                        id="accountUrl"
+                        placeholder="https://your-org.lightning.force.com/lightning/r/Account/001VR00000UhY5JYAV/view"
+                        required
+                    >
+                    <div class="help-text">
+                        Paste the full Salesforce URL. The Account ID will be automatically extracted.
+                        <br>Expected format: <span class="code">/Account/{AccountId}/view</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Enrichment Options</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="accountOverwrite">
+                            <label for="accountOverwrite">Overwrite existing data</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="accountFinancial" checked>
+                            <label for="accountFinancial">Include financial data</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="accountCredit">
+                            <label for="accountCredit">Credit data only (skip other enrichment)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="accountBtn">
+                    Enrich Account
+                </button>
+
+                <div id="accountResult" class="result"></div>
+            </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Contact Enrichment -->
+        <div class="card">
+            <h2>👤 Enrich Contact</h2>
+            <form id="contactForm" onsubmit="return enrichContact(event)">
+                <div class="form-group">
+                    <label for="contactUrl">Salesforce Contact URL</label>
+                    <input
+                        type="text"
+                        id="contactUrl"
+                        placeholder="https://your-org.lightning.force.com/lightning/r/Contact/003VR000001234567/view"
+                        required
+                    >
+                    <div class="help-text">
+                        Paste the full Salesforce URL. The Contact ID will be automatically extracted.
+                        <br>Expected format: <span class="code">/Contact/{ContactId}/view</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Enrichment Options</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="contactOverwrite">
+                            <label for="contactOverwrite">Overwrite existing data</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="contactLinkedIn" checked>
+                            <label for="contactLinkedIn">Include LinkedIn data</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="contactBtn">
+                    Enrich Contact
+                </button>
+
+                <div id="contactResult" class="result"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function extractRecordId(url, recordType) {
+            // Pattern: /Account/001VR00000UhY5JYAV/view or /Contact/003VR000001234567/view
+            const pattern = new RegExp(`\\/${recordType}\\/([a-zA-Z0-9]{15,18})\\/`, 'i');
+            const match = url.match(pattern);
+            return match ? match[1] : null;
+        }
+
+        async function enrichAccount(event) {
+            event.preventDefault();
+
+            const url = document.getElementById('accountUrl').value;
+            const resultDiv = document.getElementById('accountResult');
+            const submitBtn = document.getElementById('accountBtn');
+
+            // Extract Account ID
+            const accountId = extractRecordId(url, 'Account');
+
+            if (!accountId) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>Error:</strong> Could not extract Account ID from URL. Please check the URL format.';
+                return false;
+            }
+
+            // Get options
+            const overwrite = document.getElementById('accountOverwrite').checked;
+            const includeFinancial = document.getElementById('accountFinancial').checked;
+            const creditOnly = document.getElementById('accountCredit').checked;
+
+            // Show loading
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = '<div class="spinner"></div> Enriching account... This may take 30-60 seconds.';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/enrich/account', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': 'dev-key-change-in-production'
+                    },
+                    body: JSON.stringify({
+                        account_id: accountId,
+                        overwrite: overwrite,
+                        include_financial: includeFinancial,
+                        credit_only: creditOnly
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✓ Success!</strong> Account enriched successfully.
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>× Error:</strong> ${data.detail || 'Unknown error occurred'}
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `<strong>× Error:</strong> ${error.message}`;
+            } finally {
+                submitBtn.disabled = false;
+            }
+
+            return false;
+        }
+
+        async function enrichContact(event) {
+            event.preventDefault();
+
+            const url = document.getElementById('contactUrl').value;
+            const resultDiv = document.getElementById('contactResult');
+            const submitBtn = document.getElementById('contactBtn');
+
+            // Extract Contact ID
+            const contactId = extractRecordId(url, 'Contact');
+
+            if (!contactId) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>Error:</strong> Could not extract Contact ID from URL. Please check the URL format.';
+                return false;
+            }
+
+            // Get options
+            const overwrite = document.getElementById('contactOverwrite').checked;
+            const includeLinkedIn = document.getElementById('contactLinkedIn').checked;
+
+            // Show loading
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = '<div class="spinner"></div> Enriching contact... This may take 15-30 seconds.';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/enrich/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': 'dev-key-change-in-production'
+                    },
+                    body: JSON.stringify({
+                        contact_id: contactId,
+                        overwrite: overwrite,
+                        include_linkedin: includeLinkedIn
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✓ Success!</strong> Contact enriched successfully.
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>× Error:</strong> ${data.detail || 'Unknown error occurred'}
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `<strong>× Error:</strong> ${error.message}`;
+            } finally {
+                submitBtn.disabled = false;
+            }
+
+            return false;
+        }
+
+        // Add example button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Metrus Energy Enrichment Dashboard loaded');
+        });
+    </script>
+</body>
+</html>
