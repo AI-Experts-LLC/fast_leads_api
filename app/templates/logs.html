@@ -418,6 +418,7 @@
         <button class="btn btn-secondary" onclick="toggleAutoRefresh()">
             <span id="auto-refresh-text">▶ Auto-Refresh (Off)</span>
         </button>
+        <button class="btn" onclick="clearAllLogs()" style="background: #da3633; margin-left: auto;">🗑️ Clear All Logs</button>
     </div>
 
     <div class="table-container">
@@ -683,6 +684,33 @@
             currentPage = 1; // Reset to first page
             expandedRows.clear(); // Clear expanded rows when changing page size
             loadLogs();
+        }
+
+        async function clearAllLogs() {
+            if (!confirm('⚠️ Are you sure you want to delete ALL log entries? This cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/logs/clear', {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`✅ Successfully cleared ${data.deleted_count} log entries`);
+
+                    // Reset pagination and reload
+                    currentPage = 1;
+                    expandedRows.clear();
+                    await loadLogs();
+                } else {
+                    const error = await response.json();
+                    alert(`❌ Error: ${error.detail}`);
+                }
+            } catch (error) {
+                alert(`❌ Error clearing logs: ${error.message}`);
+            }
         }
 
         // Load logs on page load

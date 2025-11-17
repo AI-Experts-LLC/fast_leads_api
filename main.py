@@ -2031,3 +2031,51 @@ async def get_logs_data(
             status_code=500,
             detail=f"Error fetching logs: {str(e)}"
         )
+
+
+@app.delete("/logs/clear")
+async def clear_all_logs(
+    dashboard_session: Optional[str] = Cookie(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    🗑️ Clear all API logs from the database (password protected)
+
+    **Warning:** This permanently deletes ALL log entries
+
+    **Authentication Required:** Session cookie from /dashboard/login
+
+    **Returns:**
+    - Number of logs deleted
+    """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
+
+    try:
+        # Get count before deletion
+        count_query = select(func.count(APILog.id))
+        count_result = await db.execute(count_query)
+        deleted_count = count_result.scalar()
+
+        # Delete all logs
+        from sqlalchemy import delete
+        delete_query = delete(APILog)
+        await db.execute(delete_query)
+        await db.commit()
+
+        return {
+            "status": "success",
+            "message": f"Cleared {deleted_count} log entries",
+            "deleted_count": deleted_count
+        }
+
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error clearing logs: {str(e)}"
+        )
