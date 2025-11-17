@@ -548,16 +548,34 @@
                     return;
                 }
 
-                tbody.innerHTML = data.logs.map(log => `
-                    <tr id="row-${log.id}" onclick="toggleRow(${log.id})" ${expandedRows.has(log.id) ? 'class="expanded"' : ''}>
+                // Clear tbody first
+                tbody.innerHTML = '';
+
+                // Create rows using DOM methods for proper structure
+                data.logs.forEach(log => {
+                    // Main row
+                    const mainRow = document.createElement('tr');
+                    mainRow.id = `row-${log.id}`;
+                    mainRow.onclick = () => toggleRow(log.id);
+                    if (expandedRows.has(log.id)) {
+                        mainRow.className = 'expanded';
+                    }
+
+                    mainRow.innerHTML = `
                         <td class="timestamp">${formatTimestamp(log.timestamp)}</td>
                         <td><span class="method ${log.method}">${log.method}</span></td>
                         <td class="endpoint">${log.endpoint}</td>
                         <td><span class="status ${getStatusClass(log.status_code)}">${log.status_code || '-'}</span></td>
                         <td class="duration">${log.duration_ms ? formatDuration(log.duration_ms) : '-'}</td>
                         <td class="timestamp">${log.client_ip || '-'}</td>
-                    </tr>
-                    <tr id="details-${log.id}" class="details-row ${expandedRows.has(log.id) ? 'show' : ''}">
+                    `;
+
+                    // Details row
+                    const detailsRow = document.createElement('tr');
+                    detailsRow.id = `details-${log.id}`;
+                    detailsRow.className = expandedRows.has(log.id) ? 'details-row show' : 'details-row';
+
+                    detailsRow.innerHTML = `
                         <td colspan="6">
                             <div class="details-content">
                                 <div class="meta-info">
@@ -590,8 +608,12 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                `).join('');
+                    `;
+
+                    // Append both rows to tbody
+                    tbody.appendChild(mainRow);
+                    tbody.appendChild(detailsRow);
+                });
 
                 // Update pagination controls
                 updatePaginationControls();
