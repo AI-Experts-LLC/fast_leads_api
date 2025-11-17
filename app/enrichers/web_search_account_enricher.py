@@ -705,7 +705,7 @@ If no good information found for that category, format as EMPTY STRING "" in the
             logger.error(f"❌ Failed to update account: {str(e)}")
             return False
     
-    def process_web_search_enrichment(self, record_id: str, overwrite: bool = False, include_financial: bool = False, credit_only: bool = False) -> bool:
+    async def process_web_search_enrichment(self, record_id: str, overwrite: bool = False, include_financial: bool = False, credit_only: bool = False) -> bool:
         """Main method to perform web search enrichment."""
         try:
             logger.info(f"🚀 Starting web search enrichment for record ID: {record_id}")
@@ -860,8 +860,14 @@ If no good information found for that category, format as EMPTY STRING "" in the
             except EOFError:
                 logger.info("🤖 Automated mode: Proceeding with update")
             
-            # 6. Update the account with validated data
-            success = self.update_account_fields(account['Id'], validated_field_data, updatable_fields)
+            # 6. Update the account with validated data (queue if service available, otherwise direct update)
+            queue_mode = self.pending_updates_service is not None
+            success = await self.update_account_fields(
+                account['Id'],
+                validated_field_data,
+                updatable_fields,
+                queue_mode=queue_mode
+            )
             
             if success:
                 logger.info("✅ Web search account enrichment completed successfully")

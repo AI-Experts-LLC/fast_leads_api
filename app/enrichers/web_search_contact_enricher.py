@@ -1154,8 +1154,13 @@ Make it warm, genuine, and conversational while keeping the same core pain point
             except EOFError:
                 logger.info("🤖 Automated mode: Proceeding with update")
 
-            # 10. Update the contact
-            success = self.update_contact_fields(contact['Id'], update_field_data)
+            # 10. Update the contact (queue if service available, otherwise direct update)
+            queue_mode = self.pending_updates_service is not None
+            success = await self.update_contact_fields(
+                contact['Id'],
+                update_field_data,
+                queue_mode=queue_mode
+            )
 
             if success:
                 logger.info("✅ Contact enrichment completed successfully")

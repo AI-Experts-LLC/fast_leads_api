@@ -1146,7 +1146,8 @@ async def batch_enrich_companies(request: dict):
 @app.post("/enrich/account")
 async def enrich_account(
     request: AccountEnrichmentRequest,
-    api_key: str = Depends(verify_api_key)
+    api_key: str = Depends(verify_api_key),
+    db: AsyncSession = Depends(get_db)
 ):
     """
     🏢 Enrich a Salesforce account with comprehensive company data
@@ -1179,11 +1180,17 @@ async def enrich_account(
     **Use Case:** Enrich healthcare facility accounts before outreach campaigns.
     """
     try:
+        # Ensure Salesforce is connected
+        if not salesforce_service._authenticated:
+            await salesforce_service.connect()
+
         result = await enrichment_service.enrich_account(
             account_id=request.account_id,
             overwrite=request.overwrite,
             include_financial=request.include_financial,
-            credit_only=request.credit_only
+            credit_only=request.credit_only,
+            db_session=db,
+            sf_connection=salesforce_service.sf
         )
         
         if result["status"] == "success":
@@ -1210,7 +1217,8 @@ async def enrich_account(
 @app.post("/enrich/contact")
 async def enrich_contact(
     request: ContactEnrichmentRequest,
-    api_key: str = Depends(verify_api_key)
+    api_key: str = Depends(verify_api_key),
+    db: AsyncSession = Depends(get_db)
 ):
     """
     👤 Enrich a Salesforce contact with personalized outreach data
@@ -1243,10 +1251,16 @@ async def enrich_contact(
     **Use Case:** Personalize outreach to decision-makers at healthcare facilities.
     """
     try:
+        # Ensure Salesforce is connected
+        if not salesforce_service._authenticated:
+            await salesforce_service.connect()
+
         result = await enrichment_service.enrich_contact(
             contact_id=request.contact_id,
             overwrite=request.overwrite,
-            include_linkedin=request.include_linkedin
+            include_linkedin=request.include_linkedin,
+            db_session=db,
+            sf_connection=salesforce_service.sf
         )
         
         if result["status"] == "success":
