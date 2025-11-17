@@ -95,6 +95,10 @@ EDFX_PASSWORD=your_edfx_password        # Probability of default data
 # API Security (Required for enrichment endpoints)
 API_KEY=your-secure-api-key             # Protect /enrich/* endpoints
 
+# Dashboard Password (Required for web UI access)
+DASHBOARD_PASSWORD=your-dashboard-password  # Password for /dashboard, /enrich, /logs/view
+# Alternative: LOGS_PASSWORD (legacy, falls back to this if DASHBOARD_PASSWORD not set)
+
 # Email Validation (Optional)
 ZEROBOUNCE_API_KEY=your_zerobounce_key  # Email deliverability validation
 
@@ -216,6 +220,26 @@ app/services/
 - Fixes issue where Apify returns null company despite valid experience data
 
 ## API Endpoints
+
+### Web Dashboards (Password Protected)
+All HTML dashboards require password authentication via session cookies.
+
+- `GET /dashboard/login` - Login page for dashboard access
+- `POST /dashboard/auth` - Authenticate with password (returns session cookie)
+- `GET /dashboard` - Main dashboard with system status and links
+- `GET /enrich` - Enrichment dashboard (manual account/contact enrichment)
+- `GET /logs/view` - API request logs viewer with real-time monitoring
+
+**Authentication Flow:**
+1. Navigate to any dashboard URL (e.g., `/dashboard`, `/enrich`, `/logs/view`)
+2. If not authenticated, redirected to `/dashboard/login`
+3. Enter password (set via `DASHBOARD_PASSWORD` environment variable)
+4. Receive session cookie valid for 24 hours
+5. Access all dashboards without re-authentication
+
+**Environment Variable:**
+- `DASHBOARD_PASSWORD` - Password for all web dashboards (default: "changeme")
+- Falls back to `LOGS_PASSWORD` if `DASHBOARD_PASSWORD` not set
 
 ### Prospect Discovery
 

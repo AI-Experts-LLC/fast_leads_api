@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrus Energy - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            color: #e6edf3;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+        .header-content img {
+            width: 64px;
+            height: 64px;
+            filter: brightness(0) invert(1);
+        }
+        .header h1 {
+            font-size: 32px;
+            color: #58a6ff;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: #8b949e;
+            font-size: 16px;
+        }
+        .logout-btn {
+            float: right;
+            padding: 8px 16px;
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .logout-btn:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.2);
+        }
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        .card h2 {
+            font-size: 20px;
+            color: #e6edf3;
+            margin-bottom: 8px;
+        }
+        .card p {
+            color: #8b949e;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .status-section {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .status-section h2 {
+            font-size: 20px;
+            color: #e6edf3;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        .status-card {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .status-card h3 {
+            font-size: 14px;
+            color: #8b949e;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #58a6ff;
+            margin-bottom: 4px;
+        }
+        .status-label {
+            font-size: 12px;
+            color: #8b949e;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-online {
+            background: #3fb950;
+            box-shadow: 0 0 10px rgba(63, 185, 80, 0.5);
+        }
+        .status-offline {
+            background: #f85149;
+            box-shadow: 0 0 10px rgba(248, 81, 73, 0.5);
+        }
+        .footer {
+            text-align: center;
+            color: #6e7681;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        .spinner {
+            border: 3px solid #21262d;
+            border-top: 3px solid #58a6ff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="logout-btn" onclick="logout()">Logout</button>
+            <div class="header-content">
+                <img src="https://cdn.prod.website-files.com/6645c7ede4572bff5e1bcfd5/6646259b5e59ac14d6e515e2_metrus-bolt-image-01-664624137b786.webp" alt="Metrus Energy">
+                <div>
+                    <h1>Metrus Energy Dashboard</h1>
+                    <p>AI-powered prospect discovery and lead enrichment platform</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Section -->
+        <div class="status-section">
+            <h2>
+                <span class="status-indicator" id="systemStatus"></span>
+                System Status
+            </h2>
+            <div class="status-grid">
+                <div class="status-card">
+                    <h3>API Status</h3>
+                    <div class="status-value" id="apiStatus">
+                        <span class="spinner"></span>
+                    </div>
+                    <div class="status-label">Health Check</div>
+                </div>
+                <div class="status-card">
+                    <h3>Salesforce</h3>
+                    <div class="status-value" id="salesforceStatus">
+                        <span class="spinner"></span>
+                    </div>
+                    <div class="status-label">CRM Connection</div>
+                </div>
+                <div class="status-card">
+                    <h3>Environment</h3>
+                    <div class="status-value" id="environment">
+                        <span class="spinner"></span>
+                    </div>
+                    <div class="status-label">Deployment</div>
+                </div>
+                <div class="status-card">
+                    <h3>Uptime</h3>
+                    <div class="status-value" id="uptime">--:--:--</div>
+                    <div class="status-label">Last Restart</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="grid">
+            <div class="card" onclick="navigate('/enrich')">
+                <div class="card-icon">📊</div>
+                <h2>Enrichment Dashboard</h2>
+                <p>Enrich Salesforce accounts and contacts with AI-powered data enrichment, credit ratings, and LinkedIn profiles.</p>
+            </div>
+
+            <div class="card" onclick="navigate('/logs/view')">
+                <div class="card-icon">📋</div>
+                <h2>API Request Logs</h2>
+                <p>Monitor all API requests and responses in real-time. View performance metrics, success rates, and detailed logs.</p>
+            </div>
+
+            <div class="card" onclick="navigate('/docs')">
+                <div class="card-icon">📚</div>
+                <h2>API Documentation</h2>
+                <p>Interactive OpenAPI documentation with request/response examples. Test endpoints directly from your browser.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            Metrus Energy &copy; 2025 | AI-Powered Account Enrichment
+        </div>
+    </div>
+
+    <script>
+        function navigate(path) {
+            window.location.href = path;
+        }
+
+        async function logout() {
+            // Clear the cookie by setting it to expired
+            document.cookie = 'dashboard_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.href = '/dashboard/login';
+        }
+
+        async function loadStatus() {
+            try {
+                // Health check
+                const healthResponse = await fetch('/health');
+                const healthData = await healthResponse.json();
+
+                if (healthData.status === 'healthy') {
+                    document.getElementById('apiStatus').textContent = '✓ Online';
+                    document.getElementById('apiStatus').style.color = '#3fb950';
+                    document.getElementById('systemStatus').className = 'status-indicator status-online';
+                } else {
+                    document.getElementById('apiStatus').textContent = '✗ Error';
+                    document.getElementById('apiStatus').style.color = '#f85149';
+                    document.getElementById('systemStatus').className = 'status-indicator status-offline';
+                }
+
+                document.getElementById('environment').textContent = healthData.environment || 'unknown';
+
+                // Salesforce status
+                try {
+                    const sfResponse = await fetch('/salesforce/status');
+                    const sfData = await sfResponse.json();
+
+                    if (sfData.status === 'success') {
+                        document.getElementById('salesforceStatus').textContent = '✓ Connected';
+                        document.getElementById('salesforceStatus').style.color = '#3fb950';
+                    } else {
+                        document.getElementById('salesforceStatus').textContent = '✗ Error';
+                        document.getElementById('salesforceStatus').style.color = '#f85149';
+                    }
+                } catch (e) {
+                    document.getElementById('salesforceStatus').textContent = '⚠ Unknown';
+                    document.getElementById('salesforceStatus').style.color = '#d29922';
+                }
+
+                // Calculate uptime (just a placeholder - actual uptime would need server tracking)
+                document.getElementById('uptime').textContent = 'Active';
+
+            } catch (error) {
+                console.error('Failed to load status:', error);
+                document.getElementById('apiStatus').textContent = '✗ Offline';
+                document.getElementById('apiStatus').style.color = '#f85149';
+                document.getElementById('systemStatus').className = 'status-indicator status-offline';
+                document.getElementById('salesforceStatus').textContent = '✗ Error';
+                document.getElementById('salesforceStatus').style.color = '#f85149';
+                document.getElementById('environment').textContent = 'error';
+            }
+        }
+
+        // Load status on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStatus();
+            // Refresh status every 30 seconds
+            setInterval(loadStatus, 30000);
+        });
+    </script>
+</body>
+</html>

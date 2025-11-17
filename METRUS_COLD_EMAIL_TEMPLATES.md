@@ -334,7 +334,7 @@ Lucas
 
 P.S. I've sent you three emails with no response. I'm beginning to think you're either:
 A) Incredibly busy (most likely)
-B) Testing my persistence (I passed!)
+B) Testing my persistence
 C) Enjoying watching me try
 
 Either way, this is my last one. Let me know if you want to chat or if I should move on. 😊

@@ -23,7 +23,13 @@ from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
 from app.services.credit_enrichment import credit_enrichment_service, CompanyRecord
 from app.services.enrichment import enrichment_service, AccountEnrichmentRequest, ContactEnrichmentRequest
-from app.auth import verify_api_key
+from app.auth import (
+    verify_api_key,
+    verify_dashboard_session,
+    verify_dashboard_password,
+    create_session_token,
+    active_sessions
+)
 
 # Import database and models
 from app.database import init_db, get_db
@@ -68,10 +74,13 @@ async def root():
         "status": "active",
         "timestamp": datetime.utcnow().isoformat(),
         "dashboards": {
+            "main": "/dashboard",
+            "login": "/dashboard/login",
             "enrichment": "/enrich",
             "logs": "/logs/view",
             "api_docs": "/docs"
-        }
+        },
+        "note": "Access web dashboards at /dashboard (password required)"
     }
 
 @app.get("/health")
@@ -1292,89 +1301,29 @@ async def debug_environment():
 
 
 ########################################
-# ENRICHMENT DASHBOARD
+# DASHBOARD AUTHENTICATION
 ########################################
-# Web UI for manual enrichment operations
+# Unified authentication system for all web dashboards
 
-@app.get("/enrich", response_class=HTMLResponse)
-async def enrichment_dashboard():
+@app.post("/dashboard/auth")
+async def authenticate_dashboard(password: str):
     """
-    🎯 Enrichment Dashboard - Manual UI for enriching Salesforce records
-
-    **Features:**
-    - Paste Salesforce Account/Contact URLs
-    - Automatic ID extraction from URLs
-    - Configure enrichment options
-    - Real-time status updates
-
-    **Access:** Navigate to /enrich in your browser
-    """
-    try:
-        with open("app/templates/enrichment.html", "r") as f:
-            html_content = f.read()
-            # Inject the API key from environment into the HTML
-            api_key = os.getenv("API_KEY", "dev-key-change-in-production")
-            html_content = html_content.replace(
-                "'X-API-Key': 'dev-key-change-in-production'",
-                f"'X-API-Key': '{api_key}'"
-            )
-            return HTMLResponse(content=html_content)
-    except FileNotFoundError:
-        raise HTTPException(
-            status_code=404,
-            detail="Enrichment dashboard template not found"
-        )
-
-
-########################################
-# API LOGGING ENDPOINTS
-########################################
-# These endpoints provide a password-protected web UI for viewing API request/response logs
-# stored in PostgreSQL database.
-
-# Simple in-memory session storage (replace with Redis in production)
-active_sessions = {}
-
-def verify_logs_password(password: str) -> bool:
-    """Verify password against environment variable"""
-    correct_password = os.getenv("LOGS_PASSWORD", "changeme")
-    return password == correct_password
-
-def create_session_token() -> str:
-    """Create a secure random session token"""
-    return secrets.token_urlsafe(32)
-
-def verify_session_token(token: Optional[str]) -> bool:
-    """Verify session token is valid and not expired"""
-    if not token or token not in active_sessions:
-        return False
-
-    expiry = active_sessions[token]
-    if datetime.utcnow() > expiry:
-        del active_sessions[token]
-        return False
-
-    return True
-
-@app.post("/logs/auth")
-async def authenticate_logs(password: str):
-    """
-    🔐 Authenticate for logs dashboard access
+    🔐 Authenticate for dashboard access
 
     **Parameters:**
-    - password: The logs dashboard password (set in LOGS_PASSWORD env var)
+    - password: The dashboard password (set in DASHBOARD_PASSWORD env var)
 
     **Returns:**
     - Session token cookie that expires in 24 hours
     """
-    if verify_logs_password(password):
+    if verify_dashboard_password(password):
         token = create_session_token()
         expiry = datetime.utcnow() + timedelta(hours=24)
         active_sessions[token] = expiry
 
         response = Response(content='{"status":"authenticated"}', media_type="application/json")
         response.set_cookie(
-            key="logs_session",
+            key="dashboard_session",
             value=token,
             httponly=True,
             max_age=86400,  # 24 hours
@@ -1384,29 +1333,21 @@ async def authenticate_logs(password: str):
     else:
         raise HTTPException(status_code=401, detail="Invalid password")
 
-@app.get("/logs/view", response_class=HTMLResponse)
-async def view_logs(logs_session: Optional[str] = Cookie(None)):
-    """
-    📊 Password-protected web UI for viewing API request/response logs
 
-    **Features:**
-    - Real-time log monitoring with auto-refresh
-    - Expandable rows to see full request/response JSON
-    - Statistics: total requests, avg response time, success rate
-    - Password protected with session-based authentication
-
-    **Access:** Navigate to /logs/view in your browser and enter password
+@app.get("/dashboard/login", response_class=HTMLResponse)
+async def dashboard_login():
     """
-    # Check if authenticated
-    if not verify_session_token(logs_session):
-        # Return login page
-        return HTMLResponse(content="""
+    🔐 Dashboard login page
+
+    **Purpose:** Login form for accessing all web dashboards
+    """
+    return HTMLResponse(content="""
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logs Dashboard - Login</title>
+    <title>Metrus Energy - Dashboard Login</title>
     <style>
         * {
             margin: 0;
@@ -1517,7 +1458,7 @@ async def view_logs(logs_session: Optional[str] = Cookie(None)):
         <div class="logo">
             <img src="https://cdn.prod.website-files.com/6645c7ede4572bff5e1bcfd5/6646259b5e59ac14d6e515e2_metrus-bolt-image-01-664624137b786.webp" alt="Metrus Energy">
             <h1>Metrus Energy</h1>
-            <p>API Request Monitoring Dashboard</p>
+            <p>Dashboard Login</p>
         </div>
 
         <div id="error" class="error">Invalid password. Please try again.</div>
@@ -1557,7 +1498,7 @@ async def view_logs(logs_session: Optional[str] = Cookie(None)):
             errorDiv.classList.remove('show');
 
             try {
-                const response = await fetch('/logs/auth?password=' + encodeURIComponent(password), {
+                const response = await fetch('/dashboard/auth?password=' + encodeURIComponent(password), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1565,8 +1506,8 @@ async def view_logs(logs_session: Optional[str] = Cookie(None)):
                 });
 
                 if (response.ok) {
-                    // Redirect to dashboard
-                    window.location.href = '/logs/view';
+                    // Redirect to main dashboard
+                    window.location.href = '/dashboard';
                 } else {
                     // Show error
                     errorDiv.classList.add('show');
@@ -1587,9 +1528,88 @@ async def view_logs(logs_session: Optional[str] = Cookie(None)):
     </script>
 </body>
 </html>
-        """)
+    """)
 
-    # Authenticated - show dashboard
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard_home(session: str = Depends(verify_dashboard_session)):
+    """
+    🏠 Main Dashboard - Landing page with links to all tools
+
+    **Features:**
+    - System status overview
+    - Links to all dashboards
+    - Salesforce connection status
+    - Quick access to enrichment and logs
+
+    **Authentication Required:** Session cookie from /dashboard/login
+    """
+    try:
+        with open("app/templates/dashboard.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Dashboard template not found"
+        )
+
+
+########################################
+# ENRICHMENT DASHBOARD
+########################################
+# Web UI for manual enrichment operations
+
+@app.get("/enrich", response_class=HTMLResponse)
+async def enrichment_dashboard(session: str = Depends(verify_dashboard_session)):
+    """
+    🎯 Enrichment Dashboard - Manual UI for enriching Salesforce records
+
+    **Features:**
+    - Paste Salesforce Account/Contact URLs
+    - Automatic ID extraction from URLs
+    - Configure enrichment options
+    - Real-time status updates
+
+    **Authentication Required:** Session cookie from /dashboard/login
+    **Access:** Navigate to /enrich in your browser (after login)
+    """
+    try:
+        with open("app/templates/enrichment.html", "r") as f:
+            html_content = f.read()
+            # Inject the API key from environment into the HTML
+            api_key = os.getenv("API_KEY", "dev-key-change-in-production")
+            html_content = html_content.replace(
+                "'X-API-Key': 'dev-key-change-in-production'",
+                f"'X-API-Key': '{api_key}'"
+            )
+            return HTMLResponse(content=html_content)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Enrichment dashboard template not found"
+        )
+
+
+########################################
+# API LOGGING ENDPOINTS
+########################################
+# These endpoints provide a password-protected web UI for viewing API request/response logs
+# stored in PostgreSQL database.
+
+@app.get("/logs/view", response_class=HTMLResponse)
+async def view_logs(session: str = Depends(verify_dashboard_session)):
+    """
+    📊 Password-protected web UI for viewing API request/response logs
+
+    **Features:**
+    - Real-time log monitoring with auto-refresh
+    - Expandable rows to see full request/response JSON
+    - Statistics: total requests, avg response time, success rate
+    - Password protected with session-based authentication
+
+    **Authentication Required:** Session cookie from /dashboard/login
+    **Access:** Navigate to /logs/view in your browser (after login)
+    """
     try:
         with open("app/templates/logs.html", "r") as f:
             return HTMLResponse(content=f.read())
@@ -1603,7 +1623,7 @@ async def view_logs(logs_session: Optional[str] = Cookie(None)):
 @app.get("/logs/data")
 async def get_logs_data(
     limit: int = 100,
-    logs_session: Optional[str] = Cookie(None),
+    session: str = Depends(verify_dashboard_session),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -1616,16 +1636,10 @@ async def get_logs_data(
     - List of log entries with request/response details
     - Statistics: total count, average duration, success rate
 
-    **Authentication:** Requires valid session cookie from /logs/auth
+    **Authentication Required:** Session cookie from /dashboard/login
 
     **Used by:** /logs/view frontend for dynamic log display
     """
-    # Verify authentication
-    if not verify_session_token(logs_session):
-        raise HTTPException(
-            status_code=401,
-            detail="Unauthorized. Please authenticate at /logs/view"
-        )
     try:
         # Get logs ordered by most recent first
         query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit)
