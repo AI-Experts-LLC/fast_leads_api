@@ -113,13 +113,23 @@
         }
 
         thead {
+            display: table-header-group;
             background: #0d1117;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
+        tbody {
+            display: table-row-group;
+        }
+
+        tr {
+            display: table-row;
+        }
+
         th {
+            display: table-cell;
             padding: 12px;
             text-align: left;
             font-weight: 600;
@@ -127,6 +137,13 @@
             color: #8b949e;
             text-transform: uppercase;
             border-bottom: 1px solid #30363d;
+        }
+
+        td {
+            display: table-cell;
+            padding: 12px;
+            font-size: 13px;
+            vertical-align: top;
         }
 
         tbody tr {
@@ -141,12 +158,6 @@
 
         tbody tr.expanded {
             background: #0d1117;
-        }
-
-        td {
-            padding: 12px;
-            font-size: 13px;
-            vertical-align: top;
         }
 
         .timestamp {
