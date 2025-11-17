@@ -1950,6 +1950,7 @@ async def view_logs(dashboard_session: Optional[str] = Cookie(None)):
 @app.get("/logs/data")
 async def get_logs_data(
     limit: int = 100,
+    offset: int = 0,
     dashboard_session: Optional[str] = Cookie(None),
     db: AsyncSession = Depends(get_db)
 ):
@@ -1958,6 +1959,7 @@ async def get_logs_data(
 
     **Parameters:**
     - `limit`: Maximum number of logs to return (default: 100)
+    - `offset`: Number of logs to skip for pagination (default: 0)
 
     **Returns:**
     - List of log entries with request/response details
@@ -1974,8 +1976,8 @@ async def get_logs_data(
             detail="Authentication required"
         )
     try:
-        # Get logs ordered by most recent first
-        query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit)
+        # Get logs ordered by most recent first with pagination
+        query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit).offset(offset)
         result = await db.execute(query)
         logs = result.scalars().all()
 

@@ -314,6 +314,54 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #484f58;
         }
+
+        .table-wrapper {
+            max-height: 600px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .page-btn {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #e6edf3;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #30363d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn.active {
+            background: #238636;
+            border-color: #238636;
+        }
+
+        .page-info {
+            color: #8b949e;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -351,33 +399,48 @@
     </div>
 
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 150px;">Timestamp</th>
-                    <th style="width: 80px;">Method</th>
-                    <th style="width: 300px;">Endpoint</th>
-                    <th style="width: 80px;">Status</th>
-                    <th style="width: 100px;">Duration</th>
-                    <th style="width: 150px;">Client IP</th>
-                </tr>
-            </thead>
-            <tbody id="logs-tbody">
-                <tr>
-                    <td colspan="6">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <div>Loading logs...</div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Timestamp</th>
+                        <th style="width: 80px;">Method</th>
+                        <th style="width: 300px;">Endpoint</th>
+                        <th style="width: 80px;">Status</th>
+                        <th style="width: 100px;">Duration</th>
+                        <th style="width: 150px;">Client IP</th>
+                    </tr>
+                </thead>
+                <tbody id="logs-tbody">
+                    <tr>
+                        <td colspan="6">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <div>Loading logs...</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <button class="page-btn" id="prev-page" onclick="previousPage()" disabled>← Previous</button>
+            <span class="page-info" id="page-info">Page 1</span>
+            <button class="page-btn" id="next-page" onclick="nextPage()">Next →</button>
+            <select id="page-size" class="page-btn" onchange="changePageSize()" style="margin-left: 20px;">
+                <option value="20" selected>20 per page</option>
+                <option value="50">50 per page</option>
+                <option value="100">100 per page</option>
+            </select>
+        </div>
     </div>
 
     <script>
         let autoRefreshInterval = null;
         let expandedRows = new Set();
+        let currentPage = 1;
+        let pageSize = 20;
+        let totalLogs = 0;
 
         function formatTimestamp(timestamp) {
             const date = new Date(timestamp);
@@ -431,8 +494,11 @@
 
         async function loadLogs() {
             try {
-                const response = await fetch('/logs/data');
+                const offset = (currentPage - 1) * pageSize;
+                const response = await fetch(`/logs/data?limit=${pageSize}&offset=${offset}`);
                 const data = await response.json();
+
+                totalLogs = data.stats.total_count;
 
                 // Update stats
                 document.getElementById('total-count').textContent = data.stats.total_count.toLocaleString();
@@ -505,6 +571,9 @@
                     </tr>
                 `).join('');
 
+                // Update pagination controls
+                updatePaginationControls();
+
             } catch (error) {
                 console.error('Failed to load logs:', error);
                 document.getElementById('logs-tbody').innerHTML = `
@@ -530,6 +599,46 @@
                 document.getElementById('auto-refresh-text').textContent = '⏸ Auto-Refresh (On)';
                 loadLogs();
             }
+        }
+
+        function updatePaginationControls() {
+            const totalPages = Math.ceil(totalLogs / pageSize);
+            const startRecord = (currentPage - 1) * pageSize + 1;
+            const endRecord = Math.min(currentPage * pageSize, totalLogs);
+
+            // Update page info
+            document.getElementById('page-info').textContent =
+                `Page ${currentPage} of ${totalPages || 1} (${startRecord}-${endRecord} of ${totalLogs})`;
+
+            // Update button states
+            document.getElementById('prev-page').disabled = currentPage === 1;
+            document.getElementById('next-page').disabled = currentPage >= totalPages || totalLogs === 0;
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadLogs();
+                // Scroll to top of table
+                document.querySelector('.table-wrapper').scrollTop = 0;
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(totalLogs / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadLogs();
+                // Scroll to top of table
+                document.querySelector('.table-wrapper').scrollTop = 0;
+            }
+        }
+
+        function changePageSize() {
+            pageSize = parseInt(document.getElementById('page-size').value);
+            currentPage = 1; // Reset to first page
+            expandedRows.clear(); // Clear expanded rows when changing page size
+            loadLogs();
         }
 
         // Load logs on page load
