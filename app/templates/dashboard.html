@@ -387,14 +387,21 @@
 
                 document.getElementById('environment').textContent = healthData.environment || 'unknown';
 
-                // Salesforce status
+                // Salesforce status - attempt connection first
                 try {
+                    // First attempt to connect
+                    await fetch('/salesforce/connect', { method: 'POST' });
+
+                    // Then check status
                     const sfResponse = await fetch('/salesforce/status');
                     const sfData = await sfResponse.json();
 
-                    if (sfData.status === 'success') {
+                    if (sfData.connection_info && sfData.connection_info.connected) {
                         document.getElementById('salesforceStatus').textContent = '✓ Connected';
                         document.getElementById('salesforceStatus').style.color = '#3fb950';
+                    } else if (sfData.connection_info && sfData.connection_info.error) {
+                        document.getElementById('salesforceStatus').textContent = '✗ ' + sfData.connection_info.error;
+                        document.getElementById('salesforceStatus').style.color = '#f85149';
                     } else {
                         document.getElementById('salesforceStatus').textContent = '✗ Error';
                         document.getElementById('salesforceStatus').style.color = '#f85149';
