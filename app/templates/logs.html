@@ -16,6 +16,8 @@
             background: #0f1419;
             color: #e6edf3;
             padding: 20px;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .header {
@@ -98,11 +100,14 @@
             border: 1px solid #30363d;
             border-radius: 8px;
             overflow: hidden;
+            width: 100%;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
+            display: table;
         }
 
         thead {
@@ -166,7 +171,9 @@
         .endpoint {
             color: #58a6ff;
             font-family: 'Courier New', monospace;
-            word-break: break-all;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 300px;
         }
 
         .status {
@@ -318,7 +325,9 @@
         .table-wrapper {
             max-height: 600px;
             overflow-y: auto;
+            overflow-x: auto;
             position: relative;
+            width: 100%;
         }
 
         .pagination {
@@ -403,12 +412,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 150px;">Timestamp</th>
-                        <th style="width: 80px;">Method</th>
-                        <th style="width: 300px;">Endpoint</th>
-                        <th style="width: 80px;">Status</th>
-                        <th style="width: 100px;">Duration</th>
-                        <th style="width: 150px;">Client IP</th>
+                        <th style="min-width: 150px; width: 150px;">Timestamp</th>
+                        <th style="min-width: 80px; width: 80px;">Method</th>
+                        <th style="min-width: 200px; width: auto;">Endpoint</th>
+                        <th style="min-width: 80px; width: 80px;">Status</th>
+                        <th style="min-width: 100px; width: 100px;">Duration</th>
+                        <th style="min-width: 120px; width: 120px;">Client IP</th>
                     </tr>
                 </thead>
                 <tbody id="logs-tbody">
