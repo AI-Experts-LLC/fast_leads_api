@@ -1307,13 +1307,13 @@ async def get_pending_updates(
     try:
         from app.services.pending_updates import PendingUpdatesService
         from app.models import RecordType, UpdateStatus
-        from app.services.salesforce import get_salesforce_connection
 
-        # Get Salesforce connection
-        sf = get_salesforce_connection()
+        # Ensure Salesforce is connected
+        if not salesforce_service._authenticated:
+            await salesforce_service.connect()
 
         # Create pending updates service
-        pending_service = PendingUpdatesService(db, sf)
+        pending_service = PendingUpdatesService(db, salesforce_service.sf)
 
         # Filter by record type if specified
         filter_type = None
@@ -1394,13 +1394,13 @@ async def approve_pending_update(
 
     try:
         from app.services.pending_updates import PendingUpdatesService
-        from app.services.salesforce import get_salesforce_connection
 
-        # Get Salesforce connection
-        sf = get_salesforce_connection()
+        # Ensure Salesforce is connected
+        if not salesforce_service._authenticated:
+            await salesforce_service.connect()
 
         # Create pending updates service
-        pending_service = PendingUpdatesService(db, sf)
+        pending_service = PendingUpdatesService(db, salesforce_service.sf)
 
         # Approve the update
         success = await pending_service.approve_update(
@@ -1467,13 +1467,13 @@ async def approve_all_pending_updates(
     try:
         from app.services.pending_updates import PendingUpdatesService
         from app.models import RecordType
-        from app.services.salesforce import get_salesforce_connection
 
-        # Get Salesforce connection
-        sf = get_salesforce_connection()
+        # Ensure Salesforce is connected
+        if not salesforce_service._authenticated:
+            await salesforce_service.connect()
 
         # Create pending updates service
-        pending_service = PendingUpdatesService(db, sf)
+        pending_service = PendingUpdatesService(db, salesforce_service.sf)
 
         # Filter by record type if specified
         filter_type = None
