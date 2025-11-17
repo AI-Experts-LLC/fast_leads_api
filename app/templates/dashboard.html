@@ -203,6 +203,19 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .pending-update-header:hover .pending-update-title {
+            color: #58a6ff;
+        }
+        .expand-icon {
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s;
+        }
+        .expand-icon.expanded {
+            transform: rotate(90deg);
         }
         .pending-update-title {
             font-size: 16px;
@@ -242,27 +255,54 @@
             background: #f85149;
         }
         .field-updates {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 8px;
+            display: none;
+            margin-top: 12px;
+            overflow-x: auto;
         }
-        .field-update {
+        .field-updates.expanded {
+            display: block;
+        }
+        .field-updates-table {
+            width: 100%;
+            border-collapse: collapse;
             background: #161b22;
-            padding: 8px 12px;
-            border-radius: 4px;
-            border-left: 3px solid #58a6ff;
+            border-radius: 6px;
+            overflow: hidden;
         }
-        .field-name {
+        .field-updates-table thead {
+            background: #0d1117;
+        }
+        .field-updates-table th {
+            padding: 12px;
+            text-align: left;
             font-size: 11px;
             color: #8b949e;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
+            border-bottom: 1px solid #30363d;
         }
-        .field-value {
+        .field-updates-table td {
+            padding: 12px;
             font-size: 13px;
             color: #e6edf3;
+            border-bottom: 1px solid #21262d;
+            vertical-align: top;
+        }
+        .field-updates-table tr:last-child td {
+            border-bottom: none;
+        }
+        .field-updates-table tr:hover {
+            background: #0d1117;
+        }
+        .field-name-col {
+            font-weight: 600;
+            color: #58a6ff;
+            white-space: nowrap;
+            width: 200px;
+        }
+        .field-value-col {
             word-break: break-word;
+            max-width: 600px;
         }
         .no-updates {
             text-align: center;
@@ -414,19 +454,24 @@
                 for (const update of data.updates) {
                     const createdDate = new Date(update.created_at).toLocaleString();
                     const recordIcon = update.record_type === 'Account' ? '🏢' : '👤';
+                    const fieldCount = Object.keys(update.field_updates).length;
 
                     html += `
                         <div class="pending-update" data-update-id="${update.id}">
-                            <div class="pending-update-header">
+                            <div class="pending-update-header" onclick="toggleFieldUpdates(${update.id})">
                                 <div>
                                     <div class="pending-update-title">
+                                        <span class="expand-icon" id="expand-${update.id}">▶</span>
                                         ${recordIcon} ${update.record_name || update.record_id}
+                                        <span style="color: #8b949e; font-size: 12px; font-weight: normal; margin-left: 8px;">
+                                            (${fieldCount} field${fieldCount !== 1 ? 's' : ''})
+                                        </span>
                                     </div>
                                     <div class="pending-update-meta">
                                         ${update.record_type} • ${update.enrichment_type || 'enrichment'} • ${createdDate}
                                     </div>
                                 </div>
-                                <div class="pending-update-actions">
+                                <div class="pending-update-actions" onclick="event.stopPropagation()">
                                     <button class="approve-btn" onclick="approveUpdate(${update.id})">
                                         ✓ Approve
                                     </button>
@@ -435,21 +480,32 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="field-updates">`;
+                            <div class="field-updates" id="fields-${update.id}">
+                                <table class="field-updates-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field Name</th>
+                                            <th>New Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
 
-                    // Add fields
+                    // Add fields as table rows
                     for (const [fieldName, fieldValue] of Object.entries(update.field_updates)) {
-                        const displayValue = typeof fieldValue === 'string' && fieldValue.length > 100
-                            ? fieldValue.substring(0, 100) + '...'
-                            : fieldValue;
+                        const displayValue = fieldValue !== null && fieldValue !== undefined
+                            ? String(fieldValue)
+                            : '<em style="color: #6e7681;">null</em>';
+
                         html += `
-                            <div class="field-update">
-                                <div class="field-name">${fieldName}</div>
-                                <div class="field-value">${displayValue}</div>
-                            </div>`;
+                                        <tr>
+                                            <td class="field-name-col">${fieldName}</td>
+                                            <td class="field-value-col">${displayValue}</td>
+                                        </tr>`;
                     }
 
                     html += `
+                                    </tbody>
+                                </table>
                             </div>
                         </div>`;
                 }
@@ -460,6 +516,19 @@
                 console.error('Failed to load pending updates:', error);
                 document.getElementById('pendingUpdatesContainer').innerHTML =
                     '<div class="no-updates">⚠️ Error loading pending updates</div>';
+            }
+        }
+
+        function toggleFieldUpdates(updateId) {
+            const fieldsDiv = document.getElementById(`fields-${updateId}`);
+            const expandIcon = document.getElementById(`expand-${updateId}`);
+
+            if (fieldsDiv.classList.contains('expanded')) {
+                fieldsDiv.classList.remove('expanded');
+                expandIcon.classList.remove('expanded');
+            } else {
+                fieldsDiv.classList.add('expanded');
+                expandIcon.classList.add('expanded');
             }
         }
 
