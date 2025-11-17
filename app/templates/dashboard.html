@@ -175,6 +175,101 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .approve-all-btn {
+            float: right;
+            padding: 10px 20px;
+            background: #3fb950;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .approve-all-btn:hover {
+            background: #2ea043;
+            transform: translateY(-1px);
+        }
+        .pending-update {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .pending-update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .pending-update-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e6edf3;
+        }
+        .pending-update-meta {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 4px;
+        }
+        .pending-update-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .approve-btn, .reject-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .approve-btn {
+            background: #238636;
+            color: white;
+        }
+        .approve-btn:hover {
+            background: #2ea043;
+        }
+        .reject-btn {
+            background: #da3633;
+            color: white;
+        }
+        .reject-btn:hover {
+            background: #f85149;
+        }
+        .field-updates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 8px;
+        }
+        .field-update {
+            background: #161b22;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border-left: 3px solid #58a6ff;
+        }
+        .field-name {
+            font-size: 11px;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .field-value {
+            font-size: 13px;
+            color: #e6edf3;
+            word-break: break-word;
+        }
+        .no-updates {
+            text-align: center;
+            padding: 40px;
+            color: #8b949e;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -223,6 +318,17 @@
                     <div class="status-value" id="uptime">--:--:--</div>
                     <div class="status-label">Last Restart</div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Pending Updates Section -->
+        <div class="status-section">
+            <h2>
+                📝 Pending Salesforce Updates
+                <button class="approve-all-btn" onclick="approveAll()" style="display:none;">✓ Approve All</button>
+            </h2>
+            <div id="pendingUpdatesContainer">
+                <div class="spinner"></div>
             </div>
         </div>
 
@@ -312,11 +418,175 @@
             }
         }
 
-        // Load status on page load
+        async function loadPendingUpdates() {
+            try {
+                const response = await fetch('/pending-updates');
+                const data = await response.json();
+
+                const container = document.getElementById('pendingUpdatesContainer');
+                const approveAllBtn = document.querySelector('.approve-all-btn');
+
+                if (data.count === 0) {
+                    container.innerHTML = '<div class="no-updates">✅ No pending updates</div>';
+                    approveAllBtn.style.display = 'none';
+                    return;
+                }
+
+                // Show approve all button
+                approveAllBtn.style.display = 'inline-block';
+
+                // Build HTML for pending updates
+                let html = '';
+                for (const update of data.updates) {
+                    const createdDate = new Date(update.created_at).toLocaleString();
+                    const recordIcon = update.record_type === 'Account' ? '🏢' : '👤';
+
+                    html += `
+                        <div class="pending-update" data-update-id="${update.id}">
+                            <div class="pending-update-header">
+                                <div>
+                                    <div class="pending-update-title">
+                                        ${recordIcon} ${update.record_name || update.record_id}
+                                    </div>
+                                    <div class="pending-update-meta">
+                                        ${update.record_type} • ${update.enrichment_type || 'enrichment'} • ${createdDate}
+                                    </div>
+                                </div>
+                                <div class="pending-update-actions">
+                                    <button class="approve-btn" onclick="approveUpdate(${update.id})">
+                                        ✓ Approve
+                                    </button>
+                                    <button class="reject-btn" onclick="rejectUpdate(${update.id})">
+                                        ✗ Reject
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="field-updates">`;
+
+                    // Add fields
+                    for (const [fieldName, fieldValue] of Object.entries(update.field_updates)) {
+                        const displayValue = typeof fieldValue === 'string' && fieldValue.length > 100
+                            ? fieldValue.substring(0, 100) + '...'
+                            : fieldValue;
+                        html += `
+                            <div class="field-update">
+                                <div class="field-name">${fieldName}</div>
+                                <div class="field-value">${displayValue}</div>
+                            </div>`;
+                    }
+
+                    html += `
+                            </div>
+                        </div>`;
+                }
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error('Failed to load pending updates:', error);
+                document.getElementById('pendingUpdatesContainer').innerHTML =
+                    '<div class="no-updates">⚠️ Error loading pending updates</div>';
+            }
+        }
+
+        async function approveUpdate(updateId) {
+            if (!confirm('Approve this update and apply it to Salesforce?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/pending-updates/${updateId}/approve`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Remove the update from the UI
+                    const updateElement = document.querySelector(`[data-update-id="${updateId}"]`);
+                    if (updateElement) {
+                        updateElement.style.opacity = '0.5';
+                        updateElement.style.transition = 'opacity 0.3s';
+                        setTimeout(() => {
+                            updateElement.remove();
+                            loadPendingUpdates(); // Reload to update count
+                        }, 300);
+                    }
+                } else {
+                    alert('Failed to approve update: ' + (data.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error approving update:', error);
+                alert('Error approving update: ' + error.message);
+            }
+        }
+
+        async function rejectUpdate(updateId) {
+            if (!confirm('Reject this update? It will not be applied to Salesforce.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/pending-updates/${updateId}/reject`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Remove the update from the UI
+                    const updateElement = document.querySelector(`[data-update-id="${updateId}"]`);
+                    if (updateElement) {
+                        updateElement.style.opacity = '0.5';
+                        updateElement.style.transition = 'opacity 0.3s';
+                        setTimeout(() => {
+                            updateElement.remove();
+                            loadPendingUpdates(); // Reload to update count
+                        }, 300);
+                    }
+                } else {
+                    alert('Failed to reject update: ' + (data.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error rejecting update:', error);
+                alert('Error rejecting update: ' + error.message);
+            }
+        }
+
+        async function approveAll() {
+            if (!confirm('Approve ALL pending updates and apply them to Salesforce?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/pending-updates/approve-all', {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    alert(`Processed ${data.total} updates:\n✓ ${data.successful} successful\n✗ ${data.failed} failed`);
+                    loadPendingUpdates(); // Reload the list
+                } else {
+                    alert('Failed to approve all updates: ' + (data.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error approving all updates:', error);
+                alert('Error approving all updates: ' + error.message);
+            }
+        }
+
+        // Load status and pending updates on page load
         document.addEventListener('DOMContentLoaded', () => {
             loadStatus();
+            loadPendingUpdates();
+
             // Refresh status every 30 seconds
             setInterval(loadStatus, 30000);
+
+            // Refresh pending updates every 10 seconds
+            setInterval(loadPendingUpdates, 10000);
         });
     </script>
 </body>

@@ -90,12 +90,14 @@ class WebSearchAccountEnricher:
         'credit_quality_detailed': 'Company_Credit_Quality_Detailed__c',
     }
     
-    def __init__(self):
+    def __init__(self, db_session=None, pending_updates_service=None):
         """Initialize the enricher with Salesforce and OpenAI connections."""
         self.sf = None
         self.openai_client = None
         self.financial_enricher = None
         self.credit_enricher = None
+        self.db_session = db_session
+        self.pending_updates_service = pending_updates_service
 
         # Load environment variables
         load_dotenv()
@@ -609,21 +611,34 @@ If no good information found for that category, format as EMPTY STRING "" in the
 
 
 
-    def update_account_fields(self, account_id: str, field_data: Dict[str, str], updatable_fields: List[str] = None) -> bool:
-        """Update account fields in Salesforce with field validation."""
+    async def update_account_fields(self, account_id: str, field_data: Dict[str, str], updatable_fields: List[str] = None, queue_mode: bool = False) -> bool:
+        """
+        Update account fields in Salesforce with field validation.
+
+        Args:
+            account_id: Salesforce Account ID
+            field_data: Dictionary of field keys to values
+            updatable_fields: Optional list of field keys that can be updated
+            queue_mode: If True, queue update for approval instead of direct update
+
+        Returns:
+            True if successful, False otherwise
+        """
         try:
             logger.info(f"💾 Updating account {account_id} with web search data...")
-            
+            if queue_mode:
+                logger.info("📋 Queue mode: Updates will require approval before applying to Salesforce")
+
             # First, clean the field data using our validator
             logger.info(f"🧹 Validating {len(field_data)} fields before Salesforce update...")
             cleaned_field_data = FieldValidator.clean_field_data(field_data, self.FIELD_MAPPING)
-            
+
             if len(cleaned_field_data) < len(field_data):
                 removed_count = len(field_data) - len(cleaned_field_data)
                 logger.warning(f"🛑 Filtered out {removed_count} invalid fields before update")
-            
+
             update_data = {}
-            
+
             for field_key, value in cleaned_field_data.items():
                 # Only update if field has data AND is in the updatable_fields list (or no restriction if updatable_fields is None)
                 if value and value.strip() and field_key in self.FIELD_MAPPING:
@@ -644,14 +659,14 @@ If no good information found for that category, format as EMPTY STRING "" in the
                             logger.warning(f"   🛑 BLOCKED {field_key}: Failed final validation")
                     else:
                         logger.info(f"   🔴 Skipping {field_key} (not in updatable fields list)")
-            
+
             if not update_data:
                 logger.warning("⚠️ No valid fields to update after validation")
                 return True  # Not an error, just no valid data found
-            
+
             # Final safety check on the Salesforce update data
             validated_update_data = FieldValidator.validate_salesforce_update_data(update_data)
-            
+
             if len(validated_update_data) < len(update_data):
                 blocked_count = len(update_data) - len(validated_update_data)
                 logger.warning(f"🛑 Final safety check blocked {blocked_count} additional fields")
@@ -659,11 +674,33 @@ If no good information found for that category, format as EMPTY STRING "" in the
             if not validated_update_data:
                 logger.warning("⚠️ No fields passed final validation - skipping Salesforce update")
                 return True
-            
-            self.sf.Account.update(account_id, validated_update_data)
-            logger.info(f"✅ Successfully updated {len(validated_update_data)} validated fields")
-            return True
-            
+
+            # Queue or directly update based on mode
+            if queue_mode and self.pending_updates_service:
+                # Get account name for display
+                try:
+                    account = self.sf.Account.get(account_id)
+                    account_name = account.get('Name', account_id)
+                except:
+                    account_name = account_id
+
+                # Queue the update for approval
+                from app.models import RecordType
+                await self.pending_updates_service.queue_update(
+                    record_type=RecordType.ACCOUNT,
+                    record_id=account_id,
+                    field_updates=validated_update_data,
+                    record_name=account_name,
+                    enrichment_type="web_search_account"
+                )
+                logger.info(f"✅ Queued {len(validated_update_data)} fields for approval (Account: {account_name})")
+                return True
+            else:
+                # Direct update to Salesforce
+                self.sf.Account.update(account_id, validated_update_data)
+                logger.info(f"✅ Successfully updated {len(validated_update_data)} validated fields")
+                return True
+
         except Exception as e:
             logger.error(f"❌ Failed to update account: {str(e)}")
             return False

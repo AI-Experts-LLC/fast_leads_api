@@ -1270,6 +1270,306 @@ async def enrich_contact(
         )
 
 
+########################################
+# PENDING SALESFORCE UPDATES
+########################################
+# Approval workflow for Salesforce updates from enrichment
+
+@app.get("/pending-updates")
+async def get_pending_updates(
+    record_type: Optional[str] = None,
+    limit: int = 100,
+    dashboard_session: Optional[str] = Cookie(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    📋 Get pending Salesforce updates awaiting approval
+
+    **Authentication Required:** Session cookie from /dashboard/login
+
+    **Parameters:**
+    - `record_type`: Filter by "Account" or "Contact" (optional)
+    - `limit`: Maximum number of updates to return (default: 100)
+
+    **Returns:**
+    - List of pending updates with field details
+    - Each update shows: record info, fields to update, enrichment type
+
+    **Use Case:** Dashboard displays pending updates for user review
+    """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
+
+    try:
+        from app.services.pending_updates import PendingUpdatesService
+        from app.models import RecordType, UpdateStatus
+        from app.services.salesforce import get_salesforce_connection
+
+        # Get Salesforce connection
+        sf = get_salesforce_connection()
+
+        # Create pending updates service
+        pending_service = PendingUpdatesService(db, sf)
+
+        # Filter by record type if specified
+        filter_type = None
+        if record_type:
+            if record_type.lower() == "account":
+                filter_type = RecordType.ACCOUNT
+            elif record_type.lower() == "contact":
+                filter_type = RecordType.CONTACT
+
+        # Get pending updates
+        updates = await pending_service.get_pending_updates(
+            record_type=filter_type,
+            status=UpdateStatus.PENDING,
+            limit=limit
+        )
+
+        # Convert to JSON-serializable format
+        updates_data = []
+        for update in updates:
+            updates_data.append({
+                "id": update.id,
+                "created_at": update.created_at.isoformat(),
+                "record_type": update.record_type.value,
+                "record_id": update.record_id,
+                "record_name": update.record_name,
+                "field_updates": update.field_updates,
+                "enrichment_type": update.enrichment_type,
+                "status": update.status.value
+            })
+
+        return {
+            "status": "success",
+            "count": len(updates_data),
+            "updates": updates_data,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+    except Exception as e:
+        logger.error(f"❌ Error retrieving pending updates: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving pending updates: {str(e)}"
+        )
+
+
+@app.post("/pending-updates/{update_id}/approve")
+async def approve_pending_update(
+    update_id: int,
+    dashboard_session: Optional[str] = Cookie(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    ✅ Approve and execute a pending Salesforce update
+
+    **Authentication Required:** Session cookie from /dashboard/login
+
+    **Parameters:**
+    - `update_id`: ID of the pending update to approve
+
+    **Returns:**
+    - Success/failure status
+    - Details of the approved update
+
+    **What happens:**
+    1. Validates update exists and is pending
+    2. Executes the Salesforce update
+    3. Marks update as approved in database
+    4. Returns confirmation
+
+    **Use Case:** User clicks green checkmark on pending update
+    """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
+
+    try:
+        from app.services.pending_updates import PendingUpdatesService
+        from app.services.salesforce import get_salesforce_connection
+
+        # Get Salesforce connection
+        sf = get_salesforce_connection()
+
+        # Create pending updates service
+        pending_service = PendingUpdatesService(db, sf)
+
+        # Approve the update
+        success = await pending_service.approve_update(
+            update_id=update_id,
+            approved_by="dashboard_user"  # TODO: Track actual user
+        )
+
+        if success:
+            return {
+                "status": "success",
+                "message": f"Update {update_id} approved and applied to Salesforce",
+                "update_id": update_id,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Failed to approve update {update_id}"
+            )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Error approving update {update_id}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error approving update: {str(e)}"
+        )
+
+
+@app.post("/pending-updates/approve-all")
+async def approve_all_pending_updates(
+    record_type: Optional[str] = None,
+    dashboard_session: Optional[str] = Cookie(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    ✅ Approve and execute ALL pending Salesforce updates
+
+    **Authentication Required:** Session cookie from /dashboard/login
+
+    **Parameters:**
+    - `record_type`: Filter by "Account" or "Contact" (optional)
+
+    **Returns:**
+    - Counts of successful and failed approvals
+    - Total number of updates processed
+
+    **What happens:**
+    1. Retrieves all pending updates (filtered by type if specified)
+    2. Executes each Salesforce update
+    3. Marks each as approved in database
+    4. Returns summary statistics
+
+    **Use Case:** User clicks "Update All" button for bulk approval
+    """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
+
+    try:
+        from app.services.pending_updates import PendingUpdatesService
+        from app.models import RecordType
+        from app.services.salesforce import get_salesforce_connection
+
+        # Get Salesforce connection
+        sf = get_salesforce_connection()
+
+        # Create pending updates service
+        pending_service = PendingUpdatesService(db, sf)
+
+        # Filter by record type if specified
+        filter_type = None
+        if record_type:
+            if record_type.lower() == "account":
+                filter_type = RecordType.ACCOUNT
+            elif record_type.lower() == "contact":
+                filter_type = RecordType.CONTACT
+
+        # Approve all pending updates
+        result = await pending_service.approve_all_pending(
+            record_type=filter_type,
+            approved_by="dashboard_user"  # TODO: Track actual user
+        )
+
+        return {
+            "status": "success",
+            "message": f"Processed {result['total']} updates",
+            "successful": result['success'],
+            "failed": result['failed'],
+            "total": result['total'],
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+    except Exception as e:
+        logger.error(f"❌ Error approving all updates: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error approving all updates: {str(e)}"
+        )
+
+
+@app.post("/pending-updates/{update_id}/reject")
+async def reject_pending_update(
+    update_id: int,
+    dashboard_session: Optional[str] = Cookie(None),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    ❌ Reject a pending Salesforce update
+
+    **Authentication Required:** Session cookie from /dashboard/login
+
+    **Parameters:**
+    - `update_id`: ID of the pending update to reject
+
+    **Returns:**
+    - Success/failure status
+    - Details of the rejected update
+
+    **What happens:**
+    1. Validates update exists and is pending
+    2. Marks update as rejected (NO Salesforce update)
+    3. Returns confirmation
+
+    **Use Case:** User rejects a pending update (red X button)
+    """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
+
+    try:
+        from app.services.pending_updates import PendingUpdatesService
+
+        # Create pending updates service (no SF connection needed for rejection)
+        pending_service = PendingUpdatesService(db, None)
+
+        # Reject the update
+        success = await pending_service.reject_update(update_id)
+
+        if success:
+            return {
+                "status": "success",
+                "message": f"Update {update_id} rejected",
+                "update_id": update_id,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Failed to reject update {update_id}"
+            )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Error rejecting update {update_id}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error rejecting update: {str(e)}"
+        )
+
+
 @app.get("/debug/environment")
 async def debug_environment():
     """
