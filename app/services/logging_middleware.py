@@ -26,7 +26,9 @@ class APILoggingMiddleware(BaseHTTPMiddleware):
         "/docs",
         "/openapi.json",
         "/redoc",
-        "/favicon.ico"
+        "/favicon.ico",
+        "/pending-updates",
+        "/dashboard"
     }
 
     async def dispatch(self, request: Request, call_next):
