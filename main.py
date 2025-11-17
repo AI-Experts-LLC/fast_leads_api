@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends, Header, Cookie
-from fastapi.responses import HTMLResponse, FileResponse, Response
+from fastapi.responses import HTMLResponse, FileResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from datetime import datetime, timedelta
 from sqlalchemy import select, func
@@ -26,6 +26,7 @@ from app.services.enrichment import enrichment_service, AccountEnrichmentRequest
 from app.auth import (
     verify_api_key,
     verify_dashboard_session,
+    check_dashboard_session,
     verify_dashboard_password,
     create_session_token,
     active_sessions
@@ -1532,7 +1533,7 @@ async def dashboard_login():
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_home(session: str = Depends(verify_dashboard_session)):
+async def dashboard_home(dashboard_session: Optional[str] = Cookie(None)):
     """
     🏠 Main Dashboard - Landing page with links to all tools
 
@@ -1544,6 +1545,10 @@ async def dashboard_home(session: str = Depends(verify_dashboard_session)):
 
     **Authentication Required:** Session cookie from /dashboard/login
     """
+    # Check authentication and redirect if needed
+    if not check_dashboard_session(dashboard_session):
+        return RedirectResponse(url="/dashboard/login", status_code=302)
+
     try:
         with open("app/templates/dashboard.html", "r") as f:
             return HTMLResponse(content=f.read())
@@ -1560,7 +1565,7 @@ async def dashboard_home(session: str = Depends(verify_dashboard_session)):
 # Web UI for manual enrichment operations
 
 @app.get("/enrich", response_class=HTMLResponse)
-async def enrichment_dashboard(session: str = Depends(verify_dashboard_session)):
+async def enrichment_dashboard(dashboard_session: Optional[str] = Cookie(None)):
     """
     🎯 Enrichment Dashboard - Manual UI for enriching Salesforce records
 
@@ -1573,6 +1578,10 @@ async def enrichment_dashboard(session: str = Depends(verify_dashboard_session))
     **Authentication Required:** Session cookie from /dashboard/login
     **Access:** Navigate to /enrich in your browser (after login)
     """
+    # Check authentication and redirect if needed
+    if not check_dashboard_session(dashboard_session):
+        return RedirectResponse(url="/dashboard/login", status_code=302)
+
     try:
         with open("app/templates/enrichment.html", "r") as f:
             html_content = f.read()
@@ -1597,7 +1606,7 @@ async def enrichment_dashboard(session: str = Depends(verify_dashboard_session))
 # stored in PostgreSQL database.
 
 @app.get("/logs/view", response_class=HTMLResponse)
-async def view_logs(session: str = Depends(verify_dashboard_session)):
+async def view_logs(dashboard_session: Optional[str] = Cookie(None)):
     """
     📊 Password-protected web UI for viewing API request/response logs
 
@@ -1610,6 +1619,10 @@ async def view_logs(session: str = Depends(verify_dashboard_session)):
     **Authentication Required:** Session cookie from /dashboard/login
     **Access:** Navigate to /logs/view in your browser (after login)
     """
+    # Check authentication and redirect if needed
+    if not check_dashboard_session(dashboard_session):
+        return RedirectResponse(url="/dashboard/login", status_code=302)
+
     try:
         with open("app/templates/logs.html", "r") as f:
             return HTMLResponse(content=f.read())
@@ -1623,7 +1636,7 @@ async def view_logs(session: str = Depends(verify_dashboard_session)):
 @app.get("/logs/data")
 async def get_logs_data(
     limit: int = 100,
-    session: str = Depends(verify_dashboard_session),
+    dashboard_session: Optional[str] = Cookie(None),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -1640,6 +1653,12 @@ async def get_logs_data(
 
     **Used by:** /logs/view frontend for dynamic log display
     """
+    # Check authentication
+    if not check_dashboard_session(dashboard_session):
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required"
+        )
     try:
         # Get logs ordered by most recent first
         query = select(APILog).order_by(APILog.timestamp.desc()).limit(limit)

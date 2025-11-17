@@ -99,6 +99,19 @@ def verify_session_token(token: Optional[str]) -> bool:
     return True
 
 
+def check_dashboard_session(dashboard_session: Optional[str]) -> bool:
+    """
+    Check if dashboard session is valid without raising exception.
+
+    Args:
+        dashboard_session: Session token from cookie
+
+    Returns:
+        True if valid, False otherwise
+    """
+    return verify_session_token(dashboard_session)
+
+
 async def verify_dashboard_session(dashboard_session: Optional[str] = Cookie(None)) -> str:
     """
     Verify dashboard session from cookie.
