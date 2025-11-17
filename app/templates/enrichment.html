@@ -341,6 +341,98 @@
 
         <div class="divider"></div>
 
+        <!-- Bulk Enrichment -->
+        <div class="card">
+            <h2>📋 Bulk Enrichment</h2>
+            <p style="color: #8b949e; margin-bottom: 20px; font-size: 14px;">
+                Enrich multiple accounts or contacts at once. All updates will be queued for approval.
+            </p>
+
+            <!-- Bulk Account Enrichment -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="font-size: 16px; color: #58a6ff; margin-bottom: 12px;">📊 Bulk Account Enrichment</h3>
+                <form id="bulkAccountForm" onsubmit="return enrichBulkAccounts(event)">
+                    <div class="form-group">
+                        <label for="bulkAccountIds">Account IDs</label>
+                        <textarea
+                            id="bulkAccountIds"
+                            placeholder="Paste Account IDs here (comma-separated or one per line)&#10;Example:&#10;001VR00000UhY5JYAV, 001VR00000UhY3oYAF&#10;or&#10;001VR00000UhY5JYAV&#10;001VR00000UhY3oYAF"
+                            rows="6"
+                            style="width: 100%; padding: 12px 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #e6edf3; font-size: 14px; font-family: 'Courier New', monospace; resize: vertical;"
+                            required
+                        ></textarea>
+                        <div class="help-text">
+                            Supports comma-separated, space-separated, or line-separated Account IDs
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enrichment Options</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="bulkAccountOverwrite">
+                                <label for="bulkAccountOverwrite">Overwrite existing data</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="bulkAccountFinancial" checked>
+                                <label for="bulkAccountFinancial">Include financial data</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="bulkAccountBtn">
+                        Enrich Accounts (Bulk)
+                    </button>
+
+                    <div id="bulkAccountResult" class="result"></div>
+                </form>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Bulk Contact Enrichment -->
+            <div>
+                <h3 style="font-size: 16px; color: #58a6ff; margin-bottom: 12px;">👤 Bulk Contact Enrichment</h3>
+                <form id="bulkContactForm" onsubmit="return enrichBulkContacts(event)">
+                    <div class="form-group">
+                        <label for="bulkContactIds">Contact IDs</label>
+                        <textarea
+                            id="bulkContactIds"
+                            placeholder="Paste Contact IDs here (comma-separated or one per line)&#10;Example:&#10;003VR000001234567, 003VR000007654321&#10;or&#10;003VR000001234567&#10;003VR000007654321"
+                            rows="6"
+                            style="width: 100%; padding: 12px 16px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #e6edf3; font-size: 14px; font-family: 'Courier New', monospace; resize: vertical;"
+                            required
+                        ></textarea>
+                        <div class="help-text">
+                            Supports comma-separated, space-separated, or line-separated Contact IDs
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enrichment Options</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="bulkContactOverwrite">
+                                <label for="bulkContactOverwrite">Overwrite existing data</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="bulkContactLinkedIn" checked>
+                                <label for="bulkContactLinkedIn">Include LinkedIn data</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="bulkContactBtn">
+                        Enrich Contacts (Bulk)
+                    </button>
+
+                    <div id="bulkContactResult" class="result"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
         <!-- Credit Lookup -->
         <div class="card">
             <h2>💰 Credit Lookup (Moody's EDF-X)</h2>
@@ -635,6 +727,193 @@
         }
 
         // Add example button functionality
+        // Bulk Account Enrichment
+        async function enrichBulkAccounts(event) {
+            event.preventDefault();
+
+            const idsText = document.getElementById('bulkAccountIds').value;
+            const resultDiv = document.getElementById('bulkAccountResult');
+            const submitBtn = document.getElementById('bulkAccountBtn');
+
+            // Parse IDs from various formats (comma, space, newline separated)
+            const ids = idsText
+                .split(/[\s,\n]+/)
+                .map(id => id.trim())
+                .filter(id => id.length > 0);
+
+            if (ids.length === 0) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>× Error:</strong> No valid Account IDs found';
+                return;
+            }
+
+            // Show loading
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = `<div class="spinner"></div> Enriching ${ids.length} accounts... This will take a few minutes.`;
+            submitBtn.disabled = true;
+
+            const overwrite = document.getElementById('bulkAccountOverwrite').checked;
+            const includeFinancial = document.getElementById('bulkAccountFinancial').checked;
+
+            let successful = 0;
+            let failed = 0;
+            const errors = [];
+
+            // Process each account
+            for (let i = 0; i < ids.length; i++) {
+                const accountId = ids[i];
+                resultDiv.innerHTML = `<div class="spinner"></div> Enriching account ${i + 1} of ${ids.length} (${accountId})...`;
+
+                try {
+                    const response = await fetch('/enrich/account', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-Key': API_KEY
+                        },
+                        body: JSON.stringify({
+                            account_id: accountId,
+                            overwrite: overwrite,
+                            include_financial: includeFinancial,
+                            credit_only: false
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.status === 'success') {
+                        successful++;
+                    } else {
+                        failed++;
+                        errors.push(`${accountId}: ${data.detail || data.message || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    failed++;
+                    errors.push(`${accountId}: ${error.message}`);
+                }
+            }
+
+            // Show final results
+            submitBtn.disabled = false;
+            resultDiv.className = failed === 0 ? 'result success' : 'result error';
+
+            let errorHtml = '';
+            if (errors.length > 0) {
+                errorHtml = '<div style="margin-top: 12px;"><strong>Errors:</strong><ul style="margin: 8px 0; padding-left: 20px;">';
+                errors.forEach(err => {
+                    errorHtml += `<li style="margin: 4px 0;">${err}</li>`;
+                });
+                errorHtml += '</ul></div>';
+            }
+
+            resultDiv.innerHTML = `
+                <strong>${failed === 0 ? '✓' : '⚠'} Bulk Enrichment Complete</strong>
+                <div style="margin-top: 12px;">
+                    <strong>Processed:</strong> ${ids.length} accounts<br>
+                    <strong>Successful:</strong> ${successful}<br>
+                    <strong>Failed:</strong> ${failed}<br>
+                </div>
+                ${errorHtml}
+                <div style="margin-top: 12px; padding: 12px; background: #1c2128; border-radius: 6px;">
+                    <strong>✓ Updates Queued</strong><br>
+                    All successful enrichments have been queued for approval. Go to the <a href="/dashboard" style="color: #58a6ff;">dashboard</a> to review and approve updates.
+                </div>
+            `;
+        }
+
+        // Bulk Contact Enrichment
+        async function enrichBulkContacts(event) {
+            event.preventDefault();
+
+            const idsText = document.getElementById('bulkContactIds').value;
+            const resultDiv = document.getElementById('bulkContactResult');
+            const submitBtn = document.getElementById('bulkContactBtn');
+
+            // Parse IDs from various formats (comma, space, newline separated)
+            const ids = idsText
+                .split(/[\s,\n]+/)
+                .map(id => id.trim())
+                .filter(id => id.length > 0);
+
+            if (ids.length === 0) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>× Error:</strong> No valid Contact IDs found';
+                return;
+            }
+
+            // Show loading
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = `<div class="spinner"></div> Enriching ${ids.length} contacts... This will take a few minutes.`;
+            submitBtn.disabled = true;
+
+            const overwrite = document.getElementById('bulkContactOverwrite').checked;
+            const includeLinkedIn = document.getElementById('bulkContactLinkedIn').checked;
+
+            let successful = 0;
+            let failed = 0;
+            const errors = [];
+
+            // Process each contact
+            for (let i = 0; i < ids.length; i++) {
+                const contactId = ids[i];
+                resultDiv.innerHTML = `<div class="spinner"></div> Enriching contact ${i + 1} of ${ids.length} (${contactId})...`;
+
+                try {
+                    const response = await fetch('/enrich/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-Key': API_KEY
+                        },
+                        body: JSON.stringify({
+                            contact_id: contactId,
+                            overwrite: overwrite,
+                            include_linkedin: includeLinkedIn
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.status === 'success') {
+                        successful++;
+                    } else {
+                        failed++;
+                        errors.push(`${contactId}: ${data.detail || data.message || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    failed++;
+                    errors.push(`${contactId}: ${error.message}`);
+                }
+            }
+
+            // Show final results
+            submitBtn.disabled = false;
+            resultDiv.className = failed === 0 ? 'result success' : 'result error';
+
+            let errorHtml = '';
+            if (errors.length > 0) {
+                errorHtml = '<div style="margin-top: 12px;"><strong>Errors:</strong><ul style="margin: 8px 0; padding-left: 20px;">';
+                errors.forEach(err => {
+                    errorHtml += `<li style="margin: 4px 0;">${err}</li>`;
+                });
+                errorHtml += '</ul></div>';
+            }
+
+            resultDiv.innerHTML = `
+                <strong>${failed === 0 ? '✓' : '⚠'} Bulk Enrichment Complete</strong>
+                <div style="margin-top: 12px;">
+                    <strong>Processed:</strong> ${ids.length} contacts<br>
+                    <strong>Successful:</strong> ${successful}<br>
+                    <strong>Failed:</strong> ${failed}<br>
+                </div>
+                ${errorHtml}
+                <div style="margin-top: 12px; padding: 12px; background: #1c2128; border-radius: 6px;">
+                    <strong>✓ Updates Queued</strong><br>
+                    All successful enrichments have been queued for approval. Go to the <a href="/dashboard" style="color: #58a6ff;">dashboard</a> to review and approve updates.
+                </div>
+            `;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Metrus Energy Enrichment Dashboard loaded');
         });
