@@ -10,6 +10,15 @@ from sqlalchemy import select, and_
 from app.models import PendingUpdate, UpdateStatus, RecordType
 from datetime import datetime
 
+# Import contact enricher for persona detection and field mapping
+try:
+    from app.enrichers.web_search_contact_enricher import WebSearchContactEnricher
+except ImportError:
+    try:
+        from enrichers.web_search_contact_enricher import WebSearchContactEnricher
+    except ImportError:
+        WebSearchContactEnricher = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -155,7 +164,27 @@ class PendingUpdatesService:
                     elif pending_update.record_type == RecordType.LEAD:
                         # For new leads, CREATE instead of UPDATE
                         result = self.sf.Lead.create(pending_update.field_updates)
-                        pending_update.record_id = result.get('id', pending_update.record_id)
+                        lead_id = result.get('id')
+                        pending_update.record_id = lead_id
+
+                        # Queue the new lead for enrichment
+                        # This will be picked up by a batch process to enrich leads with
+                        # AI-generated fields (rapport summaries, campaign subjects, etc.)
+                        if lead_id:
+                            try:
+                                await self.queue_update(
+                                    record_type=RecordType.LEAD,
+                                    record_id=lead_id,
+                                    field_updates={
+                                        "Description": (pending_update.field_updates.get("Description", "") +
+                                                       "\n\n⏳ Queued for AI enrichment")
+                                    },
+                                    record_name=f"ENRICH: {pending_update.record_name}",
+                                    enrichment_type="web_search_lead_enrichment"
+                                )
+                                logger.info(f"📋 Queued lead {lead_id} for AI enrichment (web search)")
+                            except Exception as enrich_error:
+                                logger.warning(f"⚠️ Failed to queue lead for enrichment: {str(enrich_error)}")
 
                     logger.info(
                         f"✅ Applied {len(pending_update.field_updates)} field updates "
@@ -233,6 +262,9 @@ class PendingUpdatesService:
         """
         Queue multiple discovered leads for approval with comprehensive enrichment.
 
+        Uses the WebSearchContactEnricher for persona detection and field mapping
+        to ensure consistency with contact enrichment.
+
         Args:
             prospects: List of qualified prospects from discovery
             company_name: Company name for context
@@ -244,48 +276,35 @@ class PendingUpdatesService:
         success_count = 0
         failed_count = 0
 
-        # Persona definitions for detection and field population
-        PERSONAS = {
-            'CFO': {
-                'titles': ['cfo', 'chief financial officer', 'finance director', 'vp finance', 'vice president finance'],
-                'pain_points': 'Energy is a top-5 line item in operating costs, emergency repairs blow budgets, hard to prioritize infrastructure vs revenue-driving projects',
-                'value_prop': 'Zero CapEx financing, predictable long-term costs, linking savings directly to margin improvement'
-            },
-            'VP_Operations': {
-                'titles': ['vp operations', 'vice president operations', 'operations director', 'chief operations officer', 'chief operating officer', 'coo'],
-                'pain_points': 'Downtime disrupts patient care, staffing shortages exacerbate operational stress, aging systems are constant headaches',
-                'value_prop': 'Reliability and resilience with no downtime, smoother day-to-day ops with less staff distraction'
-            },
-            'Director_Facilities': {
-                'titles': ['facilities director', 'director facilities', 'facilities manager', 'maintenance director', 'plant operations', 'senior director facilities', 'senior director, facilities'],
-                'pain_points': 'Constant firefighting with old equipment, pressure to cut energy use with limited budget, rising costs of emergency repairs',
-                'value_prop': 'Fewer emergencies and maintenance headaches, partnership with experts, proven vendor performance'
-            },
-            'Director_Sustainability': {
-                'titles': ['sustainability director', 'director sustainability', 'environmental director', 'energy manager', 'senior energy engineer', 'energy engineer', 'sustainability manager'],
-                'pain_points': 'Ambitious climate targets without clear funding, difficulty getting buy-in across departments, need to show measurable progress',
-                'value_prop': 'Partner in hitting sustainability goals without CapEx, measurable carbon reduction, success stories to share'
-            }
-        }
+        # Use the contact enricher's personas and detection logic
+        if not WebSearchContactEnricher:
+            logger.error("❌ WebSearchContactEnricher not available")
+            return {"success": 0, "failed": len(prospects), "total": len(prospects)}
 
-        def detect_persona(title: str) -> dict:
-            """Detect persona from job title and return persona data."""
-            title_lower = title.lower().strip()
-            for persona_name, persona_data in PERSONAS.items():
-                for persona_title in persona_data['titles']:
-                    if persona_title in title_lower:
-                        return {'name': persona_name, **persona_data}
-            # Default fallback
-            return {'name': 'Director_Facilities', **PERSONAS['Director_Facilities']}
+        # Get personas from the contact enricher class
+        PERSONAS = WebSearchContactEnricher.PERSONAS
+
+        # Create a temporary enricher instance for persona detection
+        # (we don't need Salesforce connection, just the detect_persona method)
+        class PersonaDetector:
+            """Helper class to use contact enricher's persona detection."""
+            PERSONAS = WebSearchContactEnricher.PERSONAS
+
+            @staticmethod
+            def detect_persona(title: str) -> dict:
+                """Detect persona from job title using contact enricher logic."""
+                title_lower = title.lower().strip()
+                for persona_name, persona_data in PersonaDetector.PERSONAS.items():
+                    for persona_title in persona_data['titles']:
+                        if persona_title in title_lower:
+                            return {'name': persona_name, **persona_data}
+                # Default fallback
+                return {'name': 'Director_Facilities', **PersonaDetector.PERSONAS['Director_Facilities']}
 
         for prospect in prospects:
             try:
                 linkedin_data = prospect.get("linkedin_data", {})
                 ai_ranking = prospect.get("ai_ranking", {})
-
-                # Detect persona from job title
-                title = linkedin_data.get("job_title", "")
-                persona = detect_persona(title)
 
                 # Build comprehensive LinkedIn data JSON for Full_LinkedIn_Data__c field
                 full_linkedin_data = {
@@ -309,9 +328,11 @@ class PendingUpdatesService:
                     "connections": linkedin_data.get("connections", ""),
                 }
 
-                # Extract basic lead fields
+                # ONLY populate fields we have complete data for from LinkedIn/Bright Data
+                # All AI-generated enrichment fields (rapport, campaigns, etc.) will be populated
+                # by web_search_contact_enricher AFTER the lead is approved and created
                 lead_fields = {
-                    # Standard Lead fields
+                    # Standard Lead fields (from LinkedIn data)
                     "FirstName": linkedin_data.get("first_name", ""),
                     "LastName": linkedin_data.get("last_name", ""),
                     "Company": company_name,
@@ -326,84 +347,14 @@ class PendingUpdatesService:
                     "Status": "New",
                     "Rating": "Hot" if ai_ranking.get("ranking_score", 0) >= 80 else "Warm",
 
-                    # LinkedIn & Contact Info (Custom Fields)
+                    # LinkedIn Profile Data (Custom Fields)
                     "LinkedIn__c": linkedin_data.get("url", ""),
                     "Full_LinkedIn_Data__c": json.dumps(full_linkedin_data, indent=2) if full_linkedin_data else "",
-
-                    # Work Experience Fields (Custom Fields)
-                    "Role_description__c": f"{title} at {company_name}. {linkedin_data.get('headline', '')}",
-                    "Why_their_role_is_relevant_to_Metrus__c": f"As a {title}, this prospect is responsible for decisions related to: {persona.get('pain_points', '')}",
-                    "Summary_Why_should_they_care__c": f"Metrus offers: {persona.get('value_prop', '')}",
-
-                    # Persona & Pain Points (Custom Fields)
-                    "Persona__c": persona.get('name', 'Director_Facilities'),
-                    "Pain_Points__c": persona.get('pain_points', ''),
-                    "Value_Proposition__c": persona.get('value_prop', ''),
-
-                    # General Personal Information (Custom Fields)
-                    "General_personal_information_notes__c": f"LinkedIn: {linkedin_data.get('url', '')}. Headline: {linkedin_data.get('headline', '')}. Location: {linkedin_data.get('location', '')}. Connections: {linkedin_data.get('connections', '')}",
-
-                    # Miscellaneous Notes (Custom Fields)
-                    "Miscellaneous_notes__c": f"AI Qualification Score: {ai_ranking.get('ranking_score', 0)}/100. Discovery Method: Hybrid (Serper + Bright Data). Source: {prospect.get('source', 'unknown')}",
                 }
 
-                # Add work experience summary if available
-                experience = linkedin_data.get("experience", [])
-                if experience and len(experience) > 0:
-                    experience_summary = "\n\n".join([
-                        f"• {exp.get('title', 'Unknown')} at {exp.get('company', 'Unknown')} ({exp.get('start_date', '')} - {exp.get('end_date', 'Present')})"
-                        for exp in experience[:3]  # Top 3 experiences
-                    ])
-                    lead_fields["Energy_Project_History__c"] = f"Work Experience:\n{experience_summary}"
-
-                # Add education summary if available
-                education = linkedin_data.get("education", [])
-                if education and len(education) > 0:
-                    education_summary = "\n".join([
-                        f"• {edu.get('degree', '')} from {edu.get('school', 'Unknown')}"
-                        for edu in education[:2]  # Top 2 education entries
-                    ])
-                    if lead_fields.get("General_personal_information_notes__c"):
-                        lead_fields["General_personal_information_notes__c"] += f"\n\nEducation:\n{education_summary}"
-
-                # Generate persona-specific email campaign subject lines (Custom Fields)
-                persona_name = persona.get('name', 'Director_Facilities')
-                if persona_name == 'CFO':
-                    lead_fields["Campaign_1_Subject_Line__c"] = f"Lower energy costs at {company_name} without CapEx"
-                    lead_fields["Campaign_2_Subject_Line__c"] = f"Predictable infrastructure budgets for {company_name}"
-                    lead_fields["Campaign_3_Subject_Line__c"] = f"Link energy savings directly to margins"
-                    lead_fields["Campaign_4_Subject_Line__c"] = f"Zero-cost energy upgrades for {company_name}"
-                elif persona_name == 'VP_Operations':
-                    lead_fields["Campaign_1_Subject_Line__c"] = f"Eliminate downtime at {company_name}"
-                    lead_fields["Campaign_2_Subject_Line__c"] = f"Reduce operational stress with reliable infrastructure"
-                    lead_fields["Campaign_3_Subject_Line__c"] = f"Free up staff time at {company_name}"
-                    lead_fields["Campaign_4_Subject_Line__c"] = f"Resilient systems for uninterrupted patient care"
-                elif persona_name == 'Director_Sustainability':
-                    lead_fields["Campaign_1_Subject_Line__c"] = f"Meet {company_name}'s climate goals without CapEx"
-                    lead_fields["Campaign_2_Subject_Line__c"] = f"Measurable carbon reduction at {company_name}"
-                    lead_fields["Campaign_3_Subject_Line__c"] = f"Success stories for sustainability initiatives"
-                    lead_fields["Campaign_4_Subject_Line__c"] = f"Partner in sustainability goals at {company_name}"
-                else:  # Director_Facilities (default)
-                    lead_fields["Campaign_1_Subject_Line__c"] = f"End emergency repairs at {company_name}"
-                    lead_fields["Campaign_2_Subject_Line__c"] = f"Reduce maintenance headaches with expert partnership"
-                    lead_fields["Campaign_3_Subject_Line__c"] = f"Cut energy costs at {company_name} with proven vendor"
-                    lead_fields["Campaign_4_Subject_Line__c"] = f"Reliable infrastructure without budget strain"
-
-                # Generate rapport summaries based on available data (Custom Fields)
-                # Rapport Summary 1: LinkedIn headline and experience
+                # Add LinkedIn headline to description if available
                 if linkedin_data.get("headline"):
-                    lead_fields["Rapport_summary__c"] = f"Noted your experience as {linkedin_data.get('headline')}. Your background in healthcare operations aligns perfectly with Metrus's expertise."
-
-                # Rapport Summary 2: Location-based
-                if linkedin_data.get("location"):
-                    lead_fields["Rapport_summary_2__c"] = f"Based in {linkedin_data.get('location')}, you understand the unique infrastructure challenges facing healthcare facilities in your region."
-
-                # Rapport Summary 3: Persona-specific pain points
-                lead_fields["Rapport_summary_3__c"] = f"As a {title}, you likely face: {persona.get('pain_points', '')}. Metrus specializes in solving exactly these challenges."
-
-                # Rapport Summary 4: Company size/scale
-                if linkedin_data.get("connections"):
-                    lead_fields["Rapport_summary_4__c"] = f"With {linkedin_data.get('connections')} connections on LinkedIn, you're clearly well-connected in the healthcare infrastructure space. We'd value the opportunity to add to your network."
+                    lead_fields["Description"] = f"{ai_ranking.get('reasoning', '')}\n\nLinkedIn: {linkedin_data.get('headline', '')}"
 
                 # Link to account if provided
                 if company_account_id:
