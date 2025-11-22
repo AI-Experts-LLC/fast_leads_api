@@ -36,8 +36,9 @@ class UpdateStatus(str, enum.Enum):
 
 class RecordType(str, enum.Enum):
     """Enum for Salesforce record types."""
-    ACCOUNT = "Account"
-    CONTACT = "Contact"
+    ACCOUNT = "ACCOUNT"  # Database uses uppercase
+    CONTACT = "CONTACT"  # Database uses uppercase
+    LEAD = "LEAD"  # Database uses uppercase
 
 
 class PendingUpdate(Base):

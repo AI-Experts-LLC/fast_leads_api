@@ -18,6 +18,7 @@ from app.services.prospect_discovery import prospect_discovery_service
 from app.services.improved_prospect_discovery import improved_prospect_discovery_service
 from app.services.three_step_prospect_discovery import three_step_prospect_discovery_service
 from app.services.zoominfo_validation import zoominfo_validation_service
+from app.services.hybrid_prospect_discovery import hybrid_prospect_discovery_service
 from app.services.search import serper_service
 from app.services.linkedin import linkedin_service
 from app.services.ai_qualification import ai_qualification_service
@@ -764,6 +765,308 @@ async def discover_prospects_zoominfo(request: dict):
             status_code=500,
             detail=f"Error in ZoomInfo validation: {str(e)}"
         )
+
+########################################
+# HYBRID PROSPECT DISCOVERY (NEW LEADS)
+########################################
+# 🆕 Hybrid pipeline combining Serper + Bright Data for maximum coverage
+# Automatically queues discovered leads to PendingUpdates for approval
+#
+# Pipeline Flow:
+#   Step 1 (30-60s)  → Run Serper AND Bright Data searches in parallel
+#   Step 2 (15-30s)  → Deduplicate (prefer Bright Data) + Enrich Serper-only via Apify
+#   Step 3 (10-20s)  → AI ranking & qualification (score ≥65)
+#   Step 4 (1-2s)    → Queue to PendingUpdates for dashboard approval
+
+@app.post("/discover-leads-step1")
+async def discover_leads_step1(request: dict):
+    """
+    🆕 HYBRID PIPELINE - Step 1: Parallel Search (Serper + Bright Data)
+
+    **What it does:**
+    - Runs Serper (web search) AND Bright Data (dataset) in parallel
+    - Returns results from both sources for deduplication in Step 2
+
+    **Expected Time:** 30-60 seconds
+
+    **Request format:**
+    ```json
+    {
+        "company_name": "Mayo Clinic",
+        "parent_account_name": "Mayo Clinic Health System",  // Optional
+        "company_city": "Rochester",
+        "company_state": "Minnesota",  // REQUIRED
+        "target_titles": []  // Optional - uses defaults if not provided
+    }
+    ```
+
+    **Next Step:** Call /discover-leads-step2 with the prospects from this response
+    """
+    try:
+        company_name = request.get("company_name")
+        parent_account_name = request.get("parent_account_name")
+        target_titles = request.get("target_titles", [])
+        company_city = request.get("company_city")
+        company_state = request.get("company_state")
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        if not company_state:
+            raise HTTPException(
+                status_code=400,
+                detail="company_state is required for accurate search"
+            )
+
+        result = await hybrid_prospect_discovery_service.step1_parallel_search(
+            company_name=company_name,
+            parent_account_name=parent_account_name,
+            target_titles=target_titles if target_titles else None,
+            company_city=company_city,
+            company_state=company_state
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 1: Parallel search completed (Serper + Bright Data)",
+                "data": result,
+                "next_step": "Call /discover-leads-step2 with serper_prospects and brightdata_prospects",
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 1 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 1: {str(e)}"
+        )
+
+
+@app.post("/discover-leads-step2")
+async def discover_leads_step2(request: dict):
+    """
+    🆕 HYBRID PIPELINE - Step 2: Deduplicate + Enrich
+
+    **What it does:**
+    - Deduplicates by name (prefers Bright Data data for duplicates)
+    - Enriches Serper-only results via Apify scraping
+    - Returns combined enriched prospects
+
+    **Expected Time:** 15-30 seconds
+
+    **Request format:**
+    ```json
+    {
+        "serper_prospects": [...],      // From Step 1
+        "brightdata_prospects": [...],  // From Step 1
+        "company_name": "Mayo Clinic",
+        "company_city": "Rochester",
+        "company_state": "Minnesota"
+    }
+    ```
+
+    **Next Step:** Call /discover-leads-step3 with enriched_prospects from this response
+    """
+    try:
+        serper_prospects = request.get("serper_prospects", [])
+        brightdata_prospects = request.get("brightdata_prospects", [])
+        company_name = request.get("company_name")
+        company_city = request.get("company_city")
+        company_state = request.get("company_state")
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        result = await hybrid_prospect_discovery_service.step2_deduplicate_and_enrich(
+            serper_prospects=serper_prospects,
+            brightdata_prospects=brightdata_prospects,
+            company_name=company_name,
+            company_city=company_city,
+            company_state=company_state
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 2: Deduplication and enrichment completed",
+                "data": result,
+                "next_step": "Call /discover-leads-step3 with enriched_prospects",
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 2 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 2: {str(e)}"
+        )
+
+
+@app.post("/discover-leads-step3")
+async def discover_leads_step3(request: dict):
+    """
+    🆕 HYBRID PIPELINE - Step 3: AI Ranking & Qualification
+
+    **What it does:**
+    - Runs parallel AI scoring on enriched prospects
+    - Filters by minimum score threshold (≥65)
+    - Returns top N qualified leads
+
+    **Expected Time:** 10-20 seconds
+
+    **Request format:**
+    ```json
+    {
+        "enriched_prospects": [...],   // From Step 2
+        "company_name": "Mayo Clinic",
+        "min_score_threshold": 65,     // Optional, defaults to 65
+        "max_prospects": 10            // Optional, defaults to 10
+    }
+    ```
+
+    **Next Step:** Call /discover-leads-step4 to queue leads for approval
+    """
+    try:
+        enriched_prospects = request.get("enriched_prospects", [])
+        company_name = request.get("company_name")
+        min_score_threshold = request.get("min_score_threshold", 65)
+        max_prospects = request.get("max_prospects", 10)
+
+        if not enriched_prospects:
+            raise HTTPException(
+                status_code=400,
+                detail="enriched_prospects is required"
+            )
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        result = await hybrid_prospect_discovery_service.step3_rank_and_qualify(
+            enriched_prospects=enriched_prospects,
+            company_name=company_name,
+            min_score_threshold=min_score_threshold,
+            max_prospects=max_prospects
+        )
+
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Step 3: AI ranking completed",
+                "data": result,
+                "next_step": "Call /discover-leads-step4 to queue leads for approval",
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Step 3 failed: {result.get('error', 'Unknown error')}"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error in step 3: {str(e)}"
+        )
+
+
+@app.post("/discover-leads-step4")
+async def discover_leads_step4(
+    request: dict,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    🆕 HYBRID PIPELINE - Step 4: Queue Leads for Approval
+
+    **What it does:**
+    - Takes qualified prospects from Step 3
+    - Queues them as pending Lead records in database
+    - Ready for review in /dashboard
+
+    **Expected Time:** 1-2 seconds
+
+    **Request format:**
+    ```json
+    {
+        "qualified_prospects": [...],  // From Step 3
+        "company_name": "Mayo Clinic",
+        "company_account_id": "001..."  // Optional - Salesforce Account ID to link
+    }
+    ```
+
+    **Pipeline Complete:** Leads are now queued in /pending-updates for approval!
+    """
+    try:
+        qualified_prospects = request.get("qualified_prospects", [])
+        company_name = request.get("company_name")
+        company_account_id = request.get("company_account_id")
+
+        if not qualified_prospects:
+            raise HTTPException(
+                status_code=400,
+                detail="qualified_prospects is required"
+            )
+
+        if not company_name:
+            raise HTTPException(
+                status_code=400,
+                detail="company_name is required"
+            )
+
+        # Import pending updates service
+        from app.services.pending_updates import PendingUpdatesService
+
+        # Create service instance
+        pending_service = PendingUpdatesService(db, salesforce_service.sf)
+
+        # Queue leads
+        result = await pending_service.queue_lead_batch(
+            prospects=qualified_prospects,
+            company_name=company_name,
+            company_account_id=company_account_id
+        )
+
+        return {
+            "status": "success",
+            "message": f"Queued {result['success']}/{result['total']} leads for approval",
+            "data": {
+                "queued": result['success'],
+                "failed": result['failed'],
+                "total": result['total']
+            },
+            "next_step": "View leads at /dashboard or /pending-updates?record_type=Lead",
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error in step 4: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error queueing leads: {str(e)}"
+        )
+
 
 ########################################
 # TESTING & DEBUG ENDPOINTS

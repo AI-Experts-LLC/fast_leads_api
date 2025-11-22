@@ -22,6 +22,15 @@ hypercorn main:app --bind "[::]:$PORT"
 curl http://localhost:8000/health
 ```
 
+### Testing Hybrid Pipeline (New Lead Discovery)
+```bash
+# Test full 4-step hybrid pipeline (Serper + Bright Data)
+python test_hybrid_pipeline.py
+
+# Results will be queued to /pending-updates?record_type=Lead
+# View in dashboard at /dashboard
+```
+
 ### Testing
 ```bash
 # Test 3-step pipeline (single hospital)
@@ -132,6 +141,29 @@ Total: 50-150s (~1-2.5 minutes)
   - State abbreviation handling: Removes " MT", " ID", etc. from company names
 - **Documentation**: See `THREE_STEP_PIPELINE.md`
 
+**🆕 HYBRID PIPELINE (NEW LEAD DISCOVERY)** - `/discover-leads-step1/2/3/4`
+```
+Step 1: Parallel Search (30-60s)    → Run Serper AND Bright Data searches simultaneously
+Step 2: Deduplicate + Enrich (15-30s) → Prefer Bright Data data, scrape Serper-only via Apify
+Step 3: AI Ranking (10-20s)        → AI scoring + qualification (≥65 threshold)
+Step 4: Queue to Pending (1-2s)    → Add leads to PendingUpdates for approval
+Total: 56-112s (~1-2 minutes)
+```
+- **Status**: Production-ready, maximizes coverage with dual sources
+- **Use Case**: Discover NEW leads and queue them for manual approval before Salesforce import
+- **Benefits**:
+  - **Maximum coverage**: Combines web search (Serper) + dataset filtering (Bright Data)
+  - **Smart deduplication**: Prefers Bright Data's richer profiles when duplicates found
+  - **Approval workflow**: Leads queued to `/pending-updates?record_type=Lead` for review
+  - **Dashboard integration**: View and approve leads at `/dashboard`
+- **Key Features**:
+  - Parallel API calls for speed (Serper + Bright Data run simultaneously)
+  - Name-based deduplication with fuzzy matching
+  - Fallback enrichment for Serper-only results via Apify scraping
+  - Automatic Lead record creation in PendingUpdates database
+- **Test Script**: `python test_hybrid_pipeline.py`
+- **Service**: `app/services/hybrid_prospect_discovery.py`
+
 **🔍 OPTIONAL: ZOOMINFO VALIDATION** - `/discover-prospects-zoominfo`
 - **What it does**: Validates email/phone contact information after Step 3
 - **Status**: Optional enhancement, gracefully skips if not configured
@@ -151,19 +183,22 @@ Total: 50-150s (~1-2.5 minutes)
 
 ```
 app/services/
-├── search.py                          # Serper API - LinkedIn profile search
-├── linkedin.py                        # Apify - LinkedIn profile scraping
-├── ai_qualification.py                # OpenAI - Original AI qualification (creates data)
-├── improved_ai_ranking.py             # OpenAI - Improved ranking-only AI (preserves data)
-├── company_validation.py              # AI employment validation (handles name variations)
-├── company_name_expansion.py          # Handles company name variations (aliases)
-├── prospect_discovery.py              # Original pipeline orchestrator
-├── improved_prospect_discovery.py     # Improved pipeline orchestrator
-├── three_step_prospect_discovery.py   # 3-step pipeline for Railway (avoids timeout)
-├── zoominfo_validation.py             # ZoomInfo contact validation (Step 4, disabled)
-├── salesforce.py                      # Salesforce CRM integration
-├── credit_enrichment.py               # EDF-X credit rating/PD enrichment
-└── enrichment.py                      # Account/Contact enrichment orchestrator
+├── search.py                              # Serper API - LinkedIn profile search
+├── linkedin.py                            # Apify - LinkedIn profile scraping
+├── brightdata_prospect_discovery.py       # Bright Data LinkedIn dataset filtering
+├── hybrid_prospect_discovery.py           # 🆕 Hybrid pipeline (Serper + Bright Data)
+├── ai_qualification.py                    # OpenAI - Original AI qualification (creates data)
+├── improved_ai_ranking.py                 # OpenAI - Improved ranking-only AI (preserves data)
+├── company_validation.py                  # AI employment validation (handles name variations)
+├── company_name_expansion.py              # Handles company name variations (aliases)
+├── prospect_discovery.py                  # Original pipeline orchestrator
+├── improved_prospect_discovery.py         # Improved pipeline orchestrator
+├── three_step_prospect_discovery.py       # 3-step pipeline for Railway (avoids timeout)
+├── zoominfo_validation.py                 # ZoomInfo contact validation (Step 4, disabled)
+├── pending_updates.py                     # 🆕 PendingUpdates service (queue leads/updates)
+├── salesforce.py                          # Salesforce CRM integration
+├── credit_enrichment.py                   # EDF-X credit rating/PD enrichment
+└── enrichment.py                          # Account/Contact enrichment orchestrator
 ```
 
 **Supporting Files:**
@@ -242,6 +277,24 @@ All HTML dashboards require password authentication via session cookies.
 - Falls back to `LOGS_PASSWORD` if `DASHBOARD_PASSWORD` not set
 
 ### Prospect Discovery
+
+**🆕 HYBRID PIPELINE (NEW LEAD DISCOVERY)**
+- `POST /discover-leads-step1` - Step 1: Parallel Search (Serper + Bright Data)
+  - Required: `company_name`, `company_state`
+  - Optional: `parent_account_name`, `target_titles`, `company_city`
+  - Time: 30-60 seconds
+- `POST /discover-leads-step2` - Step 2: Deduplicate + Enrich
+  - Required: `serper_prospects`, `brightdata_prospects`, `company_name`
+  - Optional: `company_city`, `company_state`
+  - Time: 15-30 seconds
+- `POST /discover-leads-step3` - Step 3: AI Ranking
+  - Required: `enriched_prospects`, `company_name`
+  - Optional: `min_score_threshold` (default: 65), `max_prospects` (default: 10)
+  - Time: 10-20 seconds
+- `POST /discover-leads-step4` - Step 4: Queue to PendingUpdates
+  - Required: `qualified_prospects`, `company_name`
+  - Optional: `company_account_id` (Salesforce Account ID to link)
+  - Time: 1-2 seconds
 
 **✅ THREE-STEP PIPELINE (RECOMMENDED)**
 - `POST /discover-prospects-step1` - Step 1: Search & Filter
